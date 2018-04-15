@@ -1,15 +1,17 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: DeepWebSolutions Custom Extensions\n"
-"POT-Creation-Date: 2018-04-09 17:38+0200\n"
-"PO-Revision-Date: 2018-04-09 16:35+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-15 23:28+0200\n"
+"PO-Revision-Date: 2018-04-15 23:30+0200\n"
 "Last-Translator: a.hegyes <a.hegyes@deep-web-solutions.de>\n"
 "Language-Team: German (Formal)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: dws-custom-extensions.php\n"
@@ -19,8 +21,6 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-"Report-Msgid-Bugs-To: \n"
-"Language: de_DE_formal"
 
 #: admin/includes/acf/includes/class-acf-options.php:116
 msgid "Custom Extensions"
@@ -124,30 +124,30 @@ msgstr "DeepWebSolutions Custom Extensions - Empfohlene Plugins"
 msgid "Recommended Plugins"
 msgstr "Empfohlene Plugins"
 
-#: includes/abstract-functionality-template.php:295
+#: includes/abstract-functionality-template.php:298
 #: includes/abstract-root.php:219
 #, php-format
 msgid "'%s' options"
 msgstr "'%s' Optionen"
 
-#: includes/abstract-functionality-template.php:322
+#: includes/abstract-functionality-template.php:325
 msgid "Is functionality active?"
 msgstr "Ist Funktionalität aktiv?"
 
-#: includes/abstract-functionality-template.php:330
+#: includes/abstract-functionality-template.php:333
 #, php-format
 msgid "Is sub-functionality '%s' active?"
 msgstr "Ist Unterfunktionalität '%s' aktiv?"
 
-#: includes/abstract-functionality-template.php:345
+#: includes/abstract-functionality-template.php:348
 msgid "Overwrite this template?"
 msgstr "Dieses Template überschreiben?"
 
-#: includes/abstract-functionality-template.php:354
+#: includes/abstract-functionality-template.php:357
 msgid "Template files"
 msgstr "Template-Dateien"
 
-#: includes/abstract-functionality-template.php:356
+#: includes/abstract-functionality-template.php:359
 msgid ""
 "If unchecked, the respective template will NOT be used from the Custom "
 "Extensions plugin.\n"
@@ -304,71 +304,6 @@ msgstr "Wählen Sie die Farbe für den %s Nachrichtenrahmen aus"
 #, php-format
 msgid "Choose the color for %s messages icon"
 msgstr "Wählen Sie die Farbe für das %s Nachrichten-Icon aus"
-
-#: public/includes/class-prices-list.php:89
-msgid "Prices page"
-msgstr "Preisinformationsseite"
-
-#: public/includes/class-prices-list.php:90
-msgid "This is the page that will contain all the standard product prices."
-msgstr "Dies ist die Seite, die alle Standardproduktpreise enthält."
-
-#: public/includes/class-prices-list.php:101
-msgid "Categories to exclude from the prices list"
-msgstr "Kategorien die von der Preisliste ausgeschlossen werden sollen"
-
-#: public/includes/class-prices-list.php:114
-msgid "Products to exclude from the prices list"
-msgstr "Produkte, die von der Preisliste ausgeschlossen werden sollen"
-
-#: public/includes/class-prices-list.php:266
-#: public/includes/class-prices-list.php:329
-msgid "Product"
-msgstr "Produkt"
-
-#: public/includes/class-prices-list.php:267
-#: public/includes/class-prices-list.php:329
-msgid "Price"
-msgstr "Preis"
-
-#: public/includes/class-prices-list.php:328
-msgid "Further offers"
-msgstr "Weitere Angebote"
-
-#: public/includes/customer-shipping/class-customer-shipping.php:67
-msgid "Customer shipping services"
-msgstr "Kunden-Versandservice"
-
-#: public/includes/customer-shipping/class-customer-shipping.php:68
-msgid ""
-"Fill out your personalized links for the supported shipping methods. "
-"Shortcodes are available."
-msgstr ""
-"Füllen Sie Ihre personalisierten Links für die unterstützten Versandmethoden "
-"aus. Shortcodes sind verfügbar."
-
-#: public/includes/customer-shipping/class-customer-shipping.php:76
-msgid "Categories of products which require customer shipping"
-msgstr "Kategorien von Produkten, die den Versand des Kunden erfordern"
-
-#: public/includes/customer-shipping/includes/abstract-customer-shipping-method.php:123
-#, php-format
-msgid "Link for %s"
-msgstr "Link für %s"
-
-#: public/includes/customer-shipping/includes/abstract-customer-shipping-method.php:124
-#, php-format
-msgid "This link can be used together with the shortcode [%s]."
-msgstr "Dieser Link kann zusammen mit dem Shortcode [%s] verwendet werden."
-
-#: public/includes/customer-shipping/includes/abstract-customer-shipping-method.php:130
-msgid "Used in which country/countries?"
-msgstr "Verwendet in welchem ​​Land/Ländern"
-
-#: public/includes/customer-shipping/includes/abstract-customer-shipping-method.php:203
-#, php-format
-msgid "Send package with %s"
-msgstr "Paket mit %s versenden"
 
 #. Plugin Name of the plugin/theme
 msgid "DeepWebSolutions Custom Extensions"

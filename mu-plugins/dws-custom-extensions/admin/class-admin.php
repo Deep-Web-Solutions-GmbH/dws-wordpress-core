@@ -37,18 +37,22 @@ final class DWS_Admin extends DWS_Root {
 	 * @see     DWS_Root::load_dependencies()
 	 */
 	protected function load_dependencies() {
+		/** @noinspection PhpIncludeInspection */
 		/** Handles the functionality of our own DeepWebSolutions menu in the WP backend. */
 		require_once(self::get_includes_base_path() . 'dashboard/class-dashboard.php');
 		DWS_Dashboard::maybe_initialize_singleton('j8e7h87gh87gwie');
 
+		/** @noinspection PhpIncludeInspection */
 		/** Handles all the ACF related extensions including the options pages. */
 		require_once(self::get_includes_base_path() . 'acf/class-acf.php');
 		DWS_ACF::maybe_initialize_singleton('jh87h4g83g43');
 
+		/** @noinspection PhpIncludeInspection */
 		/** Handles the registration and display of DWS notices in the admin area. */
 		require_once(self::get_includes_base_path() . 'class-admin-notices.php');
 		DWS_Admin_Notices::maybe_initialize_singleton('h84872383g4g4');
 
+		/** @noinspection PhpIncludeInspection */
 		/** Handles extensions and customizations to the WP users. */
 		require_once(self::get_includes_base_path() . 'class-users.php');
 		DWS_Users::maybe_initialize_singleton('hsr8gh8e45hrhr');

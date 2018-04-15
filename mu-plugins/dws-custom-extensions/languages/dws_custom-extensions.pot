@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: DeepWebSolutions Custom Extensions\n"
-"POT-Creation-Date: 2018-04-09 17:38+0200\n"
-"PO-Revision-Date: 2018-04-09 17:38+0200\n"
+"POT-Creation-Date: 2018-04-15 23:28+0200\n"
+"PO-Revision-Date: 2018-04-15 23:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -123,30 +123,30 @@ msgstr ""
 msgid "Recommended Plugins"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:295
+#: includes/abstract-functionality-template.php:298
 #: includes/abstract-root.php:219
 #, php-format
 msgid "'%s' options"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:322
+#: includes/abstract-functionality-template.php:325
 msgid "Is functionality active?"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:330
+#: includes/abstract-functionality-template.php:333
 #, php-format
 msgid "Is sub-functionality '%s' active?"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:345
+#: includes/abstract-functionality-template.php:348
 msgid "Overwrite this template?"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:354
+#: includes/abstract-functionality-template.php:357
 msgid "Template files"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:356
+#: includes/abstract-functionality-template.php:359
 msgid ""
 "If unchecked, the respective template will NOT be used from the Custom "
 "Extensions plugin.\n"
@@ -297,69 +297,6 @@ msgstr ""
 #: public/includes/class-fancy-messages.php:112
 #, php-format
 msgid "Choose the color for %s messages icon"
-msgstr ""
-
-#: public/includes/class-prices-list.php:89
-msgid "Prices page"
-msgstr ""
-
-#: public/includes/class-prices-list.php:90
-msgid "This is the page that will contain all the standard product prices."
-msgstr ""
-
-#: public/includes/class-prices-list.php:101
-msgid "Categories to exclude from the prices list"
-msgstr ""
-
-#: public/includes/class-prices-list.php:114
-msgid "Products to exclude from the prices list"
-msgstr ""
-
-#: public/includes/class-prices-list.php:266
-#: public/includes/class-prices-list.php:329
-msgid "Product"
-msgstr ""
-
-#: public/includes/class-prices-list.php:267
-#: public/includes/class-prices-list.php:329
-msgid "Price"
-msgstr ""
-
-#: public/includes/class-prices-list.php:328
-msgid "Further offers"
-msgstr ""
-
-#: public/includes/customer-shipping/class-customer-shipping.php:67
-msgid "Customer shipping services"
-msgstr ""
-
-#: public/includes/customer-shipping/class-customer-shipping.php:68
-msgid ""
-"Fill out your personalized links for the supported shipping methods. "
-"Shortcodes are available."
-msgstr ""
-
-#: public/includes/customer-shipping/class-customer-shipping.php:76
-msgid "Categories of products which require customer shipping"
-msgstr ""
-
-#: public/includes/customer-shipping/includes/abstract-customer-shipping-method.php:123
-#, php-format
-msgid "Link for %s"
-msgstr ""
-
-#: public/includes/customer-shipping/includes/abstract-customer-shipping-method.php:124
-#, php-format
-msgid "This link can be used together with the shortcode [%s]."
-msgstr ""
-
-#: public/includes/customer-shipping/includes/abstract-customer-shipping-method.php:130
-msgid "Used in which country/countries?"
-msgstr ""
-
-#: public/includes/customer-shipping/includes/abstract-customer-shipping-method.php:203
-#, php-format
-msgid "Send package with %s"
 msgstr ""
 
 #. Plugin Name of the plugin/theme

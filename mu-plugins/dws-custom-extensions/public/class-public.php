@@ -25,18 +25,15 @@ final class DWS_Public extends DWS_Root {
 	 * @see     DWS_Root::load_dependencies()
 	 */
 	protected function load_dependencies() {
-		/** This class creates automatically a prices list for the website based on all the products and their possible variations. */
-		require_once(self::get_includes_base_path() . 'class-prices-list.php');
-
+		/** @noinspection PhpIncludeInspection */
 		/** This class creates handy shortcodes for customer service related activities. */
 		require_once(self::get_includes_base_path() . 'class-customer-service.php');
 
-		/** This class provides a handy way to get links for the customer to send stuff to the shop, for example in warranty cases or when performing a service. */
-		require_once(self::get_includes_base_path() . 'customer-shipping/class-customer-shipping.php');
-
+		/** @noinspection PhpIncludeInspection */
 		/** Handles the output of CSS and settings to enclose text in a circle. */
 		require_once(self::get_includes_base_path() . 'class-circled-content.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** Loads style for fancy-looking front-end messages. */
 		require_once(self::get_includes_base_path() . 'class-fancy-messages.php');
 	}

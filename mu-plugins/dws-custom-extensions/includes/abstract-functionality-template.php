@@ -69,7 +69,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @version 1.0.0
 	 *
 	 * @access  private
-	 * @var     string      The purpose/description of the current functionality.
+	 * @var     string      $description    The purpose/description of the current functionality.
 	 */
 	private $description;
 
@@ -125,6 +125,9 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 
 	/**
 	 * DWS_Functionality_Template constructor.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
 	 *
 	 * @see     DWS_Root::__construct()
 	 *
@@ -436,7 +439,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 *
 	 * @return  array   A list of all the files stored inside the overridable templates folder, relative to the folder itself.
 	 */
-	protected final function maybe_overridable_templates() {
+	private final function maybe_overridable_templates() {
 		return DWS_Helper::list_files(static::get_templates_base_path() . 'overrides');
 	}
 

@@ -165,6 +165,10 @@ final class DWS_WordPress_Loader extends DWS_Singleton {
 				add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 			}
 		}
+
+		// these hooks have already been registered, so forget them
+		$this->filters = array();
+		$this->actions = array();
 	}
 
 	//endregion

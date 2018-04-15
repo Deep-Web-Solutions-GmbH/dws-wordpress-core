@@ -50,6 +50,7 @@ function dws_custom_extensions_requirements_met() {
  * @version 1.0.0
  */
 function dws_requirements_error() {
+	/** @noinspection PhpIncludeInspection */
 	require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'admin/templates/requirements-error.php');
 }
 
@@ -64,12 +65,14 @@ function dws_requirements_error() {
  * @version 1.0.0
  */
 if (dws_custom_extensions_requirements_met()) {
+	/** @noinspection PhpIncludeInspection */
 	/**
 	 * Abstract class defining the functionality of a singleton. Required because the
 	 * main plugin class is a singleton itself.
 	 */
 	require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/abstract-singleton.php');
 
+	/** @noinspection PhpIncludeInspection */
 	/**
 	 * The core plugin class that is used to define internationalization,
 	 * admin-specific hooks, and public-facing site hooks.
@@ -78,6 +81,13 @@ if (dws_custom_extensions_requirements_met()) {
 
 	if (class_exists('\Deep_Web_Solutions\Custom_Extensions')) {
 		$GLOBALS['dws_custom-extensions'] = \Deep_Web_Solutions\Custom_Extensions::get_instance();
+		/**
+		 * It is very important that the loader gets ran again after we make sure that all the actions have been
+		 * registered, and that's only at the end of this action.
+		 *
+		 * @see     \Deep_Web_Solutions\Core\DWS_Root::__construct()
+		 * @see     \Deep_Web_Solutions\Core\DWS_Root::configure_class()
+		 */
 		add_action('muplugins_loaded', array($GLOBALS['dws_custom-extensions'], 'run'), PHP_INT_MAX);
 	}
 } else {

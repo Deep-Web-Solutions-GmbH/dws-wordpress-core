@@ -248,7 +248,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @return array
+	 * @return  array   The options (in ACF-format) that this root class wants to register for admins to manipulate.
 	 */
 	protected function admin_options() { return array(); }
 
@@ -391,7 +391,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 *
 	 * @param   string  $name   The actual descriptor of the asset's purpose. Leave blank for default.
 	 *
-	 * @return  string
+	 * @return  string  A valid asset handle.
 	 */
 	public static function get_asset_handle($name = '') {
 		return join('_', array_filter(array(

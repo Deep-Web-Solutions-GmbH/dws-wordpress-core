@@ -42,7 +42,7 @@ final class Custom_Extensions extends DWS_Singleton {
 	 * @version     1.0.0
 	 *
 	 * @access      private
-	 * @var         bool        Whether the plugin has been successfully activated or not.
+	 * @var         bool        $is_active  Whether the plugin has been successfully activated or not.
 	 */
 	private static $is_active = true;
 
@@ -158,6 +158,7 @@ final class Custom_Extensions extends DWS_Singleton {
 		/** It is important to have the WordPress plugin functions loaded. */
 		require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** Our extensions rely heavily on ACF Pro. We load it first before anything else. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/advanced-custom-fields-pro/acf.php');
 
@@ -165,21 +166,27 @@ final class Custom_Extensions extends DWS_Singleton {
 
 		//region HELPER CLASSES
 
+		/** @noinspection PhpIncludeInspection */
 		/** Abstract implementation of a singleton class. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/abstract-singleton.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** Abstract class encapsulating methods usually useful for classes which lie at the root of a folder. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/abstract-root.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** Extended version of a root class which allows for nesting and other cool stuff. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/abstract-functionality-template.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** Extended version of a functionality template. Used as a module functionality. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/abstract-module-functionality-template.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** Extended version of a module functionality template. Used as a module root class. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/abstract-module-template.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** Classes which require installation should implement this interface. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/interface-installable.php');
 
@@ -187,30 +194,39 @@ final class Custom_Extensions extends DWS_Singleton {
 
 		//region CORE
 
+		/** @noinspection PhpIncludeInspection */
 		/** The class responsible for making sure that the environment is properly configured when this plugin loads. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/class-installation.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** The class responsible for orchestrating the actions and filters of the core plugin. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/class-loader.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** The class responsible for defining internationalization functionality of the plugin. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/class-i18n.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** The class responsible for handling crons scheduling. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/class-crons.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** The class responsible for enhancing the login experience. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/class-login.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** A collection of useful helper functions. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/class-helpers.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** The class responsible for handling core permissons. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/class-permissions.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** The class responsible for managing the core actions that occur in the admin area. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'admin/class-admin.php');
 
+		/** @noinspection PhpIncludeInspection */
 		/** The class responsible for managing the core actions the occur in the front-end area. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'public/class-public.php');
 

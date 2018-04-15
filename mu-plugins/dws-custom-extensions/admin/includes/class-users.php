@@ -148,6 +148,7 @@ final class DWS_Users extends DWS_Functionality_Template implements DWS_Installa
 	public function logout_users() {
 		/**
 		 * @since   1.0.0
+		 * @version 1.0.0
 		 *
 		 * @see     WP_User_Query
 		 * @link    https://codex.wordpress.org/Function_Reference/get_users

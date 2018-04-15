@@ -30,17 +30,35 @@ abstract class DWS_Singleton {
 	/**
 	 * DWS_Singleton constructor. Children classes can overwrite this and perform custom actions.
 	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
 	 * @param   array   $args   Array of all the arguments that the constructor of the end class needs.
 	 */
 	protected function __construct(...$args) { }
 
-	/** Prevent cloning. */
+	/**
+	 * Prevent cloning.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 */
 	private function __clone() { }
 
-	/** Prevent serialization. */
+	/**
+	 * Prevent serialization.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 */
 	private function __sleep() { }
 
-	/** Prevent unserialization. */
+	/**
+	 * Prevent unserialization.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 */
 	private function __wakeup() { }
 
 	//endregion
@@ -53,7 +71,7 @@ abstract class DWS_Singleton {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @return  mixed
+	 * @return  mixed   The instance of the calling class.
 	 */
 	public final static function get_instance() {
 		self::maybe_initialize_singleton();

@@ -19,6 +19,9 @@ abstract class DWS_Module_Template extends DWS_Module_Functionality_Template {
 	/**
 	 * DWS_Module_Template constructor.
 	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
 	 * @see     DWS_Module_Functionality_Template::__construct()
 	 *
 	 * @param   string          $module_id

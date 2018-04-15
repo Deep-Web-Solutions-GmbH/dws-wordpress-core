@@ -20,6 +20,9 @@ abstract class DWS_Module_Functionality_Template extends DWS_Functionality_Templ
 	/**
 	 * DWS_Module_Functionality_Template constructor.
 	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
 	 * @see     DWS_Functionality_Template::__construct()
 	 *
 	 * @param   string      $functionality_id
@@ -42,7 +45,7 @@ abstract class DWS_Module_Functionality_Template extends DWS_Functionality_Templ
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @see DWS_Functionality_Template::local_configure()
+	 * @see     DWS_Functionality_Template::local_configure()
 	 */
 	protected function local_configure() {
 		parent::local_configure();

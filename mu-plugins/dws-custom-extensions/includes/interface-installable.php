@@ -13,6 +13,8 @@ if (!defined('ABSPATH')) { exit; }
  */
 interface DWS_Installable {
 	/**
+	 * Implements the installation logic of the implementing class.
+	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
@@ -21,6 +23,8 @@ interface DWS_Installable {
 	public static function install();
 
 	/**
+	 * Returns the current version of the installable content of the implementing class.
+	 *
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *

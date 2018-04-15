@@ -179,7 +179,7 @@ final class DWS_WordPress_Cron extends DWS_Root {
 	 * @param   string    $hook         The action that should be run on this cron.
 	 * @param   string    $recurrence   The interval of how often the cron should be run.
 	 * @param   int|bool  $timestamp    When the first occurrence of the cron should be.
-	 * @param   array     $args         TODO
+	 * @param   array     $args         Arguments to pass to the hook function(s).
 	 */
 	public static function schedule_event($hook, $recurrence = 'daily', $timestamp = false, $args = array()) {
 		if (wp_next_scheduled($hook)) { return; }

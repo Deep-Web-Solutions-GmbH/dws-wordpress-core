@@ -49,7 +49,7 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 	//region MAGIC METHODS
 
 	/**
-	 * Define the core functionality of the plugin.
+	 * Defines the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
 	 * Load the dependencies, define the locale, and set the hooks for the custom extensions.
