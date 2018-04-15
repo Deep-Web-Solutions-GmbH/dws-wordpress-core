@@ -194,7 +194,7 @@ final class DWS_WordPress_Loader extends DWS_Singleton {
 	 * @param    int        $priority       The priority at which the function should be fired.
 	 * @param    int        $accepted_args  The number of arguments that should be passed to the $callback.
 	 *
-	 * @return   array                                  The collection of actions and filters registered with WordPress.
+	 * @return   array      The collection of actions and filters registered with WordPress.
 	 */
 	private function add($hooks, $hook, $component, $callback, $priority, $accepted_args) {
 		$hooks[] = array(
@@ -222,7 +222,7 @@ final class DWS_WordPress_Loader extends DWS_Singleton {
 	 * @param    int        $priority       The priority at which the function should be fired.
 	 * @param    int        $accepted_args  The number of arguments that should be passed to the $callback.
 	 *
-	 * @return   array                                  The collection of actions and filters registered with WordPress.
+	 * @return   array      The collection of actions and filters registered with WordPress.
 	 */
 	private function remove($hooks, $hook, $component, $callback, $priority, $accepted_args) {
 		foreach ($hooks as $index => $hook_info) {

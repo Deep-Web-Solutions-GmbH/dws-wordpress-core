@@ -3,9 +3,7 @@
 namespace Deep_Web_Solutions\Core;
 use Deep_Web_Solutions\Admin\ACF\ACF_Options;
 
-if (!defined('ABSPATH')) {
-	exit;
-}
+if (!defined('ABSPATH')) { exit; }
 
 /**
  * The DWS Functionality Template adapted to fit a functionality of a DWS Module.
@@ -27,12 +25,12 @@ abstract class DWS_Module_Functionality_Template extends DWS_Functionality_Templ
 	 *
 	 * @see     DWS_Functionality_Template::__construct()
 	 *
-	 * @param   string $functionality_id
-	 * @param   bool   $must_use
-	 * @param   string $parent_functionality_id
-	 * @param   string $options_parent_id
-	 * @param   bool   $functionality_description
-	 * @param   bool   $functionality_name
+	 * @param   string      $functionality_id
+	 * @param   bool        $must_use
+	 * @param   string      $parent_functionality_id
+	 * @param   string      $options_parent_id
+	 * @param   bool        $functionality_description
+	 * @param   bool        $functionality_name
 	 */
 	protected function __construct(string $functionality_id, bool $must_use = true, string $parent_functionality_id = '', string $options_parent_id = '', $functionality_description = false, $functionality_name = false) {
 		parent::__construct($functionality_id, $must_use, $parent_functionality_id, $options_parent_id, $functionality_description, $functionality_name);

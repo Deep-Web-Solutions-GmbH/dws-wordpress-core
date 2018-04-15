@@ -22,7 +22,7 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 	 * @version 1.0.0
 	 *
 	 * @access  private
-	 * @var     string  $plugin_name    The string used to uniquely identify this plugin.
+	 * @var     string      $plugin_name    The string used to uniquely identify this plugin.
 	 */
 	private static $plugin_name;
 
@@ -31,7 +31,7 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 	 * @version 1.0.0
 	 *
 	 * @access  private
-	 * @var     string  $version    The current version of the plugin.
+	 * @var     string      $version    The current version of the plugin.
 	 */
 	private static $version;
 
@@ -40,7 +40,7 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 	 * @version 1.0.0
 	 *
 	 * @access  private
-	 * @var     bool    $is_active  True if the plugin is active, false otherwise.
+	 * @var     bool        $is_active  True if the plugin is active, false otherwise.
 	 */
 	private static $is_active = true;
 

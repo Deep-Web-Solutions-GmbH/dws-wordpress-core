@@ -42,7 +42,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @version 1.0.0
 	 *
 	 * @access  protected
-	 * @var     string $settings_filter The name of the filter on which this class will register its ACF options.
+	 * @var     string      $settings_filter    The name of the filter on which this class will register its ACF options.
 	 */
 	protected $settings_filter;
 
@@ -207,7 +207,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param   array $groups The ACF options groups registered so far.
+	 * @param   array   $groups     The ACF options groups registered so far.
 	 *
 	 * @return  array   The ACF options groups registered so far including the group of the current class, if
 	 *                  applicable.
