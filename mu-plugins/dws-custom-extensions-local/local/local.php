@@ -37,11 +37,11 @@ final class DWS_Local extends DWS_Singleton {
 	 * @see     DWS_Singleton::get_instance()
 	 * @see     DWS_Singleton::maybe_initialize_singleton()
 	 */
-	protected function __construct( ) {
+	protected function __construct() {
 		// define internationalization
 		$loader = DWS_WordPress_Loader::get_instance();
-		$loader->add_action( 'plugins_loaded', $this, 'load_muplugin_textdomain' );
-		$loader->add_action( 'loco_plugins_data', $this, 'register_with_loco_translate_plugin' );
+		$loader->add_action('plugins_loaded', $this, 'load_muplugin_textdomain');
+		$loader->add_action('loco_plugins_data', $this, 'register_with_loco_translate_plugin');
 
 		// load local extensions files
 		DWS_Helper::load_files(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'local/admin/');
@@ -80,7 +80,7 @@ final class DWS_Local extends DWS_Singleton {
 	 *
 	 * @return  array   The plugins registered with Loco Translate including the pseudo-plugin of the local extensions.
 	 */
-	public function register_with_loco_translate_plugin( array $plugins ){
+	public function register_with_loco_translate_plugin(array $plugins) {
 		// we know the plugin by this handle, even if WordPress doesn't
 		$handle = 'dws-custom-extensions-local/local/local.php';
 
