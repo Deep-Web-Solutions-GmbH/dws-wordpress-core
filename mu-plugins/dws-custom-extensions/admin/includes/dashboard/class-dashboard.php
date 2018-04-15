@@ -55,7 +55,7 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 	 *
 	 * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
 	 */
-	protected function define_functionality_hooks( $loader ) {
+	protected function define_functionality_hooks($loader) {
 		$loader->add_filter('admin_menu', $this, 'register_menu_page', PHP_INT_MAX);
 	}
 
@@ -68,7 +68,7 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 	protected function load_dependencies() {
 		/** @noinspection PhpIncludeInspection */
 		/** Handles the DWS recommended plugins list, installation, and updates. */
-		require_once( self::get_includes_base_path() . 'class-recommended-plugins.php');
+		require_once(self::get_includes_base_path() . 'class-recommended-plugins.php');
 	}
 
 	//endregion

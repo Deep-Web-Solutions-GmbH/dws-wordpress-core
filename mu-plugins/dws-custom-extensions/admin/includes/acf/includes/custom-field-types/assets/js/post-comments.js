@@ -1,15 +1,18 @@
-jQuery(document).ready(function($) {
-	jQuery("a.save_internal_comment").click(function(event) {
-		event.preventDefault();
+jQuery(document).ready(function ($) {
+    jQuery("a.save_internal_comment").click(function (event) {
+        event.preventDefault();
 
-		var content = $(this).siblings('textarea').val();
-		if($.trim(content).length === 0) { alert('Field is empty'); return; }
+        var content = $(this).siblings('textarea').val();
+        if ($.trim(content).length === 0) {
+            alert('Field is empty');
+            return;
+        }
 
-		// content is valid, add it to db
-		var field = $(this).closest('.acf-field');
-		field.block({
+        // content is valid, add it to db
+        var field = $(this).closest('.acf-field');
+        field.block({
             message: null,
-            overlayCSS: { backgroundColor: '#EFEFEF'}
+            overlayCSS: {backgroundColor: '#EFEFEF'}
         });
 
         $.ajax({
@@ -21,13 +24,13 @@ jQuery(document).ready(function($) {
                 post_id: get_param_by_name('post'),
                 field_key: field.data('key')
             }
-        }).done(function(comments) {
+        }).done(function (comments) {
             field.find('.comments').html(comments);
             field.find('textarea').val('');
-        }).fail(function(jqXHR, textStatus) {
+        }).fail(function (jqXHR, textStatus) {
             alert('ERROR: ' + textStatus);
-        }).always(function() {
+        }).always(function () {
             field.unblock();
         });
-	});
+    });
 });

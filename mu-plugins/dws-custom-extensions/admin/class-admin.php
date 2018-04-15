@@ -26,8 +26,8 @@ final class DWS_Admin extends DWS_Root {
 	 * @param   string  $hook
 	 */
 	public function admin_enqueue_assets($hook) {
-		wp_enqueue_style( self::get_asset_handle(), self::get_assets_base_path(true) . 'style.css', array(), self::get_plugin_version(), 'all' );
-		wp_enqueue_script( self::get_asset_handle(), self::get_assets_base_path(true) . 'scripts.js', array( 'jquery' ), self::get_plugin_version(), false );
+		wp_enqueue_style(self::get_asset_handle(), self::get_assets_base_path(true) . 'style.css', array(), self::get_plugin_version(), 'all');
+		wp_enqueue_script(self::get_asset_handle(), self::get_assets_base_path(true) . 'scripts.js', array('jquery'), self::get_plugin_version(), false);
 	}
 
 	/**

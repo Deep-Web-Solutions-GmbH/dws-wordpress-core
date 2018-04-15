@@ -25,7 +25,7 @@ final class ACF_Custom_Field_Types extends DWS_Functionality_Template {
 	 *
 	 * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
 	 */
-	protected function define_functionality_hooks( $loader ) {
+	protected function define_functionality_hooks($loader) {
 		$loader->add_action('acf/include_field_types', $this, 'include_field_types');
 	}
 
@@ -43,7 +43,9 @@ final class ACF_Custom_Field_Types extends DWS_Functionality_Template {
 	 */
 	function include_field_types($version) {
 		// we only support v5 of ACF
-		if ($version != 5 && !empty($version)) { return; }
+		if ($version != 5 && !empty($version)) {
+			return;
+		}
 
 		/** A custom field type for adding back-end comments to a post. */
 		require_once('fields/acf-post_comments-v5.php');

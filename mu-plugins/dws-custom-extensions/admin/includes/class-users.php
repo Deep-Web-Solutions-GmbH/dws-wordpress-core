@@ -74,7 +74,7 @@ final class DWS_Users extends DWS_Functionality_Template implements DWS_Installa
 	 */
 	public static function get_version() {
 		$roles = apply_filters(self::get_hook_name('dws-roles'), array());
-		return hash('md5',self::get_plugin_version() . serialize($roles));
+		return hash('md5', self::get_plugin_version() . serialize($roles));
 	}
 
 	//endregion
@@ -99,7 +99,7 @@ final class DWS_Users extends DWS_Functionality_Template implements DWS_Installa
 	 *
 	 * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
 	 */
-	protected function define_functionality_hooks( $loader ) {
+	protected function define_functionality_hooks($loader) {
 		$loader->add_action('wp_ajax_is_user_logged_in', $this, 'ajax_check_user_logged_in');
 		$loader->add_action('wp_ajax_nopriv_is_user_logged_in', $this, 'ajax_check_user_logged_in');
 
@@ -132,7 +132,8 @@ final class DWS_Users extends DWS_Functionality_Template implements DWS_Installa
 	 *
 	 * @param   array   $args   The arguments of a soon-to-be-registered WP post type.
 	 *
-	 * @return  array   The arguments of a soon-to-be-registered WP post type that guarantee there will be no options in the admin bar.
+	 * @return  array   The arguments of a soon-to-be-registered WP post type that guarantee there will be no options
+	 *                  in the admin bar.
 	 */
 	public function remove_addNew_from_admin_bar($args) {
 		$args['show_in_admin_bar'] = false;
@@ -156,7 +157,7 @@ final class DWS_Users extends DWS_Functionality_Template implements DWS_Installa
 		 * @param   array   $logout_users_args      Array of arguments for retrieving the users to be logged out.
 		 */
 		$logout_users_args = apply_filters(self::get_hook_name('logout-users', 'args'), array());
-		$logout_users = get_users($logout_users_args);
+		$logout_users      = get_users($logout_users_args);
 
 		/** @var    $user   \WP_User */
 		foreach ($logout_users as $user) {

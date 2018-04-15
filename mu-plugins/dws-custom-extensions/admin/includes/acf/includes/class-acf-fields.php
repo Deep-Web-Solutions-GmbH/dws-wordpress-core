@@ -19,15 +19,15 @@ final class ACF_Fields extends DWS_Functionality_Template {
 	//region INHERITED FUNCTIONS
 
 	/**
-     * @since   1.0.0
-     * @version 1.0.0
-     *
-     * @see     DWS_Functionality_Template::define_functionality_hooks()
-     *
-	 * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @see     DWS_Functionality_Template::define_functionality_hooks()
+	 *
+	 * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader 	$loader
 	 */
-	protected function define_functionality_hooks( $loader ) {
-		$loader->add_filter( 'acf/update_value/type=date_time_picker', $this, 'acf_save_datetimepicker_as_unix_timestamp', 10, 3 );
+	protected function define_functionality_hooks($loader) {
+		$loader->add_filter('acf/update_value/type=date_time_picker', $this, 'acf_save_datetimepicker_as_unix_timestamp', 10, 3);
 
 		$loader->add_action('acf/render_field/type=select', $this, 'acf_add_dummy_hidden_fields_to_disabled_fields', PHP_INT_MAX);
 		$loader->add_action('acf/render_field/type=text', $this, 'acf_add_dummy_hidden_fields_to_disabled_fields', PHP_INT_MAX);
@@ -53,7 +53,9 @@ final class ACF_Fields extends DWS_Functionality_Template {
 	 * @return  string|int  Either the original value or the UNIX timestamp thereof if conversion succeeded.
 	 */
 	public function acf_save_datetimepicker_as_unix_timestamp($value, $post_id, $field) {
-		if (empty($value)) { return $value; }
+		if (empty($value)) {
+			return $value;
+		}
 
 		$timestamp = strtotime($value . ' ' . get_option('timezone_string'));
 		if (empty($timestamp)) { // when strtotime failed and when it's 0
@@ -79,7 +81,9 @@ final class ACF_Fields extends DWS_Functionality_Template {
 	 * @param   array   $field  ACF field in ACF format.
 	 */
 	public function acf_add_dummy_hidden_fields_to_disabled_fields($field) {
-		if (!isset($field['disabled']) || !$field['disabled'] || get_current_screen()->id === 'acf-field-group') { return; }
+		if (!isset($field['disabled']) || !$field['disabled'] || get_current_screen()->id === 'acf-field-group') {
+			return;
+		}
 
 		if (is_array($field['value'])) {
 			$hidden_field = '';
@@ -116,7 +120,9 @@ final class ACF_Fields extends DWS_Functionality_Template {
 	 * @return  array       The fields for the actions that the current user is entitled to carry out.
 	 */
 	public function maybe_remove_attachment_edit_fields($form_fields, $post) {
-	    if (strpos(wp_get_raw_referer(), 'upload.php') !== false) { return $form_fields; }
+		if (strpos(wp_get_raw_referer(), 'upload.php') !== false) {
+			return $form_fields;
+		}
 		return DWS_Permissions::has(Permissions::CAN_EDIT_GALLERY_FIELD) ? $form_fields : array();
 	}
 
@@ -145,16 +151,20 @@ final class ACF_Fields extends DWS_Functionality_Template {
          * @param   bool    $should_skip_css_hiding_field   Whether the current ACF field should not be CSS hidden.
          * @param   array   $field                          The current ACF field.
 		 */
-	    if (apply_filters(self::get_hook_name('skip-css-hiding-field'), false, $field)) { return $field; }
-		if ((wp_doing_ajax() && !$do_on_ajax) || !is_admin()) { return $field; }
+		if (apply_filters(self::get_hook_name('skip-css-hiding-field'), false, $field)) {
+			return $field;
+		}
+		if ((wp_doing_ajax() && !$do_on_ajax) || !is_admin()) {
+			return $field;
+		}
 
 		?>
 
-		<style type="text/css">
-			[data-name='<?php echo $field['name']; ?>'] {
-				display: none !important;
-			}
-		</style>
+        <style type="text/css">
+            [data-name='<?php echo $field['name']; ?>'] {
+                display: none !important;
+            }
+        </style>
 
 		<?php
 
@@ -191,8 +201,12 @@ final class ACF_Fields extends DWS_Functionality_Template {
          * @param   bool    $should_skip_making_field_uneditable    Whether the current ACF field should be kept editable or not.
          * @param   array   $field                                  The current ACF field.
 		 */
-	    if (apply_filters(self::get_hook_name('skip-making-field-uneditable'), false, $field)) { return $field; }
-		if ((wp_doing_ajax() && !$do_on_ajax) || !is_admin()) { return $field; }
+		if (apply_filters(self::get_hook_name('skip-making-field-uneditable'), false, $field)) {
+			return $field;
+		}
+		if ((wp_doing_ajax() && !$do_on_ajax) || !is_admin()) {
+			return $field;
+		}
 
 		$field['class'] = isset($field['class']) ? $field['class'] . ' acf-disabled' : 'acf-disabled';
 		switch ($field['type']) {
@@ -253,12 +267,12 @@ final class ACF_Fields extends DWS_Functionality_Template {
 	 * @param   array   $field          ACF field in ACF format.
 	 * @param   string  $permission     The required WP capability to leave the field editable.
 	 *
-	 * @return  array   The ACF field given as input but with modified values such that it becomes uneditable if the current user
-     *                  does not have appropriate editing permissions.
+	 * @return  array   The ACF field given as input but with modified values such that it becomes uneditable if the
+	 *                  current user does not have appropriate editing permissions.
 	 */
 	public static function maybe_make_field_uneditable($field, $permission) {
-	    return !DWS_Permissions::has(array($permission, 'administrator'), null, 'or')
-            ? self::make_field_uneditable($field) : $field;
+		return !DWS_Permissions::has(array($permission, 'administrator'), null, 'or')
+			? self::make_field_uneditable($field) : $field;
 	}
 
 	//endregion
