@@ -1,0 +1,85 @@
+<?php if (!defined('ABSPATH')) { exit; }
+
+/**
+ * The DWS Custom Extensions bootstrap file.
+ *
+ * @link              https://www.deep-web-solutions.de
+ * @since             1.0.0
+ *
+ * @wordpress-plugin
+ * Plugin Name:       DeepWebSolutions Custom Extensions
+ * Description:       This plugin handles all the core custom extensions to this WordPress installation.
+ * Version:           1.0.0
+ * Author:            Antonius Cezar Hegyes
+ * Author URI:        https://www.linkedin.com/in/tonyhegyes/
+ * License:           GPL-3.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
+ * Text Domain:       dws_custom-extensions
+ * Domain Path:       /languages
+ */
+
+define('DWS_CUSTOM_EXTENSIONS_NAME', 'Deep Web Solutions: Custom Extensions');
+define('DWS_CUSTOM_EXTENSIONS_MIN_PHP', '7.0');
+define('DWS_CUSTOM_EXTENSIONS_MIN_WP', '4.9.5');
+
+define('DWS_CUSTOM_EXTENSIONS_BASE_PATH', plugin_dir_path(__FILE__));
+define('DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN', 'dws_custom-extensions');
+
+/**
+ * Checks if the system requirements are met.
+ *
+ * @since   1.0.0
+ * @version 1.0.0
+ *
+ * @return  bool    True if system requirements are met, otherwise false.
+ */
+function dws_custom_extensions_requirements_met() {
+	if (version_compare(PHP_VERSION, DWS_CUSTOM_EXTENSIONS_MIN_PHP, '<')) {
+		return false;
+	} else if (version_compare($GLOBALS['wp_version'], DWS_CUSTOM_EXTENSIONS_MIN_WP, '<')) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Prints an error that the system requirements weren't met.
+ *
+ * @since   1.0.0
+ * @version 1.0.0
+ */
+function dws_requirements_error() {
+	require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'admin/templates/requirements-error.php');
+}
+
+/**
+ * Begins execution of the plugin.
+ *
+ * Since everything within the plugin is registered via hooks,
+ * then kicking off the plugin from this point in the file does
+ * not affect the page life cycle.
+ *
+ * @since   1.0.0
+ * @version 1.0.0
+ */
+if (dws_custom_extensions_requirements_met()) {
+	/**
+	 * Abstract class defining the functionality of a singleton. Required because the
+	 * main plugin class is a singleton itself.
+	 */
+	require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/abstract-singleton.php');
+
+	/**
+	 * The core plugin class that is used to define internationalization,
+	 * admin-specific hooks, and public-facing site hooks.
+	 */
+	require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/class-custom-extensions.php');
+
+	if (class_exists('\Deep_Web_Solutions\Custom_Extensions')) {
+		$GLOBALS['dws_custom-extensions'] = \Deep_Web_Solutions\Custom_Extensions::get_instance();
+		add_action('muplugins_loaded', array($GLOBALS['dws_custom-extensions'], 'run'), PHP_INT_MAX);
+	}
+} else {
+	add_action('admin_notices', 'dws_requirements_error');
+}

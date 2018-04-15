@@ -1,0 +1,39 @@
+.dws_circled-content {
+    background-color: '{background-color}';
+    color: '{text-color}';
+    display: inline-block;
+    box-sizing: content-box;
+    -webkit-border-radius: 75px;
+    border-radius: 75px;
+    text-align: center;
+    padding: 6px 9px 6px 9px;
+    width: 20px;
+    margin-right: 5px;
+    line-height: 20px !important;
+}
+.dws_circled-content_small {
+    width: 8px;
+    height: 13px;
+    line-height: 13px !important;
+}
+.dws_circled-content_with-hover:hover {
+    color: '{text-color-hover}';
+    background-color: '{background-color-hover}';
+    opacity: 1.0 !important;
+}
+@media (min-width: 480px) and (max-width: 767px) {
+    .dws_circled-content {
+        width: 14px;
+    }
+    .dws_circled-content_small {
+        width: 8px;
+    }
+}
+@media (max-width: 479px) {
+    .dws_circled-content {
+        width: 11px;
+    }
+    .dws_circled-content_small {
+        width: 8px;
+    }
+}

@@ -1,0 +1,381 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: DeepWebSolutions Custom Extensions\n"
+"POT-Creation-Date: 2018-04-09 17:38+0200\n"
+"PO-Revision-Date: 2018-04-09 17:38+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: dws-custom-extensions.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: admin/includes/acf/includes/class-acf-options.php:116
+msgid "Custom Extensions"
+msgstr ""
+
+#: admin/includes/acf/includes/class-acf-options.php:117
+msgid "Deep Web Solutions: Custom Extensions Core Settings"
+msgstr ""
+
+#: admin/includes/acf/includes/class-acf-options.php:126
+msgid "Core Settings"
+msgstr ""
+
+#: admin/includes/acf/includes/class-acf-options.php:153
+msgid "Deep Web Solutions: Custom Extensions Modules Settings"
+msgstr ""
+
+#: admin/includes/acf/includes/class-acf-options.php:154
+msgid "Modules Settings"
+msgstr ""
+
+#: admin/includes/acf/includes/class-acf-options.php:158
+msgid "Deep Web Solutions: Custom Extensions Theme Settings"
+msgstr ""
+
+#: admin/includes/acf/includes/class-acf-options.php:159
+msgid "Theme Settings"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:30
+msgid "Post comments"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:70
+msgid "Default Value"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:71
+msgid "Appears when creating a new post"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:79
+msgid "Placeholder Text"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:80
+msgid "Appears within the input"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:88
+msgid "Character Limit"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:89
+msgid "Leave blank for no limit"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:97
+msgid "Rows"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:98
+msgid "Sets the textarea height"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:107
+msgid "New Lines"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:108
+msgid "Controls how new lines are rendered"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:112
+msgid "Automatically add paragraphs"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:113
+msgid "Automatically add &lt;br&gt;"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:114
+msgid "No Formatting"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:172
+msgid "Add comment"
+msgstr ""
+
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:297
+#, php-format
+msgid "- added on %s by"
+msgstr ""
+
+#: admin/includes/dashboard/class-dashboard.php:96
+msgid "Deep Web Solutions: Custom Extensions Recommended Plugins"
+msgstr ""
+
+#: admin/includes/dashboard/class-dashboard.php:97
+#: admin/includes/dashboard/templates/recommended-plugins.php:8
+msgid "Recommended Plugins"
+msgstr ""
+
+#: includes/abstract-functionality-template.php:295
+#: includes/abstract-root.php:219
+#, php-format
+msgid "'%s' options"
+msgstr ""
+
+#: includes/abstract-functionality-template.php:322
+msgid "Is functionality active?"
+msgstr ""
+
+#: includes/abstract-functionality-template.php:330
+#, php-format
+msgid "Is sub-functionality '%s' active?"
+msgstr ""
+
+#: includes/abstract-functionality-template.php:345
+msgid "Overwrite this template?"
+msgstr ""
+
+#: includes/abstract-functionality-template.php:354
+msgid "Template files"
+msgstr ""
+
+#: includes/abstract-functionality-template.php:356
+msgid ""
+"If unchecked, the respective template will NOT be used from the Custom "
+"Extensions plugin.\n"
+"\t\t\t\t\tNote that if checked, a file found inside the template folder or "
+"inside the local Custom Extensions will \n"
+"\t\t\t\t\thave precedence."
+msgstr ""
+
+#: includes/abstract-root.php:160
+#, php-format
+msgid "You did not properly configure the class %s"
+msgstr ""
+
+#: includes/class-crons.php:103 includes/class-crons.php:104
+#: includes/class-crons.php:105 includes/class-crons.php:106
+#, php-format
+msgid "Every %s minutes"
+msgstr ""
+
+#: includes/class-crons.php:107 includes/class-crons.php:108
+#: includes/class-crons.php:109 includes/class-crons.php:110
+#: includes/class-crons.php:111
+#, php-format
+msgid "Every %s hours"
+msgstr ""
+
+#: public/includes/class-circled-content.php:71
+msgid "Background color"
+msgstr ""
+
+#: public/includes/class-circled-content.php:79
+msgid "Text color"
+msgstr ""
+
+#: public/includes/class-circled-content.php:87
+msgid "Background color on hover"
+msgstr ""
+
+#: public/includes/class-circled-content.php:95
+msgid "Text color on hover"
+msgstr ""
+
+#: public/includes/class-customer-service.php:76
+msgid "Customer email"
+msgstr ""
+
+#: public/includes/class-customer-service.php:77
+msgid "This email will appear on the website for the customers to write to."
+msgstr ""
+
+#: public/includes/class-customer-service.php:84
+msgid "Hotline phone number"
+msgstr ""
+
+#: public/includes/class-customer-service.php:85
+msgid "This phone number will appear on the website for the customers to call."
+msgstr ""
+
+#: public/includes/class-customer-service.php:92
+msgid "Hotline availability"
+msgstr ""
+
+#: public/includes/class-customer-service.php:93
+msgid "Select the times when the hotline is available."
+msgstr ""
+
+#: public/includes/class-customer-service.php:103
+msgid "Day of the week"
+msgstr ""
+
+#: public/includes/class-customer-service.php:104
+msgid "Select the day(s) for which the times should apply."
+msgstr ""
+
+#: public/includes/class-customer-service.php:108
+msgid "Monday"
+msgstr ""
+
+#: public/includes/class-customer-service.php:109
+msgid "Tuesday"
+msgstr ""
+
+#: public/includes/class-customer-service.php:110
+msgid "Wednesday"
+msgstr ""
+
+#: public/includes/class-customer-service.php:111
+msgid "Thursday"
+msgstr ""
+
+#: public/includes/class-customer-service.php:112
+msgid "Friday"
+msgstr ""
+
+#: public/includes/class-customer-service.php:113
+msgid "Saturday"
+msgstr ""
+
+#: public/includes/class-customer-service.php:114
+msgid "Sunday"
+msgstr ""
+
+#: public/includes/class-customer-service.php:122
+msgid "From"
+msgstr ""
+
+#: public/includes/class-customer-service.php:131
+msgid "To"
+msgstr ""
+
+#: public/includes/class-customer-service.php:160
+#: public/includes/class-customer-service.php:187
+msgid "Contact"
+msgstr ""
+
+#: public/includes/class-customer-service.php:161
+msgid "Email"
+msgstr ""
+
+#: public/includes/class-customer-service.php:188
+msgid "Phone number"
+msgstr ""
+
+#: public/includes/class-customer-service.php:253
+#, php-format
+msgid "%s - %s o'clock"
+msgstr ""
+
+#: public/includes/class-fancy-messages.php:80
+msgid "Overwrite compatible plugin's message styles?"
+msgstr ""
+
+#: public/includes/class-fancy-messages.php:91
+#, php-format
+msgid "Choose the color for %s messages background"
+msgstr ""
+
+#: public/includes/class-fancy-messages.php:98
+#, php-format
+msgid "Choose the color for %s messages text"
+msgstr ""
+
+#: public/includes/class-fancy-messages.php:105
+#, php-format
+msgid "Choose the color for %s messages border"
+msgstr ""
+
+#: public/includes/class-fancy-messages.php:112
+#, php-format
+msgid "Choose the color for %s messages icon"
+msgstr ""
+
+#: public/includes/class-prices-list.php:89
+msgid "Prices page"
+msgstr ""
+
+#: public/includes/class-prices-list.php:90
+msgid "This is the page that will contain all the standard product prices."
+msgstr ""
+
+#: public/includes/class-prices-list.php:101
+msgid "Categories to exclude from the prices list"
+msgstr ""
+
+#: public/includes/class-prices-list.php:114
+msgid "Products to exclude from the prices list"
+msgstr ""
+
+#: public/includes/class-prices-list.php:266
+#: public/includes/class-prices-list.php:329
+msgid "Product"
+msgstr ""
+
+#: public/includes/class-prices-list.php:267
+#: public/includes/class-prices-list.php:329
+msgid "Price"
+msgstr ""
+
+#: public/includes/class-prices-list.php:328
+msgid "Further offers"
+msgstr ""
+
+#: public/includes/customer-shipping/class-customer-shipping.php:67
+msgid "Customer shipping services"
+msgstr ""
+
+#: public/includes/customer-shipping/class-customer-shipping.php:68
+msgid ""
+"Fill out your personalized links for the supported shipping methods. "
+"Shortcodes are available."
+msgstr ""
+
+#: public/includes/customer-shipping/class-customer-shipping.php:76
+msgid "Categories of products which require customer shipping"
+msgstr ""
+
+#: public/includes/customer-shipping/includes/abstract-customer-shipping-method.php:123
+#, php-format
+msgid "Link for %s"
+msgstr ""
+
+#: public/includes/customer-shipping/includes/abstract-customer-shipping-method.php:124
+#, php-format
+msgid "This link can be used together with the shortcode [%s]."
+msgstr ""
+
+#: public/includes/customer-shipping/includes/abstract-customer-shipping-method.php:130
+msgid "Used in which country/countries?"
+msgstr ""
+
+#: public/includes/customer-shipping/includes/abstract-customer-shipping-method.php:203
+#, php-format
+msgid "Send package with %s"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "DeepWebSolutions Custom Extensions"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"This plugin handles all the core custom extensions to this WordPress "
+"installation."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Antonius Cezar Hegyes"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.linkedin.com/in/tonyhegyes/"
+msgstr ""

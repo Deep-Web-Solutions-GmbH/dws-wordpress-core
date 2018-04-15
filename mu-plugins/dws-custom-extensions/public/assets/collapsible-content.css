@@ -1,0 +1,10 @@
+.dws_collapse_container a {
+    cursor: pointer;
+}
+
+.dws_collapse_container .dws_collapse {
+    display: none;
+}
+.dws_collapse_container .dws_collapse.in {
+    display: initial;
+}

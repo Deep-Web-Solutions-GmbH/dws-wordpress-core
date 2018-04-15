@@ -1,0 +1,76 @@
+'{plugin_messages_classes}'
+.dws_message {
+    position: relative;
+    overflow: hidden;
+
+    margin: 0 0 1.758em;
+    padding: 20px !important;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+
+    list-style: none;
+}
+'{plugin_messages_classes_before}'
+.dws_message:before {
+    font-family: 'FontAwesome';
+    display: inline-block;
+    font-weight: normal;
+    line-height: 100%;
+    position: absolute;
+    bottom: -.18em;
+    right: -.18em;
+    font-size: 70px;
+    width: auto;
+    -webkit-transform: rotate(-20deg);
+    -moz-transform: rotate(-20deg);
+    -ms-transform: rotate(-20deg);
+    -o-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+    zoom: 1;
+}
+
+'{plugin_messages_info_classes}'
+.dws_message-info {
+    color: '{message_info_text_color}' !important;
+    background: '{message_info_background_color}' !important;
+    border: 1px solid '{message_info_border_color}' !important;
+}
+'{plugin_messages_info_classes_before}'
+.dws_message-info:before {
+    content: "\f05a" !important;
+    color: '{message_info_icon_color}';
+}
+
+'{plugin_messages_success_classes}'
+.dws_message-success {
+    color: '{message_success_text_color}' !important;
+    background: '{message_success_background_color}' !important;
+    border: 1px solid '{message_success_border_color}' !important;
+}
+'{plugin_messages_success_classes_before}'
+.dws_message-success:before {
+    content: "\f05a";
+    color: '{message_success_icon_color}';
+}
+
+'{plugin_messages_error_classes}'
+.dws_message-error {
+    color: '{message_error_text_color}' !important;
+    background: '{message_error_background_color}' !important;
+    border: 1px solid '{message_error_border_color}' !important;
+}
+'{plugin_messages_error_classes_before}'
+.dws_message-error:before {
+    content: "\f071";
+    color: '{message_error_icon_color}';
+}
+
+.dws_message.dws_message-small {
+    padding: 10px !important;
+}
+.dws_message.dws_message-small:before {
+    font-size: 2.5em;
+}
