@@ -20,6 +20,7 @@ svg {
 .dws_bg-orange {
     background-color: #fa832a !important;
 }
+
 .dws_orange {
     color: #fa832a !important;
 }
@@ -27,6 +28,7 @@ svg {
 .dws_bg-green {
     background-color: #51b747 !important;
 }
+
 .dws_green {
     color: #51b747 !important;
 }
@@ -34,6 +36,7 @@ svg {
 .dws_bg-blue {
     background-color: #459cff !important;
 }
+
 .dws_blue {
     color: #459cff !important;
 }
@@ -41,6 +44,7 @@ svg {
 .dws_bg-red {
     background-color: red !important;
 }
+
 .dws_red {
     color: red !important;
 }
@@ -48,6 +52,7 @@ svg {
 .dws_bg-dark-green {
     background-color: green !important;
 }
+
 .dws_dark-green {
     color: green !important;
 }
@@ -55,6 +60,7 @@ svg {
 .dws_bg-purple {
     background-color: rgb(115, 100, 235) !important;
 }
+
 .dws_purple {
     color: rgb(115, 100, 235) !important;
 }
@@ -62,6 +68,7 @@ svg {
 .dws_bg-gray {
     background-color: #707070 !important;
 }
+
 .dws_gray {
     color: #707070 !important;
 }
@@ -69,6 +76,7 @@ svg {
 .dws_bg-dark-gray {
     background-color: #666 !important;
 }
+
 .dws_dark-gray {
     color: #666 !important;
 }
@@ -76,6 +84,7 @@ svg {
 .dws_bg-black {
     background-color: black !important;
 }
+
 .dws_black {
     color: black !important;
 }
@@ -83,6 +92,7 @@ svg {
 .dws_bg-white {
     background-color: white !important;
 }
+
 .dws_white {
     color: white;
 }
@@ -91,9 +101,11 @@ svg {
 .dws_bold {
     font-weight: 900;
 }
+
 .dws_semi-bold {
     font-weight: 600;
 }
+
 .dws_italic {
     font-style: italic;
 }
@@ -102,9 +114,11 @@ svg {
 .dws_text-center {
     text-align: center !important;
 }
+
 .dws_text-left {
     text-align: left !important;
 }
+
 .dws_text-right {
     text-align: right !important;
 }
@@ -112,9 +126,11 @@ svg {
 .dws_clear {
     clear: both;
 }
+
 .dws_clear-left {
     clear: left;
 }
+
 .dws_clear-right {
     clear: right;
 }
@@ -122,9 +138,11 @@ svg {
 .dws_clear_important {
     clear: both !important;
 }
+
 .dws_clear-left_important {
     clear: left !important;
 }
+
 .dws_clear-right_important {
     clear: right !important;
 }
@@ -133,12 +151,15 @@ svg {
 a.dws_black:hover {
     color: white !important;
 }
+
 a.dws_black_hover:hover {
     color: black !important;
 }
 
 /** sizes */
-.dws_larger { font-size: 125% !important;}
+.dws_larger {
+    font-size: 125% !important;
+}
 
 @media (min-width: 768px) {
     small {

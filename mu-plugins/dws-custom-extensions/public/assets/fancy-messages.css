@@ -13,6 +13,7 @@
 
     list-style: none;
 }
+
 '{plugin_messages_classes_before}'
 .dws_message:before {
     font-family: 'FontAwesome';
@@ -38,6 +39,7 @@
     background: '{message_info_background_color}' !important;
     border: 1px solid '{message_info_border_color}' !important;
 }
+
 '{plugin_messages_info_classes_before}'
 .dws_message-info:before {
     content: "\f05a" !important;
@@ -50,6 +52,7 @@
     background: '{message_success_background_color}' !important;
     border: 1px solid '{message_success_border_color}' !important;
 }
+
 '{plugin_messages_success_classes_before}'
 .dws_message-success:before {
     content: "\f05a";
@@ -62,6 +65,7 @@
     background: '{message_error_background_color}' !important;
     border: 1px solid '{message_error_border_color}' !important;
 }
+
 '{plugin_messages_error_classes_before}'
 .dws_message-error:before {
     content: "\f071";
@@ -71,6 +75,7 @@
 .dws_message.dws_message-small {
     padding: 10px !important;
 }
+
 .dws_message.dws_message-small:before {
     font-size: 2.5em;
 }

@@ -1,6 +1,6 @@
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
     function getDeviceType(innerWidth) {
-        var deviceType = $.DEVICE_TYPE.LARGE;
+        let deviceType = $.DEVICE_TYPE.LARGE;
 
         if (window.matchMedia("(max-width: 767px)").matches) {
             deviceType = $.DEVICE_TYPE.EXTRASMALL;
@@ -14,13 +14,13 @@ jQuery(document).ready(function($) {
         return deviceType;
     }
 
-    $.DEVICE_TYPE = { EXTRASMALL: 0, SMALL: 1, MEDIUM: 2, LARGE: 3 };
+    $.DEVICE_TYPE = {EXTRASMALL: 0, SMALL: 1, MEDIUM: 2, LARGE: 3};
     $.deviceType = getDeviceType($(window).innerWidth());
     $(document).trigger('dws_device_type_initialized');
 
     $(window).resize(function () {
         setTimeout(function () {
-            var currentDeviceType = getDeviceType($(window).innerWidth());
+            let currentDeviceType = getDeviceType($(window).innerWidth());
             if (currentDeviceType !== $.deviceType) {
                 $.deviceType = currentDeviceType;
             }
@@ -29,11 +29,17 @@ jQuery(document).ready(function($) {
 
     $.fn.removeHeights = function (action) {
         if (action === "auto" || action === undefined) {
-            return this.each(function () { $(this).height("auto"); });
+            return this.each(function () {
+                $(this).height("auto");
+            });
         } else if (action === "100%") {
-            return this.each(function () { $(this).height("100%"); });
+            return this.each(function () {
+                $(this).height("100%");
+            });
         } else if (action === "removeAttr") {
-            return this.each(function () { $(this).height(""); });
+            return this.each(function () {
+                $(this).height("");
+            });
         }
 
         return this;
@@ -41,9 +47,9 @@ jQuery(document).ready(function($) {
     $.fn.equalizeHeights = function (action) {
         this.removeHeights(action);
 
-        var maxHeight = 0;
+        let maxHeight = 0;
         this.each(function () {
-            var height = $(this).height();
+            let height = $(this).height();
 
             if (height === 0) {
                 $(this).parent().css("display", "inline-block");
@@ -56,7 +62,9 @@ jQuery(document).ready(function($) {
             }
         });
 
-        this.each(function () { $(this).height(maxHeight); });
+        this.each(function () {
+            $(this).height(maxHeight);
+        });
 
         return this;
     };
