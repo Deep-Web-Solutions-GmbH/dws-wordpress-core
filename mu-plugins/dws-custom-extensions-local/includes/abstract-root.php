@@ -32,7 +32,7 @@ abstract class DWS_Local_Root extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @see     DWS_Root::local_configure()
+	 * @see     DWS_Root::get_relative_base_path()
 	 *
 	 * @return  string
 	 */

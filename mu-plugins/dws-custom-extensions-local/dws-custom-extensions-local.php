@@ -23,6 +23,7 @@ define('DWS_CUSTOM_EXTENSIONS_NAME_LOCAL', 'Deep Web Solutions: Custom Extension
 define('DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH', plugin_dir_path(__FILE__));
 define('DWS_CUSTOM_EXTENSIONS_LOCAL_LANG_DOMAIN', 'dws_custom-extensions-local');
 
+/** @noinspection PhpIncludeInspection */
 /** The core plugin class that is used to define internationalization, hooks, and local extensions. */
 require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'includes/class-custom-extensions-local.php');
 

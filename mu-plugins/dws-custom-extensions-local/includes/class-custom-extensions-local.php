@@ -40,7 +40,7 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 	 * @version 1.0.0
 	 *
 	 * @access  private
-	 * @var     bool        True if the plugin is active, false otherwise.
+	 * @var     bool        $is_active  True if the plugin is active, false otherwise.
 	 */
 	private static $is_active = true;
 
@@ -57,7 +57,7 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @see     DWS_Singleton::construct()
+	 * @see     DWS_Singleton::__construct()
 	 * @see     DWS_Singleton::get_instance()
 	 * @see     DWS_Singleton::maybe_initialize_singleton()
 	 */

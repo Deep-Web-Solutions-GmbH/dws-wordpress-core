@@ -33,7 +33,9 @@ final class DWS_Local extends DWS_Singleton {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
+	 * @see     DWS_Singleton::__construct()
 	 * @see     DWS_Singleton::get_instance()
+	 * @see     DWS_Singleton::maybe_initialize_singleton()
 	 */
 	protected function __construct( ) {
 		// define internationalization
