@@ -28,8 +28,8 @@ abstract class DWS_Module_Template extends DWS_Module_Functionality_Template {
 	 * @param   string|bool     $module_description
 	 * @param   string|bool     $module_name
 	 */
-	protected function __construct( $module_id, $module_description = false, $module_name = false ) {
-		parent::__construct( $module_id, false, '', '', $module_description, $module_name );
+	protected function __construct($module_id, $module_description = false, $module_name = false) {
+		parent::__construct($module_id, false, '', '', $module_description, $module_name);
 	}
 
 	//endregion

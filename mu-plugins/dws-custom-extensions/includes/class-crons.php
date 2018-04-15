@@ -1,6 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Core;
+
 if (!defined('ABSPATH')) { exit; }
 
 /**
@@ -100,15 +101,15 @@ final class DWS_WordPress_Cron extends DWS_Root {
 	 */
 	public function init() {
 		self::$intervals = array(
-			self::MINUTES_5     => array('interval' => 5*60,    'display' => sprintf(__('Every %s minutes', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 5)),
-			self::MINUTES_10    => array('interval' => 10*60,   'display' => sprintf(__('Every %s minutes', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 10)),
-			self::MINUTES_15    => array('interval' => 15*60,   'display' => sprintf(__('Every %s minutes', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 15)),
-			self::MINUTES_30    => array('interval' => 30*60,   'display' => sprintf(__('Every %s minutes', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 30)),
-			self::HOURS_1       => array('interval' => 1*60*60, 'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 1)),
-			self::HOURS_2       => array('interval' => 2*60*60, 'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 2)),
-			self::HOURS_3       => array('interval' => 3*60*60, 'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 3)),
-			self::HOURS_4       => array('interval' => 4*60*60, 'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 4)),
-			self::HOURS_6       => array('interval' => 6*60*60, 'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 6)),
+			self::MINUTES_5  => array('interval' => 5 * 60,         'display' => sprintf(__('Every %s minutes', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 5)),
+			self::MINUTES_10 => array('interval' => 10 * 60,        'display' => sprintf(__('Every %s minutes', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 10)),
+			self::MINUTES_15 => array('interval' => 15 * 60,        'display' => sprintf(__('Every %s minutes', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 15)),
+			self::MINUTES_30 => array('interval' => 30 * 60,        'display' => sprintf(__('Every %s minutes', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 30)),
+			self::HOURS_1    => array('interval' => 1 * 60 * 60,    'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 1)),
+			self::HOURS_2    => array('interval' => 2 * 60 * 60,    'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 2)),
+			self::HOURS_3    => array('interval' => 3 * 60 * 60,    'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 3)),
+			self::HOURS_4    => array('interval' => 4 * 60 * 60,    'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 4)),
+			self::HOURS_6    => array('interval' => 6 * 60 * 60,    'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 6)),
 		);
 	}
 
@@ -120,7 +121,7 @@ final class DWS_WordPress_Cron extends DWS_Root {
 	 *
 	 * @param   DWS_WordPress_Loader    $loader
 	 */
-	protected function define_hooks( $loader ) {
+	protected function define_hooks($loader) {
 		$loader->add_filter('cron_schedules', $this, 'register_new_cron_schedules');
 	}
 
@@ -153,9 +154,9 @@ final class DWS_WordPress_Cron extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param   string      $slug           The slug of the new interval.
-	 * @param   int         $interval       How long, in seconds, the interval is.
-	 * @param   string|bool $name           The friendly name of the interval. If not given, the slug will be used.
+	 * @param   string          $slug       The slug of the new interval.
+	 * @param   int             $interval   How long, in seconds, the interval is.
+	 * @param   string|bool     $name       The friendly name of the interval. If not given, the slug will be used.
 	 */
 	public static function add_interval($slug, $interval, $name = false) {
 		if (empty($slug)) {
@@ -166,7 +167,7 @@ final class DWS_WordPress_Cron extends DWS_Root {
 			return;
 		}
 
-		$name = empty($name) ? $slug : $name;
+		$name                   = empty($name) ? $slug : $name;
 		self::$intervals[$slug] = array('interval' => $interval, 'display' => $name);
 	}
 
@@ -176,13 +177,15 @@ final class DWS_WordPress_Cron extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param   string    $hook         The action that should be run on this cron.
-	 * @param   string    $recurrence   The interval of how often the cron should be run.
-	 * @param   int|bool  $timestamp    When the first occurrence of the cron should be.
-	 * @param   array     $args         Arguments to pass to the hook function(s).
+	 * @param   string      $hook           The action that should be run on this cron.
+	 * @param   string      $recurrence     The interval of how often the cron should be run.
+	 * @param   int|bool    $timestamp      When the first occurrence of the cron should be.
+	 * @param   array       $args           Arguments to pass to the hook function(s).
 	 */
 	public static function schedule_event($hook, $recurrence = 'daily', $timestamp = false, $args = array()) {
-		if (wp_next_scheduled($hook)) { return; }
+		if (wp_next_scheduled($hook)) {
+			return;
+		}
 
 		// if the timestamp is not given, start running it at midnight
 		$timestamp = is_integer($timestamp)

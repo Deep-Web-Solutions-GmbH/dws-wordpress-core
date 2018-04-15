@@ -35,7 +35,7 @@ final class DWS_Installation extends DWS_Root {
 	 *
 	 * @param   DWS_WordPress_Loader    $loader
 	 */
-	protected function define_hooks( $loader ) {
+	protected function define_hooks($loader) {
 		$loader->add_action('wp_ajax_' . self::INSTALL_ACTION, $this, 'run_installation', PHP_INT_MIN);
 	}
 
@@ -51,14 +51,20 @@ final class DWS_Installation extends DWS_Root {
 	 * @throws  \ReflectionException
 	 */
 	public function run_installation() {
-		if (!DWS_Permissions::has('administrator')) { return; }
+		if (!DWS_Permissions::has('administrator')) {
+			return;
+		}
 
 		foreach (get_declared_classes() as $declared_class) {
-			if (!in_array('Deep_Web_Solutions\Core\DWS_Installable', class_implements($declared_class))) { continue; }
+			if (!in_array('Deep_Web_Solutions\Core\DWS_Installable', class_implements($declared_class))) {
+				continue;
+			}
 
-			$class = new \ReflectionClass($declared_class);
+			$class           = new \ReflectionClass($declared_class);
 			$install_version = $class->getMethod('get_version')->invoke(null);
-			if (get_option($class->getName() . '_install_version') === $install_version) { continue; }
+			if (get_option($class->getName() . '_install_version') === $install_version) {
+				continue;
+			}
 
 			$class->getMethod('install')->invoke(null);
 			update_option($class->getName() . '_install_version', $install_version);

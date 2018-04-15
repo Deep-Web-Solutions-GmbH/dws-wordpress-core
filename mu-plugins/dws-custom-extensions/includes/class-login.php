@@ -22,7 +22,7 @@ final class DWS_Login extends DWS_Root {
 	 *
 	 * @param   DWS_WordPress_Loader    $loader
 	 */
-	protected function define_shortcodes( $loader ) {
+	protected function define_shortcodes($loader) {
 		$loader->add_shortcode('express_login_link', $this, 'get_login_link_sc');
 	}
 
@@ -36,8 +36,8 @@ final class DWS_Login extends DWS_Root {
 	 *
 	 * @return  string
 	 */
-	public static function get_hook_name( $name, $extra = array(), $root = 'login' ) {
-		return parent::get_hook_name( $name, $extra, $root );
+	public static function get_hook_name($name, $extra = array(), $root = 'login') {
+		return parent::get_hook_name($name, $extra, $root);
 	}
 
 	//endregion
@@ -60,12 +60,14 @@ final class DWS_Login extends DWS_Root {
 		 */
 		$login_link = apply_filters(self::get_hook_name('default-redirect'), get_home_url());
 
-		$atts = shortcode_atts(array(
-			'link'      => $login_link,
-			'email'     => '',
-			'valid_for' => '14 days',
-			'link_text' => get_home_url()
-		), $atts);
+		$atts = shortcode_atts(
+			array(
+				'link'      => $login_link,
+				'email'     => '',
+				'valid_for' => '14 days',
+				'link_text' => get_home_url()
+			), $atts
+		);
 		if (empty($atts['email'])) {
 			/**
 			 * @since   1.0.0

@@ -23,18 +23,28 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @version 1.0.0
 	 *
 	 * @access  private
-	 * @var     array      $root_id     Maintains a list of all IDs of root class instances.
+	 * @var     array       $root_id        Maintains a list of all IDs of root class instances.
 	 */
 	private static $root_id = array();
-
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
 	 * @access  private
-	 * @var     array      $root_public_name    Maintains a list of all public names of root class instances.
+	 * @var     array       $root_public_name   Maintains a list of all public names of root class instances.
 	 */
 	private static $root_public_name = array();
+
+	/**
+	 * Modify this for local settings etc.
+	 *
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @access  protected
+	 * @var     string $settings_filter The name of the filter on which this class will register its ACF options.
+	 */
+	protected $settings_filter;
 
 	/**
 	 * The access is private to minimize abuse.
@@ -46,17 +56,6 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @var     DWS_WordPress_Loader    $loader     The instance of the DWS CustomExtensions Core Loader.
 	 */
 	private $loader;
-
-	/**
-	 * Modify this for local settings etc.
-	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @access  protected
-	 * @var     string      $settings_filter    The name of the filter on which this class will register its ACF options.
-	 */
-	protected $settings_filter;
 
 	//endregion
 
@@ -76,7 +75,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @param   string|bool     $root_name
 	 */
 	protected function __construct($root_id, $root_name = false) {
-		self::$root_id[static::class] = $root_id;
+		self::$root_id[static::class]          = $root_id;
 		self::$root_public_name[static::class] = $root_name ?: static::class;
 
 		$this->loader = DWS_WordPress_Loader::get_instance();
@@ -156,7 +155,8 @@ abstract class DWS_Root extends DWS_Singleton {
 		if (empty($this->settings_filter)) {
 			// this ensures that if the overwritten 'local_configure' class does not initialize the settings filter,
 			// there is a sensible fallback to go to
-			_doing_it_wrong(__FUNCTION__,
+			_doing_it_wrong(
+				__FUNCTION__,
 				sprintf(__('You did not properly configure the class %s', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), self::get_root_public_name()),
 				self::get_plugin_version()
 			);
@@ -207,17 +207,18 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param   array   $groups     The ACF options groups registered so far.
+	 * @param   array $groups The ACF options groups registered so far.
 	 *
-	 * @return  array   The ACF options groups registered so far including the group of the current class, if applicable.
+	 * @return  array   The ACF options groups registered so far including the group of the current class, if
+	 *                  applicable.
 	 */
 	public function define_options($groups) {
 		$options = $this->admin_options();
 		if (!empty($options)) {
 			$groups[] = array(
-				'key'       => self::get_root_id(),
-				'title'     => sprintf(__('\'%s\' options', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), self::get_root_public_name()),
-				'fields'    => $options
+				'key'    => self::get_root_id(),
+				'title'  => sprintf(__('\'%s\' options', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), self::get_root_public_name()),
+				'fields' => $options
 			);
 		}
 
@@ -288,8 +289,11 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @return  string
 	 */
 	public final static function get_base_path($relative = false, $keep_file_name = false) {
-		try { $file_name = (new \ReflectionClass(static::class))->getFileName(); }
-		catch (\ReflectionException $e)  { /* this situations is literally impossible */}
+		try {
+			$file_name = (new \ReflectionClass(static::class))->getFileName();
+		} catch (\ReflectionException $e) {
+			/* this situations is literally impossible */
+		}
 
 		if ($keep_file_name) {
 			return $relative ? str_replace(ABSPATH, '', trailingslashit($file_name)) : trailingslashit($file_name);
@@ -378,9 +382,15 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @return  string  The resulting internal hook.
 	 */
 	public static function get_hook_name($name, $extra = array(), $root = '') {
-		return join('_', array_filter(array_merge(array(
-			static::get_plugin_name(), $root, $name,
-		), is_array($extra) ? $extra : array($extra))));
+		return join(
+			'_', array_filter(
+			array_merge(
+				array(
+					static::get_plugin_name(), $root, $name,
+				), is_array($extra) ? $extra : array($extra)
+			)
+		)
+		);
 	}
 
 	/**
@@ -394,9 +404,16 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @return  string  A valid asset handle.
 	 */
 	public static function get_asset_handle($name = '') {
-		return join('_', array_filter(array(
-			static::get_plugin_name(), self::get_root_public_name(), $name
-		)));
+		return join(
+			'_',
+			array_filter(
+				array(
+					static::get_plugin_name(),
+					self::get_root_public_name(),
+					$name
+				)
+			)
+		);
 	}
 
 	//endregion

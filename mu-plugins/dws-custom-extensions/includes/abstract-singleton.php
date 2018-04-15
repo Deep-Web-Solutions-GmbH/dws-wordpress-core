@@ -1,6 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Core;
+
 if (!defined('ABSPATH')) { exit; }
 
 /**
@@ -86,8 +87,9 @@ abstract class DWS_Singleton {
 	 * @version 1.0.0
 	 */
 	public final static function maybe_initialize_singleton() {
-		if (isset(self::$instances[static::class])) { return; }
-		self::$instances[static::class] = new static(...func_get_args());
+		if (!isset(self::$instances[static::class])) {
+			self::$instances[static::class] = new static(...func_get_args());
+		}
 	}
 
 	//endregion

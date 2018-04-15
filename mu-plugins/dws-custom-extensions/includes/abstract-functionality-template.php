@@ -21,12 +21,28 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
+	 * @var     string  TEMPLATE_FILES_OVERWRITES       The prefix of the name of the ACF options field which holds the
+	 *                                                  options to overwrite templates for the current functionality.
+	 */
+	const TEMPLATE_FILES_OVERWRITES = 'template_file_overwrites_';
+	/**
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
+	 * @var     string  TEMPLATE_FILE_OVERWRITE_PREIFX      The prefix of the name of ACF options fields for overwriting
+	 *                                                      templates of the current functionality.
+	 */
+	const TEMPLATE_FILE_OVERWRITE_PREFIX = 'template_file_overwrite_';
+
+	/**
+	 * @since   1.0.0
+	 * @version 1.0.0
+	 *
 	 * @access  private
 	 * @var     array       $functionalities_by_id      Maintains a list of the instances of all functionalities that
 	 *                                                  have been instantiated based on their unique root id.
 	 */
 	private static $functionalities_by_id = array();
-
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
@@ -36,7 +52,6 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 *                                                  been instantiated based on their unique class name.
 	 */
 	private static $functionalities_by_name = array();
-
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
@@ -45,7 +60,6 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @var     array       $parent_functionality       Maintains a list of parent relations between functionalities.
 	 */
 	private static $parent_functionality = array();
-
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
@@ -63,15 +77,6 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @var     bool        $must_use       Whether this functionality must be used or whether the admin can turn it off.
 	 */
 	private static $must_use = array();
-
-	/**
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @access  private
-	 * @var     string      $description    The purpose/description of the current functionality.
-	 */
-	private $description;
 
 	/**
 	 * @since   1.0.0
@@ -105,19 +110,10 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string  TEMPLATE_FILES_OVERWRITES       The prefix of the name of the ACF options field which holds the
-	 *                                                  options to overwrite templates for the current functionality.
+	 * @access  private
+	 * @var     string      $description    The purpose/description of the current functionality.
 	 */
-	const TEMPLATE_FILES_OVERWRITES = 'template_file_overwrites_';
-
-	/**
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @var     string  TEMPLATE_FILE_OVERWRITE_PREIFX      The prefix of the name of ACF options fields for overwriting
-	 *                                                      templates of the current functionality.
-	 */
-	const TEMPLATE_FILE_OVERWRITE_PREFIX = 'template_file_overwrite_';
+	private $description;
 
 	//endregion
 
@@ -146,17 +142,17 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 		self::$children_functionalities[static::class]  = array();
 
 		if (!empty($parent_functionality_id)) {
-			self::$parent_functionality[static::class] = self::$functionalities_by_id[$parent_functionality_id];
+			self::$parent_functionality[static::class]                                                           = self::$functionalities_by_id[$parent_functionality_id];
 			self::$children_functionalities[get_class(self::$functionalities_by_id[$parent_functionality_id])][] = $this;
-			$this->functionality_depth = self::$parent_functionality[static::class]->functionality_depth + 1;
+			$this->functionality_depth                                                                           = self::$parent_functionality[static::class]->functionality_depth + 1;
 		} else {
 			$this->functionality_depth = 0;
 		}
 
 		// set up this functionality instance
 		self::$must_use[static::class] = $must_use;
-		$this->options_parent_id = empty($options_parent_id) ? $this->get_top_level_parent()::get_root_id() : $options_parent_id;
-		$this->description = $functionality_description;
+		$this->options_parent_id       = empty($options_parent_id) ? $this->get_top_level_parent()::get_root_id() : $options_parent_id;
+		$this->description             = $functionality_description;
 
 		parent::__construct($functionality_id, $functionality_name);
 
@@ -176,7 +172,8 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @return  DWS_Functionality_Template|null     The instance of the parent functionality of the current one or null if n/a.
+	 * @return  DWS_Functionality_Template|null     The instance of the parent functionality of the current one or null
+	 *                                              if n/a.
 	 */
 	public final static function get_parent() {
 		return self::$parent_functionality[static::class];
@@ -229,13 +226,15 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @see DWS_Root::local_configure()
+	 * @see     DWS_Root::local_configure()
 	 */
 	protected function local_configure() {
 		parent::local_configure();
 
 		$this->children_settings_filter = ACF_Options::get_page_groups_fields_hook(ACF_Options::MAIN_OPTIONS_SLUG);
-		if (!empty(self::get_parent())) { $this->settings_filter = $this->children_settings_filter; }
+		if (!empty(self::get_parent())) {
+			$this->settings_filter = $this->children_settings_filter;
+		}
 	}
 
 	/**
@@ -246,7 +245,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 *
 	 * @param   DWS_WordPress_Loader    $loader
 	 */
-	protected final function define_hooks( $loader ) {
+	protected final function define_hooks($loader) {
 		if (static::is_active()) {
 			$this->define_functionality_hooks($loader);
 		} else {
@@ -265,27 +264,33 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 *
 	 * @return  array
 	 */
-	public function define_options( $groups_or_fields ) {
+	public function define_options($groups_or_fields) {
 		if (!empty(self::get_parent())) {
 			$options_parent_id = $this->options_parent_id;
-			return array_merge($groups_or_fields, array_map(function($option) use ($options_parent_id) {
-				$option['parent'] = $options_parent_id;
-				return $option;
-			}, $this->admin_options()));
+			return array_merge(
+				$groups_or_fields, array_map(
+				function ($option) use ($options_parent_id) {
+					$option['parent'] = $options_parent_id;
+					return $option;
+				}, $this->admin_options()
+			)
+			);
 		} else {
 			$functionality_options = $this->admin_options();
-			$children_options = array();
+			$children_options      = array();
 
 			if (empty($functionality_options)) {
 				// check if children classes have any fields to be included
 				$parent_functionality_id = self::get_root_id();
-				$children_options = array_filter(array_map(
-					function($field) use ($parent_functionality_id) {
-						return (isset($field['parent']) && $field['parent'] === $parent_functionality_id)
-							? $field : null;
-					},
-					apply_filters($this->children_settings_filter, array())
-				));
+				$children_options        = array_filter(
+					array_map(
+						function ($field) use ($parent_functionality_id) {
+							return (isset($field['parent']) && $field['parent'] === $parent_functionality_id)
+								? $field : null;
+						},
+						apply_filters($this->children_settings_filter, array())
+					)
+				);
 			}
 
 			return (empty($functionality_options) && empty($children_options))
@@ -294,8 +299,8 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 					$groups_or_fields,
 					array(
 						array(
-							'key' => self::get_root_id(),
-							'title' => sprintf(__('\'%s\' options', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), self::get_root_public_name()),
+							'key'    => self::get_root_id(),
+							'title'  => sprintf(__('\'%s\' options', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), self::get_root_public_name()),
 							'fields' => $functionality_options
 						)
 					)
@@ -312,65 +317,74 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @return  array
 	 */
 	protected final function admin_options() {
-		if (!static::are_prerequisites_fulfilled()) { return array(); }
+		if (!static::are_prerequisites_fulfilled()) {
+			return array();
+		}
 
 		$must_use_functionality = self::$must_use[static::class];
-		$must_use_options = array();
+		$must_use_options       = array();
 
 		// if this is not a must-use functionality, we need an option to let the admin activate it
 		if (!$must_use_functionality) {
 			$active_checkbox = array(
-				'key'       => 'field_rhgoegererg_' . self::get_root_id(),
-				'name'      => 'functionality_' . self::get_root_id(),
-				'label'     => __('Is functionality active?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-				'message'   => $this->description,
-				'type'      => 'true_false',
-				'ui'        => 1
+				'key'     => 'field_rhgoegererg_' . self::get_root_id(),
+				'name'    => 'functionality_' . self::get_root_id(),
+				'label'   => __('Is functionality active?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+				'message' => $this->description,
+				'type'    => 'true_false',
+				'ui'      => 1
 			);
 
 			if (!empty(self::get_parent())) {
-				$active_checkbox['message'] = $this->description;
-				$active_checkbox['label'] = sprintf(__('Is sub-functionality \'%s\' active?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), self::get_root_public_name());
-				$active_checkbox['conditional_logic'] = array( $this->get_option_conditional_logic(self::get_parent()) );
+				$active_checkbox['message']           = $this->description;
+				$active_checkbox['label']             = sprintf(__('Is sub-functionality \'%s\' active?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), self::get_root_public_name());
+				$active_checkbox['conditional_logic'] = array($this->get_option_conditional_logic(self::get_parent()));
 			}
 
 			$must_use_options[] = $active_checkbox;
 		}
 
 		// maybe add options for overwriting templates
-		$template_file_options_array = array_filter(array_map(
-			function($template_file) {
-				return array(
-					'key' => join('_', array('field_h4748g3g34g34g', self::get_root_id(), $template_file)),
-					'name' => join('_', array(self::TEMPLATE_FILE_OVERWRITE_PREFIX, $template_file)),
-					'label' => $template_file,
-					'type' => 'true_false',
-					'message' => sprintf(__('Overwrite this template?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $template_file),
-					'wrapper' => array( 'width' => '20%' )
-				);
-			}, $this->maybe_overridable_templates()
-		));
+		$template_file_options_array = array_filter(
+			array_map(
+				function ($template_file) {
+					return array(
+						'key'     => join('_', array('field_h4748g3g34g34g', self::get_root_id(), $template_file)),
+						'name'    => join('_', array(self::TEMPLATE_FILE_OVERWRITE_PREFIX, $template_file)),
+						'label'   => $template_file,
+						'type'    => 'true_false',
+						'message' => sprintf(__('Overwrite this template?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $template_file),
+						'wrapper' => array('width' => '20%')
+					);
+				}, $this->maybe_overridable_templates()
+			)
+		);
 		if (!empty($template_file_options_array)) {
-			$must_use_options[] = array_filter(array(
-				'key' => join('_', array('field_dsg4gh4j64jj65', self::get_root_id())),
-				'name' => self::TEMPLATE_FILES_OVERWRITES . self::get_root_id(),
-				'label' => __('Template files', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-				'type' => 'group',
-				'instructions' => __('If unchecked, the respective template will NOT be used from the Custom Extensions plugin.
+			$must_use_options[] = array_filter(
+				array(
+					'key'               => join('_', array('field_dsg4gh4j64jj65', self::get_root_id())),
+					'name'              => self::TEMPLATE_FILES_OVERWRITES . self::get_root_id(),
+					'label'             => __('Template files', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+					'type'              => 'group',
+					'instructions'      => __(
+						'If unchecked, the respective template will NOT be used from the Custom Extensions plugin.
 					Note that if checked, a file found inside the template folder or inside the local Custom Extensions will 
-					have precedence.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-				'sub_fields' => $template_file_options_array,
-				'conditional_logic' => $must_use_functionality ? null :
-					array(
-						array(
+					have precedence.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN
+					),
+					'sub_fields'        => $template_file_options_array,
+					'conditional_logic' => $must_use_functionality
+						? null
+						: array(
 							array(
-								'field' => 'field_rhgoegererg_' . self::get_root_id(),
-								'operator' => '==',
-								'value' => '1'
+								array(
+									'field'    => 'field_rhgoegererg_' . self::get_root_id(),
+									'operator' => '==',
+									'value'    => '1'
+								)
 							)
 						)
-					)
-			));
+				)
+			);
 		}
 
 		// if this is not a must-use functionality, then hide the fields if the "must-use-checkbox" is unchecked
@@ -382,13 +396,15 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 			$conditional_logic_local = array();
 			if (!$must_use_functionality) {
 				$conditional_logic_local[] = array(
-					'field' => 'field_rhgoegererg_' . self::get_root_id(),
+					'field'    => 'field_rhgoegererg_' . self::get_root_id(),
 					'operator' => '==',
-					'value' => '1'
+					'value'    => '1'
 				);
 			}
 			$conditional_logic_local = array_merge($conditional_logic_local, $this->get_option_conditional_logic(self::get_parent()));
-			if (!empty($conditional_logic_local)) { array_unshift($conditional_logic, $conditional_logic_local); }
+			if (!empty($conditional_logic_local)) {
+				array_unshift($conditional_logic, $conditional_logic_local);
+			}
 
 			$option['conditional_logic'] = $conditional_logic;
 		}
@@ -437,7 +453,8 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @return  array   A list of all the files stored inside the overridable templates folder, relative to the folder itself.
+	 * @return  array   A list of all the files stored inside the overridable templates folder, relative to the folder
+	 *                  itself.
 	 */
 	private final function maybe_overridable_templates() {
 		return DWS_Helper::list_files(static::get_templates_base_path() . 'overrides');
@@ -457,12 +474,12 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 		do {
 			$current = get_class($current);
 
-			if(!self::$must_use[$current] && !get_field('functionality_' . self::$functionalities_by_name[$current]::get_root_id(), 'option')) {
+			if (!self::$must_use[$current] && !get_field('functionality_' . self::$functionalities_by_name[$current]::get_root_id(), 'option')) {
 				return false;
 			}
 
 			$current = self::$functionalities_by_name[$current]::get_parent();
-		} while($current !== null);
+		} while ($current !== null);
 
 		return static::are_prerequisites_fulfilled();
 	}
@@ -477,7 +494,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 *
 	 * @return  array   The plugins registered with Loco Translate including the current top-level functionality.
 	 */
-	public final function register_with_loco_translate_plugin($plugins){
+	public final function register_with_loco_translate_plugin($plugins) {
 		// we know the plugin by this handle, even if WordPress doesn't
 		$handle = untrailingslashit(str_replace(WPMU_PLUGIN_DIR, '', self::get_base_path(false, true)));
 		$handle = ltrim($handle, '/');
@@ -510,8 +527,11 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @return  bool    True if the file should be overwritten by this functionality, otherwise false.
 	 */
 	protected final function can_overwrite_file($file) {
-		if (!in_array($file, $this->maybe_overridable_templates())) { return false; }
-		return get_field(self::TEMPLATE_FILES_OVERWRITES . join('_', array(self::get_root_id(), self::TEMPLATE_FILE_OVERWRITE_PREFIX, $file)), 'option') ?: false;
+		return in_array($file, $this->maybe_overridable_templates())
+			? boolval(get_field(self::TEMPLATE_FILES_OVERWRITES . join('_', array(self::get_root_id(),
+			                                                               self::TEMPLATE_FILE_OVERWRITE_PREFIX,
+			                                                                      $file)), 'option'))
+			: false;
 	}
 
 	/**
@@ -527,14 +547,16 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @return  array   An ACF-compliant group for conditional logic.
 	 */
 	private function get_option_conditional_logic($parent) {
-		if (empty($parent)) { return array(); }
+		if (empty($parent)) {
+			return array();
+		}
 
 		$level_result = null;
 		if (!$parent->is_must_use()) {
 			$level_result = array(
-				'field'     => 'field_rhgoegererg_' . $parent->get_root_id(),
-				'operator'  => '==',
-				'value'     => '1'
+				'field'    => 'field_rhgoegererg_' . $parent->get_root_id(),
+				'operator' => '==',
+				'value'    => '1'
 			);
 		}
 

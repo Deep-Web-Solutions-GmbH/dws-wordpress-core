@@ -48,12 +48,22 @@ final class DWS_Permissions extends DWS_Root implements DWS_Installable {
 			apply_filters(self::get_hook_name('custom-permissions'), array())
 		);
 
-		$capabilities_to_remove = array_diff(array_filter(array_map(function($capability) {
-			return strpos($capability, self::CAPABILITY_PREFIX) !== false ? $capability : null;
-		}, array_keys($admin_role->capabilities))), array_values($custom_capabilities));
+		$capabilities_to_remove = array_diff(
+			array_filter(
+				array_map(
+					function ($capability) {
+						return strpos($capability, self::CAPABILITY_PREFIX) !== false ? $capability : null;
+					}, array_keys($admin_role->capabilities)
+				)
+			), array_values($custom_capabilities)
+		);
 
-		foreach($capabilities_to_remove as $capability) { $admin_role->remove_cap($capability); }
-		foreach ($custom_capabilities as $capability) { $admin_role->add_cap($capability); }
+		foreach ($capabilities_to_remove as $capability) {
+			$admin_role->remove_cap($capability);
+		}
+		foreach ($custom_capabilities as $capability) {
+			$admin_role->add_cap($capability);
+		}
 	}
 
 	/**
@@ -84,12 +94,19 @@ final class DWS_Permissions extends DWS_Root implements DWS_Installable {
 	 * @return  array   All the permissions constants inside the queried class.
 	 */
 	public static function get_permission_constants($class) {
-		try { $all_constants = (new \ReflectionClass($class))->getConstants(); }
-		catch (\ReflectionException $e) { return array(); }
+		try {
+			$all_constants = (new \ReflectionClass($class))->getConstants();
+		} catch (\ReflectionException $e) {
+			return array();
+		}
 
-		return array_filter(array_map(function($constant){
-			return (strpos($constant, self::CAPABILITY_PREFIX) === 0 && $constant !== self::CAPABILITY_PREFIX) ? $constant : null;
-		}, $all_constants));
+		return array_filter(
+			array_map(
+				function ($constant) {
+					return (strpos($constant, self::CAPABILITY_PREFIX) === 0 && $constant !== self::CAPABILITY_PREFIX) ? $constant : null;
+				}, $all_constants
+			)
+		);
 	}
 
 	/**
@@ -106,21 +123,33 @@ final class DWS_Permissions extends DWS_Root implements DWS_Installable {
 	 * @return  bool
 	 */
 	public static function has($capabilities, $user_id = null, $logic = 'and') {
-		if (!is_array($capabilities)) $capabilities = array($capabilities);
+		if (!is_array($capabilities)) {
+			$capabilities = array($capabilities);
+		}
 
 		if (is_plugin_active('advanced-access-manager/aam.php') && class_exists('AAM_Core_Subject_User')) {
 			$user = empty($user_id) ? \AAM::getUser() : (new \AAM_Core_Subject_User($user_id));
 
 			foreach ($capabilities as $capability) {
-				if (!$user->hasCapability($capability)) { if ($logic === 'and') return false; }
-				elseif ($logic === 'or') { return true; }
+				if (!$user->hasCapability($capability)) {
+					if ($logic === 'and') {
+						return false;
+					}
+				} else if ($logic === 'or') {
+					return true;
+				}
 			}
 		} else {
 			$user = empty($user_id) ? wp_get_current_user() : get_user_by('id', $user_id);
 
 			foreach ($capabilities as $capability) {
-				if(!$user->has_cap($capability)) { if ($logic === 'and') { return false; } }
-				elseif ($logic === 'or') { return true; }
+				if (!$user->has_cap($capability)) {
+					if ($logic === 'and') {
+						return false;
+					}
+				} else if ($logic === 'or') {
+					return true;
+				}
 			}
 
 
@@ -134,8 +163,8 @@ final class DWS_Permissions extends DWS_Root implements DWS_Installable {
 
 /**
  * If a certain functionality needs to implement more granular permissions, it must only create a class which inherits
- * from this one and define constants appropriately. Those permissions will be automatically created when the installation
- * is triggered.
+ * from this one and define constants appropriately. Those permissions will be automatically created when the
+ * installation is triggered.
  *
  * @since   1.0.0
  * @version 1.0.0
@@ -153,7 +182,7 @@ abstract class Permissions_Base extends DWS_Root {
 	 *
 	 * @param   DWS_WordPress_Loader    $loader
 	 */
-	protected function define_hooks( $loader ) {
+	protected function define_hooks($loader) {
 		$loader->add_filter(DWS_Permissions::get_hook_name('custom-permissions'), $this, 'register_custom_permissions');
 	}
 
@@ -169,7 +198,8 @@ abstract class Permissions_Base extends DWS_Root {
 	 *
 	 * @param   array   $permissions    The 3rd-party permissions registered so far.
 	 *
-	 * @return  array   The 3rd-party permissions registered so far including the permissions declared inside the current class.
+	 * @return  array   The 3rd-party permissions registered so far including the permissions declared inside the
+	 *                  current class.
 	 */
 	public function register_custom_permissions($permissions) {
 		return array_merge($permissions, DWS_Permissions::get_permission_constants(static::class));

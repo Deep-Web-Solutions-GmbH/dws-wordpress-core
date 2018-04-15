@@ -67,7 +67,7 @@ final class Custom_Extensions extends DWS_Singleton {
 	protected function __construct() {
 		// plugin meta
 		self::$plugin_name = 'DWS_custom-extensions';
-		self::$version = '1.0.0';
+		self::$version     = '1.0.0';
 
 		// load required files
 		$this->load_dependencies();

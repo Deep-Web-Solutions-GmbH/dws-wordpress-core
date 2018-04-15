@@ -26,9 +26,9 @@ final class DWS_i18n extends DWS_Root {
 	 *
 	 * @param   DWS_WordPress_Loader    $loader
 	 */
-	protected function define_hooks( $loader ) {
-		$loader->add_action( 'plugins_loaded', $this, 'load_muplugin_textdomain' );
-		$loader->add_action( 'loco_plugins_data', $this, 'register_with_loco_translate_plugin' );
+	protected function define_hooks($loader) {
+		$loader->add_action('plugins_loaded', $this, 'load_muplugin_textdomain');
+		$loader->add_action('loco_plugins_data', $this, 'register_with_loco_translate_plugin');
 	}
 
 	//endregion
@@ -62,7 +62,7 @@ final class DWS_i18n extends DWS_Root {
 	 *
 	 * @return  array   The plugins registered with Loco Translate including the DWS CustomExtensions plugin.
 	 */
-	public function register_with_loco_translate_plugin( array $plugins ){
+	public function register_with_loco_translate_plugin(array $plugins) {
 		// we know the plugin by this handle, even if WordPress doesn't
 		$handle = 'dws-custom-extensions/dws-custom-extensions.php';
 

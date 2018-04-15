@@ -27,7 +27,9 @@ final class DWS_Helper {
 		$path = trailingslashit($path);
 
 		$template = locate_template($path . "{$slug}-{$name}.php");
-		if (!$template) { $template = DWS_CUSTOM_EXTENSIONS_BASE_PATH . $path . "templates/{$slug}-{$name}.php"; }
+		if (!$template) {
+			$template = DWS_CUSTOM_EXTENSIONS_BASE_PATH . $path . "templates/{$slug}-{$name}.php";
+		}
 
 		load_template($template, false);
 	}
@@ -45,18 +47,25 @@ final class DWS_Helper {
 	 */
 	public static function list_files($directory, $depth = 0) {
 		$directory = trailingslashit($directory);
-		if (!is_dir($directory)) { return array(); }
+		if (!is_dir($directory)) {
+			return array();
+		}
 
 		$template_files = scandir($directory);
 		unset($template_files[array_search('.', $template_files, true)]);
 		unset($template_files[array_search('..', $template_files, true)]);
 
-		if (count($template_files) < 1) { return array(); }
+		if (count($template_files) < 1) {
+			return array();
+		}
 
-		$files = call_user_func_array('array_merge',
+		$files = call_user_func_array(
+			'array_merge',
 			array_map(
-				function($template_file) use ($directory, $depth) {
-					if ($template_file === 'index.php') { return array(); }
+				function ($template_file) use ($directory, $depth) {
+					if ($template_file === 'index.php') {
+						return array();
+					}
 
 					return is_dir(trailingslashit($directory) . $template_file)
 						? DWS_Helper::list_files(trailingslashit($directory) . $template_file, $depth + 1)
@@ -69,7 +78,7 @@ final class DWS_Helper {
 		// before returning for good, get rid of the original file path
 		if ($depth === 0) {
 			$files = array_map(
-				function($file) use ($directory) {
+				function ($file) use ($directory) {
 					return str_replace($directory, '', $file);
 				},
 				$files
@@ -91,12 +100,12 @@ final class DWS_Helper {
 	 */
 	public static function load_files($directory) {
 		$directory = trailingslashit($directory);
-		$files = self::list_files($directory);
+		$files     = self::list_files($directory);
 
 		foreach ($files as $file) {
 			if ($file === basename($file) || ltrim(dirname($file), '/') === basename($file, '.php')) {
 				/** @noinspection PhpIncludeInspection */
-				require_once( $directory . $file);
+				require_once($directory . $file);
 			}
 		}
 	}
@@ -143,7 +152,7 @@ final class DWS_Helper {
 	 */
 	public static function get_stylesheet_with_variables($path, $placeholders, $echo = false) {
 		$content = self::get_stylesheet($path);
-		$result = self::replace_placeholders($placeholders, $content);
+		$result  = self::replace_placeholders($placeholders, $content);
 
 		if ($echo) {
 			echo $result;
@@ -187,7 +196,8 @@ final class DWS_Helper {
 	 * @param   string  $css        The CSS content to be added inline.
 	 */
 	public static function add_inline_stylesheet_to_false_handle($handle, $css) {
-		wp_register_style($handle, false); wp_enqueue_style($handle);
+		wp_register_style($handle, false);
+		wp_enqueue_style($handle);
 		wp_add_inline_style($handle, $css);
 	}
 
@@ -233,7 +243,7 @@ final class DWS_Helper {
 	 */
 	public static function get_javascript_with_variables($path, $placeholders, $echo = false) {
 		$content = self::get_javascript($path);
-		$result = self::replace_placeholders($placeholders, $content);
+		$result  = self::replace_placeholders($placeholders, $content);
 
 		if ($echo) {
 			echo $result;
@@ -340,7 +350,7 @@ final class DWS_Helper {
 	 * @param   mixed   $value      The value that should be unset.
 	 */
 	public static function unset_array_element_by_value(&$array, $value) {
-		if( ($key = array_search($value, $array)) !== false) {
+		if (($key = array_search($value, $array)) !== false) {
 			unset($array[$key]);
 		}
 	}
@@ -389,14 +399,16 @@ final class DWS_Helper {
 	 * @param   string   $class      Class name.
 	 * @param   string   $method     Method name.
 	 */
-	public static function remove_anonymous_object_filter( $tag, $class, $method ) {
-		$filters = $GLOBALS['wp_filter'][ $tag ];
-		if (empty($filters)) { return; }
+	public static function remove_anonymous_object_filter($tag, $class, $method) {
+		$filters = $GLOBALS['wp_filter'][$tag];
+		if (empty($filters)) {
+			return;
+		}
 
 		foreach ($filters as $priority => $filter) {
-			foreach ( $filter as $identifier => $function ) {
-				if ( is_array($function) and is_a($function['function'][0], $class) and $method === $function['function'][1] ) {
-					remove_filter( $tag, array ( $function['function'][0], $method ), $priority );
+			foreach ($filter as $identifier => $function) {
+				if (is_array($function) and is_a($function['function'][0], $class) and $method === $function['function'][1]) {
+					remove_filter($tag, array($function['function'][0], $method), $priority);
 				}
 			}
 		}
@@ -412,7 +424,7 @@ final class DWS_Helper {
 	 * @version 1.0.0
 	 *
 	 * Code originally written by Dave Pearson.
-	 * @link http://php.net/manual/de/function.com-create-guid.php
+	 * @link    http://php.net/manual/de/function.com-create-guid.php
 	 *
 	 * @param   bool    $trim   Whether to remove encapsulating braces or not.
 	 *
@@ -421,15 +433,16 @@ final class DWS_Helper {
 	public static function generate_guid_v4($trim = true) {
 		// Windows
 		if (function_exists('com_create_guid') === true) {
-			if ($trim === true)
+			if ($trim === true) {
 				return trim(com_create_guid(), '{}');
-			else
+			} else {
 				return com_create_guid();
+			}
 		}
 
 		// OSX/Linux
 		if (function_exists('openssl_random_pseudo_bytes') === true) {
-			$data = openssl_random_pseudo_bytes(16);
+			$data    = openssl_random_pseudo_bytes(16);
 			$data[6] = chr(ord($data[6]) & 0x0f | 0x40);    // set version to 0100
 			$data[8] = chr(ord($data[8]) & 0x3f | 0x80);    // set bits 6-7 to 10
 			return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
@@ -441,13 +454,13 @@ final class DWS_Helper {
 		$hyphen = chr(45);                  // "-"
 		$lbrace = $trim ? "" : chr(123);    // "{"
 		$rbrace = $trim ? "" : chr(125);    // "}"
-		$guidv4 = $lbrace.
-		          substr($charid,  0,  8).$hyphen.
-		          substr($charid,  8,  4).$hyphen.
-		          substr($charid, 12,  4).$hyphen.
-		          substr($charid, 16,  4).$hyphen.
-		          substr($charid, 20, 12).
-		          $rbrace;
+		$guidv4 = $lbrace .
+			substr($charid, 0, 8) . $hyphen .
+			substr($charid, 8, 4) . $hyphen .
+			substr($charid, 12, 4) . $hyphen .
+			substr($charid, 16, 4) . $hyphen .
+			substr($charid, 20, 12) .
+			$rbrace;
 
 		return $guidv4;
 	}
@@ -488,7 +501,7 @@ final class DWS_Helper {
 	 */
 	public static function send_csv_email($csv_string, $body, $to, $subject, $from) {
 		// this will provide plenty adequate entropy
-		$multipartSep = '-----'.md5(time()).'-----';
+		$multipartSep = '-----' . md5(time()) . '-----';
 
 		// arrays are much more readable
 		$headers = array(
@@ -502,17 +515,17 @@ final class DWS_Helper {
 
 		// make the body of the message
 		$body = "--$multipartSep\r\n"
-		        . "Content-Type: text/plain; charset=ISO-8859-1; format=flowed\r\n"
-		        . "Content-Transfer-Encoding: 7bit\r\n"
-		        . "\r\n"
-		        . "$body\r\n"
-		        . "--$multipartSep\r\n"
-		        . "Content-Type: text/csv\r\n"
-		        . "Content-Transfer-Encoding: base64\r\n"
-		        . "Content-Disposition: attachment; filename=\"" . date('Y-m-d') . ".csv\"\r\n"
-		        . "\r\n"
-		        . "$attachment\r\n"
-		        . "--$multipartSep--";
+			. "Content-Type: text/plain; charset=ISO-8859-1; format=flowed\r\n"
+			. "Content-Transfer-Encoding: 7bit\r\n"
+			. "\r\n"
+			. "$body\r\n"
+			. "--$multipartSep\r\n"
+			. "Content-Type: text/csv\r\n"
+			. "Content-Transfer-Encoding: base64\r\n"
+			. "Content-Disposition: attachment; filename=\"" . date('Y-m-d') . ".csv\"\r\n"
+			. "\r\n"
+			. "$attachment\r\n"
+			. "--$multipartSep--";
 
 		// send the email, return the result
 		return @mail($to, $subject, $body, implode("\r\n", $headers));
@@ -534,10 +547,10 @@ final class DWS_Helper {
 
 		$params = array();
 
-		if (($query_str=$purl['query'])) {
+		if (($query_str = $purl['query'])) {
 			parse_str($query_str, $params);
 
-			foreach($params as $name => $value) {
+			foreach ($params as $name => $value) {
 				if (isset($mod[$name])) {
 					$params[$name] = $mod[$name];
 					unset($mod[$name]);
@@ -549,11 +562,21 @@ final class DWS_Helper {
 
 		$ret = "";
 
-		if ($purl['scheme']) { $ret = $purl['scheme'] . "://"; }
-		if ($purl['host']) { $ret .= $purl['host']; }
-		if ($purl['path']) { $ret .= $purl['path']; }
-		if ($params) { $ret .= '?' . http_build_query($params); }
-		if ($purl['fragment'])  { $ret .= "#" . $purl['fragment']; }
+		if ($purl['scheme']) {
+			$ret = $purl['scheme'] . "://";
+		}
+		if ($purl['host']) {
+			$ret .= $purl['host'];
+		}
+		if ($purl['path']) {
+			$ret .= $purl['path'];
+		}
+		if ($params) {
+			$ret .= '?' . http_build_query($params);
+		}
+		if ($purl['fragment']) {
+			$ret .= "#" . $purl['fragment'];
+		}
 
 		return $ret;
 	}
