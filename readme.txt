@@ -1,6 +1,5 @@
 === DWS WordPress Core ===
 Contributors: Antonius Hegyes
-Tags: comments, spam
 Requires at least: 4.9.5
 Tested up to: 4.9.5
 Requires PHP: 7.0
