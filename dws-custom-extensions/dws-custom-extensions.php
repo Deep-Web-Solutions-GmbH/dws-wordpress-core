@@ -3,19 +3,20 @@
 /**
  * The DWS Custom Extensions bootstrap file.
  *
- * @link              https://www.deep-web-solutions.de
- * @since             1.0.0
+ * @link                https://www.deep-web-solutions.de
+ * @since               1.0.0
+ * @since               1.1.0   Update notifications
  *
  * @wordpress-plugin
- * Plugin Name:       DeepWebSolutions Custom Extensions
- * Description:       This plugin handles all the core custom extensions to this WordPress installation.
- * Version:           1.0.0
- * Author:            Antonius Cezar Hegyes
- * Author URI:        https://www.linkedin.com/in/tonyhegyes/
- * License:           GPL-3.0+
- * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
- * Text Domain:       dws_custom-extensions
- * Domain Path:       /languages
+ * Plugin Name:         DeepWebSolutions Custom Extensions
+ * Description:         This plugin handles all the core custom extensions to this WordPress installation.
+ * Version:             1.1.0
+ * Author:              Antonius Cezar Hegyes
+ * Author URI:          https://www.linkedin.com/in/tonyhegyes/
+ * License:             GPL-3.0+
+ * License URI:         http://www.gnu.org/licenses/gpl-3.0.txt
+ * Text Domain:         dws_custom-extensions
+ * Domain Path:         /languages
  */
 
 define('DWS_CUSTOM_EXTENSIONS_NAME', 'Deep Web Solutions: Custom Extensions');
@@ -24,6 +25,7 @@ define('DWS_CUSTOM_EXTENSIONS_MIN_WP', '4.9.5');
 
 define('DWS_CUSTOM_EXTENSIONS_BASE_PATH', plugin_dir_path(__FILE__));
 define('DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN', 'dws_custom-extensions');
+define('DWS_GITHUB_ACCESS_TOKEN', 'd6e10cc22fce9c7e4d5dd716f93359f529e1b086');
 
 /**
  * Checks if the system requirements are met.

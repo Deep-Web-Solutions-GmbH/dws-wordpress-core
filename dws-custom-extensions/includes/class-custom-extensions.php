@@ -46,6 +46,15 @@ final class Custom_Extensions extends DWS_Singleton {
 	 */
 	private static $is_active = true;
 
+	/**
+	 * @since   1.1.0
+	 * @version 1.1.0
+	 *
+	 * @access  private
+	 * @var     \Puc_v4p4_Vcs_BaseChecker   $update_checker     An instance of the VCS updates checker.
+	 */
+	private $update_checker;
+
 	//endregion
 
 	//region MAGIC METHODS
@@ -84,6 +93,18 @@ final class Custom_Extensions extends DWS_Singleton {
 		Front\DWS_Public::maybe_initialize_singleton('85h487g8743f422');
 		DWS_Helper::load_files(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'plugins');
 		DWS_Helper::load_files(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'modules');
+
+		// make sure we check for updates
+		$this->update_checker = \Puc_v4_Factory::buildUpdateChecker(
+			'https://github.com/Deep-Web-Solutions-GmbH/dws-wordpress-core',
+			DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'dws-custom-extensions.php',
+			'dws-wordpress-core',
+			12,
+			'',
+			'dws-loader.php'
+		);
+		$this->update_checker->setAuthentication(DWS_GITHUB_ACCESS_TOKEN);
+		$this->update_checker->setBranch('master');
 
 		// plugin has been initialized, now run it
 		$this->run();
