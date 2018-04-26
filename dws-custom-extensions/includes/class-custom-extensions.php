@@ -162,6 +162,10 @@ final class Custom_Extensions extends DWS_Singleton {
 		/** Our extensions rely heavily on ACF Pro. We load it first before anything else. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/advanced-custom-fields-pro/acf.php');
 
+		/** @noinspection PhpIncludeInspection */
+		/** We use this external library to check for new plugin version in GitHub releases. */
+		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/plugin-update-checker/plugin-update-checker.php');
+
 		//endregion
 
 		//region HELPER CLASSES
