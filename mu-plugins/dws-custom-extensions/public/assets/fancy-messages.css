@@ -16,7 +16,7 @@
 
 '{plugin_messages_classes_before}'
 .dws_message:before {
-    font-family: 'FontAwesome';
+    font-family: 'FontAwesome', 'Font Awesome 5 Free';
     display: inline-block;
     font-weight: normal;
     line-height: 100%;
