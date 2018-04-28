@@ -33,7 +33,7 @@
  */
 require_once dirname( __FILE__ ) . '/class-tgm-plugin-activation.php';
 
-add_action( 'tgmpa_register', 'DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN_register_required_plugins' );
+add_action( 'tgmpa_register', 'dws__register_required_plugins' );
 
 /**
  * Register the required plugins for this theme.
@@ -52,7 +52,7 @@ add_action( 'tgmpa_register', 'DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN_register_requir
  *
  * This function is hooked into `tgmpa_register`, which is fired on the WP `init` action on priority 10.
  */
-function DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN_register_required_plugins() {
+function dws__register_required_plugins() {
 	/*
 	 * Array of plugin arrays. Required keys are name and slug.
 	 * If the source is NOT from the .org repo, then source is also required.
