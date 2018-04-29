@@ -9,17 +9,32 @@
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  */
 
-$plugins_table = new \Deep_Web_Solutions\Admin\Dashboard\DWS_Plugins_List_Table();
+/**
+ * @var    \Deep_Web_Solutions\Admin\Dashboard\DWS_TGMPA    $dws_tgmpa
+ */
+global $dws_tgmpa;
+
+$plugin_table = new \Deep_Web_Solutions\Admin\Dashboard\DWS_Plugins_List_Table();
+
+// Return early if processing a plugin installation action.
+if ((('tgmpa-bulk-install' === $plugin_table->current_action() || 'tgmpa-bulk-update' === $plugin_table->current_action())
+        && $plugin_table->process_bulk_actions()) || $dws_tgmpa->public_do_plugin_install()) {
+	return;
+}
+
+// Force refresh of available plugin information so we'll know about manual updates/deletes.
+wp_clean_plugins_cache( false );
 
 ?>
 
-<div class="wrap">
+<div id="dws-dashboard" class="wrap">
     <h1><?php esc_html_e(get_admin_page_title()); ?></h1>
-	<?php $plugins_table->prepare_items(); ?>
-	<?php $plugins_table->views(); ?>
+	<?php $plugin_table->prepare_items(); ?>
+	<?php $plugin_table->views(); ?>
 
-    <form id="dws-plugins" method="post">
-        <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
-		<?php $plugins_table->display(); ?>
+    <form id="dws-plugins" action="" method="post">
+        <input type="hidden" name="tgmpa-page" value="<?php echo esc_attr($dws_tgmpa->menu); ?>" />
+        <input type="hidden" name="plugin_status" value="<?php echo esc_attr($plugin_table->view_context); ?>" />
+	    <?php $plugin_table->display(); ?>
     </form>
 </div>

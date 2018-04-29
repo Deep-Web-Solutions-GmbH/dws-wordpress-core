@@ -187,10 +187,6 @@ final class Custom_Extensions extends DWS_Singleton {
 		/** We use this external library to check for new plugin version in GitHub releases. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/plugin-update-checker/plugin-update-checker.php');
 
-		/** @noinspection PhpIncludeInspection */
-		/** We use this external library to install and update plugins. */
-		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php');
-
 		//endregion
 
 		//region HELPER CLASSES
