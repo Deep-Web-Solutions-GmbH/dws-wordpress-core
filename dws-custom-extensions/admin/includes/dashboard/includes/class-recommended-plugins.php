@@ -143,13 +143,15 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 			$plugins        = array();
 			$parsed_plugins = json_decode($plugins_config, true);
 			foreach ($parsed_plugins as $category => $options_plugins) {
-				switch ($category) {
-					case 'wp-repository':
-						$plugins = array_merge($plugins, $options_plugins);
-						break;
-					case 'external-plugins':
-						$plugins = array_merge($plugins, $options_plugins);
-						break;
+				if (in_array($category, array('dws-core-plugins', 'dws-core-modules'))) {
+					foreach ($options_plugins as $plugin) {
+						if (is_plugin_active($plugin['dependency'])) {
+							$plugin['category'] = $category;
+							$plugins[] = $plugin;
+						}
+					}
+				} else {
+					$plugins = array_merge($plugins, $options_plugins);
 				}
 			}
 
@@ -253,9 +255,9 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * @return  bool
 		 */
 		protected function do_plugin_install() {
-			add_filter('upgrader_package_options', array(__CLASS__, 'clear_plugin_destination_filter'));
+			add_filter('upgrader_package_options', array($this, 'adjust_plugin_install_options'));
 			$installation_result = parent::do_plugin_install();
-			remove_filter('upgrader_package_options', array(__CLASS__, 'clear_plugin_destination_filter'));
+			remove_filter('upgrader_package_options', array($this, 'adjust_plugin_install_options'));
 
 			return $installation_result;
 		}
@@ -322,6 +324,123 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 			return self::$instance;
 		}
 
+		/**
+		 * We need to add custom logic for our own internal plugins and modules.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @see     \TGM_Plugin_Activation::is_plugin_installed()
+		 *
+		 * @param   string  $slug
+		 *
+		 * @return  bool
+		 */
+		public function is_plugin_installed($slug) {
+			if (strpos($slug, 'dws-') === 0) {
+				$base_path = $this->get_dws_plugins_base_path($slug);
+				$slug = $this->get_dws_plugin_slug($slug);
+
+				return is_dir($base_path . $slug);
+			} else {
+				return parent::is_plugin_installed($slug);
+			}
+		}
+
+		/**
+		 * We need to add custom logic for our own internal plugins and modules.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @see     \TGM_Plugin_Activation::is_plugin_active()
+		 *
+		 * @param   string  $slug
+		 *
+		 * @return  bool
+		 */
+		public function is_plugin_active($slug) {
+			if (strpos($slug, 'dws-') === 0) {
+				return self::is_plugin_installed($slug);
+			} else {
+				return parent::is_plugin_active($slug);
+			}
+		}
+
+		/**
+		 * We need to add custom logic for our own internal plugins and modules.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @see     \TGM_Plugin_Activation::is_plugin_updatetable()
+		 *
+		 * @param   string  $slug
+		 *
+		 * @return  bool
+		 */
+		public function is_plugin_updatetable($slug) {
+			if (strpos($slug, 'dws-') === 0) {
+				return $this->does_plugin_have_update($slug);
+			} else {
+				return parent::is_plugin_updatetable($slug);
+			}
+		}
+
+		/**
+		 * We need to add custom logic for our own internal plugins and modules.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @see     \TGM_Plugin_Activation::does_plugin_have_update()
+		 *
+		 * @param   string  $slug
+		 *
+		 * @return  false|string
+		 */
+		public function does_plugin_have_update($slug) {
+			if (strpos($slug, 'dws-') === 0) {
+				$base_path = $this->get_dws_plugins_base_path($slug);
+				$dws_slug = $this->get_dws_plugin_slug($slug);
+
+				$update_checker = \Puc_v4_Factory::buildUpdateChecker(
+					$this->plugins[$slug]['source'],
+					$base_path . $dws_slug . "/$dws_slug.php"
+				);
+				$update_checker->setAuthentication(DWS_GITHUB_ACCESS_TOKEN);
+				$update_checker->setBranch('master');
+
+				$update = $update_checker->checkForUpdates();
+				return is_null($update) ? false : $update->version;
+			} else {
+				return parent::does_plugin_have_update($slug);
+			}
+		}
+
+		/**
+		 * We need to add custom logic for our own internal plugins and modules.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @see     \TGM_Plugin_Activation::get_download_url()
+		 *
+		 * @param   string  $slug
+		 *
+		 * @return  string
+		 */
+		public function get_download_url($slug) {
+			if (strpos($slug, 'dws-') === 0) {
+				$repo = new \Puc_v4p4_Vcs_GitHubApi($this->plugins[$slug]['source'], DWS_GITHUB_ACCESS_TOKEN);
+				$release = $repo->getLatestRelease();
+
+				return $release->downloadUrl;
+			} else {
+				return parent::get_download_url($slug);
+			}
+		}
+
 		//endregion
 
 		//region COMPATIBILITY LOGIC
@@ -350,10 +469,57 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 *
 		 * @return  array   Installation options which request clearing the plugin before installation.
 		 */
-		public static function clear_plugin_destination_filter($options) {
+		public static function adjust_plugin_install_options($options) {
 			$options['clear_destination'] = true;
 
+			if (strpos($options['package'], 'https://api.github.com/repos/Deep-Web-Solutions-GmbH/') === 0) {
+				$repo_name = substr($options['package'], 53);
+				$repo_name = substr($repo_name, 0, strpos($repo_name, '/'));
+
+				$options['destination'] = DWS_CUSTOM_EXTENSIONS_BASE_PATH;
+				if (strpos($options['package'], 'plugin')) {
+					$directory = str_replace('dws-wordpress-plugins-', '', $repo_name);
+					$options['destination'] .= "plugins/$directory";
+				} else {
+					$directory = str_replace('dws-wordpress-modules-', '', $repo_name);
+					$options['destination'] .= "modules/$directory";
+				}
+			}
+
 			return $options;
+		}
+
+		//endregion
+
+		//region HELPERS
+
+		/**
+		 * Gets the full system path to either the DWS modules or plugins sub-folder.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @param   string  $slug   The slug of the plugin in question.
+		 *
+		 * @return  string  The full system path to where the plugin files should be.
+		 */
+		private function get_dws_plugins_base_path($slug) {
+			$is_module = (strpos($slug, 'module') === 4);
+			return trailingslashit(DWS_CUSTOM_EXTENSIONS_BASE_PATH . ($is_module ? 'modules' : 'plugins'));
+		}
+
+		/**
+		 * Gets rid of the external slug prefix of internal DWS modules or plugins.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @param   string  $slug   The slug of the plugin in question.
+		 *
+		 * @return  string  The proper internal slug, no prefixes.
+		 */
+		private function get_dws_plugin_slug($slug) {
+			return substr($slug, strpos($slug, '_') + 1);
 		}
 
 		//endregion

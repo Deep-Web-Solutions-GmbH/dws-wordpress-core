@@ -115,15 +115,6 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 */
 	private $description;
 
-	/**
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @access  private
-	 * @var     \Puc_v4p4_Vcs_BaseChecker   $update_checker     An instance of the VCS updates checker.
-	 */
-	private $update_checker;
-
 	//endregion
 
 	//region MAGIC METHODS
@@ -156,16 +147,6 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 			$this->functionality_depth                                                                           = self::$parent_functionality[static::class]->functionality_depth + 1;
 		} else {
 			$this->functionality_depth = 0;
-
-			// enable checking for updates
-			if (!empty($this->get_github_link())) {
-				$this->update_checker = \Puc_v4_Factory::buildUpdateChecker(
-					$this->get_github_link(),
-					self::get_base_path(false, true)
-				);
-				$this->update_checker->setAuthentication(DWS_GITHUB_ACCESS_TOKEN);
-				$this->update_checker->setBranch('master');
-			}
 		}
 
 		// set up this functionality instance
@@ -185,18 +166,6 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	//endregion
 
 	//region GETTERS
-
-	/**
-	 * Returns the link of the private organization GitHub repository of the functionality, it top-level.
-	 *
-	 * @since   1.1.0
-	 * @version 1.0.0
-	 *
-	 * @return  string  The HTTPS link of the GitHub repository.
-	 */
-	protected function get_github_link() {
-		return false;
-	}
 
 	/**
 	 * Gets the parent functionality of the current one.
