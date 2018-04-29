@@ -1,6 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Admin;
+use Deep_Web_Solutions\Admin\Dashboard\DWS_Recommended_Plugins;
 use Deep_Web_Solutions\Core\DWS_Functionality_Template;
 
 if (!defined('ABSPATH')) { exit; }
@@ -27,21 +28,13 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @since   1.2.0   New public and static modifiers.
+	 * @version 1.2.0
 	 *
-	 * @access  private
+	 * @access  public
 	 * @var     string  $main_page_slug     The slug of the main DWS dashboard page.
 	 */
-	private $main_page_slug = self::MENU_PAGES_SLUG_PREFIX . 'main';
-
-	/**
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @access  private
-	 * @var     string  $plugins_page_slug  The slug of the recommended plugins DWS dashboard page.
-	 */
-	private $plugins_page_slug = self::MENU_PAGES_SLUG_PREFIX . 'recommended-plugins';
+	public static $main_page_slug = self::MENU_PAGES_SLUG_PREFIX . 'main';
 
 	//endregion
 
@@ -69,6 +62,21 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 		/** @noinspection PhpIncludeInspection */
 		/** Handles the DWS recommended plugins list, installation, and updates. */
 		require_once(self::get_includes_base_path() . 'class-recommended-plugins.php');
+		DWS_Recommended_Plugins::maybe_initialize_singleton('sdfnhgi8he8gheife', true, self::get_root_id());
+	}
+
+	/**
+	 * @since   1.2.0
+	 * @version 1.2.0
+	 *
+	 * @param   string  $name
+	 * @param   array   $extra
+	 * @param   string  $root
+	 *
+	 * @return  string
+	 */
+	public static function get_hook_name($name, $extra = array(), $root = 'dws-dashboard') {
+		return parent::get_hook_name($name, $extra, $root);
 	}
 
 	//endregion
@@ -85,20 +93,40 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 		add_menu_page(
 			'Deep Web Solutions', 'Deep Web Solutions',
 			'administrator',
-			$this->main_page_slug,
+			self::$main_page_slug,
 			array($this, 'menu_page_screen'),
 			'data:image/svg+xml;base64,' . base64_encode(file_get_contents(DWS_Admin::get_assets_base_path() . 'dws_logo.svg')),
 			3
 		);
 
-		add_submenu_page(
-			$this->main_page_slug,
-			__('Deep Web Solutions: Custom Extensions Recommended Plugins', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-			__('Recommended Plugins', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-			'administrator',
-			$this->plugins_page_slug,
-			array($this, 'menu_page_screen')
-		);
+		/**
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @var     array   $submenu_pages  The submenu pages that should be registered.
+		 *      $submenu_pages  = [
+		 *          {$page_slug}  => [
+		 *              'menu_title'    =>  (string) The menu title. Required.
+		 *              'page_title'    =>  (string) The page title. Optional.
+		 *          ]
+		 *          ...
+		 *      ]
+		 */
+		$submenu_pages = apply_filters(self::get_hook_name('submenus'), array());
+		foreach ($submenu_pages as $page_slug => $options) {
+			if (!isset($options['menu_title'])) {
+				continue;
+			}
+
+			add_submenu_page(
+				self::$main_page_slug,
+				isset($options['page_title']) ? $options['page_title'] : $options['menu_title'],
+				$options['menu_title'],
+				'administrator',
+				$page_slug,
+				array($this, 'menu_page_screen')
+			);
+		}
 	}
 
 	/**
