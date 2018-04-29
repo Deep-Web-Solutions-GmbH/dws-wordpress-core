@@ -14,15 +14,15 @@ namespace {
 	 * @param   array   $plugins    An array of plugin arrays.
 	 * @param   array   $config     Optional. An array of configuration values.
 	 */
-	function dws_tgmpa( $plugins, $config = array() ) {
-		$instance = call_user_func( array( get_class( $GLOBALS['dws_tgmpa'] ), 'get_instance' ) );
+	function dws_tgmpa($plugins, $config = array()) {
+		$instance = call_user_func(array(get_class($GLOBALS['dws_tgmpa']), 'get_instance'));
 
-		foreach ( $plugins as $plugin ) {
-			call_user_func( array( $instance, 'register' ), $plugin );
+		foreach ($plugins as $plugin) {
+			call_user_func(array($instance, 'register'), $plugin);
 		}
 
-		if ( ! empty( $config ) && is_array( $config ) ) {
-			call_user_func( array( $instance, 'config' ), $config );
+		if (!empty($config) && is_array($config)) {
+			call_user_func(array($instance, 'config'), $config);
 		}
 	}
 
@@ -107,9 +107,11 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 */
 		public function register_submenu_page($submenus) {
 			$submenus[$this->plugins_page_slug] = array(
-				'menu_title'    => __('Recommended Plugins', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-				'page_title'    => __('Deep Web Solutions: Custom Extensions Recommended Plugins',
-				                      DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN)
+				'menu_title' => __('Recommended Plugins', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+				'page_title' => __(
+					'Deep Web Solutions: Custom Extensions Recommended Plugins',
+					DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN
+				)
 			);
 
 			return $submenus;
@@ -141,14 +143,14 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 			$plugins        = array();
 			$parsed_plugins = json_decode($plugins_config, true);
 			foreach ($parsed_plugins as $category => $options_plugins) {
-					switch($category) {
-						case 'wp-repository':
-							$plugins = array_merge($plugins, $options_plugins);
+				switch ($category) {
+					case 'wp-repository':
+						$plugins = array_merge($plugins, $options_plugins);
 						break;
-						case 'external-plugins':
-							$plugins = array_merge($plugins, $options_plugins);
+					case 'external-plugins':
+						$plugins = array_merge($plugins, $options_plugins);
 						break;
-					}
+				}
 			}
 
 			$config = array(
@@ -161,11 +163,11 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 				'dismissable'  => true,                     // If false, a user cannot dismiss the nag message.
 				'is_automatic' => false,                    // Automatically activate plugins after installation or not.
 				'strings'      => array(
-					'page_title'                      => __( 'Install Required Plugins', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
-					'menu_title'                      => __( 'Install Plugins', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
-					'installing'                      => __( 'Installing Plugin: %s', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
-					'updating'                        => __( 'Updating Plugin: %s', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
-					'oops'                            => __( 'Something went wrong with the plugin API.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
+					'page_title'                      => __('Install Required Plugins', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+					'menu_title'                      => __('Install Plugins', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+					'installing'                      => __('Installing Plugin: %s', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+					'updating'                        => __('Updating Plugin: %s', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+					'oops'                            => __('Something went wrong with the plugin API.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 					'notice_can_install_required'     => _n_noop(
 						'DWS Custom Extensions requires the following plugin: %1$s.',
 						'DWS Custom Extensions requires the following plugins: %1$s.',
@@ -201,7 +203,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 						'Begin installing plugins',
 						DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN
 					),
-					'update_link' 					  => _n_noop(
+					'update_link'                     => _n_noop(
 						'Begin updating plugin',
 						'Begin updating plugins',
 						DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN
@@ -211,15 +213,15 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 						'Begin activating plugins',
 						DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN
 					),
-					'return'                          => __( 'Return to Required Plugins Installer', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
-					'plugin_activated'                => __( 'Plugin activated successfully.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
-					'activated_successfully'          => __( 'The following plugin was activated successfully:', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
-					'plugin_already_active'           => __( 'No action taken. Plugin %1$s was already active.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
-					'plugin_needs_higher_version'     => __( 'Plugin not activated. A higher version of %s is needed for DWS Custom Extensions. Please update the plugin.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
-					'complete'                        => __( 'All plugins installed and activated successfully. %1$s', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
-					'dismiss'                         => __( 'Dismiss this notice', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
-					'notice_cannot_install_activate'  => __( 'There are one or more required or recommended plugins to install, update or activate.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
-					'contact_admin'                   => __( 'Please contact the administrator of this site for help.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
+					'return'                          => __('Return to Required Plugins Installer', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+					'plugin_activated'                => __('Plugin activated successfully.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+					'activated_successfully'          => __('The following plugin was activated successfully:', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+					'plugin_already_active'           => __('No action taken. Plugin %1$s was already active.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+					'plugin_needs_higher_version'     => __('Plugin not activated. A higher version of %s is needed for DWS Custom Extensions. Please update the plugin.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+					'complete'                        => __('All plugins installed and activated successfully. %1$s', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+					'dismiss'                         => __('Dismiss this notice', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+					'notice_cannot_install_activate'  => __('There are one or more required or recommended plugins to install, update or activate.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+					'contact_admin'                   => __('Please contact the administrator of this site for help.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 					'nag_type'                        => 'notice-info', // Determines admin notice type - can only be one of
 																		// the typical WP notice classes, such as 'updated', 'update-nag', 'notice-warning', 'notice-info' or
 																		// 'error'. Some of which may not work as expected in older WP versions.
@@ -251,16 +253,16 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * @return  bool
 		 */
 		protected function do_plugin_install() {
-			add_filter( 'upgrader_package_options', array( __CLASS__, 'clear_plugin_destination_filter' ) );
+			add_filter('upgrader_package_options', array(__CLASS__, 'clear_plugin_destination_filter'));
 			$installation_result = parent::do_plugin_install();
-			remove_filter( 'upgrader_package_options', array( __CLASS__, 'clear_plugin_destination_filter' ) );
+			remove_filter('upgrader_package_options', array(__CLASS__, 'clear_plugin_destination_filter'));
 
 			return $installation_result;
 		}
 
 		/**
-		 * Makes it such that the TGMPA library doesn't register its own page, so we can do it ourselves with overwritten
-		 * logic.
+		 * Makes it such that the TGMPA library doesn't register its own page, so we can do it ourselves with
+		 * overwritten logic.
 		 *
 		 * @since   1.2.0
 		 * @version 1.2.0
@@ -348,7 +350,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 *
 		 * @return  array   Installation options which request clearing the plugin before installation.
 		 */
-		public static function clear_plugin_destination_filter( $options ) {
+		public static function clear_plugin_destination_filter($options) {
 			$options['clear_destination'] = true;
 
 			return $options;
@@ -379,9 +381,9 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		public function __construct() {
 			parent::__construct();
 
-			$this->tgmpa = call_user_func( array( get_class( $GLOBALS['dws_tgmpa'] ), 'get_instance' ) );
+			$this->tgmpa        = call_user_func(array(get_class($GLOBALS['dws_tgmpa']), 'get_instance'));
 			$this->view_context = isset($_REQUEST['plugin_status']) ? sanitize_key($_REQUEST['plugin_status'])
-									: (isset($_REQUEST['plugin_category']) ? $_REQUEST['plugin_category'] : 'all');
+				: (isset($_REQUEST['plugin_category']) ? $_REQUEST['plugin_category'] : 'all');
 		}
 
 		//endregion
@@ -400,15 +402,15 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 */
 		protected function categorize_plugins_to_views() {
 			$plugins = array(
-				'all'       => array(),
-				'install'   => array(),
-				'update'    => array(),
-				'activate'  => array(),
-				'Others'    => array()
+				'all'      => array(),
+				'install'  => array(),
+				'update'   => array(),
+				'activate' => array(),
+				'Others'   => array()
 			);
 
-			foreach ( $this->tgmpa->plugins as $slug => $plugin ) {
-				$plugins['all'][ $slug ] = $plugin;
+			foreach ($this->tgmpa->plugins as $slug => $plugin) {
+				$plugins['all'][$slug] = $plugin;
 
 				if (isset($plugin['category'])) {
 					$categories = explode(',', $plugin['category']);
@@ -419,15 +421,15 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 					$plugins['Others'][$slug] = $plugin;
 				}
 
-				if ( ! $this->tgmpa->is_plugin_installed( $slug ) ) {
-					$plugins['install'][ $slug ] = $plugin;
+				if (!$this->tgmpa->is_plugin_installed($slug)) {
+					$plugins['install'][$slug] = $plugin;
 				} else {
-					if ( false !== $this->tgmpa->does_plugin_have_update( $slug ) ) {
-						$plugins['update'][ $slug ] = $plugin;
+					if (false !== $this->tgmpa->does_plugin_have_update($slug)) {
+						$plugins['update'][$slug] = $plugin;
 					}
 
-					if ( $this->tgmpa->can_plugin_activate( $slug ) ) {
-						$plugins['activate'][ $slug ] = $plugin;
+					if ($this->tgmpa->can_plugin_activate($slug)) {
+						$plugins['activate'][$slug] = $plugin;
 					}
 				}
 			}
@@ -448,16 +450,16 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		public function get_views() {
 			$category_links = array();
 
-			foreach ( $this->view_totals as $type => $count ) {
-				if ( $count < 1 || in_array($type, array('all', 'install', 'update', 'activate')) ) {
+			foreach ($this->view_totals as $type => $count) {
+				if ($count < 1 || in_array($type, array('all', 'install', 'update', 'activate'))) {
 					continue;
 				}
 
 				$category_links[$type] = sprintf(
 					'<a href="%s"%s>%s</a>',
-					esc_url( $this->tgmpa->get_tgmpa_status_url(array('param' => 'plugin_category', 'value' => $type))),
-					( $type === $this->view_context ) ? ' class="current"' : '',
-					sprintf( "$type <span class='count'>(%s)</span>", number_format_i18n( $count ) )
+					esc_url($this->tgmpa->get_tgmpa_status_url(array('param' => 'plugin_category', 'value' => $type))),
+					($type === $this->view_context) ? ' class="current"' : '',
+					sprintf("$type <span class='count'>(%s)</span>", number_format_i18n($count))
 				);
 			}
 
