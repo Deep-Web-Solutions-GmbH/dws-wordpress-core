@@ -167,18 +167,18 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 					'updating'                        => __( 'Updating Plugin: %s', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
 					'oops'                            => __( 'Something went wrong with the plugin API.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
 					'notice_can_install_required'     => _n_noop(
-						'This theme requires the following plugin: %1$s.',
-						'This theme requires the following plugins: %1$s.',
+						'DWS Custom Extensions requires the following plugin: %1$s.',
+						'DWS Custom Extensions requires the following plugins: %1$s.',
 						DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN
 					),
 					'notice_can_install_recommended'  => _n_noop(
-						'This theme recommends the following plugin: %1$s.',
-						'This theme recommends the following plugins: %1$s.',
+						'DWS Custom Extensions recommends the following plugin: %1$s.',
+						'DWS Custom Extensions recommends the following plugins: %1$s.',
 						DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN
 					),
 					'notice_ask_to_update'            => _n_noop(
-						'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.',
-						'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.',
+						'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this DWS Custom Extensions: %1$s.',
+						'The following plugins need to be updated to their latest version to ensure maximum compatibility with this DWS Custom Extensions: %1$s.',
 						DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN
 					),
 					'notice_ask_to_update_maybe'      => _n_noop(
@@ -215,7 +215,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 					'plugin_activated'                => __( 'Plugin activated successfully.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
 					'activated_successfully'          => __( 'The following plugin was activated successfully:', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
 					'plugin_already_active'           => __( 'No action taken. Plugin %1$s was already active.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
-					'plugin_needs_higher_version'     => __( 'Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
+					'plugin_needs_higher_version'     => __( 'Plugin not activated. A higher version of %s is needed for DWS Custom Extensions. Please update the plugin.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
 					'complete'                        => __( 'All plugins installed and activated successfully. %1$s', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
 					'dismiss'                         => __( 'Dismiss this notice', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
 					'notice_cannot_install_activate'  => __( 'There are one or more required or recommended plugins to install, update or activate.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN ),
@@ -272,6 +272,37 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		}
 
 		/**
+		 * Retrieve the URL to the TGMPA Install page for a specific plugins view.
+		 *
+		 * I.e. depending on the config settings passed something along the lines of:
+		 * http://example.com/wp-admin/themes.php?page=tgmpa-install-plugins&plugin_category=install
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @see     \TGM_Plugin_Activation::get_tgmpa_status_url()
+		 *
+		 * @param   array   $parameter  Contains the parameter name and value to be appended.
+		 *
+		 * @return  string  Properly encoded URL (not escaped).
+		 */
+		public function get_tgmpa_status_url($parameter) {
+			if (!is_array($parameter)) {
+				$parameter = array(
+					'param' => 'plugin_status',
+					'value' => $parameter
+				);
+			}
+
+			return add_query_arg(
+				array(
+					$parameter['param'] => urlencode($parameter['value'])
+				),
+				$this->get_tgmpa_url()
+			);
+		}
+
+		/**
 		 * Returns the singleton instance of the class.
 		 *
 		 * @since   1.2.0
@@ -291,7 +322,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 
 		//endregion
 
-		//region
+		//region COMPATIBILITY LOGIC
 
 		/**
 		 * Public plugin install action.
@@ -336,6 +367,8 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 	 * @see     \TGMPA_List_Table
 	 */
 	final class DWS_Plugins_List_Table extends \TGMPA_List_Table {
+		//region MAGIC FUNCTIONS
+
 		/**
 		 * DWS_Plugins_List_Table constructor.
 		 * Required so that we overwrite the TGMPA instance with our own extension.
@@ -345,44 +378,92 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 */
 		public function __construct() {
 			parent::__construct();
-			$this->tgmpa = call_user_func( array( get_class( $GLOBALS['dws_tgmpa'] ), 'get_instance' ) );;
+
+			$this->tgmpa = call_user_func( array( get_class( $GLOBALS['dws_tgmpa'] ), 'get_instance' ) );
+			$this->view_context = isset($_REQUEST['plugin_status']) ? sanitize_key($_REQUEST['plugin_status'])
+									: (isset($_REQUEST['plugin_category']) ? $_REQUEST['plugin_category'] : 'all');
 		}
 
+		//endregion
 
-
+		//region INHERITED FUNCTIONS
 
 		/**
 		 * Categorize the plugins which have open actions into views for the TGMPA page.
 		 *
-		 * @since 2.5.0
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @see     \TGMPA_List_Table::categorize_plugins_to_views()
+		 *
+		 * @return  array
 		 */
 		protected function categorize_plugins_to_views() {
 			$plugins = array(
-				'all'      => array(), // Meaning: all plugins which still have open actions.
-				'install'  => array(),
-				'update'   => array(),
-				'activate' => array(),
+				'all'       => array(),
+				'install'   => array(),
+				'update'    => array(),
+				'activate'  => array(),
+				'Others'    => array()
 			);
 
 			foreach ( $this->tgmpa->plugins as $slug => $plugin ) {
+				$plugins['all'][ $slug ] = $plugin;
 
-					$plugins['all'][ $slug ] = $plugin;
+				if (isset($plugin['category'])) {
+					$categories = explode(',', $plugin['category']);
+					foreach ($categories as $category) {
+						$plugins[$category][$slug] = $plugin;
+					}
+				} else {
+					$plugins['Others'][$slug] = $plugin;
+				}
 
-					if ( ! $this->tgmpa->is_plugin_installed( $slug ) ) {
-						$plugins['install'][ $slug ] = $plugin;
-					} else {
-						if ( false !== $this->tgmpa->does_plugin_have_update( $slug ) ) {
-							$plugins['update'][ $slug ] = $plugin;
-						}
-
-						if ( $this->tgmpa->can_plugin_activate( $slug ) ) {
-							$plugins['activate'][ $slug ] = $plugin;
-						}
+				if ( ! $this->tgmpa->is_plugin_installed( $slug ) ) {
+					$plugins['install'][ $slug ] = $plugin;
+				} else {
+					if ( false !== $this->tgmpa->does_plugin_have_update( $slug ) ) {
+						$plugins['update'][ $slug ] = $plugin;
 					}
 
+					if ( $this->tgmpa->can_plugin_activate( $slug ) ) {
+						$plugins['activate'][ $slug ] = $plugin;
+					}
+				}
 			}
 
 			return $plugins;
 		}
+
+		/**
+		 * Get an associative array ( id => link ) of the views available on this table.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @see     \TGMPA_List_Table::views()
+		 *
+		 * @return  array
+		 */
+		public function get_views() {
+			$category_links = array();
+
+			foreach ( $this->view_totals as $type => $count ) {
+				if ( $count < 1 || in_array($type, array('all', 'install', 'update', 'activate')) ) {
+					continue;
+				}
+
+				$category_links[$type] = sprintf(
+					'<a href="%s"%s>%s</a>',
+					esc_url( $this->tgmpa->get_tgmpa_status_url(array('param' => 'plugin_category', 'value' => $type))),
+					( $type === $this->view_context ) ? ' class="current"' : '',
+					sprintf( "$type <span class='count'>(%s)</span>", number_format_i18n( $count ) )
+				);
+			}
+
+			return array_merge(parent::get_views(), $category_links);
+		}
+
+		//endregion
 	}
 }
