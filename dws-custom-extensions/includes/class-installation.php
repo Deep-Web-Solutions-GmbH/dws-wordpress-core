@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) { exit; }
  * Provides an "installation" function to this MU-plugin.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 1.2.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -46,12 +46,10 @@ final class DWS_Installation extends DWS_Root {
 	 * so it should only be triggered by an admin by AJAX.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @throws  \ReflectionException
+	 * @version 1.2.0
 	 */
-	public function run_installation() {
-		if (!DWS_Permissions::has('administrator')) {
+	public static function run_installation() {
+		if (wp_doing_ajax() && !DWS_Permissions::has('administrator')) {
 			return;
 		}
 
@@ -60,14 +58,15 @@ final class DWS_Installation extends DWS_Root {
 				continue;
 			}
 
-			$class           = new \ReflectionClass($declared_class);
-			$install_version = $class->getMethod('get_version')->invoke(null);
-			if (get_option($class->getName() . '_install_version') === $install_version) {
-				continue;
-			}
+			try {
+				$class           = new \ReflectionClass($declared_class);
+				$install_version = $class->getMethod('get_version')->invoke(null);
 
-			$class->getMethod('install')->invoke(null);
-			update_option($class->getName() . '_install_version', $install_version);
+				if (get_option($class->getName() . '_install_version') !== $install_version) {
+					$class->getMethod('install')->invoke(null);
+					update_option($class->getName() . '_install_version', $install_version);
+				}
+			} catch (\ReflectionException $exception) { /* literally impossible currently */ }
 		}
 
 		die;

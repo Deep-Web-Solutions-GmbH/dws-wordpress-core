@@ -50,6 +50,7 @@ namespace {
 namespace Deep_Web_Solutions\Admin\Dashboard {
 	use Deep_Web_Solutions\Admin\DWS_Dashboard;
 	use Deep_Web_Solutions\Core\DWS_Functionality_Template;
+	use Deep_Web_Solutions\Core\DWS_Installation;
 
 	/**
 	 * Configures an instance of the TGM Plugin Activation library.
@@ -332,6 +333,11 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 			add_filter('upgrader_package_options', array($this, 'adjust_plugin_install_options'));
 			$installation_result = parent::do_plugin_install();
 			remove_filter('upgrader_package_options', array($this, 'adjust_plugin_install_options'));
+
+			// maybe some of the installed DWS plugins and modules would like to "install"
+			if ($installation_result === true) {
+				DWS_Installation::run_installation();
+			}
 
 			return $installation_result;
 		}

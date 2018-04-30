@@ -12,6 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 = 1.2.0 =
 * Updates and installation of plugins, including dws plugins and dws modules.
 * New custom permissions for the DWS menus.
+* Trigger DWS installation on DWS plugins update and install.
 
 = 1.1.0 =
 * Added infrastructure for all top-level functionalities to register their GitHub repository links.
