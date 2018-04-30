@@ -90,6 +90,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 
 			$loader->add_action('plugins_loaded', $this, 'load_dws_tgmpa');
 			$loader->add_action('tgmpa_register', $this, 'register_recommended_plugins');
+			$loader->add_filter('tgmpa_table_data_item', $this, 'filter_table_item', 10, 2);
 		}
 
 		//endregion
@@ -234,6 +235,30 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 			);
 
 			dws_tgmpa($plugins, $config);
+		}
+
+		/**
+		 * Save the plugin categories as well in the table data item.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @param   array   $item       Definition of a table row item.
+		 * @param   array   $plugin     The JSON definition of the plugin to be represented.
+		 *
+		 * @return  array   Enhanced table row item definition.
+		 */
+		public function filter_table_item($item, $plugin) {
+			$item['categories'] = array();
+
+			$categories = explode(',', $plugin['category']);
+			foreach ($categories as $category) {
+				$item['categories'][] = trim($category);
+			}
+
+			$item['categories'] = array_unique($item['categories']);
+
+			return $item;
 		}
 
 		//endregion
@@ -758,15 +783,39 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		/**
 		 * Output all the column information within the table.
 		 *
-		 * @since 2.2.0
+		 * @since   1.2.0
 		 *
-		 * @return array $columns The column names.
+		 * @return  array   $columns    The column names.
 		 */
 		public function get_columns() {
-			return array_merge(parent::get_columns(), array(
+			$columns = array(
 				'version'   => __('Version', 'tgmpa'),
 				'status'    => __('Status', 'tgmpa')
-			));
+			);
+
+			if (in_array($this->view_context, array('all', 'install', 'update'))) {
+				$columns['categories'] = __('Categories', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN);
+			}
+
+			return array_merge(parent::get_columns(), $columns);
+		}
+
+		//endregion
+
+		//region COMPATIBILITY LOGIC
+
+		/**
+		 * Output the plugin categories.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @param   array   $item   Array of item data.
+		 *
+		 * @return  string  The plugin categories.
+		 */
+		public function column_categories($item) {
+			return join(', ', $item['categories']);
 		}
 
 		//endregion
