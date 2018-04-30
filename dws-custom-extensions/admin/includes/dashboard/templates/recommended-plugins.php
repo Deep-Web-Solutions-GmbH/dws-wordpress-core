@@ -26,8 +26,10 @@ if ((('tgmpa-bulk-install' === $plugin_table->current_action() || 'tgmpa-bulk-up
 }
 
 // Force refresh of available plugin information so we'll know about manual updates/deletes.
-wp_clean_plugins_cache(false);
-DWS_Recommended_Plugins::delete_updates_transient();
+if ($plugin_table->view_context === 'all') {
+	wp_clean_plugins_cache(false);
+	DWS_Recommended_Plugins::delete_updates_transient();
+}
 
 ?>
 

@@ -551,7 +551,11 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 */
 		public function get_download_url($slug) {
 			if (strpos($slug, 'dws-') === 0) {
-				$GLOBALS['dws_plugin_slug'] = $slug;
+				if (!isset($GLOBALS['dws_plugin_slug'])) {
+					$GLOBALS['dws_plugin_slug'] = array($slug);
+				} else {
+					$GLOBALS['dws_plugin_slug'][] = $slug;
+				}
 
 				$repo = new \Puc_v4p4_Vcs_GitHubApi($this->plugins[$slug]['source'], DWS_GITHUB_ACCESS_TOKEN);
 				$release = $repo->getLatestRelease();
@@ -620,26 +624,33 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * @return  array   Installation options which request clearing the plugin before installation.
 		 */
 		public function adjust_plugin_install_options($options) {
+			static $counter = 0;
+
 			$options['clear_destination'] = true;
 
 			if (isset($GLOBALS['dws_plugin_slug'])) {
-				$dws_slug = $this->get_dws_plugin_slug($GLOBALS['dws_plugin_slug']);
-				$options['destination'] = DWS_CUSTOM_EXTENSIONS_BASE_PATH;
+				$dws_slug = $this->get_dws_plugin_slug($GLOBALS['dws_plugin_slug'][$counter]);
+				if ($dws_slug !== $GLOBALS['dws_plugin_slug'][$counter]) {
+					$options['destination'] = DWS_CUSTOM_EXTENSIONS_BASE_PATH;
 
-				if (strpos($GLOBALS['dws_plugin_slug'], 'plugin')) {
-					$directory = str_replace('dws-wordpress-plugins-', '', $dws_slug);
-					$options['destination'] .= "plugins/$directory";
-				} else {
-					$directory = str_replace('dws-wordpress-modules-', '', $dws_slug);
-					$options['destination'] .= "modules/$directory";
+					if (strpos($GLOBALS['dws_plugin_slug'][$counter], 'plugin')) {
+						$directory = str_replace('dws-wordpress-plugins-', '', $dws_slug);
+						$options['destination'] .= "plugins/$directory";
+					} else {
+						$directory = str_replace('dws-wordpress-modules-', '', $dws_slug);
+						$options['destination'] .= "modules/$directory";
+					}
+
+					// for the 'ssh2' FTP method, the folder needs to already exist
+					if (!is_dir($options['destination'])) {
+						mkdir($options['destination'], 0755, true);
+					}
+
+					$counter++;
+					if ($counter === count($GLOBALS['dws_plugin_slug'])) {
+						unset($GLOBALS['dws_plugin_slug']);
+					}
 				}
-
-				// for the 'ssh2' FTP method, the folder needs to already exist
-				if (!is_dir($options['destination'])) {
-					mkdir($options['destination'], 0755, true);
-				}
-
-				unset($GLOBALS['dws_plugin_slug']);
 			}
 
 			return $options;
@@ -672,10 +683,15 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 *
 		 * @param   string  $slug   The slug of the plugin in question.
 		 *
-		 * @return  string  The proper internal slug, no prefixes.
+		 * @return  string  If DWS plugin, the proper internal slug, no prefixes, otherwise original slug.
 		 */
 		private function get_dws_plugin_slug($slug) {
-			return substr($slug, strpos($slug, '_') + 1);
+			if (strpos($slug, 'dws-plugin') !== 0 && strpos($slug, 'dws-module') !== 0) {
+				return $slug;
+			}
+
+			$delimiter_post = strpos($slug, '_');
+			return ($delimiter_post === false) ? $slug : substr($slug, $delimiter_post + 1);
 		}
 
 		//endregion
@@ -793,6 +809,9 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * Output all the column information within the table.
 		 *
 		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @see     \TGMPA_List_Table::get_columns()
 		 *
 		 * @return  array   $columns    The column names.
 		 */
@@ -807,6 +826,29 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 			}
 
 			return array_merge(parent::get_columns(), $columns);
+		}
+
+		/**
+		 * Adds compatibility for the DWS plugins.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @see     \TGMPA_List_Table::process_bulk_actions()
+		 *
+		 * @return  bool
+		 */
+		public function process_bulk_actions() {
+			add_filter('upgrader_package_options', array(DWS_TGMPA::get_instance(), 'adjust_plugin_install_options'));
+			$installation_result = parent::process_bulk_actions();
+			remove_filter('upgrader_package_options', array(DWS_TGMPA::get_instance(), 'adjust_plugin_install_options'));
+
+			// maybe some of the installed DWS plugins and modules would like to "install"
+			if ($installation_result === true) {
+				DWS_Installation::run_installation();
+			}
+
+			return $installation_result;
 		}
 
 		//endregion
