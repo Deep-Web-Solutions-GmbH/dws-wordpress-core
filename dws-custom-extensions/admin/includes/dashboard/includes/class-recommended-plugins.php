@@ -111,7 +111,8 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 				'page_title' => __(
 					'Deep Web Solutions: Custom Extensions Recommended Plugins',
 					DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN
-				)
+				),
+				'capability' => Permissions::SEE_RECOMMENDED_PLUGINS
 			);
 
 			return $submenus;
@@ -155,12 +156,13 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 				}
 			}
 
+			// define TGMPA instance configuration
 			$config = array(
 				'id'           => DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN,    // Unique ID for hashing notices for multiple instances of TGMPA.
 				'menu'         => $this->plugins_page_slug, // Menu slug.
 				'parent_slug'  => 'admin.php?page=' . DWS_Dashboard::$main_page_slug,   // Parent menu slug.
-				'capability'   => 'administrator',          // Capability needed to view plugin install page, should be a
-															// capability associated with the parent menu used.
+				'capability'   => Permissions::SEE_RECOMMENDED_PLUGINS, // Capability needed to view plugin install page, should be a
+																		// capability associated with the parent menu used.
 				'has_notices'  => true,                     // Show admin notices or not.
 				'dismissable'  => true,                     // If false, a user cannot dismiss the nag message.
 				'is_automatic' => false,                    // Automatically activate plugins after installation or not.
@@ -231,6 +233,78 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 			);
 
 			dws_tgmpa($plugins, $config);
+		}
+
+		//endregion
+
+		//region HELPER
+
+		/**
+		 * Checks whether there is a newer version available at the given source for the DWS plugin found at the
+		 * given path.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @param   string  $source         The releases source in question.
+		 * @param   string  $plugin_path    The path of the DWS plugin in question.
+		 *
+		 * @return  bool|string False if no update available, otherwise available version.
+		 */
+		public static function get_dws_plugin_version($source, $plugin_path) {
+			$update_checker = \Puc_v4_Factory::buildUpdateChecker(
+				$source, $plugin_path
+			);
+			$update_checker->setAuthentication(DWS_GITHUB_ACCESS_TOKEN);
+			$update_checker->setBranch('master');
+
+			$update = $update_checker->checkForUpdates();
+			return is_null($update) ? false : $update->version;
+		}
+
+		/**
+		 * Provides a unified way to add or update an entry in the DWS plugins update status transient.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @param   &array          $transient_data     The array of the update information.
+		 * @param   string          $slug               The internal slug of the DWS plugin.
+		 * @param   string|false    $version            False if no update available, otherwise version number.
+		 */
+		public static function add_update_info(&$transient_data, $slug, $version) {
+			$transient_data[$slug]['version'] = $version;
+			$transient_data[$slug]['last_checked'] = current_time('timestamp');
+		}
+
+		/**
+		 * Returns the DWS plugins update information transient.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 */
+		public static function get_updates_transient() {
+			return get_site_transient('dws_update_plugins');
+		}
+
+		/**
+		 * Adds or overwrites the DWS plugins update information transient.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 */
+		public static function set_updates_transient($dws_updates) {
+			set_site_transient('dws_update_plugins', $dws_updates);
+		}
+
+		/**
+		 * Deletes the DWS plugins update information transient.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 */
+		public static function delete_updates_transient() {
+			delete_site_transient('dws_update_plugins');
 		}
 
 		//endregion
@@ -404,15 +478,20 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 				$base_path = $this->get_dws_plugins_base_path($slug);
 				$dws_slug = $this->get_dws_plugin_slug($slug);
 
-				$update_checker = \Puc_v4_Factory::buildUpdateChecker(
-					$this->plugins[$slug]['source'],
-					$base_path . $dws_slug . "/$dws_slug.php"
-				);
-				$update_checker->setAuthentication(DWS_GITHUB_ACCESS_TOKEN);
-				$update_checker->setBranch('master');
+				$current_version = $this->get_installed_version($slug);
+				$dws_updates = DWS_Recommended_Plugins::get_updates_transient();
 
-				$update = $update_checker->checkForUpdates();
-				return is_null($update) ? false : $update->version;
+				if (!isset($dws_updates[$dws_slug]) || $dws_updates[$dws_slug]['last_checked'] < (current_time('timestamp') - 3600)) {
+					DWS_Recommended_Plugins::add_update_info($dws_updates, $dws_slug, DWS_Recommended_Plugins::get_dws_plugin_version(
+						$this->plugins[$slug]['source'],
+						$base_path . $dws_slug . "/$dws_slug.php"
+					));
+					DWS_Recommended_Plugins::set_updates_transient($dws_updates);
+				}
+
+				return (is_bool($dws_updates[$dws_slug]['version'])
+					|| version_compare($current_version, $dws_updates[$dws_slug]['version'], '>='))
+					? false : $dws_updates[$dws_slug]['version'];
 			} else {
 				return parent::does_plugin_have_update($slug);
 			}

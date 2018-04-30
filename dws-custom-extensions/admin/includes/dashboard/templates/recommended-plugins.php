@@ -9,12 +9,15 @@
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  */
 
+use Deep_Web_Solutions\Admin\Dashboard\DWS_Recommended_Plugins;
+use Deep_Web_Solutions\Admin\Dashboard\DWS_Plugins_List_Table;
+
 /**
  * @var    \Deep_Web_Solutions\Admin\Dashboard\DWS_TGMPA    $dws_tgmpa
  */
 global $dws_tgmpa;
 
-$plugin_table = new \Deep_Web_Solutions\Admin\Dashboard\DWS_Plugins_List_Table();
+$plugin_table = new DWS_Plugins_List_Table();
 
 // Return early if processing a plugin installation action.
 if ((('tgmpa-bulk-install' === $plugin_table->current_action() || 'tgmpa-bulk-update' === $plugin_table->current_action())
@@ -24,6 +27,7 @@ if ((('tgmpa-bulk-install' === $plugin_table->current_action() || 'tgmpa-bulk-up
 
 // Force refresh of available plugin information so we'll know about manual updates/deletes.
 wp_clean_plugins_cache(false);
+DWS_Recommended_Plugins::delete_updates_transient();
 
 ?>
 

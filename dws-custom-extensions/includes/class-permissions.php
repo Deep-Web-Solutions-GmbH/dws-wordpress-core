@@ -20,7 +20,7 @@ final class DWS_Permissions extends DWS_Root implements DWS_Installable {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string  CAPABILITY_PREIFX   The string that all DWS capabilities must be prefixed with.
+	 * @var     string  CAPABILITY_PREFIX   The string that all DWS capabilities must be prefixed with.
 	 */
 	const CAPABILITY_PREFIX = 'dws_can_';
 

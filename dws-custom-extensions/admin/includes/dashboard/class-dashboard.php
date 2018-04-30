@@ -2,6 +2,7 @@
 
 namespace Deep_Web_Solutions\Admin;
 use Deep_Web_Solutions\Admin\Dashboard\DWS_Recommended_Plugins;
+use Deep_Web_Solutions\Admin\Dashboard\Permissions;
 use Deep_Web_Solutions\Core\DWS_Functionality_Template;
 
 if (!defined('ABSPATH')) { exit; }
@@ -60,6 +61,9 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 	 */
 	protected function load_dependencies() {
 		/** @noinspection PhpIncludeInspection */
+		require_once(self::get_includes_base_path() . 'class-permissions.php');
+
+		/** @noinspection PhpIncludeInspection */
 		/** Handles the DWS recommended plugins list, installation, and updates. */
 		require_once(self::get_includes_base_path() . 'class-recommended-plugins.php');
 		DWS_Recommended_Plugins::maybe_initialize_singleton('sdfnhgi8he8gheife', true, self::get_root_id());
@@ -92,7 +96,7 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 	public function register_menu_page() {
 		add_menu_page(
 			'Deep Web Solutions', 'Deep Web Solutions',
-			'administrator',
+			Permissions::SEE_DWS_MENU_AND_DASHBOARD,
 			self::$main_page_slug,
 			array($this, 'menu_page_screen'),
 			'data:image/svg+xml;base64,' . base64_encode(file_get_contents(DWS_Admin::get_assets_base_path() . 'dws_logo.svg')),
@@ -108,13 +112,14 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 		 *          {$page_slug}  => [
 		 *              'menu_title'    =>  (string) The menu title. Required.
 		 *              'page_title'    =>  (string) The page title. Optional.
+		 *              'capability'    =>  (string) The required WP capability. Required.
 		 *          ]
 		 *          ...
 		 *      ]
 		 */
 		$submenu_pages = apply_filters(self::get_hook_name('submenus'), array());
 		foreach ($submenu_pages as $page_slug => $options) {
-			if (!isset($options['menu_title'])) {
+			if (!isset($options['menu_title'], $options['capability'])) {
 				continue;
 			}
 
@@ -122,7 +127,7 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 				self::$main_page_slug,
 				isset($options['page_title']) ? $options['page_title'] : $options['menu_title'],
 				$options['menu_title'],
-				'administrator',
+				$options['capability'],
 				$page_slug,
 				array($this, 'menu_page_screen')
 			);
