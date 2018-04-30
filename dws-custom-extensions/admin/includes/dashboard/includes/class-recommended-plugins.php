@@ -70,6 +70,8 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 
 			$loader->add_action('plugins_loaded', $this, 'load_dws_tgmpa');
 			$loader->add_action('tgmpa_register', $this, 'register_recommended_plugins');
+
+			$loader->add_filter('tgmpa_show_admin_notice_capability', $this, 'filter_notices_capability');
 			$loader->add_filter('tgmpa_table_data_item', $this, 'filter_table_item', 10, 2);
 		}
 
@@ -215,6 +217,20 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 			);
 
 			dws_tgmpa($plugins, $config);
+		}
+
+		/**
+		 * Changes the required capability needed by a user to see the plugins notices.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @param   string  $capability The current required capability.
+		 *
+		 * @return  string  The filtered required capability.
+		 */
+		public function filter_notices_capability($capability) {
+			return Permissions::SEE_RECOMMENDED_PLUGINS;
 		}
 
 		/**
