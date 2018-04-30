@@ -3,6 +3,7 @@
 namespace Deep_Web_Solutions\Local\Core;
 use Deep_Web_Solutions\Admin\ACF\ACF_Options;
 use Deep_Web_Solutions\Core\DWS_Root;
+use Deep_Web_Solutions\Local\Permissions;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -60,7 +61,8 @@ final class DWS_Local_Admin extends DWS_Root {
 		$sub_pages[] = array(
 			'page_title' => __('Deep Web Solutions: Custom Extensions Local Settings', DWS_CUSTOM_EXTENSIONS_LOCAL_LANG_DOMAIN),
 			'menu_title' => __('Local Settings', DWS_CUSTOM_EXTENSIONS_LOCAL_LANG_DOMAIN),
-			'menu_slug'  => self::LOCAL_OPTIONS_SLUG
+			'menu_slug'  => self::LOCAL_OPTIONS_SLUG,
+			'capability' => Permissions::SEE_AND_EDIT_DWS_LOCAL_OPTIONS
 		);
 
 		return $sub_pages;

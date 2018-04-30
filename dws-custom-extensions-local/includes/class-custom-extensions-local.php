@@ -133,6 +133,10 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 		//region CORE CLASSES
 
 		/** @noinspection PhpIncludeInspection */
+		/** Responsible for defining custom WP capabilities. */
+		require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'includes/class-permissions.php');
+
+		/** @noinspection PhpIncludeInspection */
 		/** Responsible for defining internationalization functionality of the plugin. */
 		require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'includes/class-i18n.php');
 

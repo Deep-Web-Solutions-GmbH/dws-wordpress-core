@@ -14,6 +14,7 @@ if (!defined('ABSPATH')) { exit; }
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     Permissions_Base
+ * @see     DWS_Permissions
  */
 final class Permissions extends Permissions_Base {
 	/**

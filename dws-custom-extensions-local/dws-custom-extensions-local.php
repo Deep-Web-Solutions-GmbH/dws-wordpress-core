@@ -9,7 +9,7 @@
  * @wordpress-plugin
  * Plugin Name:       DeepWebSolutions Custom Extensions Local
  * Description:       Handles all the local custom extensions to this WordPress installation.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  * Author URI:        https://www.linkedin.com/in/tonyhegyes/
  * License:           GPL-3.0+

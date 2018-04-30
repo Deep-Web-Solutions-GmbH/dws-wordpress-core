@@ -118,7 +118,7 @@ final class ACF_Options extends DWS_Functionality_Template {
 				'menu_title' => __('Custom Extensions', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'page_title' => __('Deep Web Solutions: Custom Extensions Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'menu_slug'  => self::MAIN_OPTIONS_SLUG,
-				'capability' => 'administrator',
+				'capability' => Permissions::SEE_AND_EDIT_DWS_CORE_OPTIONS,
 				'icon_url'   => 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(DWS_Admin::get_assets_base_path() . 'dws_logo.svg')),
 				'redirect'   => false,
 				'position'   => 3
@@ -138,7 +138,8 @@ final class ACF_Options extends DWS_Functionality_Template {
 	public function add_sub_pages() {
 		/**
 		 * @since   1.0.0
-		 * @version 1.0.0
+		 * @since   1.2.0   Added 'capability' field.
+		 * @version 1.2.0
 		 *
 		 * @param   array[]     $other_sub_pages    Array of other options sub-pages to be added.
 		 *      $other_sub_pages = [
@@ -146,6 +147,7 @@ final class ACF_Options extends DWS_Functionality_Template {
 		 *              'page_title'    =>  (string) The title displayed on the options page. Optional.
 		 *              'menu_title'    =>  (string) The title displayed in the menu. Required.
 		 *              'menu_slug'     =>  (string) The slug of the options page. Required.
+		 *              'capability'    =>  (string) The WP capability needed to see and edit the options. Required.
 		 *          ]
 		 *          ...
 		 *      ]
@@ -156,18 +158,20 @@ final class ACF_Options extends DWS_Functionality_Template {
 				array(
 					'page_title' => __('Deep Web Solutions: Custom Extensions Modules Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 					'menu_title' => __('Modules Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-					'menu_slug'  => self::MODULES_OPTIONS_SLUG
+					'menu_slug'  => self::MODULES_OPTIONS_SLUG,
+					'capability' => Permissions::SEE_AND_EDIT_DWS_MODULES_OPTIONS
 				),
 				array(
 					'page_title' => __('Deep Web Solutions: Custom Extensions Theme Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 					'menu_title' => __('Theme Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-					'menu_slug'  => self::THEME_OPTIONS_SLUG
+					'menu_slug'  => self::THEME_OPTIONS_SLUG,
+					'capability' => Permissions::SEE_AND_EDIT_DWS_THEME_OPTIONS
 				)
 			), $other_sub_pages
 		);
 
 		foreach ($sub_pages as $sub_page) {
-			if (!isset($sub_page['menu_title'], $sub_page['menu_slug'])) {
+			if (!isset($sub_page['menu_title'], $sub_page['menu_slug'], $sub_page['capability'])) {
 				continue;
 			}
 
@@ -183,7 +187,7 @@ final class ACF_Options extends DWS_Functionality_Template {
 					'page_title'  => isset($sub_page['page_title']) ? $sub_page['page_title'] : $sub_page['menu_title'],
 					'menu_title'  => $sub_page['menu_title'],
 					'menu_slug'   => $sub_page['menu_slug'],
-					'capability'  => 'administrator',
+					'capability'  => $sub_page['capability'],
 					'parent_slug' => self::MAIN_OPTIONS_SLUG,
 				)
 			);
