@@ -25,26 +25,6 @@ namespace {
 			call_user_func(array($instance, 'config'), $config);
 		}
 	}
-
-	/**
-	 * Important that we do NOT register the default TGMPA instance, so that we can register our own custom one later.
-	 * By doing this we avoid potential hook conflicts between the base version and ours.
-	 *
-	 * @since   1.2.0
-	 * @version 1.2.0
-	 *
-	 * @see     load_tgm_plugin_activation()
-	 */
-	function load_tgm_plugin_activation() {
-		// Do nothing.
-	}
-
-	/** @noinspection PhpIncludeInspection */
-	/**
-	 * We use this external library to install and update plugins. It must be loaded here so that we can overwrite
-	 * some of its functions before this point.
-	 */
-	require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php');
 }
 
 namespace Deep_Web_Solutions\Admin\Dashboard {
@@ -342,6 +322,19 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 	 * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
 	 */
 	final class DWS_TGMPA extends \TGM_Plugin_Activation {
+		//region FIELDS AND CONSTANTS
+
+		/**
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @access  private
+		 * @var     DWS_TGMPA   $dws_instance   Holds the singleton instance of the current class.
+		 */
+		private static $dws_instance;
+
+		//endregion
+
 		//region INHERITED FUNCTIONS
 
 		/**
@@ -422,11 +415,11 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * @return  DWS_TGMPA   Singleton instance.
 		 */
 		public static function get_instance() {
-			if (!isset(self::$instance) && !(self::$instance instanceof self)) {
-				self::$instance = new self();
+			if (!isset(self::$dws_instance) && !(self::$dws_instance instanceof self)) {
+				self::$dws_instance = new self();
 			}
 
-			return self::$instance;
+			return self::$dws_instance;
 		}
 
 		/**
