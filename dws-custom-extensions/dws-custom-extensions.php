@@ -6,11 +6,12 @@
  * @link                https://www.deep-web-solutions.de
  * @since               1.0.0
  * @since               1.1.0   Update notifications
+ * @since               1.2.0   Updates and installation of plugins, including dws plugins and dws modules.
  *
  * @wordpress-plugin
  * Plugin Name:         DeepWebSolutions Custom Extensions
  * Description:         This plugin handles all the core custom extensions to this WordPress installation.
- * Version:             1.1.0
+ * Version:             1.2.0
  * Author:              Antonius Cezar Hegyes
  * Author URI:          https://www.linkedin.com/in/tonyhegyes/
  * License:             GPL-3.0+

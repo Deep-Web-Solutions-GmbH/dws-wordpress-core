@@ -432,6 +432,8 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 */
 		public function get_download_url($slug) {
 			if (strpos($slug, 'dws-') === 0) {
+				$GLOBALS['dws_plugin_slug'] = $slug;
+
 				$repo = new \Puc_v4p4_Vcs_GitHubApi($this->plugins[$slug]['source'], DWS_GITHUB_ACCESS_TOKEN);
 				$release = $repo->getLatestRelease();
 
@@ -469,21 +471,22 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 *
 		 * @return  array   Installation options which request clearing the plugin before installation.
 		 */
-		public static function adjust_plugin_install_options($options) {
+		public function adjust_plugin_install_options($options) {
 			$options['clear_destination'] = true;
 
-			if (strpos($options['package'], 'https://api.github.com/repos/Deep-Web-Solutions-GmbH/') === 0) {
-				$repo_name = substr($options['package'], 53);
-				$repo_name = substr($repo_name, 0, strpos($repo_name, '/'));
-
+			if (isset($GLOBALS['dws_plugin_slug'])) {
+				$dws_slug = $this->get_dws_plugin_slug($GLOBALS['dws_plugin_slug']);
 				$options['destination'] = DWS_CUSTOM_EXTENSIONS_BASE_PATH;
-				if (strpos($options['package'], 'plugin')) {
-					$directory = str_replace('dws-wordpress-plugins-', '', $repo_name);
+
+				if (strpos($GLOBALS['dws_plugin_slug'], 'plugin')) {
+					$directory = str_replace('dws-wordpress-plugins-', '', $dws_slug);
 					$options['destination'] .= "plugins/$directory";
 				} else {
-					$directory = str_replace('dws-wordpress-modules-', '', $repo_name);
+					$directory = str_replace('dws-wordpress-modules-', '', $dws_slug);
 					$options['destination'] .= "modules/$directory";
 				}
+
+				unset($GLOBALS['dws_plugin_slug']);
 			}
 
 			return $options;
