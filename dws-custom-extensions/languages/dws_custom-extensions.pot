@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: DeepWebSolutions Custom Extensions\n"
-"POT-Creation-Date: 2018-04-15 23:28+0200\n"
-"PO-Revision-Date: 2018-04-15 23:28+0200\n"
+"POT-Creation-Date: 2018-04-30 12:53+0200\n"
+"PO-Revision-Date: 2018-04-30 12:53+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,31 +21,31 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: admin/includes/acf/includes/class-acf-options.php:116
+#: admin/includes/acf/includes/class-acf-options.php:118
 msgid "Custom Extensions"
 msgstr ""
 
-#: admin/includes/acf/includes/class-acf-options.php:117
+#: admin/includes/acf/includes/class-acf-options.php:119
 msgid "Deep Web Solutions: Custom Extensions Core Settings"
 msgstr ""
 
-#: admin/includes/acf/includes/class-acf-options.php:126
+#: admin/includes/acf/includes/class-acf-options.php:129
 msgid "Core Settings"
 msgstr ""
 
-#: admin/includes/acf/includes/class-acf-options.php:153
+#: admin/includes/acf/includes/class-acf-options.php:157
 msgid "Deep Web Solutions: Custom Extensions Modules Settings"
 msgstr ""
 
-#: admin/includes/acf/includes/class-acf-options.php:154
+#: admin/includes/acf/includes/class-acf-options.php:158
 msgid "Modules Settings"
 msgstr ""
 
-#: admin/includes/acf/includes/class-acf-options.php:158
+#: admin/includes/acf/includes/class-acf-options.php:162
 msgid "Deep Web Solutions: Custom Extensions Theme Settings"
 msgstr ""
 
-#: admin/includes/acf/includes/class-acf-options.php:159
+#: admin/includes/acf/includes/class-acf-options.php:163
 msgid "Theme Settings"
 msgstr ""
 
@@ -53,100 +53,236 @@ msgstr ""
 msgid "Post comments"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:70
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:71
 msgid "Default Value"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:71
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:72
 msgid "Appears when creating a new post"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:79
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:82
 msgid "Placeholder Text"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:80
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:83
 msgid "Appears within the input"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:88
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:93
 msgid "Character Limit"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:89
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:94
 msgid "Leave blank for no limit"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:97
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:104
 msgid "Rows"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:98
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:105
 msgid "Sets the textarea height"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:107
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:116
 msgid "New Lines"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:108
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:117
 msgid "Controls how new lines are rendered"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:112
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:121
 msgid "Automatically add paragraphs"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:113
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:122
 msgid "Automatically add &lt;br&gt;"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:114
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:123
 msgid "No Formatting"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:172
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:182
 msgid "Add comment"
 msgstr ""
 
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:297
+#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:309
 #, php-format
 msgid "- added on %s by"
 msgstr ""
 
-#: admin/includes/dashboard/class-dashboard.php:96
-msgid "Deep Web Solutions: Custom Extensions Recommended Plugins"
-msgstr ""
-
-#: admin/includes/dashboard/class-dashboard.php:97
-#: admin/includes/dashboard/templates/recommended-plugins.php:8
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:110
 msgid "Recommended Plugins"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:298
-#: includes/abstract-root.php:219
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:112
+msgid "Deep Web Solutions: Custom Extensions Recommended Plugins"
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:168
+msgid "Install Required Plugins"
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:169
+msgid "Install Plugins"
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:170
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:171
+#, php-format
+msgid "Updating Plugin: %s"
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:172
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:174
+#, php-format
+msgid "DWS Custom Extensions requires the following plugin: %1$s."
+msgid_plural "DWS Custom Extensions requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:179
+#, php-format
+msgid "DWS Custom Extensions recommends the following plugin: %1$s."
+msgid_plural "DWS Custom Extensions recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:184
+#, php-format
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this DWS Custom Extensions: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this DWS Custom Extensions: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:189
+#, php-format
+msgid "There is an update available for: %1$s."
+msgid_plural "There are updates available for the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:194
+#, php-format
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:199
+#, php-format
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:204
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:209
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:214
+msgid "Begin activating plugin"
+msgid_plural "Begin activating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:218
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:219
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:220
+msgid "The following plugin was activated successfully:"
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:221
+#, php-format
+msgid "No action taken. Plugin %1$s was already active."
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:222
+#, php-format
+msgid ""
+"Plugin not activated. A higher version of %s is needed for DWS Custom "
+"Extensions. Please update the plugin."
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:223
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:224
+msgid "Dismiss this notice"
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:225
+msgid ""
+"There are one or more required or recommended plugins to install, update or "
+"activate."
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:226
+msgid "Please contact the administrator of this site for help."
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:671
+msgid "Version"
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:672
+msgid "Status"
+msgstr ""
+
+#: includes/abstract-functionality-template.php:304
+#: includes/abstract-root.php:220
 #, php-format
 msgid "'%s' options"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:325
+#: includes/abstract-functionality-template.php:333
 msgid "Is functionality active?"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:333
+#: includes/abstract-functionality-template.php:341
 #, php-format
 msgid "Is sub-functionality '%s' active?"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:348
+#: includes/abstract-functionality-template.php:357
 msgid "Overwrite this template?"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:357
+#: includes/abstract-functionality-template.php:368
 msgid "Template files"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:359
+#: includes/abstract-functionality-template.php:371
 msgid ""
 "If unchecked, the respective template will NOT be used from the Custom "
 "Extensions plugin.\n"
@@ -160,15 +296,15 @@ msgstr ""
 msgid "You did not properly configure the class %s"
 msgstr ""
 
-#: includes/class-crons.php:103 includes/class-crons.php:104
-#: includes/class-crons.php:105 includes/class-crons.php:106
+#: includes/class-crons.php:104 includes/class-crons.php:105
+#: includes/class-crons.php:106 includes/class-crons.php:107
 #, php-format
 msgid "Every %s minutes"
 msgstr ""
 
-#: includes/class-crons.php:107 includes/class-crons.php:108
-#: includes/class-crons.php:109 includes/class-crons.php:110
-#: includes/class-crons.php:111
+#: includes/class-crons.php:108 includes/class-crons.php:109
+#: includes/class-crons.php:110 includes/class-crons.php:111
+#: includes/class-crons.php:112
 #, php-format
 msgid "Every %s hours"
 msgstr ""
@@ -257,20 +393,20 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-#: public/includes/class-customer-service.php:160
-#: public/includes/class-customer-service.php:187
+#: public/includes/class-customer-service.php:161
+#: public/includes/class-customer-service.php:192
 msgid "Contact"
 msgstr ""
 
-#: public/includes/class-customer-service.php:161
+#: public/includes/class-customer-service.php:162
 msgid "Email"
 msgstr ""
 
-#: public/includes/class-customer-service.php:188
+#: public/includes/class-customer-service.php:193
 msgid "Phone number"
 msgstr ""
 
-#: public/includes/class-customer-service.php:253
+#: public/includes/class-customer-service.php:265
 #, php-format
 msgid "%s - %s o'clock"
 msgstr ""
@@ -279,22 +415,22 @@ msgstr ""
 msgid "Overwrite compatible plugin's message styles?"
 msgstr ""
 
-#: public/includes/class-fancy-messages.php:91
+#: public/includes/class-fancy-messages.php:93
 #, php-format
 msgid "Choose the color for %s messages background"
 msgstr ""
 
-#: public/includes/class-fancy-messages.php:98
+#: public/includes/class-fancy-messages.php:100
 #, php-format
 msgid "Choose the color for %s messages text"
 msgstr ""
 
-#: public/includes/class-fancy-messages.php:105
+#: public/includes/class-fancy-messages.php:107
 #, php-format
 msgid "Choose the color for %s messages border"
 msgstr ""
 
-#: public/includes/class-fancy-messages.php:112
+#: public/includes/class-fancy-messages.php:114
 #, php-format
 msgid "Choose the color for %s messages icon"
 msgstr ""

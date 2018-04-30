@@ -145,7 +145,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 			foreach ($parsed_plugins as $category => $options_plugins) {
 				if (in_array($category, array('dws-core-plugins', 'dws-core-modules'))) {
 					foreach ($options_plugins as $plugin) {
-						if (is_plugin_active($plugin['dependency'])) {
+						if (empty($plugin['dependency']) || is_plugin_active($plugin['dependency'])) {
 							$plugin['category'] = $category;
 							$plugins[] = $plugin;
 						}
@@ -443,6 +443,30 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 			}
 		}
 
+		/**
+		 * We need to add custom logic for our own internal plugins and modules.
+		 *
+		 * @since   1.2.0
+		 * @version 1.2.0
+		 *
+		 * @see     \TGM_Plugin_Activation::get_installed_version()
+		 *
+		 * @param   string  $slug
+		 *
+		 * @return  string
+		 */
+		public function get_installed_version($slug) {
+			if (strpos($slug, 'dws-') === 0) {
+				$base_path = $this->get_dws_plugins_base_path($slug);
+				$dws_slug = $this->get_dws_plugin_slug($slug);
+
+				$plugin_data  = get_plugin_data($base_path . $dws_slug . "/$dws_slug.php");
+				return $plugin_data['Version'];
+			} else {
+				return parent::get_installed_version($slug);
+			}
+		}
+
 		//endregion
 
 		//region COMPATIBILITY LOGIC
@@ -633,6 +657,20 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 			}
 
 			return array_merge(parent::get_views(), $category_links);
+		}
+
+		/**
+		 * Output all the column information within the table.
+		 *
+		 * @since 2.2.0
+		 *
+		 * @return array $columns The column names.
+		 */
+		public function get_columns() {
+			return array_merge(parent::get_columns(), array(
+				'version'   => __('Version', 'tgmpa'),
+				'status'    => __('Status', 'tgmpa')
+			));
 		}
 
 		//endregion
