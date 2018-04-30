@@ -3150,13 +3150,17 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 	 * Load bulk installer
 	 */
 	function tgmpa_load_bulk_installer() {
+	    /* START DWS_MODIFICATION */
+
 		// Silently fail if 2.5+ is loaded *after* an older version.
-		if ( ! isset( $GLOBALS['tgmpa'] ) ) {
+		if ( ! isset( $GLOBALS['dws_tgmpa'] ) ) {
 			return;
 		}
 
 		// Get TGMPA class instance.
-		$tgmpa_instance = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
+		$tgmpa_instance = call_user_func( array( get_class( $GLOBALS['dws_tgmpa'] ), 'get_instance' ) );
+
+		/* END DWS_MODIFICATION */
 
 		if ( isset( $_GET['page'] ) && $tgmpa_instance->menu === $_GET['page'] ) {
 			if ( ! class_exists( 'Plugin_Upgrader', false ) ) {
@@ -3227,7 +3231,9 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					 */
 					public function __construct( $skin = null ) {
 						// Get TGMPA class instance.
-						$this->tgmpa = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
+                        /* START DWS_MODIFICATION */
+						$this->tgmpa = call_user_func( array( get_class( $GLOBALS['dws_tgmpa'] ), 'get_instance' ) );
+                        /* END DWS_MODIFICATION */
 
 						parent::__construct( $skin );
 
@@ -3558,7 +3564,9 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 					 */
 					public function __construct( $args = array() ) {
 						// Get TGMPA class instance.
-						$this->tgmpa = call_user_func( array( get_class( $GLOBALS['tgmpa'] ), 'get_instance' ) );
+						/* START DWS_MODIFICATION */
+						$this->tgmpa = call_user_func( array( get_class( $GLOBALS['dws_tgmpa'] ), 'get_instance' ) );
+						/* END DWS_MODIFICATION */
 
 						// Parse default and new args.
 						$defaults = array(

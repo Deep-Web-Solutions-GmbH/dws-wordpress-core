@@ -87,7 +87,7 @@ final class DWS_WordPress_Cron extends DWS_Root {
 	 * @access  private
 	 * @var     array       $intervals  List of all WP cron intervals that this plugin registers.
 	 */
-	private static $intervals;
+	private static $intervals = array();
 
 	//endregion
 
