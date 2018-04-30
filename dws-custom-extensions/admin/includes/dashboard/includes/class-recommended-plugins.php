@@ -703,6 +703,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 				if (isset($plugin['category'])) {
 					$categories = explode(',', $plugin['category']);
 					foreach ($categories as $category) {
+						$category = trim($category);
 						$plugins[$category][$slug] = $plugin;
 					}
 				} else {
