@@ -539,7 +539,12 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 				$base_path = $this->get_dws_plugins_base_path($slug);
 				$dws_slug = $this->get_dws_plugin_slug($slug);
 
-				$plugin_data  = get_plugin_data($base_path . $dws_slug . "/$dws_slug.php");
+				$file_path = $base_path . $dws_slug . "/$dws_slug.php";
+				if (!is_file($file_path)) {
+					return '';
+				}
+
+				$plugin_data  = get_plugin_data($file_path);
 				return $plugin_data['Version'];
 			} else {
 				return parent::get_installed_version($slug);
@@ -587,6 +592,11 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 				} else {
 					$directory = str_replace('dws-wordpress-modules-', '', $dws_slug);
 					$options['destination'] .= "modules/$directory";
+				}
+
+				// for the 'ssh2' FTP method, the folder needs to already exist
+				if (!is_dir($options['destination'])) {
+					mkdir($options['destination'], 0755, true);
 				}
 
 				unset($GLOBALS['dws_plugin_slug']);
