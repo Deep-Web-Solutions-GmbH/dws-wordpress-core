@@ -9,6 +9,9 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 === Changelog ===
 
+= 1.2.1 =
+* No longer adds the WP timezone to ACF datetimepicker value when converting it to timestamp.
+
 = 1.2.0 =
 * Updates and installation of plugins, including dws plugins and dws modules.
 * New custom permissions for the DWS menus.
