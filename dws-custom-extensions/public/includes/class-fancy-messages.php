@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Outputs CSS to uniformize the look and feel of front-end messages.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 1.2.2
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -125,7 +125,7 @@ final class DWS_FancyMessages extends DWS_Functionality_Template {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 1.2.2
 	 *
 	 * @see     DWS_Functionality_Template::enqueue_assets()
 	 */
@@ -140,7 +140,7 @@ final class DWS_FancyMessages extends DWS_Functionality_Template {
 				'\'{plugin_messages_info_classes_before}\''    => $overwrite_plugins_messages ? join(',', array_map(function ($class) { return $class . ':before'; }, $plugin_messages_info_classes)) . ',' : '',
 				'\'{plugin_messages_success_classes}\''        => $overwrite_plugins_messages ? join(',', $plugin_messages_success_classes = array('.message-success', '.wpas-alert-success', '.woocommerce-message')) . ',' : '',
 				'\'{plugin_messages_success_classes_before}\'' => $overwrite_plugins_messages ? join(',', array_map(function ($class) { return $class . ':before'; }, $plugin_messages_success_classes)) . ',' : '',
-				'\'{plugin_messages_error_classes}\''          => $overwrite_plugins_messages ? join(',', $plugin_messages_error_classes = array('.message-error', '.wpas-alert-danger', '.woocommerce-error')) . ',' : '',
+				'\'{plugin_messages_error_classes}\''          => $overwrite_plugins_messages ? join(',', $plugin_messages_error_classes = array('.message-error', '.wpas-alert-danger', '.woocommerce-invalid', '.woocommerce-error')) . ',' : '',
 				'\'{plugin_messages_error_classes_before}\''   => $overwrite_plugins_messages ? join(',', array_map(function ($class) { return $class . ':before'; }, $plugin_messages_error_classes)) . ',' : '',
 				'\'{message_info_text_color}\''                => get_field('info_' . self::MESSAGE_TEXT_COLOR, 'option') ?: '#424242',
 				'\'{message_info_background_color}\''          => get_field('info_' . self::MESSAGE_BG_COLOR, 'option') ?: '#ecf6fa',
