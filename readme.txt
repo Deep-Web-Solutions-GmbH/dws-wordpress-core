@@ -1,7 +1,7 @@
 === DWS WordPress Core ===
 Contributors: Antonius Hegyes
-Requires at least: 4.9.5
-Tested up to: 4.9.5
+Requires at least: 4.9.6
+Tested up to: 4.9.6
 Requires PHP: 7.0
 Stable tag: 1.2.3
 License: GPLv3 or later
