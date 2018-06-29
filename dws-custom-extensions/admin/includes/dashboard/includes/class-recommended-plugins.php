@@ -334,7 +334,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 
 	/**
 	 * @since   1.2.0
-	 * @version 1.2.0
+	 * @version 1.2.3
 	 * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
 	 */
 	final class DWS_TGMPA extends \TGM_Plugin_Activation {
@@ -615,7 +615,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * Filter $options to clear plugin destination before installation.
 		 *
 		 * @since   1.2.0
-		 * @version 1.2.0
+		 * @version 1.2.3
 		 *
 		 * @see     DWS_TGMPA::do_plugin_install()
 		 *
@@ -626,7 +626,8 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		public function adjust_plugin_install_options($options) {
 			static $counter = 0;
 
-			$options['clear_destination'] = true;
+			// TODO: reactivate this after bugs have been ironed out
+//			$options['clear_destination'] = true;
 
 			if (isset($GLOBALS['dws_plugin_slug'])) {
 				$dws_slug = $this->get_dws_plugin_slug($GLOBALS['dws_plugin_slug'][$counter]);

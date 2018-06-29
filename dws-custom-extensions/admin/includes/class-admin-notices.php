@@ -113,7 +113,7 @@ final class DWS_Admin_Notices extends DWS_Functionality_Template {
 		$notices[$type]   = isset($notices[$type]) ? $notices[$type] : array();
 		$notices[$type][] = $message;
 
-		add_user_meta($user_id, 'dws_admin_notices', $message, true);
+		add_user_meta($user_id, 'dws_admin_notices', $notices, true);
 	}
 
 	//endregion
