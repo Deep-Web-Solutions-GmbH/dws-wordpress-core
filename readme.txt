@@ -3,11 +3,14 @@ Contributors: Antonius Hegyes
 Requires at least: 4.9.6
 Tested up to: 4.9.6
 Requires PHP: 7.0
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 === Changelog ===
+
+= 1.2.5 =
+* Updated translations.
 
 = 1.2.4 =
 * Added global CSS and JS options.

@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: DeepWebSolutions Custom Extensions\n"
-"POT-Creation-Date: 2018-04-30 12:53+0200\n"
-"PO-Revision-Date: 2018-04-30 12:53+0200\n"
+"POT-Creation-Date: 2018-06-30 15:08+0200\n"
+"PO-Revision-Date: 2018-06-30 15:06+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.8\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: dws-custom-extensions.php\n"
@@ -33,19 +33,19 @@ msgstr ""
 msgid "Core Settings"
 msgstr ""
 
-#: admin/includes/acf/includes/class-acf-options.php:157
+#: admin/includes/acf/includes/class-acf-options.php:159
 msgid "Deep Web Solutions: Custom Extensions Modules Settings"
 msgstr ""
 
-#: admin/includes/acf/includes/class-acf-options.php:158
+#: admin/includes/acf/includes/class-acf-options.php:160
 msgid "Modules Settings"
 msgstr ""
 
-#: admin/includes/acf/includes/class-acf-options.php:162
+#: admin/includes/acf/includes/class-acf-options.php:165
 msgid "Deep Web Solutions: Custom Extensions Theme Settings"
 msgstr ""
 
-#: admin/includes/acf/includes/class-acf-options.php:163
+#: admin/includes/acf/includes/class-acf-options.php:166
 msgid "Theme Settings"
 msgstr ""
 
@@ -114,51 +114,51 @@ msgstr ""
 msgid "- added on %s by"
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:110
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:94
 msgid "Recommended Plugins"
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:112
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:96
 msgid "Deep Web Solutions: Custom Extensions Recommended Plugins"
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:168
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:154
 msgid "Install Required Plugins"
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:169
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:155
 msgid "Install Plugins"
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:170
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:156
 #, php-format
 msgid "Installing Plugin: %s"
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:171
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:157
 #, php-format
 msgid "Updating Plugin: %s"
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:172
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:158
 msgid "Something went wrong with the plugin API."
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:174
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:160
 #, php-format
 msgid "DWS Custom Extensions requires the following plugin: %1$s."
 msgid_plural "DWS Custom Extensions requires the following plugins: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:179
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:165
 #, php-format
 msgid "DWS Custom Extensions recommends the following plugin: %1$s."
 msgid_plural "DWS Custom Extensions recommends the following plugins: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:184
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:170
 #, php-format
 msgid ""
 "The following plugin needs to be updated to its latest version to ensure "
@@ -169,94 +169,98 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:189
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:175
 #, php-format
 msgid "There is an update available for: %1$s."
 msgid_plural "There are updates available for the following plugins: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:194
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:180
 #, php-format
 msgid "The following required plugin is currently inactive: %1$s."
 msgid_plural "The following required plugins are currently inactive: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:199
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:185
 #, php-format
 msgid "The following recommended plugin is currently inactive: %1$s."
 msgid_plural "The following recommended plugins are currently inactive: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:204
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:190
 msgid "Begin installing plugin"
 msgid_plural "Begin installing plugins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:209
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:195
 msgid "Begin updating plugin"
 msgid_plural "Begin updating plugins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:214
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:200
 msgid "Begin activating plugin"
 msgid_plural "Begin activating plugins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:218
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:204
 msgid "Return to Required Plugins Installer"
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:219
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:205
 msgid "Plugin activated successfully."
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:220
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:206
 msgid "The following plugin was activated successfully:"
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:221
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:207
 #, php-format
 msgid "No action taken. Plugin %1$s was already active."
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:222
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:208
 #, php-format
 msgid ""
 "Plugin not activated. A higher version of %s is needed for DWS Custom "
 "Extensions. Please update the plugin."
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:223
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:209
 #, php-format
 msgid "All plugins installed and activated successfully. %1$s"
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:224
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:210
 msgid "Dismiss this notice"
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:225
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:211
 msgid ""
 "There are one or more required or recommended plugins to install, update or "
 "activate."
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:226
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:212
 msgid "Please contact the administrator of this site for help."
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:671
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:821
 msgid "Version"
 msgstr ""
 
-#: admin/includes/dashboard/includes/class-recommended-plugins.php:672
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:822
 msgid "Status"
+msgstr ""
+
+#: admin/includes/dashboard/includes/class-recommended-plugins.php:826
+msgid "Categories"
 msgstr ""
 
 #: includes/abstract-functionality-template.php:304
@@ -307,6 +311,14 @@ msgstr ""
 #: includes/class-crons.php:112
 #, php-format
 msgid "Every %s hours"
+msgstr ""
+
+#: public/class-public.php:66
+msgid "Custom global CSS"
+msgstr ""
+
+#: public/class-public.php:73
+msgid "Custom global JS"
 msgstr ""
 
 #: public/includes/class-circled-content.php:71

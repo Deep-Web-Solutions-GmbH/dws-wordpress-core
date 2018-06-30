@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:         DeepWebSolutions Custom Extensions
  * Description:         This plugin handles all the core custom extensions to this WordPress installation.
- * Version:             1.2.4
+ * Version:             1.2.5
  * Author:              Antonius Cezar Hegyes
  * Author URI:          https://www.linkedin.com/in/tonyhegyes/
  * License:             GPL-3.0+
