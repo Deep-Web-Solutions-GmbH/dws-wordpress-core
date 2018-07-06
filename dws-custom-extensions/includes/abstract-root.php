@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Template for encapsulating some of the most often required abilities of a class.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 1.3.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Singleton
@@ -88,6 +88,46 @@ abstract class DWS_Root extends DWS_Singleton {
 	//endregion
 
 	//region GETTERS
+
+
+	/**
+	 * Gets the current plugin description.
+	 *
+	 * @since   1.3.0
+	 * @version 1.3.0
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @return  string  plugin description of the current plugin.
+	 */
+	protected static function get_plugin_description(){
+		return Custom_Extensions::get_plugin_description();
+	}
+
+	/**
+	 * Gets the current plugin author name.
+	 *
+	 * @since   1.3.0
+	 * @version 1.3.0
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @return  string  The author's name of the current plugin.
+	 */
+	protected static function get_plugin_author_name(){
+		return Custom_Extensions::get_plugin_author_name();
+	}
+
+	/**
+	 * Gets the current plugin author URI.
+	 *
+	 * @since   1.3.0
+	 * @version 1.3.0
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @return  string  The author's URI of the current plugin.
+	 */
+	protected static function get_plugin_author_uri(){
+		return Custom_Extensions::get_plugin_author_uri();
+	}
 
 	/**
 	 * Gets the current plugin name.

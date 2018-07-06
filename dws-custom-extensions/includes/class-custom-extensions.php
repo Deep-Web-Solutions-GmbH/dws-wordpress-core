@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * The core plugin class that is used to define internationalization, hooks, and all the other extensions.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 1.3.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Singleton
@@ -55,6 +55,28 @@ final class Custom_Extensions extends DWS_Singleton {
 	 */
 	private $update_checker;
 
+	/**
+	 * @since   1.3.0
+	 * @version 1.3.0
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @access  private
+	 *
+	 * @var     array   $author     Information about the author. Matches the plugin's header information.
+	 */
+	private static $author;
+
+	/**
+	 * @since   1.3.0
+	 * @version 1.3.0
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @access  private
+	 *
+	 * @var     string   $description     Description about the plugin.
+	 */
+	private static $description;
+
 	//endregion
 
 	//region MAGIC METHODS
@@ -67,16 +89,32 @@ final class Custom_Extensions extends DWS_Singleton {
 	 * the public-facing side of the site.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 1.3.0
 	 *
 	 * @see     DWS_Singleton::construct()
 	 * @see     DWS_Singleton::get_instance()
 	 * @see     DWS_Singleton::maybe_initialize_singleton()
 	 */
 	protected function __construct() {
+		$plugin_data = \get_file_data(
+			trailingslashit(DWS_CUSTOM_EXTENSIONS_BASE_PATH) . 'dws-custom-extensions.php',
+            array(
+				'Name'          => 'Plugin Name',
+				'Version'       => 'Version',
+				'Description'   => 'Description',
+				'Author'        => 'Author',
+				'AuthorURI'     => 'Author URI'
+			)
+		);
+
 		// plugin meta
-		self::$plugin_name = 'DWS_custom-extensions';
-		self::$version     = '1.0.0';
+		self::$plugin_name = $plugin_data['Name'];
+		self::$version     = $plugin_data['Version'];
+		self::$author = array(
+			'name'  => $plugin_data['Author'],
+			'uri'   => $plugin_data['AuthorURI']
+		);
+		self::$description = $plugin_data['Description'];
 
 		// load required files
 		$this->load_dependencies();
@@ -161,6 +199,45 @@ final class Custom_Extensions extends DWS_Singleton {
 	 */
 	public static function get_version() {
 		return self::$version;
+	}
+
+	/**
+	 * Retrieve author's name.
+	 *
+	 * @since   1.3.0
+	 * @version 1.3.0
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @return  string  Author's name.
+	 */
+	public static function get_plugin_author_name(){
+		return self::$author['name'];
+	}
+
+	/**
+	 * Retrieve author's URI.
+	 *
+	 * @since   1.3.0
+	 * @version 1.3.0
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @return  string  Author's URI.
+	 */
+	public static function get_plugin_author_uri(){
+		return self::$author['uri'];
+	}
+
+	/**
+	 * Retrieve the description of the plugin.
+	 *
+	 * @since   1.3.0
+	 * @version 1.3.0
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @return  string  The description of the plugin.
+	 */
+	public static function get_plugin_description(){
+		return self::$description;
 	}
 
 	//endregion

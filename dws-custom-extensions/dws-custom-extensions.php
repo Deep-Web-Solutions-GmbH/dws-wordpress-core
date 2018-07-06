@@ -3,7 +3,6 @@
 /**
  * The DWS Custom Extensions bootstrap file.
  *
- * @link                https://www.deep-web-solutions.de
  * @since               1.0.0
  * @since               1.1.0   Update notifications
  * @since               1.2.0   Updates and installation of plugins, including dws plugins and dws modules.
@@ -12,8 +11,8 @@
  * Plugin Name:         DeepWebSolutions Custom Extensions
  * Description:         This plugin handles all the core custom extensions to this WordPress installation.
  * Version:             1.2.5
- * Author:              Antonius Cezar Hegyes
- * Author URI:          https://www.linkedin.com/in/tonyhegyes/
+ * Author:              Deep Web Solutions GmbH
+ * Author URI:          https://www.deep-web-solutions.de
  * License:             GPL-3.0+
  * License URI:         http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:         dws_custom-extensions

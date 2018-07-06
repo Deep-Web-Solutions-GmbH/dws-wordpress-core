@@ -10,15 +10,14 @@ if (!defined('ABSPATH')) { exit; }
 /**
  * The bootstrap file for all the local custom extensions.
  *
- * @link              https://www.deep-web-solutions.de
  * @since             1.0.0
  *
  * @wordpress-plugin
  * Plugin Name:       DeepWebSolutions Custom Extensions Local - Custom
  * Description:       Loads all the DWS local custom extensions made to this WordPress installation.
  * Version:           1.0.0
- * Author:            Antonius Cezar Hegyes
- * Author URI:        https://www.linkedin.com/in/tonyhegyes/
+ * Author:            Deep Web Solutions GmbH
+ * Author URI:        https://www.deep-web-solutions.de
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       dws_custom-extensions-local_custom
