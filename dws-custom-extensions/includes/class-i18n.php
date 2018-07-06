@@ -108,6 +108,19 @@ final class DWS_i18n extends DWS_Root {
 		return $proper_mu_plugins;
 	}
 
+	/**
+	 * Returns the name of the plugin, either only it's file name or it's full path.
+	 *
+	 * @since   1.3.0
+	 * @version 1.3.0
+	 *
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @param   string  $plugin_file    The file name of the plugin.
+	 * @param   string  $full_path      The full path of the plugin.
+	 *
+	 * @return  string  Either just the file name of the plugin or the full path of the plugin.
+	 */
 	public function properly_name_plugin_with_wpml($plugin_file, $full_path) {
 		if (strpos($full_path, 'dws-custom-extensions.php') !== false) {
 			return $full_path;
