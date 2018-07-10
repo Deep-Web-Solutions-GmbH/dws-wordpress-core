@@ -35,7 +35,6 @@ final class DWS_Local_i18n extends DWS_Local_Root {
 		$loader->add_filter('dws_wpml_get-mu_plugins', $this, 'properly_register_plugin_with_wpml');
 		$loader->add_filter('dws_wpml_plugin-file-name', $this, 'properly_name_plugin_with_wpml', 10, 2);
 		$loader->add_filter('dws_wpml_mu-plugin-data', $this, 'properly_add_plugin_data_to_wpml', 10, 2);
-		$loader->add_filter('wpml_sub_setting', $this, 'wpml_append_mu_plugin_localization_data', 11, 3);
 	}
 
 	//endregion
@@ -158,35 +157,6 @@ final class DWS_Local_i18n extends DWS_Local_Root {
 		}
 
 		return $plugin_info;
-	}
-
-	/**
-	 * Appends localization information for mu-plugins.
-	 *
-	 * @since   1.3.0
-	 * @version 1.3.0
-	 *
-	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
-	 *
-	 * @param   array   $localization_data  Already loaded localization data.
-	 * @param   string  $st                 Type of translation support: String translation or load mo files.
-	 * @param   string  $component_type     Component type. Either plugin or theme.
-	 *
-	 * @return  array   The expected array containing domain language information.
-	 */
-	public function wpml_append_mu_plugin_localization_data ($localization_data, $st, $component_type) {
-		if($component_type === 'plugin_localization_domains'){
-			$mu_plugins = $this->properly_register_plugin_with_wpml(wp_get_mu_plugins());
-			foreach ($mu_plugins as $mup) {
-				if (strpos($mup, 'dws-custom-extensions-local.php') !== false) {
-					// the actual number doesn't matter, so 0 is as good as any
-					$localization_data[$mup] = array(DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN => 0);
-					break;
-				}
-			}
-		}
-
-		return $localization_data;
 	}
 
 	//endregion
