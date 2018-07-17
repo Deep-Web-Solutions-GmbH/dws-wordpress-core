@@ -29,15 +29,15 @@ jQuery(document).ready(function ($) {
 
     $.fn.removeHeights = function (action) {
         if (action === "auto" || action === undefined) {
-            return this.each(function () {
+            return $("div", this).each(function () {
                 $(this).height("auto");
             });
         } else if (action === "100%") {
-            return this.each(function () {
+            return $("div", this).each(function () {
                 $(this).height("100%");
             });
         } else if (action === "removeAttr") {
-            return this.each(function () {
+            return $("div", this).each(function () {
                 $(this).height("");
             });
         }
@@ -48,7 +48,8 @@ jQuery(document).ready(function ($) {
         this.removeHeights(action);
 
         let maxHeight = 0;
-        this.each(function () {
+        $("div", this).each(function () {
+
             let height = $(this).height();
 
             if (height === 0) {
@@ -62,7 +63,7 @@ jQuery(document).ready(function ($) {
             }
         });
 
-        this.each(function () {
+        $("div", this).each(function () {
             $(this).height(maxHeight);
         });
 
