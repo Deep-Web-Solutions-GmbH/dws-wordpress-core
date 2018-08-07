@@ -110,7 +110,7 @@ final class Custom_Extensions extends DWS_Singleton {
 		// plugin meta
 		self::$plugin_name = $plugin_data['Name'];
 		self::$version     = $plugin_data['Version'];
-		self::$author = array(
+		self::$author      = array(
 			'name'  => $plugin_data['Author'],
 			'uri'   => $plugin_data['AuthorURI']
 		);

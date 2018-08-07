@@ -20,8 +20,8 @@
  */
 
 define('DWS_CUSTOM_EXTENSIONS_NAME', 'Deep Web Solutions: Custom Extensions');
-define('DWS_CUSTOM_EXTENSIONS_MIN_PHP', '7.0');
-define('DWS_CUSTOM_EXTENSIONS_MIN_WP', '4.9.6');
+define('DWS_CUSTOM_EXTENSIONS_MIN_PHP', '7.2');
+define('DWS_CUSTOM_EXTENSIONS_MIN_WP', '4.9.8');
 
 define('DWS_CUSTOM_EXTENSIONS_BASE_PATH', plugin_dir_path(__FILE__));
 define('DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN', 'dws_custom-extensions');

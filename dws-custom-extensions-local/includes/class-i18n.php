@@ -1,7 +1,6 @@
 <?php
 
 namespace Deep_Web_Solutions\Local\Core;
-use Deep_Web_Solutions\Local\Core\DWS_Local_Root;
 
 if (!defined('ABSPATH')) { exit; }
 
