@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: DeepWebSolutions Custom Extensions Local\n"
-"POT-Creation-Date: 2018-04-07 00:29+0200\n"
-"PO-Revision-Date: 2018-04-07 00:29+0200\n"
+"POT-Creation-Date: 2018-08-07 19:12+0200\n"
+"PO-Revision-Date: 2018-08-07 19:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.1.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: dws-custom-extensions-local.php\n"
@@ -21,19 +21,19 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: includes/class-admin.php:61
+#: includes/class-admin.php:62
 msgid "Deep Web Solutions: Custom Extensions Local Settings"
 msgstr ""
 
-#: includes/class-admin.php:62
+#: includes/class-admin.php:63
 msgid "Local Settings"
 msgstr ""
 
-#: includes/class-custom-extensions-local.php:78
+#: includes/class-custom-extensions-local.php:113
 msgid "DWS Custom Extensions Local - Admin"
 msgstr ""
 
-#: includes/class-custom-extensions-local.php:79
+#: includes/class-custom-extensions-local.php:114
 msgid "DWS Custom Extensions Local - Custom"
 msgstr ""
 
@@ -46,9 +46,9 @@ msgid "Handles all the local custom extensions to this WordPress installation."
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>"
+msgid "Deep Web Solutions GmbH"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "https://www.linkedin.com/in/tonyhegyes/"
+msgid "https://www.deep-web-solutions.de"
 msgstr ""
