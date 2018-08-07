@@ -96,6 +96,7 @@ final class Custom_Extensions extends DWS_Singleton {
 	 * @see     DWS_Singleton::maybe_initialize_singleton()
 	 */
 	protected function __construct() {
+        // plugin meta
 		$plugin_data = \get_file_data(
 			trailingslashit(DWS_CUSTOM_EXTENSIONS_BASE_PATH) . 'dws-custom-extensions.php',
             array(

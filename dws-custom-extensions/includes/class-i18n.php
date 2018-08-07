@@ -30,7 +30,7 @@ final class DWS_i18n extends DWS_Root {
 		$loader->add_action('plugins_loaded', $this, 'load_muplugin_textdomain');
 		$loader->add_action('loco_plugins_data', $this, 'register_with_loco_translate_plugin');
 
-		$loader->add_filter('dws_wpml_get-mu_plugins', $this, 'properly_register_plugin_with_wpml');
+		$loader->add_filter('dws_wpml_get-mu_plugins', $this, 'properly_register_plugin_with_wpml', 10);
 		$loader->add_filter('dws_wpml_plugin-file-name', $this, 'properly_name_plugin_with_wpml', 10, 2);
 		$loader->add_filter('dws_wpml_mu-plugin-data', $this, 'properly_add_plugin_data_to_wpml', 10, 2);
 	}

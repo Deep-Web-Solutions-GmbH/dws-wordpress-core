@@ -89,7 +89,6 @@ abstract class DWS_Root extends DWS_Singleton {
 
 	//region GETTERS
 
-
 	/**
 	 * Gets the current plugin description.
 	 *

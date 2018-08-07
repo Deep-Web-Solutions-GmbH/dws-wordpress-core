@@ -3,13 +3,12 @@
 /**
  * The DWS Custom Local Extensions bootstrap file.
  *
- * @link              https://www.deep-web-solutions.de
  * @since             1.0.0
  *
  * @wordpress-plugin
  * Plugin Name:       DeepWebSolutions Custom Extensions Local
  * Description:       Handles all the local custom extensions to this WordPress installation.
- * Version:           1.1.0
+ * Version:           1.3.0
  * Author:            Deep Web Solutions GmbH
  * Author URI:        https://www.deep-web-solutions.de
  * License:           GPL-3.0+

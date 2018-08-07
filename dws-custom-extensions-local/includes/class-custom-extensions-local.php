@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * The core plugin class that is used to define internationalization, hooks, and local extensions.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 1.3.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  */
 final class Custom_Extensions_Local extends DWS_Singleton {
@@ -34,6 +34,26 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 	 * @var     string      $version    The current version of the plugin.
 	 */
 	private static $version;
+
+    /**
+     * @since   1.3.0
+     * @version 1.3.0
+     *
+     * @access  private
+     *
+     * @var     array   $author     Information about the author. Matches the plugin's header information.
+     */
+    private static $author;
+
+    /**
+     * @since   1.3.0
+     * @version 1.3.0
+     *
+     * @access  private
+     *
+     * @var     string   $description     Description about the plugin.
+     */
+    private static $description;
 
 	/**
 	 * @since   1.0.0
@@ -62,9 +82,26 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 	 * @see     DWS_Singleton::maybe_initialize_singleton()
 	 */
 	protected function __construct() {
-		// plugin meta
-		self::$plugin_name = 'DWS_custom-extensions-local';
-		self::$version     = '1.0.0';
+        // plugin meta
+        $plugin_data = \get_file_data(
+            trailingslashit(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH) . 'dws-custom-extensions-local.php',
+            array(
+                'Name'          => 'Plugin Name',
+                'Version'       => 'Version',
+                'Description'   => 'Description',
+                'Author'        => 'Author',
+                'AuthorURI'     => 'Author URI'
+            )
+        );
+
+        // plugin meta
+        self::$plugin_name = $plugin_data['Name'];
+        self::$version     = $plugin_data['Version'];
+        self::$author      = array(
+            'name'  => $plugin_data['Author'],
+            'uri'   => $plugin_data['AuthorURI']
+        );
+        self::$description = $plugin_data['Description'];
 
 		// load required files
 		$this->load_dependencies();
@@ -108,6 +145,68 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 	}
 
 	//endregion
+
+    //region GETTERS
+
+    /**
+     * The name of the plugin used to uniquely identify it within the context of
+     * WordPress and to define internationalization functionality.
+     *
+     * @since     1.3.0
+     * @return    string    The name of the plugin.
+     */
+    public static function get_plugin_name() {
+        return self::$plugin_name;
+    }
+
+    /**
+     * Retrieve the version number of the plugin.
+     *
+     * @since       1.3.0
+     * @version     1.3.0
+     * @return      string    The version number of the plugin.
+     */
+    public static function get_version() {
+        return self::$version;
+    }
+
+    /**
+     * Retrieve author's name.
+     *
+     * @since   1.3.0
+     * @version 1.3.0
+     *
+     * @return  string  Author's name.
+     */
+    public static function get_plugin_author_name(){
+        return self::$author['name'];
+    }
+
+    /**
+     * Retrieve author's URI.
+     *
+     * @since   1.3.0
+     * @version 1.3.0
+     *
+     * @return  string  Author's URI.
+     */
+    public static function get_plugin_author_uri(){
+        return self::$author['uri'];
+    }
+
+    /**
+     * Retrieve the description of the plugin.
+     *
+     * @since   1.3.0
+     * @version 1.3.0
+     *
+     * @return  string  The description of the plugin.
+     */
+    public static function get_plugin_description(){
+        return self::$description;
+    }
+
+    //endregion
 
 	//region HELPERS
 

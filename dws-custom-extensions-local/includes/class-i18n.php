@@ -31,7 +31,7 @@ final class DWS_Local_i18n extends DWS_Local_Root {
 		$loader->add_action('plugins_loaded', $this, 'load_muplugin_textdomain');
 		$loader->add_action('loco_plugins_data', $this, 'register_with_loco_translate_plugin');
 
-		$loader->add_filter('dws_wpml_get-mu_plugins', $this, 'properly_register_plugin_with_wpml');
+		$loader->add_filter('dws_wpml_get-mu_plugins', $this, 'properly_register_plugin_with_wpml', 100); // priority must be higher than 10 !!!
 		$loader->add_filter('dws_wpml_plugin-file-name', $this, 'properly_name_plugin_with_wpml', 10, 2);
 		$loader->add_filter('dws_wpml_mu-plugin-data', $this, 'properly_add_plugin_data_to_wpml', 10, 2);
 	}
@@ -97,15 +97,8 @@ final class DWS_Local_i18n extends DWS_Local_Root {
 	 * @return  array   The proper mu-plugin of the core.
 	 */
 	public function properly_register_plugin_with_wpml($mu_plugins) {
-		$proper_mu_plugins = array();
-		foreach ($mu_plugins as $mu_plugin) {
-			if (strpos($mu_plugin, 'index.php') !== false && strpos($mu_plugin, 'dws-loader.php') !== false) {
-				$proper_mu_plugins[] = $mu_plugin;
-			}
-		}
-
-		$proper_mu_plugins[] = trailingslashit(DWS_CUSTOM_EXTENSIONS_BASE_PATH) . 'dws-custom-extensions-local.php';
-		return $proper_mu_plugins;
+		$mu_plugins[] = trailingslashit(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH) . 'dws-custom-extensions-local.php';
+		return $mu_plugins;
 	}
 
 	/**
@@ -147,8 +140,8 @@ final class DWS_Local_i18n extends DWS_Local_Root {
 			$plugin_info['Name']        = 'MU :: ' . self::get_plugin_name();
 			$plugin_info['Title']       = self::get_plugin_name();
 			$plugin_info['Version']     = self::get_plugin_version();
-			$plugin_info['TextDomain']  = DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN;
-			$plugin_info['DomainPath']  = basename(DWS_CUSTOM_EXTENSIONS_BASE_PATH) . '/languages';
+			$plugin_info['TextDomain']  = DWS_CUSTOM_EXTENSIONS_LOCAL_LANG_DOMAIN;
+			$plugin_info['DomainPath']  = basename(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH) . '/languages';
 			$plugin_info['Author']      = self::get_plugin_author_name();
 			$plugin_info['AuthorName']  = self::get_plugin_author_name();
 			$plugin_info['AuthorURI']   = self::get_plugin_author_uri();
