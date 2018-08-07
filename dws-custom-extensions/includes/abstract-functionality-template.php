@@ -160,6 +160,9 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 		if (is_dir(self::get_custom_base_path('languages'))) {
 			load_muplugin_textdomain(self::get_language_domain(), str_replace(WPMU_PLUGIN_DIR, '', self::get_custom_base_path('languages')));
 			DWS_WordPress_Loader::get_instance()->add_action('loco_plugins_data', $this, 'register_with_loco_translate_plugin');
+			DWS_WordPress_Loader::get_instance()->add_action('dws_wpml_get-mu_plugins', $this, 'properly_register_plugin_with_wpml');
+			DWS_WordPress_Loader::get_instance()->add_action('dws_wpml_plugin-file-name', $this, 'properly_name_plugin_with_wpml', 10, 2);
+			DWS_WordPress_Loader::get_instance()->add_action('dws_wpml_mu-plugin-data', $this, 'properly_add_plugin_data_to_wpml', 10, 2);
 		}
 	}
 
@@ -579,6 +582,82 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 		}
 
 		return $current;
+	}
+
+	/**
+	 * Properly registers the DWS WordPress core plugin with WPML.
+	 *
+	 * @since   1.3.0
+	 * @version 1.3.0
+	 *
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @see     wp_get_mu_plugins()
+	 *
+	 * @param   array   $mu_plugins     The mu-plugins installed.
+	 *
+	 * @return  array   The proper mu-plugin of the core.
+	 */
+	public function properly_register_plugin_with_wpml($mu_plugins) {
+		$proper_mu_plugins = array();
+		foreach ($mu_plugins as $mu_plugin) {
+			if (strpos($mu_plugin, 'index.php') !== false && strpos($mu_plugin, 'dws-loader.php') !== false) {
+				$proper_mu_plugins[] = $mu_plugin;
+			}
+		}
+
+		$proper_mu_plugins[] = trailingslashit(DWS_CUSTOM_EXTENSIONS_BASE_PATH) . 'dws-custom-extensions.php';
+		return $proper_mu_plugins;
+	}
+
+	/**
+	 * Returns the name of the plugin, either only it's file name or it's full path.
+	 *
+	 * @since   1.3.0
+	 * @version 1.3.0
+	 *
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @param   string  $plugin_file    The file name of the plugin.
+	 * @param   string  $full_path      The full path of the plugin.
+	 *
+	 * @return  string  Either just the file name of the plugin or the full path of the plugin.
+	 */
+	public function properly_name_plugin_with_wpml($plugin_file, $full_path) {
+		if (strpos($full_path, 'dws-custom-extensions.php') !== false) {
+			return $full_path;
+		}
+
+		return $plugin_file;
+	}
+
+	/**
+	 * Adds some data to the mu-plugins provided.
+	 *
+	 * @since   1.3.0
+	 * @version 1.3.0
+	 *
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @param   array   $plugin_info    The information of the mu-plugin currently available.
+	 * @param   string  $plugin_file    The name of the plugin file as it's registered with WPML.
+	 *
+	 * @return  array   Potentially modified mu-plugin information.
+	 */
+	public function properly_add_plugin_data_to_wpml ($plugin_info, $plugin_file) {
+		if (strpos($plugin_file, 'dws-custom-extensions.php') !== false) {
+			$plugin_info['Name']        = 'MU :: ' . self::get_plugin_name();
+			$plugin_info['Title']       = self::get_plugin_name();
+			$plugin_info['Version']     = self::get_plugin_version();
+			$plugin_info['TextDomain']  = DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN;
+			$plugin_info['DomainPath']  = basename(DWS_CUSTOM_EXTENSIONS_BASE_PATH) . '/languages';
+			$plugin_info['Author']      = self::get_plugin_author_name();
+			$plugin_info['AuthorName']  = self::get_plugin_author_name();
+			$plugin_info['AuthorURI']   = self::get_plugin_author_uri();
+			$plugin_info['Description'] = self::get_plugin_description();
+		}
+
+		return $plugin_info;
 	}
 
 	//endregion
