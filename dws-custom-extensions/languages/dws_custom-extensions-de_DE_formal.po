@@ -2,16 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DeepWebSolutions Custom Extensions\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-30 15:08+0200\n"
-"PO-Revision-Date: 2018-06-30 15:12+0200\n"
+"POT-Creation-Date: 2018-08-08 10:05+0200\n"
+"PO-Revision-Date: 2018-08-08 10:06+0200\n"
 "Last-Translator: a.hegyes <a.hegyes@deep-web-solutions.de>\n"
 "Language-Team: German (Formal)\n"
-"Language: de\n"
+"Language: de_DE@formal\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.0.8\n"
+"X-Generator: Poedit 2.1.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: dws-custom-extensions.php\n"
@@ -278,30 +278,30 @@ msgstr "Status"
 msgid "Categories"
 msgstr "Kategorien"
 
-#: includes/abstract-functionality-template.php:304
-#: includes/abstract-root.php:220
+#: includes/abstract-functionality-template.php:307
+#: includes/abstract-root.php:259
 #, php-format
 msgid "'%s' options"
 msgstr "'%s' Optionen"
 
-#: includes/abstract-functionality-template.php:333
+#: includes/abstract-functionality-template.php:336
 msgid "Is functionality active?"
 msgstr "Ist Funktionalität aktiv?"
 
-#: includes/abstract-functionality-template.php:341
+#: includes/abstract-functionality-template.php:344
 #, php-format
 msgid "Is sub-functionality '%s' active?"
 msgstr "Ist Unterfunktionalität '%s' aktiv?"
 
-#: includes/abstract-functionality-template.php:357
+#: includes/abstract-functionality-template.php:360
 msgid "Overwrite this template?"
 msgstr "Dieses Template überschreiben?"
 
-#: includes/abstract-functionality-template.php:368
+#: includes/abstract-functionality-template.php:371
 msgid "Template files"
 msgstr "Template-Dateien"
 
-#: includes/abstract-functionality-template.php:371
+#: includes/abstract-functionality-template.php:374
 msgid ""
 "If unchecked, the respective template will NOT be used from the Custom "
 "Extensions plugin.\n"
@@ -314,7 +314,7 @@ msgstr ""
 "dass eine Datei, die im Template-Ordner des Themes oder in den lokalen "
 "\"Benutzerdefinierten Erweiterungen\" gefunden wird, Vorrang hat."
 
-#: includes/abstract-root.php:160
+#: includes/abstract-root.php:199
 #, php-format
 msgid "You did not properly configure the class %s"
 msgstr "Sie haben die Klasse '%s' nicht ordnungsgemäß konfiguriert"
@@ -480,9 +480,15 @@ msgstr ""
 "dieser WordPress-Installation."
 
 #. Author of the plugin/theme
-msgid "Antonius Cezar Hegyes"
-msgstr "Antonius Cezar Hegyes"
+msgid "Deep Web Solutions GmbH"
+msgstr "Deep Web Solutions GmbH"
 
 #. Author URI of the plugin/theme
-msgid "https://www.linkedin.com/in/tonyhegyes/"
-msgstr "https://www.linkedin.com/in/tonyhegyes/"
+msgid "https://www.deep-web-solutions.de"
+msgstr "https://www.deep-web-solutions.de"
+
+#~ msgid "Antonius Cezar Hegyes"
+#~ msgstr "Antonius Cezar Hegyes"
+
+#~ msgid "https://www.linkedin.com/in/tonyhegyes/"
+#~ msgstr "https://www.linkedin.com/in/tonyhegyes/"

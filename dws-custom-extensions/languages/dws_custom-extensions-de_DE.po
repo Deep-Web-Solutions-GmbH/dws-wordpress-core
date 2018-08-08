@@ -1,15 +1,16 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: DeepWebSolutions Custom Extensions\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-08 10:05+0200\n"
-"PO-Revision-Date: 2018-08-08 10:05+0200\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2018-08-08 10:08+0200\n"
+"Last-Translator: a.hegyes <a.hegyes@deep-web-solutions.de>\n"
+"Language-Team: German (Formal)\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Poedit 2.1.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
@@ -23,140 +24,144 @@ msgstr ""
 
 #: admin/includes/acf/includes/class-acf-options.php:118
 msgid "Custom Extensions"
-msgstr ""
+msgstr "Benutzerdefinierte Erweiterungen"
 
 #: admin/includes/acf/includes/class-acf-options.php:119
 msgid "Deep Web Solutions: Custom Extensions Core Settings"
-msgstr ""
+msgstr "DeepWebSolutions Custom Extensions - Core Einstellungen"
 
 #: admin/includes/acf/includes/class-acf-options.php:129
 msgid "Core Settings"
-msgstr ""
+msgstr "Core Einstellungen"
 
 #: admin/includes/acf/includes/class-acf-options.php:159
 msgid "Deep Web Solutions: Custom Extensions Modules Settings"
-msgstr ""
+msgstr "DeepWebSolutions Custom Extensions - Module Einstellungen"
 
 #: admin/includes/acf/includes/class-acf-options.php:160
 msgid "Modules Settings"
-msgstr ""
+msgstr "Module Einstellungen"
 
 #: admin/includes/acf/includes/class-acf-options.php:165
 msgid "Deep Web Solutions: Custom Extensions Theme Settings"
-msgstr ""
+msgstr "DeepWebSolutions Custom Extensions - Theme Einstellungen"
 
 #: admin/includes/acf/includes/class-acf-options.php:166
 msgid "Theme Settings"
-msgstr ""
+msgstr "Theme Einstellungen"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:30
 msgid "Post comments"
-msgstr ""
+msgstr "Interne Kommentare"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:71
 msgid "Default Value"
-msgstr ""
+msgstr "Standardwert"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:72
 msgid "Appears when creating a new post"
-msgstr ""
+msgstr "Erscheint beim Erstellen eines neuen Posts"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:82
 msgid "Placeholder Text"
-msgstr ""
+msgstr "Platzhaltertext"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:83
 msgid "Appears within the input"
-msgstr ""
+msgstr "Erscheint innerhalb der Eingabe"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:93
 msgid "Character Limit"
-msgstr ""
+msgstr "Zeichenbeschränkung"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:94
 msgid "Leave blank for no limit"
-msgstr ""
+msgstr "Leer lassen für kein Limit"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:104
 msgid "Rows"
-msgstr ""
+msgstr "Reihen"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:105
 msgid "Sets the textarea height"
-msgstr ""
+msgstr "Setzt die Textbereichshöhe"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:116
 msgid "New Lines"
-msgstr ""
+msgstr "Neue Zeilen"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:117
 msgid "Controls how new lines are rendered"
-msgstr ""
+msgstr "Steuert, wie neue Zeilen gerendert werden"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:121
 msgid "Automatically add paragraphs"
-msgstr ""
+msgstr "Absätze automatisch hinzufügen"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:122
 msgid "Automatically add &lt;br&gt;"
-msgstr ""
+msgstr "Automatisches Hinzufügen von <br>"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:123
 msgid "No Formatting"
-msgstr ""
+msgstr "Keine Formatierung"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:182
 msgid "Add comment"
-msgstr ""
+msgstr "Kommentar hinzufügen"
 
 #: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:309
 #, php-format
 msgid "- added on %s by"
-msgstr ""
+msgstr "- hinzugefügt am %s von"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:94
 msgid "Recommended Plugins"
-msgstr ""
+msgstr "Empfohlene Plugins"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:96
 msgid "Deep Web Solutions: Custom Extensions Recommended Plugins"
-msgstr ""
+msgstr "DeepWebSolutions Custom Extensions - Empfohlene Plugins"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:154
 msgid "Install Required Plugins"
-msgstr ""
+msgstr "Notwendige Plugins installieren"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:155
 msgid "Install Plugins"
-msgstr ""
+msgstr "Plugins installieren"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:156
 #, php-format
 msgid "Installing Plugin: %s"
-msgstr ""
+msgstr "Plugin wird installiert: %s"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:157
 #, php-format
 msgid "Updating Plugin: %s"
-msgstr ""
+msgstr "Plugin wird aktualisiert: %s"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:158
 msgid "Something went wrong with the plugin API."
-msgstr ""
+msgstr "Etwas ist schief gegangen mit dem plugin API."
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:160
 #, php-format
 msgid "DWS Custom Extensions requires the following plugin: %1$s."
 msgid_plural "DWS Custom Extensions requires the following plugins: %1$s."
 msgstr[0] ""
+"DWS Benutzerdefinierte Erweiterungen benötigt folgendes Plugin: %1$s."
 msgstr[1] ""
+"DWS Benutzerdefinierte Erweiterungen benötigt folgende Plugins: %1$s."
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:165
 #, php-format
 msgid "DWS Custom Extensions recommends the following plugin: %1$s."
 msgid_plural "DWS Custom Extensions recommends the following plugins: %1$s."
 msgstr[0] ""
+"DWS Benutzerdefinierte Erweiterungen empfiehlt folgendes Plugin: %1$s."
 msgstr[1] ""
+"DWS Benutzerdefinierte Erweiterungen empfiehlt folgende Plugins: %1$s."
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:170
 #, php-format
@@ -167,63 +172,69 @@ msgid_plural ""
 "The following plugins need to be updated to their latest version to ensure "
 "maximum compatibility with this DWS Custom Extensions: %1$s."
 msgstr[0] ""
+"Folgendes Plugin muss aktualisiert werden auf die neuste Version um "
+"maximalle Kompatibilität mit DWS Benutzerdefinierte Erweiterungen zu "
+"gewährleisten: %1$s."
 msgstr[1] ""
+"Folgende Plugins müssen aktualisiert werden auf die neuste Version um "
+"maximalle Kompatibilität mit DWS Benutzerdefinierte Erweiterungen zu "
+"gewährleisten: %1$s."
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:175
 #, php-format
 msgid "There is an update available for: %1$s."
 msgid_plural "There are updates available for the following plugins: %1$s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ein Update ist verfügbar für: %1$s."
+msgstr[1] "Updates sind verfügbar für folgende Plugins: %1$s."
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:180
 #, php-format
 msgid "The following required plugin is currently inactive: %1$s."
 msgid_plural "The following required plugins are currently inactive: %1$s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Folgendes notwendiges Plugin ist jetzt inaktiv: %1$s."
+msgstr[1] "Folgende notwendige Plugins sind jetzt inaktiv: %1$s."
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:185
 #, php-format
 msgid "The following recommended plugin is currently inactive: %1$s."
 msgid_plural "The following recommended plugins are currently inactive: %1$s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Folgendes notwendiges Plugin ist jetzt nicht installiert: %1$s."
+msgstr[1] "Folgende notwendige Plugins sind jetzt nicht installiert: %1$s."
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:190
 msgid "Begin installing plugin"
 msgid_plural "Begin installing plugins"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Beginne die Plugininstallation"
+msgstr[1] "Beginne die Plugininstallationen"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:195
 msgid "Begin updating plugin"
 msgid_plural "Begin updating plugins"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Beginne die Pluginaktualisierung"
+msgstr[1] "Beginne die Pluginaktualisierungen"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:200
 msgid "Begin activating plugin"
 msgid_plural "Begin activating plugins"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Beginne die Pluginaktivierung"
+msgstr[1] "Beginne die Pluginaktivierungen"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:204
 msgid "Return to Required Plugins Installer"
-msgstr ""
+msgstr "Zurück zum Installer der benötigten Plugins"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:205
 msgid "Plugin activated successfully."
-msgstr ""
+msgstr "Plugin wurde erfolgreich aktiviert."
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:206
 msgid "The following plugin was activated successfully:"
-msgstr ""
+msgstr "Folgendes Plugin wurde erfolgreich aktiviert:"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:207
 #, php-format
 msgid "No action taken. Plugin %1$s was already active."
-msgstr ""
+msgstr "Nichts gemacht. Das Plugin %1$s war schon aktiv."
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:208
 #, php-format
@@ -231,60 +242,64 @@ msgid ""
 "Plugin not activated. A higher version of %s is needed for DWS Custom "
 "Extensions. Please update the plugin."
 msgstr ""
+"Plugin wurde nicht aktiviert. Eine neuer Version von %s ist notwendig für "
+"DWS Benutzerdefinierte Erweiterungen. Bitte aktualisieren Sie das Plugin."
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:209
 #, php-format
 msgid "All plugins installed and activated successfully. %1$s"
-msgstr ""
+msgstr "Alle Plugins wurde erfolgreich installiert und aktiviert. %1$s"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:210
 msgid "Dismiss this notice"
-msgstr ""
+msgstr "Meldung verwerfen"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:211
 msgid ""
 "There are one or more required or recommended plugins to install, update or "
 "activate."
 msgstr ""
+"Es gibt eins oder mehrere notwendige oder empfohlene Plugins zum "
+"Installieren, Aktualisieren, oder Aktivieren."
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:212
 msgid "Please contact the administrator of this site for help."
-msgstr ""
+msgstr "Bitte den Admin der Website für Hilfe kontaktieren."
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:821
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:822
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:826
 msgid "Categories"
-msgstr ""
+msgstr "Kategorien"
 
 #: includes/abstract-functionality-template.php:307
 #: includes/abstract-root.php:259
 #, php-format
 msgid "'%s' options"
-msgstr ""
+msgstr "'%s' Optionen"
 
 #: includes/abstract-functionality-template.php:336
 msgid "Is functionality active?"
-msgstr ""
+msgstr "Ist Funktionalität aktiv?"
 
 #: includes/abstract-functionality-template.php:344
 #, php-format
 msgid "Is sub-functionality '%s' active?"
-msgstr ""
+msgstr "Ist Unterfunktionalität '%s' aktiv?"
 
 #: includes/abstract-functionality-template.php:360
 msgid "Overwrite this template?"
-msgstr ""
+msgstr "Dieses Template überschreiben?"
 
 #: includes/abstract-functionality-template.php:371
 msgid "Template files"
-msgstr ""
+msgstr "Template-Dateien"
 
 #: includes/abstract-functionality-template.php:374
 msgid ""
@@ -294,173 +309,186 @@ msgid ""
 "inside the local Custom Extensions will \n"
 "\t\t\t\t\thave precedence."
 msgstr ""
+"Wenn diese Option deaktiviert ist, wird das entsprechende Template NICHT aus "
+"dem \"Benutzerdefinierte Erweiterungen\"-Plugin verwendet. Beachten Sie, "
+"dass eine Datei, die im Template-Ordner des Themes oder in den lokalen "
+"\"Benutzerdefinierten Erweiterungen\" gefunden wird, Vorrang hat."
 
 #: includes/abstract-root.php:199
 #, php-format
 msgid "You did not properly configure the class %s"
-msgstr ""
+msgstr "Sie haben die Klasse '%s' nicht ordnungsgemäß konfiguriert"
 
 #: includes/class-crons.php:104 includes/class-crons.php:105
 #: includes/class-crons.php:106 includes/class-crons.php:107
 #, php-format
 msgid "Every %s minutes"
-msgstr ""
+msgstr "Alle %s Minuten"
 
 #: includes/class-crons.php:108 includes/class-crons.php:109
 #: includes/class-crons.php:110 includes/class-crons.php:111
 #: includes/class-crons.php:112
 #, php-format
 msgid "Every %s hours"
-msgstr ""
+msgstr "Alle %s Stunden"
 
 #: public/class-public.php:66
 msgid "Custom global CSS"
-msgstr ""
+msgstr "Benutzerdefiniertes globales CSS"
 
 #: public/class-public.php:73
 msgid "Custom global JS"
-msgstr ""
+msgstr "Benutzerdefiniertes globales JS"
 
 #: public/includes/class-circled-content.php:71
 msgid "Background color"
-msgstr ""
+msgstr "Hintergrundfarbe"
 
 #: public/includes/class-circled-content.php:79
 msgid "Text color"
-msgstr ""
+msgstr "Textfarbe"
 
 #: public/includes/class-circled-content.php:87
 msgid "Background color on hover"
-msgstr ""
+msgstr "Hintergrundfarbe beim Hover"
 
 #: public/includes/class-circled-content.php:95
 msgid "Text color on hover"
-msgstr ""
+msgstr "Textfarbe beim hover"
 
 #: public/includes/class-customer-service.php:76
 msgid "Customer email"
-msgstr ""
+msgstr "Kunden-eMail"
 
 #: public/includes/class-customer-service.php:77
 msgid "This email will appear on the website for the customers to write to."
-msgstr ""
+msgstr "Diese E-Mail erscheint für Kunden auf der Website."
 
 #: public/includes/class-customer-service.php:84
 msgid "Hotline phone number"
-msgstr ""
+msgstr "Hotline-Telefonnummer"
 
 #: public/includes/class-customer-service.php:85
 msgid "This phone number will appear on the website for the customers to call."
-msgstr ""
+msgstr "Diese Telefonnummer wird auf der Website für Kunden angezeigt."
 
 #: public/includes/class-customer-service.php:92
 msgid "Hotline availability"
-msgstr ""
+msgstr "Hotline-Verfügbarkeit"
 
 #: public/includes/class-customer-service.php:93
 msgid "Select the times when the hotline is available."
-msgstr ""
+msgstr "Wählen Sie die Zeiten aus, zu denen die Hotline verfügbar ist."
 
 #: public/includes/class-customer-service.php:103
 msgid "Day of the week"
-msgstr ""
+msgstr "Wochentag"
 
 #: public/includes/class-customer-service.php:104
 msgid "Select the day(s) for which the times should apply."
-msgstr ""
+msgstr "Wählen Sie die Tage aus, für die die Zeiten gelten sollen."
 
 #: public/includes/class-customer-service.php:108
 msgid "Monday"
-msgstr ""
+msgstr "Montag"
 
 #: public/includes/class-customer-service.php:109
 msgid "Tuesday"
-msgstr ""
+msgstr "Dienstag"
 
 #: public/includes/class-customer-service.php:110
 msgid "Wednesday"
-msgstr ""
+msgstr "Mittwoch"
 
 #: public/includes/class-customer-service.php:111
 msgid "Thursday"
-msgstr ""
+msgstr "Donnerstag"
 
 #: public/includes/class-customer-service.php:112
 msgid "Friday"
-msgstr ""
+msgstr "Freitag"
 
 #: public/includes/class-customer-service.php:113
 msgid "Saturday"
-msgstr ""
+msgstr "Samstag"
 
 #: public/includes/class-customer-service.php:114
 msgid "Sunday"
-msgstr ""
+msgstr "Sonntag"
 
 #: public/includes/class-customer-service.php:122
 msgid "From"
-msgstr ""
+msgstr "Von"
 
 #: public/includes/class-customer-service.php:131
 msgid "To"
-msgstr ""
+msgstr "An"
 
 #: public/includes/class-customer-service.php:161
 #: public/includes/class-customer-service.php:192
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 #: public/includes/class-customer-service.php:162
 msgid "Email"
-msgstr ""
+msgstr "eMail"
 
 #: public/includes/class-customer-service.php:193
 msgid "Phone number"
-msgstr ""
+msgstr "Telefonnummer"
 
 #: public/includes/class-customer-service.php:265
 #, php-format
 msgid "%s - %s o'clock"
-msgstr ""
+msgstr "%s - %s Uhr"
 
 #: public/includes/class-fancy-messages.php:80
 msgid "Overwrite compatible plugin's message styles?"
 msgstr ""
+"Sollen die Nachrichtenformate des kompatiblen Plugins überschrieben werden?"
 
 #: public/includes/class-fancy-messages.php:93
 #, php-format
 msgid "Choose the color for %s messages background"
-msgstr ""
+msgstr "Wählen Sie die Farbe für den %s Nachrichtenhintergrund aus"
 
 #: public/includes/class-fancy-messages.php:100
 #, php-format
 msgid "Choose the color for %s messages text"
-msgstr ""
+msgstr "Wählen Sie die Farbe für den %s Nachrichten-Text aus"
 
 #: public/includes/class-fancy-messages.php:107
 #, php-format
 msgid "Choose the color for %s messages border"
-msgstr ""
+msgstr "Wählen Sie die Farbe für den %s Nachrichtenrahmen aus"
 
 #: public/includes/class-fancy-messages.php:114
 #, php-format
 msgid "Choose the color for %s messages icon"
-msgstr ""
+msgstr "Wählen Sie die Farbe für das %s Nachrichten-Icon aus"
 
 #. Plugin Name of the plugin/theme
 msgid "DeepWebSolutions Custom Extensions"
-msgstr ""
+msgstr "DeepWebSolutions Custom Extensions"
 
 #. Description of the plugin/theme
 msgid ""
 "This plugin handles all the core custom extensions to this WordPress "
 "installation."
 msgstr ""
+"Dieses Plugin behandelt alle wichtigen benutzerdefinierten Erweiterungen "
+"dieser WordPress-Installation."
 
 #. Author of the plugin/theme
 msgid "Deep Web Solutions GmbH"
-msgstr ""
+msgstr "Deep Web Solutions GmbH"
 
 #. Author URI of the plugin/theme
 msgid "https://www.deep-web-solutions.de"
-msgstr ""
+msgstr "https://www.deep-web-solutions.de"
+
+#~ msgid "Antonius Cezar Hegyes"
+#~ msgstr "Antonius Cezar Hegyes"
+
+#~ msgid "https://www.linkedin.com/in/tonyhegyes/"
+#~ msgstr "https://www.linkedin.com/in/tonyhegyes/"
