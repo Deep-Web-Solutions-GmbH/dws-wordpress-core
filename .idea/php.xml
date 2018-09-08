@@ -2,9 +2,7 @@
 <project version="4">
   <component name="PhpIncludePathManager">
     <include_path>
-      <path value="$USER_HOME$/Deep Web Solutions GmbH/Development - WordPress Libraries/wordpress/wordpress_4.9.8" />
-      <path value="$USER_HOME$/Deep Web Solutions GmbH/Development - WordPress Libraries/plugins/advanced-access-manager/advanced-access-manager_5.4.0" />
-      <path value="$USER_HOME$/Deep Web Solutions GmbH/Development - WordPress Libraries/plugins/express-login-for-wordpress/express-login-for-wordpress_1.3.5" />
+      <path value="$USER_HOME$/Deep Web Solutions GmbH/Programming - WordPress Libraries/wordpress/wordpress_4.9.8" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

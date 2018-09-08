@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="73c93231-31d4-4527-8926-207d66303471" name="dev.wordpress.deep-web-solutions.de" url="http://51.144.235.253">
+        <fileTransfer host="51.144.235.253" port="22" rootFolder="/var/www/dws.wordpress/public_html" accessType="SFTP" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

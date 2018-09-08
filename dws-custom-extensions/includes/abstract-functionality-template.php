@@ -353,12 +353,13 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 			array_map(
 				function ($template_file) {
 					return array(
-						'key'     => join('_', array('field_h4748g3g34g34g', self::get_root_id(), $template_file)),
-						'name'    => join('_', array(self::TEMPLATE_FILE_OVERWRITE_PREFIX, $template_file)),
-						'label'   => $template_file,
-						'type'    => 'true_false',
-						'message' => sprintf(__('Overwrite this template?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $template_file),
-						'wrapper' => array('width' => '20%')
+						'key'           => join('_', array('field_h4748g3g34g34g', self::get_root_id(), $template_file)),
+						'name'          => join('_', array(self::TEMPLATE_FILE_OVERWRITE_PREFIX, $template_file)),
+						'label'         => $template_file,
+						'type'          => 'true_false',
+						'message'       => sprintf(__('Overwrite this template?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $template_file),
+						'instructions'  => DWS_Helper::extract_file_header(static::get_templates_base_path() . 'overrides/'. $template_file),
+						'wrapper'       => array('width' => '20%')
 					);
 				}, $this->maybe_overridable_templates()
 			)

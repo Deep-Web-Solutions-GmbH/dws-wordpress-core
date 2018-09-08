@@ -35,6 +35,35 @@ final class DWS_Helper {
 	}
 
 	/**
+	 * Extracts headers from overridable templates. It searches for "DWSComment:" and adds the following text as an
+	 * instruction in the admin options for what the template is used for.
+	 *
+	 * @since       1.3.2
+	 * @version     1.3.2
+	 *
+	 * @author      Dushan Terzikj <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @param       string  $file   The file which is searched.
+	 *
+	 * @return      bool|string     The template instruction if exists, false otherwise.
+	 */
+	public static function extract_file_header($file){
+		if($file_content = fopen($file, 'r')){
+			while(!feof($file_content)){
+				$line = fgets($file_content);
+				$comment_start_pos = strpos($line, 'DWSComment:');
+				if($comment_start_pos){
+					/* $comment_start_pos+11 is the start position of the text */
+					$comment_start_pos = $comment_start_pos + 11;
+					return trim(substr($line, $comment_start_pos));
+
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Gets a list of all the files that exist in a certain directory recursively.
 	 *
 	 * @since   1.0.0
@@ -46,6 +75,7 @@ final class DWS_Helper {
 	 * @return  array   List of the relative paths of all the files inside the directory.
 	 */
 	public static function list_files($directory, $depth = 0) {
+
 		$directory = trailingslashit($directory);
 		if (!is_dir($directory)) {
 			return array();
