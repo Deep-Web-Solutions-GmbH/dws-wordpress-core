@@ -64,16 +64,20 @@ final class DWS_Public extends DWS_Root {
 				'key'       => 'field_dhsg8h48wegwew',
 				'name'      => self::CUSTOM_CSS,
 				'label'     => __('Custom global CSS', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-				'type'      => 'textarea',
-				'wrapper'   => array('width' => '50%')
+				'type'      => 'acf_code_field',
+				'wrapper'   => array('width' => '50%'),
+				'mode'      => 'css',
+				'rows'      => 15
 			),
 			array(
 				'key'       => 'field_dsg543ejh98er',
 				'name'      => self::CUSTOM_JS,
 				'label'     => __('Custom global JS', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-				'type'      => 'textarea',
-				'wrapper'   => array('width' => '50%')
-			)
+				'type'      => 'acf_code_field',
+				'wrapper'   => array('width' => '50%'),
+				'mode'      => 'javascript',
+				'rows'      => 15
+			),
 		);
 	}
 
