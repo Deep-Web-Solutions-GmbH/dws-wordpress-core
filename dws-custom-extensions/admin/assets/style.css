@@ -5,3 +5,7 @@
 .dws_red {
     color: red;
 }
+
+div.CodeMirror-scroll {
+    height: 300px !important;
+}
