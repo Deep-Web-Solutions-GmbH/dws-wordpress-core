@@ -84,6 +84,7 @@ final class ACF_Options extends DWS_Functionality_Template {
 
 		$loader->add_action('acf/init', $this, 'add_pages_groups', PHP_INT_MAX - 1);
 		$loader->add_action('acf/init', $this, 'add_pages_group_fields', PHP_INT_MAX);
+		$loader->add_action('acf/init', $this, 'add_floating_update_button', PHP_INT_MAX);
 	}
 
 	/**
@@ -221,6 +222,18 @@ final class ACF_Options extends DWS_Functionality_Template {
 			$fields = apply_filters(self::get_page_groups_fields_hook($page), array());
 			self::add_fields($fields);
 		}
+	}
+
+	public function add_floating_update_button(){
+		echo '<button onclick="dws_update()" class="dws_floating-update-button" style="border-radius: 3px;
+    border: 0;
+    background: #0085BA;
+    position: fixed;
+    width: 100px;
+    height: 50px;
+    top: 200px;
+    right: 20px;
+    z-index: 10;">Update</button>';
 	}
 
 	//endregion

@@ -9,3 +9,15 @@
 div.CodeMirror-scroll {
     height: 300px !important;
 }
+
+button.dws_floating-update-button {
+    border-radius: 3px;
+    border: 0;
+    background: #0085BA;
+    position: fixed;
+    width: 100px;
+    height: 50px;
+    top: 200px;
+    right: 20px;
+    z-index: 10;
+}
