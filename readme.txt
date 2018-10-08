@@ -12,6 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 = 1.3.2 =
 * Added instructions to overridable templates.
 * Replaced plain text areas with syntax-highlighting code areas for Global JS and Global CSS.
+* Added a fixed update button on DWS Custom Extensions page.
 
 = 1.3.1 =
 * Added en_US translations for compatibility with WPML

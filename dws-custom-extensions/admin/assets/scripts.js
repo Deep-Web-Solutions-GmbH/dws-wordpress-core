@@ -43,7 +43,3 @@ function replace_url_param(url, paramName, paramValue) {
 
     return url + (url.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue;
 }
-
-function dws_update(){
-    console.log("i was clicked");
-}
