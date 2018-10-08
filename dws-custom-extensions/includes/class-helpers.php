@@ -48,11 +48,11 @@ final class DWS_Helper {
 	 * @return      bool|string     The template instruction if exists, false otherwise.
 	 */
 	public static function extract_file_header($file){
-		if($file_content = fopen($file, 'r')){
-			while(!feof($file_content)){
+		if ($file_content = fopen($file, 'r')) {
+			while (!feof($file_content)) {
 				$line = fgets($file_content);
 				$comment_start_pos = strpos($line, 'DWSComment:');
-				if($comment_start_pos){
+				if ($comment_start_pos) {
 					/* $comment_start_pos+11 is the start position of the text */
 					$comment_start_pos = $comment_start_pos + 11;
 					return trim(substr($line, $comment_start_pos));
@@ -75,7 +75,6 @@ final class DWS_Helper {
 	 * @return  array   List of the relative paths of all the files inside the directory.
 	 */
 	public static function list_files($directory, $depth = 0) {
-
 		$directory = trailingslashit($directory);
 		if (!is_dir($directory)) {
 			return array();

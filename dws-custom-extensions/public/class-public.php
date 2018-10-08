@@ -77,7 +77,7 @@ final class DWS_Public extends DWS_Root {
 				'wrapper'   => array('width' => '50%'),
 				'mode'      => 'javascript',
 				'rows'      => 15
-			),
+			)
 		);
 	}
 
