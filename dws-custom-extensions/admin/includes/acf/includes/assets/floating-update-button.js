@@ -2,12 +2,11 @@
  * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
  *
  * @since   1.3.2
- * @version 1.0.0
+ * @version 1.1.0
  *
- * Sticks another fixed update button which stays on the screen as you scroll up and down.
+ * Adds a class to the submit/publish box in Custom Extensions so that it makes the whole div fixed and moves
+ * up and down with the user while scrolling.
  */
 jQuery(document).ready(function ($) {
-    $('#publishing-action').append(
-        '<input type="submit" accesskey="p" value="Update" class="dws_floating-update-button button button-large button-primary" id="publish" name="publish">'
-    );
+    $('#submitdiv').addClass('dws_floating-update-button');
 });
