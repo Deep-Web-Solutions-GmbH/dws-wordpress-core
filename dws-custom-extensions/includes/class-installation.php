@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) { exit; }
  * Provides an "installation" function to this MU-plugin.
  *
  * @since   1.0.0
- * @version 1.2.0
+ * @version 1.3.2
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -23,6 +23,15 @@ final class DWS_Installation extends DWS_Root {
 	 */
 	const INSTALL_ACTION = 'dws_install_custom_extensions';
 
+	/**
+	 * @since   1.3.2
+	 * @version 1.3.2
+	 *
+	 * @var     string  INSTALL_OPTION  The name of the option stored in the database which indicates whether the
+	 *                                  core has been installed or not.
+	 */
+	const INSTALL_OPTION = 'dws_installed-core-option';
+
 	//endregion
 
 	//region INHERITED FUNCTIONS
@@ -37,6 +46,7 @@ final class DWS_Installation extends DWS_Root {
 	 */
 	protected function define_hooks($loader) {
 		$loader->add_action('wp_ajax_' . self::INSTALL_ACTION, $this, 'run_installation', PHP_INT_MIN);
+		$loader->add_action('admin_notices', $this, 'add_install_admin_notice', PHP_INT_MAX);
 	}
 
 	//endregion
@@ -69,6 +79,30 @@ final class DWS_Installation extends DWS_Root {
 			} catch (\ReflectionException $exception) { /* literally impossible currently */ }
 		}
 
+		if(!get_option(self::INSTALL_OPTION)){
+			add_option(self::INSTALL_OPTION, true);
+		}
+
 		die;
+	}
+
+	/**
+	 * Adds a notice on the admin pages once the DWS core has been copied in the filesystem. This notice indicates
+	 * that the core should be installed. It also provides a link to the installation.
+	 *
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @since   1.3.2
+	 * @version 1.3.2
+	 */
+	public function add_install_admin_notice(){
+		if(!get_option(self::INSTALL_OPTION)){
+			$link_to_install = '/wp-admin/admin-ajax.php?action=' . self::INSTALL_ACTION;
+			$html = '<div class="notice notice-warning">
+					<p>' . __('DWS Wordpress core has been detected! Please click on Install to install it', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</p>
+					<a href="'. $link_to_install .'">' . __('Install', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
+				</div>';
+			echo $html;
+		}
 	}
 }
