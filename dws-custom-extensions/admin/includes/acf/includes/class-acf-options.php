@@ -1,6 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Admin\ACF;
+use Deep_Web_Solutions\Admin\DWS_ACF;
 use Deep_Web_Solutions\Admin\DWS_Admin;
 use Deep_Web_Solutions\Core\DWS_Functionality_Template;
 
@@ -234,12 +235,7 @@ final class ACF_Options extends DWS_Functionality_Template {
 	 */
 	public function add_floating_update_button(){
 		if (strpos($_REQUEST['page'], self::MENU_PAGES_SLUG_PREFIX) === 0) {
-			wp_enqueue_script( self::get_asset_handle(),
-				self::get_assets_base_path( true ) . 'floating-update-button.js',
-				array( 'jquery' ),
-				self::get_plugin_version(),
-				false
-			);
+			wp_enqueue_script(self::get_asset_handle(), DWS_ACF::get_assets_base_path( true ) . 'floating-update-button.js', array( 'jquery' ), self::get_plugin_version(), true);
 		}
 	}
 

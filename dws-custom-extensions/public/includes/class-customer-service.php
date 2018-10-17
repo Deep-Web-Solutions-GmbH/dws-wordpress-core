@@ -48,7 +48,6 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @var     string  HOTLINE_PHONE_NUMBER    The name of the ACF options field that holds the phone number that
 	 *                                          customers should reach out to.
 	 */
-
 	const HOTLINE_PHONE_NUMBER = 'dws_customer-service_hotline-phone-number';
 	/**
 	 * @since       1.3.3
@@ -266,7 +265,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @return  string  The phone number for customers.
 	 */
 	public function get_hotline_number($atts = array()) {
-		if(!get_field(self::SHOW_HOTLINE_PHONE_NUMBER, 'option')){
+		if (!get_field(self::SHOW_HOTLINE_PHONE_NUMBER, 'option')){
 			error_log('Shortcode [dws_hotline_number] is used on object ID ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
 			return '[dws_hotline_number]';
 		}
@@ -303,7 +302,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @return  string  The phone number availability in HTML format.
 	 */
 	public function render_opening_hours($atts = array()) {
-		if(!get_field(self::SHOW_HOTLINE_AVAILABILITY, 'option')){
+		if (!get_field(self::SHOW_HOTLINE_AVAILABILITY, 'option')){
 			error_log('Shortcode [dws_hotline_availability] is used on object ID ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
 			return '[dws_hotline_availability]';
 		}

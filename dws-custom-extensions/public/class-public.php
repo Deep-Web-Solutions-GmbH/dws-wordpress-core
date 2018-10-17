@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Orchestrates the DWS Core extensions of the front-end area of the website.
  *
  * @since   1.0.0
- * @version 1.3.3
+ * @version 1.3.2
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
