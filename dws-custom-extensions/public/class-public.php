@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Orchestrates the DWS Core extensions of the front-end area of the website.
  *
  * @since   1.0.0
- * @version 1.2.4
+ * @version 1.3.3
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -58,6 +58,14 @@ final class DWS_Public extends DWS_Root {
 		require_once(self::get_includes_base_path() . 'class-fancy-messages.php');
 	}
 
+    /**
+     * @since   1.1.0
+     * @version 1.3.2
+     *
+     * @see     DWS_Root::admin_options()
+     *
+     * @return  array
+     */
 	protected function admin_options() {
 		return array(
 			array(

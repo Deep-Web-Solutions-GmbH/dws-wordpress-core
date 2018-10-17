@@ -3,16 +3,19 @@ Contributors: Antonius Hegyes, Dushan Terzikj
 Requires at least: 4.9.8
 Tested up to: 4.9.8
 Requires PHP: 7.2
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 === Changelog ===
 
+= 1.3.3 =
+* Modify publish/submit action button on Custom Extensions page.
+* More modular control over the core settings
+
 = 1.3.2 =
 * Added instructions to overridable templates.
 * Replaced plain text areas with syntax-highlighting code areas for Global JS and Global CSS.
-* Modify publish/submit action button on Custom Extensions page.
 
 = 1.3.1 =
 * Added en_US translations for compatibility with WPML
