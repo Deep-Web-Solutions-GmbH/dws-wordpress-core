@@ -230,9 +230,9 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @return  string  The email address for customers.
 	 */
 	public function get_customer_email($atts = array()) {
-
 		if(!get_field(self::SHOW_CUSTOMER_EMAIL, 'option')){
-			return 'Shortcode dws_customer_email is used even though functionality is turned off! Please turn on the functionality first.';
+			error_log('Shortcode [dws_customer_email] is used at ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
+			return '[dws_customer_email]';
 		}
 
 		$atts = shortcode_atts(
@@ -266,9 +266,9 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @return  string  The phone number for customers.
 	 */
 	public function get_hotline_number($atts = array()) {
-
 		if(!get_field(self::SHOW_HOTLINE_PHONE_NUMBER, 'option')){
-			return 'Shortcode dws_hotline_number is used even though functionality is turned off! Please turn on the functionality first.';
+			error_log('Shortcode [dws_hotline_number] is used at ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
+			return '[dws_hotline_number]';
 		}
 
 		$atts = shortcode_atts(
@@ -303,9 +303,9 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @return  string  The phone number availability in HTML format.
 	 */
 	public function render_opening_hours($atts = array()) {
-
 		if(!get_field(self::SHOW_HOTLINE_AVAILABILITY, 'option')){
-			return 'Shortcode dws_hotline_availability is used even though functionality is turned off! Please turn on the functionality first.';
+			error_log('Shortcode [dws_hotline_availability] is used at ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
+			return '[dws_hotline_availability]';
 		}
 
 		$atts = shortcode_atts(
