@@ -3,11 +3,14 @@ Contributors: Antonius Hegyes, Dushan Terzikj
 Requires at least: 4.9.8
 Tested up to: 4.9.8
 Requires PHP: 7.2
-Stable tag: 1.3.3
+Stable tag: 1.3.4-dev
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 === Changelog ===
+
+= 1.3.4 =
+* Regular DWS plugins now also load files from the modules folder.
 
 = 1.3.3 =
 * Modify publish/submit action button on Custom Extensions page.
