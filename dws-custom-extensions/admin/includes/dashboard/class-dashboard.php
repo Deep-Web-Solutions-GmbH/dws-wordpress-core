@@ -52,7 +52,6 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 	 */
 	protected function define_functionality_hooks($loader) {
 		$loader->add_filter('admin_menu', $this, 'register_menu_page', PHP_INT_MAX);
-		$loader->add_action('admin_notices', $this, 'add_reinstall_uninstall_notice', PHP_INT_MAX);
 	}
 
 	/**
@@ -146,28 +145,11 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 		global $plugin_page;
 
 		$view_file = self::get_templates_base_path() . str_replace(self::MENU_PAGES_SLUG_PREFIX, '', $plugin_page) . '.php';
+
 		if (file_exists($view_file)) {
 			/** @noinspection PhpIncludeInspection */
+			error_log($view_file);
 			include($view_file);
-		}
-	}
-
-	public function add_reinstall_uninstall_notice(){
-		if($_REQUEST['page'] == self::$main_page_slug){
-			$link_to_reinstall = '/wp-admin/admin-ajax.php?action=' . DWS_Installation::INSTALL_ACTION;
-			// TODO: Update link
-			$link_to_uninstall = '/#';
-			$html = '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
-					<h3>Reinstall</h3>
-					<p>' . __('Do you want to reinstall the core?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</p>
-					<a href="'. $link_to_reinstall .'"><button class="button button-primary button-large">' . __('Reinstall', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
-				</div>';
-			$html .= '<div class="notice notice-error" style="padding-bottom: 10px !important;">
-					<h3>Uninstall</h3>
-					<p>' . __('Do you want to uninstall the core?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</p>
-					<a href="'. $link_to_uninstall .'"><button class="button button-primary button-large">' . __('Uninstall', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
-				</div>';
-			echo $html;
 		}
 	}
 

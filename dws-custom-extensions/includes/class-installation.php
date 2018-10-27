@@ -1,7 +1,9 @@
 <?php
 
 namespace Deep_Web_Solutions\Core;
-if (!defined('ABSPATH')) { exit; }
+use Deep_Web_Solutions\Custom_Extensions;
+
+if (!defined( 'ABSPATH')) { exit; }
 
 /**
  * Provides an "installation" function to this MU-plugin.
@@ -27,14 +29,6 @@ final class DWS_Installation extends DWS_Root {
 	 * @since   1.3.4
 	 * @version 1.3.4
 	 *
-	 * @var     string      UNINSTALL_ACTION    The name of the AJAX action on which the 'uninstallation' should occur.
-	 */
-	const UNINSTALL_ACTION = 'dws_uninstall_custom_extensions';
-
-	/**
-	 * @since   1.3.4
-	 * @version 1.3.4
-	 *
 	 * @var     string  INSTALL_OPTION  The name of the option stored in the database which indicates whether the
 	 *                                  core has been installed or not.
 	 */
@@ -54,8 +48,8 @@ final class DWS_Installation extends DWS_Root {
 	 */
 	protected function define_hooks($loader) {
 		$loader->add_action('wp_ajax_' . self::INSTALL_ACTION, $this, 'run_installation', PHP_INT_MIN);
-		$loader->add_action('wp_ajax_' . self::UNINSTALL_ACTION, $this, 'run_uninstallation', PHP_INT_MAX);
-		$loader->add_action('admin_notices', $this, 'add_install_admin_notice', PHP_INT_MAX);
+		$loader->add_action('admin_notices', $this, 'add_install_update_admin_notice', PHP_INT_MAX);
+		$loader->add_action('dws_main_page', $this, 'add_reinstall_admin_notice', PHP_INT_MAX);
 	}
 
 	//endregion
@@ -88,24 +82,12 @@ final class DWS_Installation extends DWS_Root {
 			} catch (\ReflectionException $exception) { /* literally impossible currently */ }
 		}
 
-		if(!get_option(self::INSTALL_OPTION)){
-			add_option(self::INSTALL_OPTION, true);
+		$current_version = get_option(self::INSTALL_OPTION, false);
+		if(!$current_version){
+			add_option(self::INSTALL_OPTION, Custom_Extensions::get_version());
+		} else {
+			update_option(self::INSTALL_OPTION, Custom_Extensions::get_version());
 		}
-
-		die;
-	}
-
-	public function run_uninstallation(){
-		if(wp_doing_ajax() && !DWS_Permissions::has('administrator')){
-			return;
-		}
-
-		// TODO: Implement uninstall logic here
-
-//		TODO: Uncomment this when ready
-//		if(get_option(self::INSTALL_OPTION)){
-//			delete_option(self::INSTALL_OPTION);
-//		}
 
 		die;
 	}
@@ -119,12 +101,36 @@ final class DWS_Installation extends DWS_Root {
 	 * @since   1.3.4
 	 * @version 1.3.4
 	 */
-	public function add_install_admin_notice(){
-		if(!get_option(self::INSTALL_OPTION)){
-			$link_to_install = '/wp-admin/admin-ajax.php?action=' . self::INSTALL_ACTION;
-			$html = '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
+	public function add_install_update_admin_notice(){
+		if(DWS_Permissions::has('administrator')){
+			$current_version = get_option(self::INSTALL_OPTION, false);
+			$link_to_install = add_query_arg('action', self::INSTALL_ACTION, admin_url('admin-ajax.php'));
+			$html = "";
+			if(!$current_version){
+				$html .= '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
 					<p>' . __('DWS Wordpress core has been detected! Please click on Install to install it', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</p>
 					<a href="'. $link_to_install .'"><button class="button button-primary button-large">' . __('Install', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
+				</div>';
+			} else if($current_version != Custom_Extensions::get_version()){
+				$html .= '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
+					<p>' . __('Looks like a newer version of the core is available. Update it here!',
+				              DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</p>
+					<a href="'. $link_to_install .'"><button class="button button-primary button-large">' . __('Update', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
+				</div>';
+			}
+
+
+			echo $html;
+		}
+	}
+
+	public function add_reinstall_admin_notice(){
+		if(DWS_Permissions::has('administrator')){
+			$link_to_reinstall = add_query_arg('action', self::INSTALL_ACTION, admin_url('admin-ajax.php'));
+			$html = '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
+					<h3>Reinstall</h3>
+					<p>' . __('Do you want to reinstall the core?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</p>
+					<a href="'. $link_to_reinstall .'"><button class="button button-primary button-large">' . __('Reinstall', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
 				</div>';
 			echo $html;
 		}
