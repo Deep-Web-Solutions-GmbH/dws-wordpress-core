@@ -148,7 +148,6 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 
 		if (file_exists($view_file)) {
 			/** @noinspection PhpIncludeInspection */
-			error_log($view_file);
 			include($view_file);
 		}
 	}
