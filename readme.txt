@@ -11,6 +11,8 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 = 1.3.4 =
 * Add an install notice when the DWS Core has been copied to the filesystem for the first time.
+* Added reinstall button and some content in the DWS dashboard.
+* Add frontend and backend support (ajax_url).
 
 = 1.3.2 =
 * Added instructions to overridable templates.

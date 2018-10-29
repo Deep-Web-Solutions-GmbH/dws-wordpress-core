@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Orchestrates the DWS Core extensions of the front-end area of the website.
  *
  * @since   1.0.0
- * @version 1.2.4
+ * @version 1.3.4
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -37,6 +37,11 @@ final class DWS_Public extends DWS_Root {
 	//endregion
 
 	//region INHERITED FUNCTIONS
+	protected function define_hooks( $loader ) {
+		$loader->add_action('wp_head', $this, 'add_frontend_support', PHP_INT_MAX);
+		$loader->add_action('admin_head', $this, 'add_backend_support', PHP_INT_MAX);
+	}
+
 
 	/**
 	 * @since   1.0.0
@@ -97,6 +102,48 @@ final class DWS_Public extends DWS_Root {
 
 		wp_add_inline_style(self::get_asset_handle(), get_field(self::CUSTOM_CSS, 'option'));
 		wp_add_inline_script(self::get_asset_handle(), get_field(self::CUSTOM_JS, 'option'));
+	}
+
+	/**
+	 * Outputs a javascript object in the <head></head> which can be used for frontend functionality support.
+	 *
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @since   1.3.4
+	 * @version 1.0.0
+	 */
+	function add_frontend_support(){
+		$ajax_url = admin_url('admin-ajax.php');
+		?>
+		<script type="text/javascript">
+            /* <![CDATA[ */
+            var dws_frontend_parameters = {
+                "ajax_url": "<?php echo $ajax_url; ?>"
+            };
+            /* ]]> */
+		</script>
+		<?php
+	}
+
+	/**
+	 * Outputs a javascript object in the <head></head> which can be used for backend functionality support.
+	 *
+	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+	 *
+	 * @since   1.3.4
+	 * @version 1.0.0
+	 */
+	function add_backend_support(){
+		$ajax_url = admin_url('admin-ajax.php');
+		?>
+		<script type="text/javascript">
+            /* <![CDATA[ */
+            var dws_backend_parameters = {
+                "ajax_url": "<?php echo $ajax_url; ?>"
+            };
+            /* ]]> */
+		</script>
+		<?php
 	}
 
 	//endregion
