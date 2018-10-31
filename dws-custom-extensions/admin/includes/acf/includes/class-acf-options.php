@@ -228,7 +228,7 @@ final class ACF_Options extends DWS_Functionality_Template {
 	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
 	 *
 	 * @since   1.3.2
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 *
 	 * If the current page is the General Settings in DWS Custom Extensions then enqueue some scripts.
 	 */
