@@ -233,7 +233,7 @@ final class ACF_Options extends DWS_Functionality_Template {
 	 * If the current page is the General Settings in DWS Custom Extensions then enqueue some scripts.
 	 */
 	public function add_floating_update_button(){
-		if($_REQUEST['page'] == 'dws_custom-extensions-settings_general') {
+		if(isset($_REQUEST['page']) && $_REQUEST['page'] == 'dws_custom-extensions-settings_general') {
 			wp_enqueue_script( self::get_asset_handle(),
 				self::get_assets_base_path( true ) . 'floating-update-button.js',
 				array( 'jquery' ),
