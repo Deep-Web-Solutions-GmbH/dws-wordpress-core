@@ -11,6 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 = 1.3.4 =
 * Regular DWS plugins now also load files from the modules folder.
+* Modules announce their loaded state through an action.
 
 = 1.3.3 =
 * Modify publish/submit action button on Custom Extensions page.
