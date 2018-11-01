@@ -423,13 +423,13 @@ abstract class DWS_Root extends DWS_Singleton {
 	 */
 	public static function get_hook_name($name, $extra = array(), $root = '') {
 		return join(
-			'_', array_filter(
-			array_merge(
-				array(
-					static::get_plugin_name(), $root, $name,
-				), is_array($extra) ? $extra : array($extra)
-			)
-		)
+			'_',
+            array_filter(
+                array_merge(
+                    array(static::get_plugin_name(), $root, $name),
+                    is_array($extra) ? $extra : array($extra)
+                )
+		    )
 		);
 	}
 
