@@ -30,7 +30,7 @@ abstract class DWS_Module_Template extends DWS_Module_Functionality_Template {
 	 */
 	protected function __construct($module_id, $module_description = false, $module_name = false) {
 		parent::__construct($module_id, false, '', '', $module_description, $module_name);
-        do_action(self::get_hook_name('loaded'), $this);
+        do_action(static::get_hook_name('loaded'), $this);
 	}
 
 	//endregion
