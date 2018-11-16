@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Template for encapsulating some of the most often required abilities of a class.
  *
  * @since   1.0.0
- * @version 1.3.4
+ * @version 1.4.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Singleton
@@ -65,7 +65,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * The DWS_Root constructor.
 	 *
 	 * @since   1.0.0
-	 * @version 1.3.4
+	 * @version 1.4.0
 	 *
 	 * @see     DWS_Singleton::__construct()
 	 * @see     DWS_Singleton::get_instance()
@@ -157,14 +157,16 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * Gets the ID of the current class.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.1
+	 * @version 1.4.0
 	 *
 	 * @return  string  The ID of the current class.
 	 */
 	public final static function get_root_id() {
 		if(isset(self::$root_id[static::class])) {
-			return self::$root_id[ static::class];
+			return self::$root_id[static::class];
 		}
+
+		error_log('No root ID set for class ' . static::class);
 		return null;
 	}
 

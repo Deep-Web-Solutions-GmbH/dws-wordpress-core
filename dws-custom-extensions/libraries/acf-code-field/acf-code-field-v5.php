@@ -150,9 +150,11 @@ class acf_code_field extends acf_field {
 		// populate atts
 		$atts = array();
 		foreach ( $o as $k ) {
+		    /* START DWS_MODIFICATION */
 			if(isset($field[$k])) {
 				$atts[ $k ] = $field[ $k ];
 			}
+			/* END DWS_MODIFICATION */
 		}
 
 		$atts['class'] = 'acf-code-field-box';

@@ -4,7 +4,6 @@ namespace Deep_Web_Solutions\Admin;
 use Deep_Web_Solutions\Admin\Dashboard\DWS_Recommended_Plugins;
 use Deep_Web_Solutions\Admin\Dashboard\Permissions;
 use Deep_Web_Solutions\Core\DWS_Functionality_Template;
-use Deep_Web_Solutions\Core\DWS_Installation;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -44,7 +43,7 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.3.4
+	 * @version 1.0.0
 	 *
 	 * @see     DWS_Functionality_Template::define_functionality_hooks()
 	 *

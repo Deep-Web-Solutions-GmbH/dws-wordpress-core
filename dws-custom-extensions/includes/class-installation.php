@@ -9,7 +9,7 @@ if (!defined( 'ABSPATH')) { exit; }
  * Provides an "installation" function to this MU-plugin.
  *
  * @since   1.0.0
- * @version 1.3.4
+ * @version 1.4.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -26,8 +26,8 @@ final class DWS_Installation extends DWS_Root {
 	const INSTALL_ACTION = 'dws_install_custom_extensions';
 
 	/**
-	 * @since   1.3.4
-	 * @version 1.0.0
+	 * @since   1.4.0
+	 * @version 1.4.0
 	 *
 	 * @var     string  INSTALL_OPTION  The name of the option stored in the database which indicates whether the
 	 *                                  core has been installed or not.
@@ -40,7 +40,7 @@ final class DWS_Installation extends DWS_Root {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.3.4
+	 * @version 1.4.0
 	 *
 	 * @see     DWS_Root::define_hooks()
 	 *
@@ -59,7 +59,7 @@ final class DWS_Installation extends DWS_Root {
 	 * so it should only be triggered by an admin by AJAX.
 	 *
 	 * @since   1.0.0
-	 * @version 1.2.0
+	 * @version 1.4.0
 	 */
 	public static function run_installation() {
 		if (wp_doing_ajax() && !DWS_Permissions::has('administrator')) {
@@ -83,7 +83,7 @@ final class DWS_Installation extends DWS_Root {
 		}
 
 		$current_version = get_option(self::INSTALL_OPTION, false);
-		if(!$current_version){
+		if (!$current_version) {
 			add_option(self::INSTALL_OPTION, Custom_Extensions::get_version());
 		} else {
 			update_option(self::INSTALL_OPTION, Custom_Extensions::get_version());
@@ -98,47 +98,43 @@ final class DWS_Installation extends DWS_Root {
 	 *
 	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
 	 *
-	 * @since   1.3.4
-	 * @version 1.0.0
+	 * @since   1.4.0
+	 * @version 1.4.0
 	 */
 	public function add_install_update_admin_notice(){
-		if(DWS_Permissions::has('administrator')){
+		if (DWS_Permissions::has('administrator')) {
 			$current_version = get_option(self::INSTALL_OPTION, false);
 			$link_to_install = add_query_arg('action', self::INSTALL_ACTION, admin_url('admin-ajax.php'));
-			$html = "";
-			if(!$current_version){
-				$html .= '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
+
+			if (!$current_version) {
+				echo '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
 					<p>' . __('DWS Wordpress core has been detected! Please click on Install to install it', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</p>
 					<a href="'. $link_to_install .'"><button class="button button-primary button-large">' . __('Install', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
 				</div>';
-			} else if($current_version != Custom_Extensions::get_version()){
-				$html .= '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
+			} else if($current_version != Custom_Extensions::get_version()) {
+                echo '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
 					<p>' . __('Looks like a newer version of the core is available. Update it here!',
-				              DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</p>
-					<a href="'. $link_to_install .'"><button class="button button-primary button-large">' . __('Update', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
+                        DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</p>
+					<a href="' . $link_to_install . '"><button class="button button-primary button-large">' . __('Update', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
 				</div>';
-			}
-
-
-			echo $html;
+            }
 		}
 	}
 
 	/**
 	 * Adds a reinstall section with a button that reinstall the core when clicked.
 	 *
-	 * @since   1.3.4
-	 * @version 1.0.0
+	 * @since   1.4.0
+	 * @version 1.4.0
 	 */
 	public function add_reinstall_section(){
-		if(DWS_Permissions::has('administrator') && get_option(self::INSTALL_OPTION, false)){
+		if (DWS_Permissions::has('administrator') && get_option(self::INSTALL_OPTION, false)) {
 			$link_to_reinstall = add_query_arg('action', self::INSTALL_ACTION, admin_url('admin-ajax.php'));
-			$html = '<div class="dws-postbox">
+			echo '<div class="dws-postbox">
 						<h2 class="dws-with-subtitle">'. __('Reinstall', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</h2>
 						<p class="dws-subtitle">'. __('Do you want to reinstall the DWS core?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</p>
 						<a href="'. $link_to_reinstall .'"><button class="button button-primary button-large">' . __('Reinstall', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
 					</div>';
-			echo $html;
 		}
 	}
 }

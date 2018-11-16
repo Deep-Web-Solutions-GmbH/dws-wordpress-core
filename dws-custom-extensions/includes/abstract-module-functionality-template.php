@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) { exit; }
  * The DWS Functionality Template adapted to fit a functionality of a DWS Module.
  *
  * @since   1.0.0
- * @version 1.3.4
+ * @version 1.4.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -21,7 +21,7 @@ abstract class DWS_Module_Functionality_Template extends DWS_Functionality_Templ
 	 * DWS_Module_Functionality_Template constructor.
 	 *
 	 * @since   1.0.0
-	 * @version 1.3.4
+	 * @version 1.4.0
 	 *
 	 * @see     DWS_Functionality_Template::__construct()
 	 *

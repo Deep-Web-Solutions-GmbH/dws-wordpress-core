@@ -9,13 +9,25 @@ if (!defined('ABSPATH')) { exit; }
  * Orchestrates the DWS Core extensions of the back-end area of the website.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 1.4.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
  */
 final class DWS_Admin extends DWS_Root {
 	//region INHERITED FUNCTIONS
+
+    /**
+     * @since   1.4.0
+     * @version 1.4.0
+     *
+     * @see     DWS_Root::define_hooks()
+     *
+     * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+     */
+    protected function define_hooks($loader) {
+        $loader->add_action('admin_head', $this, 'add_backend_js_object_support', PHP_INT_MAX);
+    }
 
 	/**
 	 * @since   1.0.0
@@ -58,5 +70,52 @@ final class DWS_Admin extends DWS_Root {
 		DWS_Users::maybe_initialize_singleton('hsr8gh8e45hrhr');
 	}
 
-	//endregion
+    /**
+     * @since   1.4.0
+     * @version 1.4.0
+     *
+     * @see     DWS_Root::get_hook_name()
+     *
+     * @param   string  $name
+     * @param   array   $extra
+     * @param   string  $root
+     *
+     * @return  string
+     */
+	public static function get_hook_name($name, $extra = array(), $root = 'admin') {
+        return parent::get_hook_name($name, $extra, $root);
+    }
+
+    //endregion
+
+    //region COMPATIBILITY LOGIC
+
+    /**
+     * Outputs a javascript object in the <head></head> of the back-end which can be used for tighter coupling between
+     * JS and PHP.
+     *
+     * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+     *
+     * @since   1.4.0
+     * @version 1.4.0
+     */
+    function add_backend_js_object_support(){
+        $variables = array_merge(
+            array('ajax_url' => admin_url('admin-ajax.php')),
+            apply_filters(self::get_hook_name('js-variables'), array())
+        );
+
+        ?>
+
+        <!--suppress ES6ConvertVarToLetConst -->
+        <script type="text/javascript">
+            /* <![CDATA[ */
+            var dws_params = <?php echo json_encode($variables); ?>;
+            /* ]]> */
+        </script>
+
+        <?php
+    }
+
+    //endregion
 }
