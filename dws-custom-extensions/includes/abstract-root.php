@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Template for encapsulating some of the most often required abilities of a class.
  *
  * @since   1.0.0
- * @version 1.3.0
+ * @version 1.3.4
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Singleton
@@ -65,7 +65,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * The DWS_Root constructor.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 1.3.4
 	 *
 	 * @see     DWS_Singleton::__construct()
 	 * @see     DWS_Singleton::get_instance()
@@ -83,6 +83,7 @@ abstract class DWS_Root extends DWS_Singleton {
 
 		$this->load_dependencies();
 		DWS_Helper::load_files(self::get_custom_base_path('plugins'));
+        DWS_Helper::load_files(self::get_custom_base_path('modules'));
 	}
 
 	//endregion
@@ -425,13 +426,13 @@ abstract class DWS_Root extends DWS_Singleton {
 	 */
 	public static function get_hook_name($name, $extra = array(), $root = '') {
 		return join(
-			'_', array_filter(
-			array_merge(
-				array(
-					static::get_plugin_name(), $root, $name,
-				), is_array($extra) ? $extra : array($extra)
-			)
-		)
+			'_',
+            array_filter(
+                array_merge(
+                    array(static::get_plugin_name(), $root, $name),
+                    is_array($extra) ? $extra : array($extra)
+                )
+		    )
 		);
 	}
 

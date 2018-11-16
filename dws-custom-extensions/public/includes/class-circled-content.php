@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Outputs CSS to enable the use of nicely circled content (like numbers etc.).
  *
  * @since   1.0.0
- * @version 1.3.2
+ * @version 1.3.3
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -19,24 +19,24 @@ final class DWS_CircledContent extends DWS_Functionality_Template {
 	//region FIELDS AND CONSTANTS
 
 	/**
-	 * @since   1.3.2
-	 * @version 1.0.0
+	 * @since   1.3.3
+	 * @version 1.3.3
 	 *
 	 * @var     string  DEFAULT_BG_COLOR    This constant stores the hex code of the default background color
 	 *                                      of the circled content.
 	 */
 	const DEFAULT_BG_COLOR = '#C0C0C0';
 	/**
-	 * @since   1.3.2
-	 * @version 1.0.0
+	 * @since   1.3.3
+	 * @version 1.3.3
 	 *
 	 * @var     string  DEFAULT_TEXT_COLOR  This constant stores the hex code of the default text color
 	 *                                      of the circled content.
 	 */
 	const DEFAULT_TEXT_COLOR = '#000000';
 	/**
-	 * @since   1.3.2
-	 * @version 1.0.0
+	 * @since   1.3.3
+	 * @version 1.3.3
 	 *
 	 * @var     string  SHOW_CIRCLED_CONTENT_SETTINGS   The name of the ACF option field that hold the information
 	 *                                                  whether the user wants to modify circled content settings.
@@ -81,7 +81,7 @@ final class DWS_CircledContent extends DWS_Functionality_Template {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.3.2
+	 * @version 1.3.3
 	 *
 	 * @see     DWS_Functionality_Template::functionality_options()
 	 *
@@ -169,21 +169,23 @@ final class DWS_CircledContent extends DWS_Functionality_Template {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 1.3.3
 	 *
 	 * @see     DWS_Functionality_Template::enqueue_assets()
 	 */
 	public function enqueue_assets() {
-		$circled_content_bg_color = get_field(self::CIRCLED_CONTENT_BG_COLOR, 'option');
-		$circled_content_text_color = get_field(self::CIRCLED_CONTENT_TEXT_COLOR, 'option');
-		$circled_content_bg_color_hover = get_field(self::CIRCLED_CONTENT_BG_COLOR_HOVER, 'option');
-		$circled_content_bg_text_color_hover = get_field(self::CIRCLED_CONTENT_TEXT_COLOR_HOVER, 'option');
-		if(!get_field(self::SHOW_CIRCLED_CONTENT_SETTINGS, 'option')){
+		if (!get_field(self::SHOW_CIRCLED_CONTENT_SETTINGS, 'option')){
 			$circled_content_bg_color = self::DEFAULT_BG_COLOR;
 			$circled_content_text_color = self::DEFAULT_TEXT_COLOR;
 			$circled_content_bg_color_hover = self::DEFAULT_BG_COLOR;
 			$circled_content_bg_text_color_hover = self::DEFAULT_TEXT_COLOR;
-		}
+		} else {
+            $circled_content_bg_color = get_field(self::CIRCLED_CONTENT_BG_COLOR, 'option');
+            $circled_content_text_color = get_field(self::CIRCLED_CONTENT_TEXT_COLOR, 'option');
+            $circled_content_bg_color_hover = get_field(self::CIRCLED_CONTENT_BG_COLOR_HOVER, 'option');
+            $circled_content_bg_text_color_hover = get_field(self::CIRCLED_CONTENT_TEXT_COLOR_HOVER, 'option');
+        }
+
 		DWS_Helper::add_inline_stylesheet_to_false_handle(
 			self::get_asset_handle(),
 			DWS_Helper::get_stylesheet_with_variables(

@@ -63,6 +63,14 @@ final class DWS_Public extends DWS_Root {
 		require_once(self::get_includes_base_path() . 'class-fancy-messages.php');
 	}
 
+    /**
+     * @since   1.1.0
+     * @version 1.3.2
+     *
+     * @see     DWS_Root::admin_options()
+     *
+     * @return  array
+     */
 	protected function admin_options() {
 		return array(
 			array(

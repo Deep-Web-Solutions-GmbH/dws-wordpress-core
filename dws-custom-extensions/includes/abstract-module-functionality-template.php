@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) { exit; }
  * The DWS Functionality Template adapted to fit a functionality of a DWS Module.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 1.3.4
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -21,7 +21,7 @@ abstract class DWS_Module_Functionality_Template extends DWS_Functionality_Templ
 	 * DWS_Module_Functionality_Template constructor.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 1.3.4
 	 *
 	 * @see     DWS_Functionality_Template::__construct()
 	 *
@@ -34,7 +34,6 @@ abstract class DWS_Module_Functionality_Template extends DWS_Functionality_Templ
 	 */
 	protected function __construct(string $functionality_id, bool $must_use = true, string $parent_functionality_id = '', string $options_parent_id = '', $functionality_description = false, $functionality_name = false) {
 		parent::__construct($functionality_id, $must_use, $parent_functionality_id, $options_parent_id, $functionality_description, $functionality_name);
-		DWS_Helper::load_files(self::get_custom_base_path('modules'));
 	}
 
 	//endregion
