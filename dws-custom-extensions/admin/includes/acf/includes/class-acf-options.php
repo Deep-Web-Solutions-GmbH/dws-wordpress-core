@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles the ACF options pages of the DWS CustomExtensions plugin.
  *
  * @since   1.0.0
- * @version 1.3.3
+ * @version 1.4.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -231,11 +231,11 @@ final class ACF_Options extends DWS_Functionality_Template {
 	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
 	 *
 	 * @since   1.3.3
-	 * @version 1.3.3
+	 * @version 1.4.0
 	 */
 	public function add_floating_update_button(){
 		if (isset($_REQUEST['page']) && strpos($_REQUEST['page'], self::MENU_PAGES_SLUG_PREFIX) === 0) {
-			wp_enqueue_script(self::get_asset_handle(), DWS_ACF::get_assets_base_path( true ) . 'floating-update-button.js', array( 'jquery' ), self::get_plugin_version(), true);
+			wp_enqueue_script(self::get_asset_handle('floating-button'), DWS_ACF::get_assets_base_path( true ) . 'floating-update-button.js', array( 'jquery' ), self::get_plugin_version(), true);
 		}
 	}
 

@@ -82,12 +82,7 @@ final class DWS_Installation extends DWS_Root {
 			} catch (\ReflectionException $exception) { /* literally impossible currently */ }
 		}
 
-		$current_version = get_option(self::INSTALL_OPTION, false);
-		if (!$current_version) {
-			add_option(self::INSTALL_OPTION, Custom_Extensions::get_version());
-		} else {
-			update_option(self::INSTALL_OPTION, Custom_Extensions::get_version());
-		}
+        update_option(self::INSTALL_OPTION, Custom_Extensions::get_version());
 
 		die;
 	}

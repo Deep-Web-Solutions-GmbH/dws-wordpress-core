@@ -69,7 +69,19 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 		DWS_Recommended_Plugins::maybe_initialize_singleton('sdfnhgi8he8gheife', true, self::get_root_id());
 	}
 
-	/**
+    /**
+     * @since   1.4.0
+     * @version 1.4.0
+     *
+     * @see     DWS_Functionality_Template::admin_enqueue_assets()
+     *
+     * @param   string  $hook
+     */
+	public function admin_enqueue_assets($hook) {
+        wp_enqueue_style(self::get_asset_handle(), self::get_assets_base_path(true) . 'style.css', array(), self::get_plugin_version());
+    }
+
+    /**
 	 * @since   1.2.0
 	 * @version 1.2.0
 	 *

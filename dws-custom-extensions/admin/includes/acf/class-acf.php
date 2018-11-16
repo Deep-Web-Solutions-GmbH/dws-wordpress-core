@@ -47,5 +47,17 @@ final class DWS_ACF extends DWS_Functionality_Template {
 		ACF_Custom_Field_Types::maybe_initialize_singleton('h478gh8g2113');
 	}
 
+    /**
+     * @since   1.4.0
+     * @version 1.4.0
+     *
+     * @see     DWS_Functionality_Template::admin_enqueue_assets()
+     *
+     * @param   string  $hook
+     */
+    public function admin_enqueue_assets($hook) {
+        wp_enqueue_style(self::get_asset_handle(), self::get_assets_base_path(true) . 'style.css', array(), self::get_plugin_version());
+    }
+
 	//endregion
 }
