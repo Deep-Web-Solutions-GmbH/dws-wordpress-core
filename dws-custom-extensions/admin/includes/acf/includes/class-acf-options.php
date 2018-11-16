@@ -234,7 +234,7 @@ final class ACF_Options extends DWS_Functionality_Template {
 	 * @version 1.3.3
 	 */
 	public function add_floating_update_button(){
-		if (strpos($_REQUEST['page'], self::MENU_PAGES_SLUG_PREFIX) === 0) {
+		if (isset($_REQUEST['page']) && strpos($_REQUEST['page'], self::MENU_PAGES_SLUG_PREFIX) === 0) {
 			wp_enqueue_script(self::get_asset_handle(), DWS_ACF::get_assets_base_path( true ) . 'floating-update-button.js', array( 'jquery' ), self::get_plugin_version(), true);
 		}
 	}

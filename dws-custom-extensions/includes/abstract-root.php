@@ -157,12 +157,15 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * Gets the ID of the current class.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 *
 	 * @return  string  The ID of the current class.
 	 */
 	public final static function get_root_id() {
-		return self::$root_id[static::class];
+		if(isset(self::$root_id[static::class])) {
+			return self::$root_id[ static::class];
+		}
+		return null;
 	}
 
 	/**

@@ -3,13 +3,17 @@ Contributors: Antonius Hegyes, Dushan Terzikj
 Requires at least: 4.9.8
 Tested up to: 4.9.8
 Requires PHP: 7.2
-Stable tag: 1.3.4-dev
+Stable tag: 1.3.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 === Changelog ===
 
 = 1.3.4 =
+* Add an install notice when the DWS Core has been copied to the filesystem for the first time.
+* Added reinstall button and some content in the DWS dashboard.
+* Add frontend and backend support (ajax_url).
+* Fixed conflict between UpdraftPlus and PluginUpdateChecker.
 * Regular DWS plugins now also load files from the modules folder.
 * Modules announce their loaded state through an action.
 

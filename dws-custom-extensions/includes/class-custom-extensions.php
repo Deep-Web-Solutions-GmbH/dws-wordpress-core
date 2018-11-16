@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * The core plugin class that is used to define internationalization, hooks, and all the other extensions.
  *
  * @since   1.0.0
- * @version 1.3.0
+ * @version 1.3.4
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Singleton
@@ -89,7 +89,7 @@ final class Custom_Extensions extends DWS_Singleton {
 	 * the public-facing side of the site.
 	 *
 	 * @since   1.0.0
-	 * @version 1.3.0
+	 * @version 1.3.4
 	 *
 	 * @see     DWS_Singleton::construct()
 	 * @see     DWS_Singleton::get_instance()
@@ -133,17 +133,20 @@ final class Custom_Extensions extends DWS_Singleton {
 		DWS_Helper::load_files(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'plugins');
 		DWS_Helper::load_files(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'modules');
 
-		// make sure we check for updates
-		$this->update_checker = \Puc_v4_Factory::buildUpdateChecker(
-			'https://github.com/Deep-Web-Solutions-GmbH/dws-wordpress-core',
-			DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'dws-custom-extensions.php',
-			'dws-wordpress-core',
-			12,
-			'',
-			'dws-loader.php'
-		);
-		$this->update_checker->setAuthentication(DWS_GITHUB_ACCESS_TOKEN);
-		$this->update_checker->setBranch('master');
+		/** In case some other plugin is activating "update checkers" which interferes with Puc */
+		if(!(isset($_REQUEST['page']) && $_REQUEST['page'] == 'updraftplus') && !wp_doing_ajax()) {
+			// make sure we check for updates
+			$this->update_checker = \Puc_v4_Factory::buildUpdateChecker(
+				'https://github.com/Deep-Web-Solutions-GmbH/dws-wordpress-core',
+				DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'dws-custom-extensions.php',
+				'dws-wordpress-core',
+				12,
+				'',
+				'dws-loader.php'
+			);
+			$this->update_checker->setAuthentication( DWS_GITHUB_ACCESS_TOKEN );
+			$this->update_checker->setBranch( 'master' );
+		}
 
 		// plugin has been initialized, now run it
 		$this->run();
@@ -249,7 +252,7 @@ final class Custom_Extensions extends DWS_Singleton {
 	 * Loads the required files and libraries for this plugin.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 1.3.4
 	 */
 	private function load_dependencies() {
 		//region LIBRARIES
@@ -265,9 +268,12 @@ final class Custom_Extensions extends DWS_Singleton {
 		/** Our extensions rely heavily on ACF Code Field. */
 		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/acf-code-field/acf-code-field.php');
 
-		/** @noinspection PhpIncludeInspection */
-		/** We use this external library to check for new plugin version in GitHub releases. */
-		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/plugin-update-checker/plugin-update-checker.php');
+		/** In case some other plugin is activating "update checkers" which interferes with Puc */
+		if(!(isset($_REQUEST['page']) && $_REQUEST['page'] == 'updraftplus') && !wp_doing_ajax()) {
+			/** @noinspection PhpIncludeInspection */
+			/** We use this external library to check for new plugin version in GitHub releases. */
+			require_once( DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/plugin-update-checker/plugin-update-checker.php' );
+		}
 
 		/** @noinspection PhpIncludeInspection */
 		/** We use this external library to install and update plugins. */

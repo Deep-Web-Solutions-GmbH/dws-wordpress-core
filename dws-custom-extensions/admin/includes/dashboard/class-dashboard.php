@@ -4,6 +4,7 @@ namespace Deep_Web_Solutions\Admin;
 use Deep_Web_Solutions\Admin\Dashboard\DWS_Recommended_Plugins;
 use Deep_Web_Solutions\Admin\Dashboard\Permissions;
 use Deep_Web_Solutions\Core\DWS_Functionality_Template;
+use Deep_Web_Solutions\Core\DWS_Installation;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -43,7 +44,7 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 1.3.4
 	 *
 	 * @see     DWS_Functionality_Template::define_functionality_hooks()
 	 *
@@ -144,6 +145,7 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 		global $plugin_page;
 
 		$view_file = self::get_templates_base_path() . str_replace(self::MENU_PAGES_SLUG_PREFIX, '', $plugin_page) . '.php';
+
 		if (file_exists($view_file)) {
 			/** @noinspection PhpIncludeInspection */
 			include($view_file);
