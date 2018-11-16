@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: DeepWebSolutions Custom Extensions\n"
-"POT-Creation-Date: 2018-10-17 15:37+0200\n"
-"PO-Revision-Date: 2018-10-17 15:43+0200\n"
+"POT-Creation-Date: 2018-11-16 18:52+0100\n"
+"PO-Revision-Date: 2018-11-16 18:53+0100\n"
 "Last-Translator: Antonius Hegyes <a.hegyes@deep-web-solutions.de>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -271,30 +271,43 @@ msgstr "Status"
 msgid "Categories"
 msgstr "Categories"
 
-#: includes/abstract-functionality-template.php:307
-#: includes/abstract-root.php:259
+#: admin/includes/dashboard/templates/main.php:19
+#, php-format
+msgid "v.%s"
+msgstr "v.%s"
+
+#: admin/includes/dashboard/templates/main.php:22
+msgid "Welcome to the DWS Core!"
+msgstr "Welcome to the DWS Core!"
+
+#: admin/includes/dashboard/templates/main.php:23
+msgid "The DWS Core is installed and ready to go!"
+msgstr "The DWS Core is installed and ready to go!"
+
+#: includes/abstract-functionality-template.php:308
+#: includes/abstract-root.php:265
 #, php-format
 msgid "'%s' options"
 msgstr "'%s' options"
 
-#: includes/abstract-functionality-template.php:336
+#: includes/abstract-functionality-template.php:337
 msgid "Is functionality active?"
 msgstr "Is functionality active?"
 
-#: includes/abstract-functionality-template.php:344
+#: includes/abstract-functionality-template.php:345
 #, php-format
 msgid "Is sub-functionality '%s' active?"
 msgstr "Is sub-functionality '%s' active?"
 
-#: includes/abstract-functionality-template.php:360
+#: includes/abstract-functionality-template.php:361
 msgid "Overwrite this template?"
 msgstr "Overwrite this template?"
 
-#: includes/abstract-functionality-template.php:372
+#: includes/abstract-functionality-template.php:373
 msgid "Template files"
 msgstr "Template files"
 
-#: includes/abstract-functionality-template.php:375
+#: includes/abstract-functionality-template.php:376
 msgid ""
 "If unchecked, the respective template will NOT be used from the Custom "
 "Extensions plugin.\n"
@@ -308,7 +321,7 @@ msgstr ""
 "inside the local Custom Extensions will \n"
 "\t\t\t\t\thave precedence."
 
-#: includes/abstract-root.php:199
+#: includes/abstract-root.php:205
 #, php-format
 msgid "You did not properly configure the class %s"
 msgstr "You did not properly configure the class %s"
@@ -326,17 +339,43 @@ msgstr "Every %s minutes"
 msgid "Every %s hours"
 msgstr "Every %s hours"
 
-#: public/class-public.php:74
+#: includes/class-installation.php:106
+msgid ""
+"DWS Wordpress core has been detected! Please click on Install to install it"
+msgstr ""
+"DWS Wordpress core has been detected! Please click on Install to install it"
+
+#: includes/class-installation.php:107
+msgid "Install"
+msgstr "Install"
+
+#: includes/class-installation.php:111
+msgid "Looks like a newer version of the core is available. Update it here!"
+msgstr "Looks like a newer version of the core is available. Update it here!"
+
+#: includes/class-installation.php:113
+msgid "Update"
+msgstr "Update"
+
+#: includes/class-installation.php:129 includes/class-installation.php:131
+msgid "Reinstall"
+msgstr "Reinstall"
+
+#: includes/class-installation.php:130
+msgid "Do you want to reinstall the DWS core?"
+msgstr "Do you want to reinstall the DWS core?"
+
+#: public/class-public.php:87
 msgid "Custom global CSS"
 msgstr "Custom global CSS"
 
-#: public/class-public.php:83
+#: public/class-public.php:96
 msgid "Custom global JS"
 msgstr "Custom global JS"
 
 #: public/includes/class-circled-content.php:95
 msgid "Do you want to modify the appearance of the circled content?"
-msgstr ""
+msgstr "Do you want to modify the appearance of the circled content?"
 
 #: public/includes/class-circled-content.php:102
 msgid "Background color"

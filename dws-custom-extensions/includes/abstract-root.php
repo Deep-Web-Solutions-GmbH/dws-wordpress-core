@@ -166,7 +166,7 @@ abstract class DWS_Root extends DWS_Singleton {
 			return self::$root_id[static::class];
 		}
 
-		error_log('No root ID set for class ' . static::class);
+		error_log('No root ID set for class ' . static::class . '. Stack: ' . (new \Exception())->getTraceAsString());
 		return null;
 	}
 

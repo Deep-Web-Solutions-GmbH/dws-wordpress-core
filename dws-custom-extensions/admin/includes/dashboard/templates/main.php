@@ -16,7 +16,7 @@ use Deep_Web_Solutions\Custom_Extensions;
 	<div class="dws-welcome">
 		<div class="dws-logo">
 			<div class="dws-version">
-                <?php echo sprintf(__('v. %s', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), Custom_Extensions::get_version()); ?>
+                <?php echo sprintf(__('v.%s', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), Custom_Extensions::get_version()); ?>
             </div>
 		</div>
 		<h1><?php _e('Welcome to the DWS Core!', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN); ?></h1>

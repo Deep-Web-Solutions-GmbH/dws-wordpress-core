@@ -149,12 +149,13 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 			$this->functionality_depth = 0;
 		}
 
+		// make sure the root id and such are set
+        parent::__construct($functionality_id, $functionality_name);
+
 		// set up this functionality instance
 		self::$must_use[static::class] = $must_use;
 		$this->options_parent_id       = empty($options_parent_id) ? $this->get_top_level_parent()::get_root_id() : $options_parent_id;
 		$this->description             = $functionality_description;
-
-		parent::__construct($functionality_id, $functionality_name);
 
 		// load language files, if available
 		if (is_dir(self::get_custom_base_path('languages'))) {

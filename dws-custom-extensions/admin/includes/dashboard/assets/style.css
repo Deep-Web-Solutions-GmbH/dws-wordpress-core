@@ -52,7 +52,7 @@
     margin-top: -60px;
     width: 100px;
     height: 120px;
-    background: url("./dws_logo.svg") center top / 100px 100px no-repeat;
+    background: url("../../../assets/dws_logo.svg") center top / 100px 100px no-repeat;
 }
 
 #dws-dashboard .dws-version {
