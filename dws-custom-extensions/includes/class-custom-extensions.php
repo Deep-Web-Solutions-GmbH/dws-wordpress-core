@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * The core plugin class that is used to define internationalization, hooks, and all the other extensions.
  *
  * @since   1.0.0
- * @version 1.4.0
+ * @version 1.4.1
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Singleton
@@ -89,7 +89,7 @@ final class Custom_Extensions extends DWS_Singleton {
 	 * the public-facing side of the site.
 	 *
 	 * @since   1.0.0
-	 * @version 1.4.0
+	 * @version 1.4.1
 	 *
 	 * @see     DWS_Singleton::construct()
 	 * @see     DWS_Singleton::get_instance()
@@ -130,8 +130,8 @@ final class Custom_Extensions extends DWS_Singleton {
 		// finish initializing the plugin
 		Admin\DWS_Admin::maybe_initialize_singleton('h84hg874hg3f');
 		Front\DWS_Public::maybe_initialize_singleton('85h487g8743f422');
+        DWS_Helper::load_files(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'modules'); // modules must load before the plugins so that the DWS plugins can make use of and safely extend the modules classes
 		DWS_Helper::load_files(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'plugins');
-		DWS_Helper::load_files(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'modules');
 
 		/** Fix an incompatibility with UpdraftPlus' use of the Puc library */
 		if(!(isset($_REQUEST['page']) && $_REQUEST['page'] === 'updraftplus') && !wp_doing_ajax()) {

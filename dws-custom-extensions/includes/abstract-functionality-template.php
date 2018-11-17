@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) { exit; }
  * Provides all the piping required for developing a DWS Functionality.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 1.4.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -123,7 +123,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * DWS_Functionality_Template constructor.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 1.4.0
 	 *
 	 * @see     DWS_Root::__construct()
 	 *

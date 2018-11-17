@@ -3,11 +3,14 @@ Contributors: Antonius Hegyes, Dushan Terzikj
 Requires at least: 4.9.8
 Tested up to: 4.9.8
 Requires PHP: 7.2
-Stable tag: 1.4.0
+Stable tag: 1.4.1-dev
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 === Changelog ===
+
+= 1.4.1 =
+* DWS Modules as a whole now get loaded before DWS Plugins.
 
 = 1.4.0 =
 * Add an install notice when the DWS Core has been copied to the filesystem for the first time.
