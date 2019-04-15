@@ -274,7 +274,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * @return  bool|string False if no update available, otherwise available version.
 		 */
 		public static function get_dws_plugin_version($source, $plugin_path) {
-			$update_checker = \Puc_v4_Factory::buildUpdateChecker(
+			$update_checker = \Puc_v4p6_Factory::buildUpdateChecker(
 				$source, $plugin_path
 			);
 			$update_checker->setAuthentication(DWS_GITHUB_ACCESS_TOKEN);
@@ -557,7 +557,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 					$GLOBALS['dws_plugin_slug'][] = $slug;
 				}
 
-				$repo = new \Puc_v4p4_Vcs_GitHubApi($this->plugins[$slug]['source'], DWS_GITHUB_ACCESS_TOKEN);
+				$repo = new \Puc_v4p6_Vcs_GitHubApi($this->plugins[$slug]['source'], DWS_GITHUB_ACCESS_TOKEN);
 				$release = $repo->getLatestRelease();
 
 				return $release->downloadUrl;

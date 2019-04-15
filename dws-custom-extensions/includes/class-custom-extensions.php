@@ -51,7 +51,7 @@ final class Custom_Extensions extends DWS_Singleton {
 	 * @version 1.1.0
 	 *
 	 * @access  private
-	 * @var     \Puc_v4p4_Vcs_BaseChecker   $update_checker     An instance of the VCS updates checker.
+	 * @var     \Puc_v4p6_Vcs_BaseChecker   $update_checker     An instance of the VCS updates checker.
 	 */
 	private $update_checker;
 
@@ -136,7 +136,7 @@ final class Custom_Extensions extends DWS_Singleton {
 		/** Fix an incompatibility with UpdraftPlus' use of the Puc library */
 		if(!(isset($_REQUEST['page']) && $_REQUEST['page'] === 'updraftplus') && !wp_doing_ajax()) {
 			// make sure we check for updates
-			$this->update_checker = \Puc_v4_Factory::buildUpdateChecker(
+			$this->update_checker = \Puc_v4p6_Factory::buildUpdateChecker(
 				'https://github.com/Deep-Web-Solutions-GmbH/dws-wordpress-core',
 				DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'dws-custom-extensions.php',
 				'dws-wordpress-core',
