@@ -21,7 +21,7 @@ jQuery(document).ready(function ($) {
             data: {
                 action: 'save_internal_comment_data',
                 content: content,
-                post_id: get_param_by_name('post'),
+                post_id: dws_get_param_by_name('post'),
                 field_key: field.data('key')
             }
         }).done(function (comments) {

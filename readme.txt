@@ -11,7 +11,6 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 = 1.5.0 =
 * Updated libraries.
-* Fixed ACF query slowness madness.
 * Made local code files have their own translatable domain by WPML.
 
 = 1.4.1 =
