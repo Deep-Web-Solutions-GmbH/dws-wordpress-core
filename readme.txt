@@ -12,6 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 = 1.5.0 =
 * Updated libraries.
 * Made local code files have their own translatable domain by WPML.
+* Better handling of ACF custom CSS and JS to disable or hide fields.
 
 = 1.4.1 =
 * DWS Modules as a whole now get loaded before DWS Plugins.

@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles customizations to the ACF fields and their functionalities.
  *
  * @since   1.0.0
- * @version 1.2.1
+ * @version 1.5.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -134,7 +134,7 @@ final class ACF_Fields extends DWS_Functionality_Template {
 	 * Outputs some CSS to completely hide a certain field from the screen, only for humans.
 	 *
      * @since   1.0.0
-     * @version 1.0.0
+     * @version 1.5.0
      *
      * @see     ACF_Fields::make_field_uneditable()
      *
@@ -158,15 +158,21 @@ final class ACF_Fields extends DWS_Functionality_Template {
 			return $field;
 		}
 
-		?>
-
-        <style type="text/css">
-            [data-name='<?php echo $field['name']; ?>'] {
-                display: none !important;
-            }
-        </style>
-
-		<?php
+		if (wp_doing_ajax()) {
+            echo '<style type="text/css">'; ?>
+                [data-name='<?php echo $field['name']; ?>'] {
+                    display: none !important;
+                }
+            <?php echo '</style>';
+        } else {
+            add_action('admin_head', function() use ($field) {
+                echo '<style type="text/css">'; ?>
+                    [data-name='<?php echo $field['name']; ?>'] {
+                        display: none !important;
+                    }
+                <?php echo '</style>';
+            }, 100);
+        }
 
 		if (isset($field['wrapper'])) {
 			$field['wrapper']['width'] = '0%';
@@ -186,7 +192,7 @@ final class ACF_Fields extends DWS_Functionality_Template {
 	 * Make a field uneditable.
 	 *
      * @since   1.0.0
-     * @version 1.0.0
+     * @version 1.5.0
      *
 	 * @param   array   $field          ACF field in ACF format.
 	 * @param   bool    $do_on_ajax     True if the action should also be performed on AJAX requests, otherwise false.
@@ -216,39 +222,94 @@ final class ACF_Fields extends DWS_Functionality_Template {
 				}
 				break;
 			case 'repeater':
-				echo '<style type="text/css">'; ?>
-				[data-key="<?php echo $field['key']; ?>"] .acf-actions,
-				[data-key="<?php echo $field['key']; ?>"] .acf-row-handle {
-					display: none;
-				}
-				<?php echo '</style>';
+			    if (wp_doing_ajax()) {
+                    echo '<style type="text/css">'; ?>
+                        [data-key="<?php echo $field['key']; ?>"] .acf-actions,
+                        [data-key="<?php echo $field['key']; ?>"] .acf-row-handle {
+                            display: none;
+                        }
+                    <?php echo '</style>';
+                } else {
+                    add_action('acf/admin_head', function() use ($field) {
+                        echo '<style type="text/css">'; ?>
+                            [data-key="<?php echo $field['key']; ?>"] .acf-actions,
+                            [data-key="<?php echo $field['key']; ?>"] .acf-row-handle {
+                                display: none;
+                            }
+                        <?php echo '</style>';
+                    }, 100);
+                }
 				break;
 			case 'true_false':
-				echo '<script type="text/javascript">'; ?>
-				jQuery(document).ready(function($) {
-					$('[data-key="<?php echo $field['key']; ?>"] input').on('click', function(e) { e.preventDefault(); });
-				});
-				<?php echo '</script>';
+			    if (wp_doing_ajax()) {
+                    echo '<script type="text/javascript">'; ?>
+                        function dws_defer_<?php echo $field['key']; ?>() {
+                            jQuery('[data-key="<?php echo $field['key']; ?>"] input').on('click', function(e) { e.preventDefault(); });
+                        }
+
+                        dws_defer_until_jquery(dws_defer_<?php echo $field['key']; ?>);
+                    <?php echo '</script>';
+                } else {
+                    add_action('acf/admin_head', function() use ($field) {
+                        echo '<script type="text/javascript">'; ?>
+                            function dws_defer_<?php echo $field['key']; ?>() {
+                                jQuery('[data-key="<?php echo $field['key']; ?>"] input').on('click', function(e) { e.preventDefault(); });
+                            }
+
+                            dws_defer_until_jquery(dws_defer_<?php echo $field['key']; ?>);
+                        <?php echo '</script>';
+                    }, 100);
+                }
 				break;
 			case 'date_time_picker':
-				echo '<script type="text/javascript">'; ?>
-				jQuery(document).ready(function($) {
-				function disable_<?php echo $field['key']; ?>() {
-					$('div[data-key="<?php echo $field['key']; ?>"] input.input').attr('disabled', 'disabled');
-				}
+			    if (wp_doing_ajax()) {
+                    echo '<script type="text/javascript">'; ?>
+                        function dws_defer_<?php echo $field['key']; ?>() {
+                            function disable_<?php echo $field['key']; ?>() {
+                                jQuery('div[data-key="<?php echo $field['key']; ?>"] input.input').attr('disabled', 'disabled');
+                            }
 
-				disable_<?php echo $field['key'];?>();
-					$(document).on('change', function() { disable_<?php echo $field['key'];?>(); });
-				});
-				<?php echo '</script>';
+                            disable_<?php echo $field['key'];?>();
+                            jQuery(document).on('change', function() { disable_<?php echo $field['key'];?>(); });
+                        }
+
+                        dws_defer_until_jquery(dws_defer_<?php echo $field['key']; ?>);
+                    <?php echo '</script>';
+                } else {
+                    add_action('acf/admin_head', function() use ($field) {
+                        echo '<script type="text/javascript">'; ?>
+                            function dws_defer_<?php echo $field['key']; ?>() {
+                                function disable_<?php echo $field['key']; ?>() {
+                                    jQuery('div[data-key="<?php echo $field['key']; ?>"] input.input').attr('disabled', 'disabled');
+                                }
+
+                                disable_<?php echo $field['key'];?>();
+                                jQuery(document).on('change', function() { disable_<?php echo $field['key'];?>(); });
+                            }
+
+                            dws_defer_until_jquery(dws_defer_<?php echo $field['key']; ?>);
+                        <?php echo '</script>';
+                    }, 100);
+                }
 				break;
 			case 'gallery':
-				echo '<style type="text/css">'; ?>
-				[data-key="<?php echo $field['key']; ?>"] .acf-gallery-main .acf-gallery-toolbar,
-				[data-key="<?php echo $field['key']; ?>"] .actions {
-					display: none !important;
-				}
-				<?php echo '</style>';
+			    if (wp_doing_ajax()) {
+                    echo '<style type="text/css">'; ?>
+                        [data-key="<?php echo $field['key']; ?>"] .acf-gallery-main .acf-gallery-toolbar,
+                        [data-key="<?php echo $field['key']; ?>"] .actions {
+                            display: none !important;
+                        }
+                    <?php echo '</style>';
+                } else {
+                    add_action('acf/admin_head', function() use ($field) {
+                        echo '<style type="text/css">'; ?>
+                            [data-key="<?php echo $field['key']; ?>"] .acf-gallery-main .acf-gallery-toolbar,
+                            [data-key="<?php echo $field['key']; ?>"] .actions {
+                                display: none !important;
+                            }
+                        <?php echo '</style>';
+                    }, 100);
+                }
 				break;
 			case 'text':
 			case 'textarea':

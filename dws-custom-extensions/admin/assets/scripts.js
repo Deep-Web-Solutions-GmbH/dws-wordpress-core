@@ -1,4 +1,22 @@
 /**
+ * Rechecks every few milliseconds whether jQuery is loaded or not, and if it is, executes the callable parameter.
+ *
+ * @since   1.5.0
+ * @version 1.5.0
+ *
+ * @param   callable    method
+ */
+function dws_defer_until_jquery(method) {
+    if (window.jQuery) {
+        method();
+    } else {
+        setTimeout(function() {
+            dws_defer_until_jquery(method);
+        }, 50);
+    }
+}
+
+/**
  * Useful helper to get parameter values from a URL.
  *
  * @since       1.0.0
