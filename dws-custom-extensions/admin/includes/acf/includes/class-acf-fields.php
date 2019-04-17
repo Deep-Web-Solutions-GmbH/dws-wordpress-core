@@ -230,7 +230,7 @@ final class ACF_Fields extends DWS_Functionality_Template {
                         }
                     <?php echo '</style>';
                 } else {
-                    add_action('acf/admin_head', function() use ($field) {
+                    add_action('admin_head', function() use ($field) {
                         echo '<style type="text/css">'; ?>
                             [data-key="<?php echo $field['key']; ?>"] .acf-actions,
                             [data-key="<?php echo $field['key']; ?>"] .acf-row-handle {
@@ -250,7 +250,7 @@ final class ACF_Fields extends DWS_Functionality_Template {
                         dws_defer_until_jquery(dws_defer_<?php echo $field['key']; ?>);
                     <?php echo '</script>';
                 } else {
-                    add_action('acf/admin_head', function() use ($field) {
+                    add_action('admin_head', function() use ($field) {
                         echo '<script type="text/javascript">'; ?>
                             function dws_defer_<?php echo $field['key']; ?>() {
                                 jQuery('[data-key="<?php echo $field['key']; ?>"] input').on('click', function(e) { e.preventDefault(); });
@@ -276,7 +276,7 @@ final class ACF_Fields extends DWS_Functionality_Template {
                         dws_defer_until_jquery(dws_defer_<?php echo $field['key']; ?>);
                     <?php echo '</script>';
                 } else {
-                    add_action('acf/admin_head', function() use ($field) {
+                    add_action('admin_head', function() use ($field) {
                         echo '<script type="text/javascript">'; ?>
                             function dws_defer_<?php echo $field['key']; ?>() {
                                 function disable_<?php echo $field['key']; ?>() {
@@ -301,7 +301,7 @@ final class ACF_Fields extends DWS_Functionality_Template {
                         }
                     <?php echo '</style>';
                 } else {
-                    add_action('acf/admin_head', function() use ($field) {
+                    add_action('admin_head', function() use ($field) {
                         echo '<style type="text/css">'; ?>
                             [data-key="<?php echo $field['key']; ?>"] .acf-gallery-main .acf-gallery-toolbar,
                             [data-key="<?php echo $field['key']; ?>"] .actions {
