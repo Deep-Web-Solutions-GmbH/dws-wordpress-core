@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles the ACF options pages of the DWS CustomExtensions plugin.
  *
  * @since   1.0.0
- * @version 1.4.0
+ * @version 1.5.1
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -203,11 +203,16 @@ final class ACF_Options extends DWS_Functionality_Template {
 	 * Adds groups to the options pages.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 1.5.1
 	 */
 	public function add_pages_groups() {
 		foreach (self::$pages as $page) {
-			$groups = apply_filters(self::get_page_groups_hook($page), array());
+		    $groups = get_transient(self::get_page_groups_hook($page));
+		    if ($groups === false) {
+                $groups = apply_filters(self::get_page_groups_hook($page), array());
+                set_transient(self::get_page_groups_hook($page), $groups, 24 * 60 * 60);
+            }
+
 			self::add_groups($groups, $page);
 		}
 	}
@@ -216,11 +221,16 @@ final class ACF_Options extends DWS_Functionality_Template {
 	 * Adds later fields to the groups already added.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 1.5.1
 	 */
 	public function add_pages_group_fields() {
 		foreach (self::$pages as $page) {
-			$fields = apply_filters(self::get_page_groups_fields_hook($page), array());
+		    $fields = get_transient(self::get_page_groups_fields_hook($page));
+		    if ($fields === false) {
+                $fields = apply_filters(self::get_page_groups_fields_hook($page), array());
+		        set_transient(self::get_page_groups_fields_hook($page), $fields, 24 * 60 * 60);
+            }
+
 			self::add_fields($fields);
 		}
 	}
