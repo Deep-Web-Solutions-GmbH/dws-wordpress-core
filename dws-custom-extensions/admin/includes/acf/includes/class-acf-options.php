@@ -4,7 +4,6 @@ namespace Deep_Web_Solutions\Admin\ACF;
 use Deep_Web_Solutions\Admin\DWS_ACF;
 use Deep_Web_Solutions\Admin\DWS_Admin;
 use Deep_Web_Solutions\Core\DWS_Functionality_Template;
-use Deep_Web_Solutions\Core\DWS_Permissions;
 
 if (!defined('ABSPATH')) { exit; }
 
