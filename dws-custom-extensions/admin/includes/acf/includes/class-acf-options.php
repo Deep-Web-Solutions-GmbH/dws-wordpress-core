@@ -4,6 +4,7 @@ namespace Deep_Web_Solutions\Admin\ACF;
 use Deep_Web_Solutions\Admin\DWS_ACF;
 use Deep_Web_Solutions\Admin\DWS_Admin;
 use Deep_Web_Solutions\Core\DWS_Functionality_Template;
+use Deep_Web_Solutions\Core\DWS_Permissions;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -11,7 +12,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles the ACF options pages of the DWS CustomExtensions plugin.
  *
  * @since   1.0.0
- * @version 1.5.1
+ * @version 1.5.3
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -58,6 +59,14 @@ final class ACF_Options extends DWS_Functionality_Template {
 	 */
 	const GROUP_KEY_PREFIX = 'group_hiurhgvv8gh2v4_';
 
+    /**
+     * @since   1.5.3
+     * @version 1.5.3
+     *
+     * @var     string  CLEAR_TRANSIENTS_ACTION     The name of the AJAX action which will clear the ACF options transients.
+     */
+	private const CLEAR_TRANSIENTS_ACTION = 'dws_acf-options_clear-transients';
+
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
@@ -73,7 +82,7 @@ final class ACF_Options extends DWS_Functionality_Template {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.3.3
+	 * @version 1.5.3
 	 *
 	 * @see     DWS_Functionality_Template::define_functionality_hooks()
 	 *
@@ -86,6 +95,9 @@ final class ACF_Options extends DWS_Functionality_Template {
 		$loader->add_action('acf/init', $this, 'add_pages_groups', PHP_INT_MAX - 1);
 		$loader->add_action('acf/init', $this, 'add_pages_group_fields', PHP_INT_MAX);
 		$loader->add_action('acf/init', $this, 'add_floating_update_button', PHP_INT_MAX);
+
+		$loader->add_action('dws_main_page', $this, 'add_acf_options_postbox');
+        $loader->add_action('wp_ajax_' . self::CLEAR_TRANSIENTS_ACTION, $this, 'ajax_clear_transients');
 	}
 
 	/**
@@ -248,6 +260,36 @@ final class ACF_Options extends DWS_Functionality_Template {
 			wp_enqueue_script(self::get_asset_handle('floating-button'), DWS_ACF::get_assets_base_path( true ) . 'floating-update-button.js', array( 'jquery' ), self::get_plugin_version(), true);
 		}
 	}
+
+    /**
+     * Adds a postbox to the DWS main admin page for "ACF options"-related actions.
+     *
+     * @since   1.5.3
+     * @version 1.5.3
+     */
+	public function add_acf_options_postbox() {
+        $link_to_clear_transients = add_query_arg('action', self::CLEAR_TRANSIENTS_ACTION, admin_url('admin-ajax.php'));
+        echo '<div class="dws-postbox">
+                    <h2 class="dws-with-subtitle">'. __('ACF options', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</h2>
+                    <p class="dws-subtitle">'. __('Perform various actions related to the ACF options', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</p>
+                    <a href="'. $link_to_clear_transients .'"><button class="button button-primary button-large">' . __('Clear transients', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
+                </div>';
+    }
+
+    /**
+     * Clear the transients of the ACF options.
+     *
+     * @since   1.5.3
+     * @version 1.5.3
+     */
+    public function ajax_clear_transients() {
+        foreach (self::$pages as $page) {
+            delete_transient(self::get_page_groups_hook($page));
+            delete_transient(self::get_page_groups_fields_hook($page));
+        }
+
+        wp_safe_redirect('/wp-admin/');
+    }
 
 	//endregion
 

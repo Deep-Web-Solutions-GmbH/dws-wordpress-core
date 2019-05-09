@@ -9,7 +9,7 @@ if (!defined( 'ABSPATH')) { exit; }
  * Provides an "installation" function to this MU-plugin.
  *
  * @since   1.0.0
- * @version 1.4.0
+ * @version 1.5.3
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -59,7 +59,7 @@ final class DWS_Installation extends DWS_Root {
 	 * so it should only be triggered by an admin by AJAX.
 	 *
 	 * @since   1.0.0
-	 * @version 1.4.0
+	 * @version 1.5.3
 	 */
 	public static function run_installation() {
 		if (wp_doing_ajax() && !DWS_Permissions::has('administrator')) {
@@ -84,7 +84,7 @@ final class DWS_Installation extends DWS_Root {
 
         update_option(self::INSTALL_OPTION, Custom_Extensions::get_version());
 
-		die;
+		wp_safe_redirect('/wp-admin/');
 	}
 
 	/**
