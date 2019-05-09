@@ -329,7 +329,7 @@ add_action('acf/validate_field', 'acf_translate_field');
  * @date	30/09/13
  * @since	5.0.0
  *
- * @param	array $parent The field group or field array.
+ * @param	(int|string|array) $parent The field group or field settings. Also accepts the field group ID or key.
  * @return	array
  */
 function acf_get_fields( $parent ) {
@@ -1370,7 +1370,8 @@ function acf_duplicate_fields( $fields = array(), $parent_id = 0 ) {
 		
 	// Duplicate fields.
 	foreach( $fields as $field ) {
-		$duplicates[] = acf_duplicate_field( $field['ID'], $parent_id );
+		$field_id = $field['ID'] ? $field['ID'] : $field['key'];
+		$duplicates[] = acf_duplicate_field( $field_id, $parent_id );
 	}
 	
 	// Return.

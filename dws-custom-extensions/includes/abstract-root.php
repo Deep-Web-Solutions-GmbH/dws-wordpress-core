@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Template for encapsulating some of the most often required abilities of a class.
  *
  * @since   1.0.0
- * @version 1.4.0
+ * @version 1.5.2
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Singleton
@@ -418,7 +418,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * Returns a meaningful probably unique name for an internal hook.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 1.5.2
 	 *
 	 * @param   string          $name       The actual descriptor of the hook's purpose.
 	 * @param   string|array    $extra      Further descriptor of the hook's purpose.
@@ -427,7 +427,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @return  string  The resulting internal hook.
 	 */
 	public static function get_hook_name($name, $extra = array(), $root = '') {
-		return join(
+		return str_replace(' ', '-', join(
 			'_',
             array_filter(
                 array_merge(
@@ -435,21 +435,21 @@ abstract class DWS_Root extends DWS_Singleton {
                     is_array($extra) ? $extra : array($extra)
                 )
 		    )
-		);
+		));
 	}
 
 	/**
 	 * Returns a meaningful potentially unique handle for an asset.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 1.5.2
 	 *
 	 * @param   string  $name   The actual descriptor of the asset's purpose. Leave blank for default.
 	 *
 	 * @return  string  A valid asset handle.
 	 */
 	public static function get_asset_handle($name = '') {
-		return join(
+		return str_replace(' ', '-', join(
 			'_',
 			array_filter(
 				array(
@@ -458,7 +458,7 @@ abstract class DWS_Root extends DWS_Singleton {
 					$name
 				)
 			)
-		);
+		));
 	}
 
 	//endregion

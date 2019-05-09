@@ -133,18 +133,6 @@ function acf_remove_block_type( $name ) {
  */
 function acf_get_block_type_default_attributes() {
 	return array(
-		'className'	=> array(
-			'type'		=> 'string',
-			'default'	=> '',
-		),
-		'align'		=> array(
-			'type'		=> 'string',
-			'default'	=> '',
-		),
-		'data'		=> array(
-			'type'		=> 'object',
-			'default'	=> array(),
-		),
 		'id'		=> array(
 			'type'		=> 'string',
 			'default'	=> '',
@@ -153,10 +141,18 @@ function acf_get_block_type_default_attributes() {
 			'type'		=> 'string',
 			'default'	=> '',
 		),
-		'mode'		=> array(
-			'type'		=> 'mode',
+		'data'		=> array(
+			'type'		=> 'object',
+			'default'	=> array(),
+		),
+		'align'		=> array(
+			'type'		=> 'string',
 			'default'	=> '',
 		),
+		'mode'		=> array(
+			'type'		=> 'string',
+			'default'	=> '',
+		)
 	);
 }
 
@@ -180,7 +176,7 @@ function acf_validate_block_type( $block ) {
 		'description'		=> '',
 		'category'			=> 'common',
 		'icon'				=> '',
-		'mode'				=> 'auto',
+		'mode'				=> 'preview',
 		'align'				=> '',
 		'keywords'			=> array(),
 		'supports'			=> array(),
@@ -591,5 +587,5 @@ function acf_parse_save_blocks_callback( $matches ) {
 	$attrs = apply_filters( 'acf/pre_save_block', $attrs );
 	
 	// Return new comment
-	return '<!-- wp:' . $name . ' ' . json_encode( $attrs, JSON_PRETTY_PRINT ) . ' /-->';
+	return '<!-- wp:' . $name . ' ' . acf_json_encode($attrs) . ' /-->';
 }

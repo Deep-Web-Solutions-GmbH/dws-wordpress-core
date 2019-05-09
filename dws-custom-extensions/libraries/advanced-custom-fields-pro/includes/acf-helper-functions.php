@@ -284,5 +284,5 @@ function acf_maybe_idval( $value ) {
  * @return	(int|float)
  */
 function acf_numval( $value ) {
-	return $value + 0;
+	return ( intval($value) == floatval($value) ) ? intval($value) : floatval($value);
 }

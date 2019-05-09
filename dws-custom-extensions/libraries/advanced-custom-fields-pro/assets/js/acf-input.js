@@ -11095,6 +11095,9 @@
 			acf.screen.getPostFormat = this.getPostFormat;
 			acf.screen.getPostCoreTerms = this.getPostCoreTerms;
 			
+			// Disable unload
+			acf.unload.disable();
+			
 			// Add actions.
 			//this.addAction( 'append_postbox', acf.screen.refreshAvailableMetaBoxesPerLocation );
 		},

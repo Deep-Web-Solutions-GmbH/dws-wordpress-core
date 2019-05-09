@@ -1511,7 +1511,7 @@ function acf_get_posts( $args = array() ) {
 	}
 	
 	// Query posts.
-	$posts = get_posts(  $args);
+	$posts = get_posts( $args );
 	
 	// Remove any potential empty results.
 	$posts = array_filter( $posts );
@@ -2088,91 +2088,19 @@ function acf_get_grouped_users( $args = array() ) {
 	
 }
 
-
-/*
-*  acf_json_encode
-*
-*  This function will return pretty JSON for all PHP versions
-*
-*  @type	function
-*  @date	6/03/2014
-*  @since	5.0.0
-*
-*  @param	$json (array)
-*  @return	(string)
-*/
-
+/**
+ * acf_json_encode
+ *
+ * Returns json_encode() ready for file / database use.
+ *
+ * @date	29/4/19
+ * @since	5.0.0
+ *
+ * @param	array $json The array of data to encode.
+ * @return	string
+ */
 function acf_json_encode( $json ) {
-	
-	// PHP at least 5.4
-	if( version_compare(PHP_VERSION, '5.4.0', '>=') ) {
-		
-		return json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-		
-	}
-
-	
-	
-	// PHP less than 5.4
-	$json = json_encode($json);
-	
-	
-	// http://snipplr.com/view.php?codeview&id=60559
-    $result      = '';
-    $pos         = 0;
-    $strLen      = strlen($json);
-    $indentStr   = "    ";
-    $newLine     = "\n";
-    $prevChar    = '';
-    $outOfQuotes = true;
-
-    for ($i=0; $i<=$strLen; $i++) {
-
-        // Grab the next character in the string.
-        $char = substr($json, $i, 1);
-
-        // Are we inside a quoted string?
-        if ($char == '"' && $prevChar != '\\') {
-            $outOfQuotes = !$outOfQuotes;
-        
-        // If this character is the end of an element, 
-        // output a new line and indent the next line.
-        } else if(($char == '}' || $char == ']') && $outOfQuotes) {
-            $result .= $newLine;
-            $pos --;
-            for ($j=0; $j<$pos; $j++) {
-                $result .= $indentStr;
-            }
-        }
-        
-        // Add the character to the result string.
-        $result .= $char;
-		
-		// If this character is ':' adda space after it
-        if($char == ':' && $outOfQuotes) {
-            $result .= ' ';
-        }
-        
-        // If the last character was the beginning of an element, 
-        // output a new line and indent the next line.
-        if (($char == ',' || $char == '{' || $char == '[') && $outOfQuotes) {
-            $result .= $newLine;
-            if ($char == '{' || $char == '[') {
-                $pos ++;
-            }
-            
-            for ($j = 0; $j < $pos; $j++) {
-                $result .= $indentStr;
-            }
-        }
-        
-        $prevChar = $char;
-    }
-	
-	
-	// return
-    return $result;
-	
+	return json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 }
 
 
