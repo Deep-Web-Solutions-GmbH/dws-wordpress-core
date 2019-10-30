@@ -1,6 +1,8 @@
 <?php
 
 namespace Deep_Web_Solutions\Admin\Settings;
+use Deep_Web_Solutions\Admin\DWS_Settings;
+use Deep_Web_Solutions\Core\DWS_Permissions;
 use Deep_Web_Solutions\Core\DWS_Functionality_Template;
 
 if (!defined('ABSPATH')) { exit; }
@@ -26,7 +28,6 @@ final class DWS_Installation extends DWS_Functionality_Template {
      * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
      */
     protected function define_functionality_hooks($loader) {
-        return; // temporary
         $loader->add_action('dws_main_page', $this, 'choose_custom_fields_plugin', PHP_INT_MAX);
         $loader->add_action('admin_post_choose_custom_fields_plugin', $this, 'check_plugin_installed_and_active', PHP_INT_MAX);
     }
@@ -48,7 +49,7 @@ final class DWS_Installation extends DWS_Functionality_Template {
             $html = '';
 
             foreach($supported_options_frameworks as $supported_options_framework){
-                $html = $html . '<option value="' . $supported_options_framework . '" '. selected(get_option(self::CUSTOM_FIELDS_PLUGIN), "' . $supported_options_framework . '") . ' ></option> ';
+                $html = $html . '<option value="' . $supported_options_framework . '" '. selected(get_option(DWS_Settings::get_settings_framework()), "' . $supported_options_framework . '") . ' ></option> ';
             }
 
             echo '<div class="dws-select">
@@ -56,15 +57,15 @@ final class DWS_Installation extends DWS_Functionality_Template {
                         <p class="dws-subtitle">'. __('Please select your desired custom field plugin.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</p>
                         <form action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" method="post">
                             <input type="hidden" name="action" value="choose_custom_fields_plugin">	
-                            <select name="custom_field_plugin_options">
+                            <select name="' . DWS_Settings::get_settings_framework() . '">
                                 ' . $html . '
                              </select>
                              <button type="submit" class="button button-primary button-large">' . __('Submit', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button>
                         </form>
                  </div>';
 
-            $selectOption = $_POST['custom_field_plugin_options'];
-            update_option( self::CUSTOM_FIELDS_PLUGIN, $selectOption);
+            $selectOption = $_POST[DWS_Settings::get_settings_framework()];
+            update_option(DWS_Settings::get_settings_framework(), $selectOption);
         }
     }
 
@@ -76,32 +77,11 @@ final class DWS_Installation extends DWS_Functionality_Template {
      * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
      */
     public function check_plugin_installed_and_active() {
-        $selectedPlugin = get_option(self::CUSTOM_FIELDS_PLUGIN, false);
-
-        if ($selectedPlugin == "ACF"){
-            if (!is_plugin_active('advanced-settings-pro/acf.php') || !is_plugin_active('acf-code-field/acf-code-field.php')) {
-                add_action('admin_notices', function() {
-                    /** @noinspection PhpIncludeInspection */
-                    require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'admin/templates/not-active-plugin-error.php');
-                });
-            }
-        } elseif ($selectedPlugin == "CMB2"){
-            if (!is_plugin_active('cmb2/init.php')) {
-                add_action('admin_notices', function() {
-                    /** @noinspection PhpIncludeInspection */
-                    require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'admin/templates/not-active-plugin-error.php');
-                });
-            }
-        } else {
-            add_action('admin_notices', function() {
-                /** @noinspection PhpIncludeInspection */
-                require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'admin/templates/plugin-required-error.php');
-            });
-        }
+        // logic here
 
         wp_safe_redirect(admin_url('admin.php?page=dws_custom-extensions_main'));
         status_header(200);
-        die("Server received '{$_REQUEST['custom_field_plugin_options']}' from your browser.");
+        die("Server received '{$_REQUEST[DWS_Settings::get_settings_framework()]}' from your browser.");
     }
 
     //endregion

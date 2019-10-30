@@ -26,7 +26,7 @@ final class DWS_Settings extends DWS_Functionality_Template {
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @var     string  CUSTOM_FIELDS_PLUGIN    The name of the option stored in the database which indicates the
+     * @var     string  SETTINGS_FRAMEWORK    The name of the option stored in the database which indicates the
      *                                          chosen plugin for custom fields.
      */
     private const SETTINGS_FRAMEWORK = 'dws-core_settings-framework';
@@ -67,6 +67,21 @@ final class DWS_Settings extends DWS_Functionality_Template {
         require_once(self::get_includes_base_path() . 'adapters/class-acf-pro.php');
         /** @noinspection PhpIncludeInspection */
         require_once(self::get_includes_base_path() . 'adapters/class-cmb2.php');
+    }
+
+    //endregion
+
+    //region getters
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @return  string  The name of the option stored in the database which indicates the
+     *                                          chosen plugin for custom fields.
+     */
+    public static function get_settings_framework() {
+        return self::SETTINGS_FRAMEWORK;
     }
 
     //endregion
