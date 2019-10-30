@@ -9,7 +9,7 @@ if (!defined( 'ABSPATH')) { exit; }
  * Provides an "installation" function to this MU-plugin.
  *
  * @since   1.0.0
- * @version 1.5.3
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -19,20 +19,20 @@ final class DWS_Installation extends DWS_Root {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
 	 * @var     string      INSTALL_ACTION      The name of the AJAX action on which the 'installation' should occur.
 	 */
-	const INSTALL_ACTION = 'dws_install_custom_extensions';
+	private const INSTALL_ACTION = 'dws_install_custom_extensions';
 
 	/**
 	 * @since   1.4.0
-	 * @version 1.4.0
+	 * @version 2.0.0
 	 *
 	 * @var     string  INSTALL_OPTION  The name of the option stored in the database which indicates whether the
 	 *                                  core has been installed or not.
 	 */
-	const INSTALL_OPTION = 'dws_installed-core-option';
+	private const INSTALL_OPTION = 'dws_installed-core-option';
 
 	//endregion
 
@@ -94,26 +94,43 @@ final class DWS_Installation extends DWS_Root {
 	 * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
 	 *
 	 * @since   1.4.0
-	 * @version 1.4.0
+	 * @version 2.0.0
 	 */
-	public function add_install_update_admin_notice(){
-		if (DWS_Permissions::has('administrator')) {
-			$current_version = get_option(self::INSTALL_OPTION, false);
-			$link_to_install = add_query_arg('action', self::INSTALL_ACTION, admin_url('admin-ajax.php'));
+	public function add_install_update_admin_notice() {
+        if (!DWS_Permissions::has('administrator')) { return; }
 
-			if (!$current_version) {
-				echo '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
-					<p>' . __('DWS Wordpress core has been detected! Please click on Install to install it', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</p>
-					<a href="'. $link_to_install .'"><button class="button button-primary button-large">' . __('Install', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
-				</div>';
-			} else if($current_version != Custom_Extensions::get_version()) {
-                echo '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
-					<p>' . __('Looks like a newer version of the core is available. Update it here!',
-                        DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</p>
-					<a href="' . $link_to_install . '"><button class="button button-primary button-large">' . __('Update', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
-				</div>';
-            }
-		}
+        $current_version = get_option(self::INSTALL_OPTION, false);
+        $link_to_install = add_query_arg('action', self::INSTALL_ACTION, admin_url('admin-ajax.php'));
+
+        if (!$current_version) {
+            //TODO after the everything works, get the list of options dynamically through a filter
+            //TODO ideally, the user could select right here the framework and it would "auto-magically" install and activate
+
+            echo '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
+                <p>' .
+                    sprintf(
+                        __('DWS Wordpress Core has been detected! Please click on \'%s\' to install it and then install the required plugins for your settings framework of choice to start using DWS WP Core.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                        __('Install', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN)
+                    )
+                . '</p>
+                <p>' . __('The following settings framework are available (pick just one):', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</p>
+                <ul>
+                    <li>
+                        <a href="https://www.advancedcustomfields.com/pro/" target="_blank">ACF Pro</a> & <a href="https://wordpress.org/plugins/acf-code-field/" target="_blank">ACF Code Field</a>
+                    </li>
+                    <li>
+                        <a href="https://wordpress.org/plugins/cmb2/" target="_blank">CMB2</a>
+                    </li>
+                </ul>
+                <a href="'. $link_to_install .'"><button class="button button-primary button-large">' . __('Install', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
+            </div>';
+        } else if($current_version != Custom_Extensions::get_version()) { // single equal on purpose !!!
+            echo '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
+                <p>' . __('Looks like a newer version of the core is available. Update it here!',
+                    DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</p>
+                <a href="' . $link_to_install . '"><button class="button button-primary button-large">' . __('Update', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
+            </div>';
+        }
 	}
 
 	/**
@@ -122,7 +139,7 @@ final class DWS_Installation extends DWS_Root {
 	 * @since   1.4.0
 	 * @version 1.4.0
 	 */
-	public function add_reinstall_section(){
+	public function add_reinstall_section() {
 		if (DWS_Permissions::has('administrator') && get_option(self::INSTALL_OPTION, false)) {
 			$link_to_reinstall = add_query_arg('action', self::INSTALL_ACTION, admin_url('admin-ajax.php'));
 			echo '<div class="dws-postbox">
