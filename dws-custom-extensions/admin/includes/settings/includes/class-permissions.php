@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * The custom DWS permissions needed to enhance the custom field's plugin library.
  *
  * @since   1.0.0
- * @version 1.2.0
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     Permissions_Base
@@ -41,4 +41,4 @@ final class Permissions extends Permissions_Base {
 	 *                                                      DWS Theme options.
 	 */
 	const SEE_AND_EDIT_DWS_THEME_OPTIONS = DWS_Permissions::CAPABILITY_PREFIX . 'see_and_edit_dws_theme_options';
-} Permissions::maybe_initialize_singleton('agdsgrhgehiue');
+}

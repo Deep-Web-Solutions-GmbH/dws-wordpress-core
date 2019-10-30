@@ -1,7 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Core;
-use Deep_Web_Solutions\Admin\ACF\ACF_Options;
+use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) { exit; }
  * Provides all the piping required for developing a DWS Functionality.
  *
  * @since   1.0.0
- * @version 1.4.0
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -21,7 +21,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string  TEMPLATE_FILES_OVERWRITES       The prefix of the name of the ACF options field which holds the
+	 * @var     string  TEMPLATE_FILES_OVERWRITES       The prefix of the name of the options field which holds the
 	 *                                                  options to overwrite templates for the current functionality.
 	 */
 	const TEMPLATE_FILES_OVERWRITES = 'template_file_overwrites_';
@@ -29,7 +29,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string  TEMPLATE_FILE_OVERWRITE_PREIFX      The prefix of the name of ACF options fields for overwriting
+	 * @var     string  TEMPLATE_FILE_OVERWRITE_PREIFX      The prefix of the name of options fields for overwriting
 	 *                                                      templates of the current functionality.
 	 */
 	const TEMPLATE_FILE_OVERWRITE_PREFIX = 'template_file_overwrite_';
@@ -92,7 +92,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @version 1.0.0
 	 *
 	 * @access  protected
-	 * @var     string      $children_settings_filter       The ACF options filter on which the children of this functionality
+	 * @var     string      $children_settings_filter       The options filter on which the children of this functionality
 	 *                                                      define their own option fields.
 	 */
 	protected $children_settings_filter;
@@ -229,14 +229,14 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
 	 * @see     DWS_Root::local_configure()
 	 */
 	protected function local_configure() {
 		parent::local_configure();
 
-		$this->children_settings_filter = ACF_Options::get_page_groups_fields_hook(ACF_Options::MAIN_OPTIONS_SLUG);
+		$this->children_settings_filter = DWS_Settings_Pages::get_page_groups_fields_hook(DWS_Settings_Pages::MAIN_OPTIONS_SLUG);
 		if (!empty(self::get_parent())) {
 			$this->settings_filter = $this->children_settings_filter;
 		}
