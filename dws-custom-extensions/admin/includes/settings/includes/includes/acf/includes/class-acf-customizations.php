@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) { exit; }
  *
  * @see     DWS_Functionality_Template
  */
-final class ACF_Fields extends DWS_Functionality_Template {
+final class ACF_Customization extends DWS_Functionality_Template {
 	//region INHERITED FUNCTIONS
 
 	/**

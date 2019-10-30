@@ -1,13 +1,13 @@
 <?php
 
-namespace Deep_Web_Solutions\Admin\ACF;
+namespace Deep_Web_Solutions\Admin\Settings;
 use Deep_Web_Solutions\Core\DWS_Permissions;
 use Deep_Web_Solutions\Core\Permissions_Base;
 
 if (!defined('ABSPATH')) { exit; }
 
 /**
- * The custom DWS permissions needed to enhance the ACF library.
+ * The custom DWS permissions needed to enhance the custom field's plugin library.
  *
  * @since   1.0.0
  * @version 1.2.0
@@ -41,13 +41,4 @@ final class Permissions extends Permissions_Base {
 	 *                                                      DWS Theme options.
 	 */
 	const SEE_AND_EDIT_DWS_THEME_OPTIONS = DWS_Permissions::CAPABILITY_PREFIX . 'see_and_edit_dws_theme_options';
-
-	/**
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @var     string  CAN_EDIT_GALLERY_FILED  Determines whether the current user has access to actions on images
-	 *                                          or not.
-	 */
-	const CAN_EDIT_GALLERY_FIELD = DWS_Permissions::CAPABILITY_PREFIX . 'edit_acf_gallery_field';
 } Permissions::maybe_initialize_singleton('agdsgrhgehiue');
