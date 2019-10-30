@@ -1,6 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Admin\Settings;
+use Deep_Web_Solutions\Admin\DWS_Admin_Notices;
 use Deep_Web_Solutions\Admin\DWS_Settings;
 use Deep_Web_Solutions\Core\DWS_Permissions;
 use Deep_Web_Solutions\Core\DWS_Functionality_Template;
@@ -17,6 +18,27 @@ if (!defined('ABSPATH')) { exit; }
  * @see     DWS_Functionality_Template
  */
 final class DWS_Installation extends DWS_Functionality_Template {
+    //region FIELDS AND CONSTANTS
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @var     string  OPTIONS_FRAMEWORK_SAVE_ACTION   The name of the action called when the form is submitted for saving
+     *                                                  the options framework choice.
+     */
+    private const OPTIONS_FRAMEWORK_SAVE_ACTION = 'dws-core_options-framework-save';
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @var     string  OPTIONS_FRAMEWORK_SELECT_NAME   The name of the select field storing the options framework choices.
+     */
+    private const OPTIONS_FRAMEWORK_SELECT_NAME = 'dws-core_options-framework';
+
+    //endregion
+
     //region INHERITED FUNCTIONS
 
     /**
@@ -28,8 +50,10 @@ final class DWS_Installation extends DWS_Functionality_Template {
      * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
      */
     protected function define_functionality_hooks($loader) {
-        $loader->add_action('dws_main_page', $this, 'choose_custom_fields_plugin', PHP_INT_MAX);
-        $loader->add_action('admin_post_choose_custom_fields_plugin', $this, 'check_plugin_installed_and_active', PHP_INT_MAX);
+        $loader->add_action('dws_main_page', $this, 'output_options_framework_dropdown', PHP_INT_MAX);
+        $loader->add_action('admin_post_' . self::OPTIONS_FRAMEWORK_SAVE_ACTION, $this, 'save_options_framework_choice', PHP_INT_MAX);
+
+        $loader->add_action('admin_init', $this, 'maybe_show_misconfigured_plugins_error');
     }
 
     //endregion
@@ -43,45 +67,81 @@ final class DWS_Installation extends DWS_Functionality_Template {
      * @version 2.0.0
      * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
      */
-    public function choose_custom_fields_plugin() {
-        if (DWS_Permissions::has('administrator')) {
-            $supported_options_frameworks = apply_filters(self::get_hook_name('options-frameworks'), array());
-            $html = '';
+    public function output_options_framework_dropdown() {
+        // check permissions
+        if (!DWS_Permissions::has('administrator')) { return; }
 
-            foreach($supported_options_frameworks as $supported_options_framework){
-                $html = $html . '<option value="' . $supported_options_framework . '" '. selected(get_option(DWS_Settings::get_settings_framework()), "' . $supported_options_framework . '") . ' ></option> ';
-            }
+        // generate HTML for select field
+        $supported_options_frameworks = DWS_Settings::get_supported_options_frameworks();
+        $current_framework_slug = DWS_Settings::get_option_framework_slug();
+        $html = empty($current_framework_slug)
+            ? '<option value="" ' . selected($current_framework_slug, '', false) . ' ></option>'
+            : '';
 
-            echo '<div class="dws-select">
-                        <h2 class="dws-with-subtitle">'. __('Options Framework', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</h2>
-                        <p class="dws-subtitle">'. __('Please select your desired custom field plugin.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</p>
-                        <form action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" method="post">
-                            <input type="hidden" name="action" value="choose_custom_fields_plugin">	
-                            <select name="' . DWS_Settings::get_settings_framework() . '">
+        foreach ($supported_options_frameworks as $framework) {
+            $name = $framework['name'];
+            $html .= '<option value="' . $name . '" '. selected($current_framework_slug, $name, false) . ' >' . $name . '</option> ';
+        }
+
+        echo '<div class="dws-select">
+                    <h2 class="dws-with-subtitle">'. __('Options Framework', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</h2>
+                    <p class="dws-subtitle">'. __('Please select your desired options framework.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</p>
+                    <form action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" method="post">
+                        <input type="hidden" name="action" value="' . self::OPTIONS_FRAMEWORK_SAVE_ACTION . '">	
+                            <select name="' . self::OPTIONS_FRAMEWORK_SELECT_NAME . '">
                                 ' . $html . '
                              </select>
-                             <button type="submit" class="button button-primary button-large">' . __('Submit', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button>
-                        </form>
-                 </div>';
-
-            $selectOption = $_POST[DWS_Settings::get_settings_framework()];
-            update_option(DWS_Settings::get_settings_framework(), $selectOption);
-        }
+                         <button type="submit" class="button button-primary button-large">' . __('Save', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button>
+                    </form>
+             </div>';
     }
 
     /**
-     * Checks if the plugin selected for custom fields is installed and active.
+     * Saves the new framework option.
      *
      * @since   2.0.0
      * @version 2.0.0
      * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
      */
-    public function check_plugin_installed_and_active() {
-        // logic here
+    public function save_options_framework_choice() {
+        if (isset($_POST[self::OPTIONS_FRAMEWORK_SELECT_NAME]) && !empty($_POST[self::OPTIONS_FRAMEWORK_SELECT_NAME])) {
+            $result = DWS_Settings::update_option_framework_slug(esc_sql($_POST[self::OPTIONS_FRAMEWORK_SELECT_NAME]));
+            if ($result) {
+                DWS_Admin_Notices::add_admin_notice_to_user(
+                    __('Successfully set the options framework.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                    DWS_Admin_Notices::SUCCESS
+                );
+            } else {
+                DWS_Admin_Notices::add_admin_notice_to_user(
+                    __('Failed to set the options framework. Please try again!', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN)
+                );
+            }
+        }
+
+        wp_safe_redirect(admin_url('admin.php?page=dws_custom-extensions_main'));
+    }
+
+    /**
+     * If the plugins needed for the currently selected framework are not installed or inactive, show an error.
+     *
+     * @since   2.0.0
+     * @version 2.0.0
+     */
+    public function maybe_show_misconfigured_plugins_error() {
+        //TODO: finish this
+        return;
+
+        // check if everything needed is installed
+        $selectedFramework = DWS_Settings::get_option_framework_slug();
+
+        if ($selectedFramework == ""){
+            /** @noinspection PhpIncludeInspection */
+            require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'admin/includes/settings/templates/plugin-required-error.php');
+        }
 
         wp_safe_redirect(admin_url('admin.php?page=dws_custom-extensions_main'));
         status_header(200);
-        die("Server received '{$_REQUEST[DWS_Settings::get_settings_framework()]}' from your browser.");
+        die("Server received '{$_REQUEST[DWS_Settings::get_option_framework_database_name()]}' from your browser.");
     }
 
     //endregion

@@ -71,22 +71,24 @@ final class DWS_Settings extends DWS_Functionality_Template {
 
     //endregion
 
-    //region getters
+    //region HELPERS
 
     /**
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @return  string  The name of the option stored in the database which indicates the
-     *                                          chosen plugin for custom fields.
+     * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.de>
+     *
+     * @return  DWS_Adapter
      */
-    public static function get_settings_framework() {
-        return self::SETTINGS_FRAMEWORK;
+    public static function get_option_framework_adapter() {
+        $slug = self::get_option_framework_slug();
+        if (empty($slug)) { return null; }
+
+        // TODO: custom logic based on slug, this is ugly hack for demo-ing
+        DWS_ACFPro_Adapter::maybe_initialize_singleton('dhg873h8g34g43');
+        return DWS_ACFPro_Adapter::get_instance();
     }
-
-    //endregion
-
-    //region HELPERS
 
     /**
      * @since   2.0.0
@@ -104,17 +106,26 @@ final class DWS_Settings extends DWS_Functionality_Template {
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.de>
+     * @param   string  $new_slug   The value to be stored in the option.
      *
-     * @return  DWS_Adapter
+     * @return  bool    False if value was not updated and true if value was updated.
      */
-    public static function get_option_framework_adapter() {
-        $slug = self::get_option_framework_slug();
-        if (empty($slug)) { return null; }
+    public static function update_option_framework_slug($new_slug) {
+        return update_option(self::SETTINGS_FRAMEWORK, $new_slug);
+    }
 
-        // TODO: custom logic based on slug, this is ugly hack for demo-ing
-        DWS_ACFPro_Adapter::maybe_initialize_singleton('dhg873h8g34g43');
-        return DWS_ACFPro_Adapter::get_instance();
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @return  array   The supported options frameworks from the remote JSON file.
+     */
+    public static function get_supported_options_frameworks() {
+        $auth           = base64_encode('dws-web-project:XOsj2gidQ9GJwYNpMlb4jkqVDkPoE6LR8QPIAxW0NgtiotRslpcYFkXMV6Uj');
+        $context        = stream_context_create(['http' => ['header' => "Authorization: Basic $auth"]]);
+        $plugins_config = file_get_contents('https://config.deep-web-solutions.de/dws_supported_frameworks.json', false, $context);
+
+        return json_decode($plugins_config, true);
     }
 
     //endregion
