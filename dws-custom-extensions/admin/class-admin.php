@@ -55,8 +55,8 @@ final class DWS_Admin extends DWS_Root {
 		DWS_Dashboard::maybe_initialize_singleton('j8e7h87gh87gwie');
 
 		/** @noinspection PhpIncludeInspection */
-		/** Handles all the ACF related extensions including the options pages. */
-		require_once(self::get_includes_base_path() . 'custom-fields/custom-fields.php');
+		/** Handles all the settings related extensions including the options pages. */
+		require_once(self::get_includes_base_path() . 'settings/class-settings.php');
         DWS_Settings::maybe_initialize_singleton('fh7gh3487grr3f');
 
 		/** @noinspection PhpIncludeInspection */
