@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) { exit; }
  * Orchestrates the DWS Core extensions of the back-end area of the website.
  *
  * @since   1.0.0
- * @version 1.4.0
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -44,7 +44,7 @@ final class DWS_Admin extends DWS_Root {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
 	 * @see     DWS_Root::load_dependencies()
 	 */
@@ -56,8 +56,8 @@ final class DWS_Admin extends DWS_Root {
 
 		/** @noinspection PhpIncludeInspection */
 		/** Handles all the ACF related extensions including the options pages. */
-		require_once(self::get_includes_base_path() . 'acf/class-acf.php');
-		DWS_ACF::maybe_initialize_singleton('jh87h4g83g43');
+		require_once(self::get_includes_base_path() . 'custom-fields/custom-fields.php');
+        DWS_Settings::maybe_initialize_singleton('fh7gh3487grr3f');
 
 		/** @noinspection PhpIncludeInspection */
 		/** Handles the registration and display of DWS notices in the admin area. */

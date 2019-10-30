@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * The core plugin class that is used to define internationalization, hooks, and all the other extensions.
  *
  * @since   1.0.0
- * @version 1.4.1
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Singleton
@@ -81,7 +81,8 @@ final class Custom_Extensions extends DWS_Singleton {
 
 	//region MAGIC METHODS
 
-	/**
+    /** @noinspection PhpMissingParentConstructorInspection */
+    /**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -252,21 +253,13 @@ final class Custom_Extensions extends DWS_Singleton {
 	 * Loads the required files and libraries for this plugin.
 	 *
 	 * @since   1.0.0
-	 * @version 1.4.0
+	 * @version 2.0.0
 	 */
 	private function load_dependencies() {
 		//region LIBRARIES
 
 		/** It is important to have the WordPress plugin functions loaded. */
 		require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-
-		/** @noinspection PhpIncludeInspection */
-		/** Our extensions rely heavily on ACF Pro. We load it first before anything else. */
-		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/advanced-custom-fields-pro/acf.php');
-
-		/** @noinspection PhpIncludeInspection */
-		/** Our extensions rely heavily on ACF Code Field. */
-		require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/acf-code-field/acf-code-field.php');
 
         /** Fix an incompatibility with UpdraftPlus' use of the Puc library */
 		if(!(isset($_REQUEST['page']) && $_REQUEST['page'] === 'updraftplus') && !wp_doing_ajax()) {
