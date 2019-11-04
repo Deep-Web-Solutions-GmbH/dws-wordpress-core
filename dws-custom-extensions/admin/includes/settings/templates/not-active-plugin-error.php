@@ -16,6 +16,6 @@ if (!defined('ABSPATH')) { exit; }
 
 <div class="error">
     <p>
-        <?php echo DWS_CUSTOM_EXTENSIONS_NAME; ?> Please install and activate  <?php echo get_option('dws_custom-fields-plugin', false); ?> plugin(s).
+        <?php echo DWS_CUSTOM_EXTENSIONS_NAME; ?> Please install and activate  <?php echo get_option('dws-core_settings-framework', false); ?> plugin(s).
     </p>
 </div>

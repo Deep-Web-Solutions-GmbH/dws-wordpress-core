@@ -118,6 +118,16 @@ final class DWS_Settings extends DWS_Functionality_Template {
      * @since   2.0.0
      * @version 2.0.0
      *
+     * @return  bool    True, if option is successfully deleted. False on failure.
+     */
+    public static function delete_option_framework_slug() {
+        return delete_option(self::SETTINGS_FRAMEWORK);
+    }
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
      * @return  array   The supported options frameworks from the remote JSON file.
      */
     public static function get_supported_options_frameworks() {
