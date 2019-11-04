@@ -1,6 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Admin\Settings;
+use Deep_Web_Solutions\Core\DWS_Installation;
 use Deep_Web_Solutions\Admin\DWS_Admin_Notices;
 use Deep_Web_Solutions\Admin\DWS_Settings;
 use Deep_Web_Solutions\Core\DWS_Permissions;
@@ -17,7 +18,7 @@ if (!defined('ABSPATH')) { exit; }
  *
  * @see     DWS_Functionality_Template
  */
-final class DWS_Installation extends DWS_Functionality_Template {
+final class DWS_Settings_Installation extends DWS_Functionality_Template {
     //region FIELDS AND CONSTANTS
 
     /**
@@ -136,7 +137,7 @@ final class DWS_Installation extends DWS_Functionality_Template {
         if (empty($selectedFramework)) {
             /** @noinspection PhpIncludeInspection */
             require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'admin/includes/settings/templates/plugin-required-error.php');
-        } else {
+        } else if (DWS_Installation::is_installed() !== false) {
             $supported_options_frameworks = DWS_Settings::get_supported_options_frameworks();
             foreach ($supported_options_frameworks as $framework) {
                 if ($framework['name'] !== $selectedFramework) { continue; }
@@ -144,12 +145,53 @@ final class DWS_Installation extends DWS_Functionality_Template {
 
                 foreach ($framework['dependencies'] as $dependency) {
                     if (!is_plugin_active($dependency[0])) {
+                        $html = '';
+
+                        $selectedFramework = DWS_Settings::get_option_framework_slug();
+                        $supported_options_frameworks = DWS_Settings::get_supported_options_frameworks();
+                        foreach ($supported_options_frameworks as $framework) {
+                            if ($framework['name'] !== $selectedFramework) { continue; }
+                            if (empty($framework['dependencies'])) { continue; }
+
+                            $html .= self::generate_framework_dependencies_html($framework, "");
+                            break;
+                        }
+
+                        extract(array('html' => $html));
                         /** @noinspection PhpIncludeInspection */
                         require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'admin/includes/settings/templates/not-active-plugin-error.php');
                     }
                 }
             }
         }
+    }
+
+    //endregion
+
+    //region HELPER METHODS
+
+    /**
+     * Returns the html of the dependencies of the framework(s).
+     *
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @param   array   $framework
+     * @param   string  $class
+     *
+     * @return  string  The html for the dependencies of the framework(s).
+     */
+    public static function generate_framework_dependencies_html($framework, $class = '') {
+        $html = empty($class) ? '<ul>' : '<ul class="' . $class . '">';
+
+        foreach ($framework['dependencies'] as $name => $definition) {
+            $url = $definition[1];
+            $html .= '<li><a href="'. $url .'" target="_blank">'. $name .'</a></li>';
+        }
+
+        $html .= '</ul>';
+
+        return $html;
     }
 
     //endregion

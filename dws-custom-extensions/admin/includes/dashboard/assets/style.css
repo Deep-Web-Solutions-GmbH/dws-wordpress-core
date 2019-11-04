@@ -96,3 +96,8 @@
     font-size: 16px;
     line-height: 1.5em;
 }
+
+.dws_options_framework_select {
+    list-style-type:disc;
+    padding-left: 18px;
+}

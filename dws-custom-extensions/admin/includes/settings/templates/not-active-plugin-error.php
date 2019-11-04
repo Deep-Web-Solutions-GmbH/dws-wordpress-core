@@ -1,6 +1,4 @@
-<?php
-
-if (!defined('ABSPATH')) { exit; }
+<?php if (!defined('ABSPATH')) { exit; }
 
 /**
  * A very early error message displayed if the required custom fields plugin is not active.
@@ -10,12 +8,16 @@ if (!defined('ABSPATH')) { exit; }
  * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
  *
  * @see     \Deep_Web_Solutions\Core\DWS_Installation
+ *
+ * @var     string  $html
  */
 
 ?>
 
 <div class="error">
     <p>
-        <?php echo DWS_CUSTOM_EXTENSIONS_NAME; ?> Please install and activate  <?php echo get_option('dws-core_settings-framework', false); ?> plugin(s).
+        <strong><?php echo DWS_CUSTOM_EXTENSIONS_NAME; ?></strong> <br/>
+        <?php _e('Please install and activate the following plugin(s):', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN); ?>
+        <?php echo $html; ?>
     </p>
 </div>

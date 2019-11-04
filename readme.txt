@@ -13,6 +13,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 * Code became agnostic to the options plugin used. Now supports: ACF5 Pro and CMB2.
 * Fixed a bug in the admin notices class.
 * Added the options framework select in the main DWS Core Settings page.
+* Added which plugins have to be installed and activated depending on the selected framework.
 
 = 1.5.3 =
 * Clear transients option.

@@ -3,7 +3,7 @@
 namespace Deep_Web_Solutions\Admin;
 use Deep_Web_Solutions\Admin\Settings\Adapters\DWS_ACFPro_Adapter;
 use Deep_Web_Solutions\Admin\Settings\DWS_Adapter;
-use Deep_Web_Solutions\Admin\Settings\DWS_Installation;
+use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Installation;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 use Deep_Web_Solutions\Admin\Settings\Permissions;
 use Deep_Web_Solutions\Core\DWS_Functionality_Template;
@@ -54,7 +54,7 @@ final class DWS_Settings extends DWS_Functionality_Template {
         /** @noinspection PhpIncludeInspection */
         /** Handles the issue of making sure a settings framework is in place and working. */
         require_once(self::get_includes_base_path() . 'class-installation.php');
-        DWS_Installation::maybe_initialize_singleton('gh4w87ghew87fgrwed');
+        DWS_Settings_Installation::maybe_initialize_singleton('gh4w87ghew87fgrwed');
 
         /** @noinspection PhpIncludeInspection */
         /** Handles the settings pages and the options therein. */

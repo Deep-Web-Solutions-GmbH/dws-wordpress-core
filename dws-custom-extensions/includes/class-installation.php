@@ -1,6 +1,8 @@
 <?php
 
 namespace Deep_Web_Solutions\Core;
+use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Installation;
+use Deep_Web_Solutions\Admin\DWS_Settings;
 use Deep_Web_Solutions\Custom_Extensions;
 
 if (!defined( 'ABSPATH')) { exit; }
@@ -54,6 +56,8 @@ final class DWS_Installation extends DWS_Root {
 
 	//endregion
 
+    //region METHODS
+
 	/**
 	 * Gathers all installable classes and runs their installation. This is a very expensive operation,
 	 * so it should only be triggered by an admin by AJAX.
@@ -99,13 +103,24 @@ final class DWS_Installation extends DWS_Root {
 	public function add_install_update_admin_notice() {
         if (!DWS_Permissions::has('administrator')) { return; }
 
-        $current_version = get_option(self::INSTALL_OPTION, false);
+        $current_version = self::is_installed();
         $link_to_install = add_query_arg('action', self::INSTALL_ACTION, admin_url('admin-ajax.php'));
 
         if (!$current_version) {
-            //TODO after the everything works, get the list of options dynamically through a filter
             //TODO ideally, the user could select right here the framework and it would "auto-magically" install and activate
 
+            // generate HTML for select field
+            $supported_options_frameworks = DWS_Settings::get_supported_options_frameworks();
+            $html = '';
+
+            foreach ($supported_options_frameworks as $framework) {
+                $framework_name = $framework['name'];
+                $html .= '<li> '. $framework_name .'';
+                    $html .= DWS_Settings_Installation::generate_framework_dependencies_html($framework, "dws_options_framework_select");
+                $html .= '</li>';
+            }
+
+            // output the whole notice HTML
             echo '<div class="notice notice-warning" style="padding-bottom: 10px !important;">
                 <p>' .
                     sprintf(
@@ -115,12 +130,7 @@ final class DWS_Installation extends DWS_Root {
                 . '</p>
                 <p>' . __('The following settings framework are available (pick just one):', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</p>
                 <ul>
-                    <li>
-                        <a href="https://www.advancedcustomfields.com/pro/" target="_blank">ACF Pro</a> & <a href="https://wordpress.org/plugins/acf-code-field/" target="_blank">ACF Code Field</a>
-                    </li>
-                    <li>
-                        <a href="https://wordpress.org/plugins/cmb2/" target="_blank">CMB2</a>
-                    </li>
+                    '. $html .'
                 </ul>
                 <a href="'. $link_to_install .'"><button class="button button-primary button-large">' . __('Install', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
             </div>';
@@ -149,4 +159,23 @@ final class DWS_Installation extends DWS_Root {
 					</div>';
 		}
 	}
+
+	//endregion
+
+    //region HELPERS
+
+	/**
+     * Checks if DWS Core is installed.
+     *
+     * @since   2.0.0
+     * @version 2.0.0
+     * @author  Fatine Tazi     <f.tazi@deep-web-solutions.de>
+     *
+     * @return  false|string    False if not installed, version string if installed.
+     */
+	public static function is_installed() {
+        return get_option(self::INSTALL_OPTION, false);
+    }
+
+    //endregion
 }
