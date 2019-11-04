@@ -119,6 +119,8 @@ final class DWS_Installation extends DWS_Functionality_Template {
         }
 
         wp_safe_redirect(admin_url('admin.php?page=dws_custom-extensions_main'));
+        status_header(200);
+        die();
     }
 
     /**
@@ -128,20 +130,26 @@ final class DWS_Installation extends DWS_Functionality_Template {
      * @version 2.0.0
      */
     public function maybe_show_misconfigured_plugins_error() {
-        //TODO: finish this
-        return;
-
         // check if everything needed is installed
         $selectedFramework = DWS_Settings::get_option_framework_slug();
 
-        if ($selectedFramework == ""){
+        if (empty($selectedFramework)) {
             /** @noinspection PhpIncludeInspection */
             require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'admin/includes/settings/templates/plugin-required-error.php');
-        }
+        } else {
+            $supported_options_frameworks = DWS_Settings::get_supported_options_frameworks();
+            foreach ($supported_options_frameworks as $framework) {
+                if ($framework['name'] !== $selectedFramework) { continue; }
+                if (empty($framework['dependencies'])) { continue; }
 
-        wp_safe_redirect(admin_url('admin.php?page=dws_custom-extensions_main'));
-        status_header(200);
-        die("Server received '{$_REQUEST[DWS_Settings::get_option_framework_database_name()]}' from your browser.");
+                foreach ($framework['dependencies'] as $dependency) {
+                    if (!is_plugin_active($dependency[0])) {
+                        /** @noinspection PhpIncludeInspection */
+                        require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'admin/includes/settings/templates/not-active-plugin-error.php');
+                    }
+                }
+            }
+        }
     }
 
     //endregion
