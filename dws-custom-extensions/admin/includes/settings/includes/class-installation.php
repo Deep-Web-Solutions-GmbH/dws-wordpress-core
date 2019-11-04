@@ -80,8 +80,8 @@ final class DWS_Settings_Installation extends DWS_Functionality_Template {
             : '';
 
         foreach ($supported_options_frameworks as $framework) {
-            $name = $framework['name'];
-            $html .= '<option value="' . $name . '" '. selected($current_framework_slug, $name, false) . ' >' . $name . '</option> ';
+            $name = $framework['name']; $value = $framework['slug'];
+            $html .= '<option value="' . $value . '" '. selected($current_framework_slug, $value, false) . ' >' . $name . '</option> ';
         }
 
         echo '<div class="dws-select">
@@ -140,24 +140,12 @@ final class DWS_Settings_Installation extends DWS_Functionality_Template {
         } else if (DWS_Installation::is_installed() !== false) {
             $supported_options_frameworks = DWS_Settings::get_supported_options_frameworks();
             foreach ($supported_options_frameworks as $framework) {
-                if ($framework['name'] !== $selectedFramework) { continue; }
+                if ($framework['slug'] !== $selectedFramework) { continue; }
                 if (empty($framework['dependencies'])) { continue; }
 
-                foreach ($framework['dependencies'] as $dependency) {
-                    if (!is_plugin_active($dependency[0])) {
-                        $html = '';
-
-                        $selectedFramework = DWS_Settings::get_option_framework_slug();
-                        $supported_options_frameworks = DWS_Settings::get_supported_options_frameworks();
-                        foreach ($supported_options_frameworks as $framework) {
-                            if ($framework['name'] !== $selectedFramework) { continue; }
-                            if (empty($framework['dependencies'])) { continue; }
-
-                            $html .= self::generate_framework_dependencies_html($framework, "");
-                            break;
-                        }
-
-                        extract(array('html' => $html));
+                foreach ($framework['dependencies'] as $dependency => $definition) {
+                    if (!is_plugin_active($dependency)) {
+                        extract(array('html' => self::generate_framework_dependencies_html($framework)));
                         /** @noinspection PhpIncludeInspection */
                         require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'admin/includes/settings/templates/not-active-plugin-error.php');
                     }
@@ -184,8 +172,8 @@ final class DWS_Settings_Installation extends DWS_Functionality_Template {
     public static function generate_framework_dependencies_html($framework, $class = '') {
         $html = empty($class) ? '<ul>' : '<ul class="' . $class . '">';
 
-        foreach ($framework['dependencies'] as $name => $definition) {
-            $url = $definition[1];
+        foreach ($framework['dependencies'] as $dependency => $definition) {
+            $url = $definition['url']; $name = $definition['name'];
             $html .= '<li><a href="'. $url .'" target="_blank">'. $name .'</a></li>';
         }
 

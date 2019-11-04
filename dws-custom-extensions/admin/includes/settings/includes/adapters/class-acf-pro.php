@@ -2,7 +2,7 @@
 
 namespace Deep_Web_Solutions\Admin\Settings\Adapters;
 use Deep_Web_Solutions\Admin\Settings\DWS_Adapter;
-use Deep_Web_Solutions\Core\DWS_Functionality_Template;
+use Deep_Web_Solutions\Admin\Settings\DWS_Adapter_Base;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -13,9 +13,94 @@ if (!defined('ABSPATH')) { exit; }
  * @version 2.0.0
  * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
  */
-final class DWS_ACFPro_Adapter extends DWS_Functionality_Template implements DWS_Adapter {
+final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
+    //region CLASS INHERITED FUNCTIONS
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @see     DWS_Adapter_Base::set_framework_slug()
+     */
+    public function set_framework_slug() {
+        $this->framework_slug = 'ACF Pro';
+    }
+
+    //endregion
+
+    //region INTERFACE INHERITED FUNCTIONS
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     */
     public static function register_settings_page()
     {
         // TODO: Implement register_settings_page() method.
     }
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     */
+    public static function load_settings_page()
+    {
+        // TODO: Implement load_settings_page() method.
+    }
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     */
+    public static function register_settings_subpage()
+    {
+        // TODO: Implement register_settings_subpage() method.
+    }
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     */
+    public static function load_settings_subpage()
+    {
+        // TODO: Implement load_settings_subpage() method.
+    }
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     */
+    public static function register_settings_group()
+    {
+        // TODO: Implement register_settings_group() method.
+    }
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     */
+    public static function load_settings_group()
+    {
+        // TODO: Implement load_settings_group() method.
+    }
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     */
+    public static function register_settings_field()
+    {
+        // TODO: Implement register_settings_field() method.
+    }
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     */
+    public static function load_settings_field()
+    {
+        // TODO: Implement load_settings_field() method.
+    }
+
+    //endregion
 }

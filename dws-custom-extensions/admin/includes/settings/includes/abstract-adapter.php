@@ -1,6 +1,8 @@
 <?php
 
 namespace Deep_Web_Solutions\Admin\Settings;
+use Deep_Web_Solutions\Admin\DWS_Settings;
+use Deep_Web_Solutions\Core\DWS_Functionality_Template;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -11,11 +13,65 @@ if (!defined('ABSPATH')) { exit; }
  * @version 2.0.0
  * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
  */
-interface DWS_Adapter {
+abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DWS_Adapter {
+    //region FIELDS AND CONSTANTS
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @var     string  $framework_slug     The slug of the current framework.
+     */
+    protected $framework_slug;
+
+    //endregion
+
+    //region INHERITED FUNCTIONS
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @see     DWS_Functionality_Template::define_functionality_hooks()
+     *
+     * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+     */
+    protected function define_functionality_hooks($loader) {
+        $loader->add_action('init', $this, 'set_framework_slug');
+        $loader->add_filter(DWS_Settings::get_hook_name('framework_adapter'), $this, 'maybe_return_instance', 10, 2);
+    }
+
+    //endregion
+
     //region METHODS
 
-    public static function register_settings_page();
+    /**
+     * Children classes must define their framework slugs in here.
+     *
+     * @since   2.0.0
+     * @version 2.0.0
+     */
+    public abstract function set_framework_slug();
 
+    /**
+     * Maybe return the instance of the current class on filter.
+     *
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @param   null|DWS_Adapter_Base   $instance
+     * @param   string                  $framework_slug
+     *
+     * @return  null|DWS_Adapter_Base
+     */
+    public final function maybe_return_instance($instance, $framework_slug) {
+        if ($instance !== null) { return $instance; }
+        if ($framework_slug === $this->framework_slug) {
+            return self::get_instance(sanitize_key('gh8g7h538grrefe_' . $framework_slug));
+        }
+
+        return $instance;
+    }
 
     //endregion
 }

@@ -1,7 +1,6 @@
 <?php
 
 namespace Deep_Web_Solutions\Admin;
-use Deep_Web_Solutions\Admin\Settings\Adapters\DWS_ACFPro_Adapter;
 use Deep_Web_Solutions\Admin\Settings\DWS_Adapter;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Installation;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
@@ -43,6 +42,10 @@ final class DWS_Settings extends DWS_Functionality_Template {
      */
     protected function load_dependencies() {
         /** @noinspection PhpIncludeInspection */
+        /** Interface for interacting with a settings framework. */
+        require_once(self::get_includes_base_path() . 'interface-adapter.php');
+
+        /** @noinspection PhpIncludeInspection */
         /** Template for encapsulating some of the most often required abilities of a settings framework. */
         require_once(self::get_includes_base_path() . 'abstract-adapter.php');
 
@@ -79,15 +82,13 @@ final class DWS_Settings extends DWS_Functionality_Template {
      *
      * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.de>
      *
+     * @param   false|string    $slug
+     *
      * @return  DWS_Adapter
      */
-    public static function get_option_framework_adapter() {
-        $slug = self::get_option_framework_slug();
-        if (empty($slug)) { return null; }
-
-        // TODO: custom logic based on slug, this is ugly hack for demo-ing
-        DWS_ACFPro_Adapter::maybe_initialize_singleton('dhg873h8g34g43');
-        return DWS_ACFPro_Adapter::get_instance();
+    public static function get_option_framework_adapter($slug = false) {
+        $selectedFramework = ($slug === false) ? self::get_option_framework_slug() : $slug;
+        return apply_filters(self::get_hook_name('framework_adapter'), null, $selectedFramework);
     }
 
     /**

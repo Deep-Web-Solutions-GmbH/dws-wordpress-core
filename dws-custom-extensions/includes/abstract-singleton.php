@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) { exit; }
  * one way or another.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  */
 abstract class DWS_Singleton {
@@ -70,12 +70,12 @@ abstract class DWS_Singleton {
 	 * Returns a singleton instance of the calling class.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
 	 * @return  mixed   The instance of the calling class.
 	 */
 	public final static function get_instance() {
-		self::maybe_initialize_singleton();
+		self::maybe_initialize_singleton(...func_get_args());
 		return self::$instances[static::class];
 	}
 
