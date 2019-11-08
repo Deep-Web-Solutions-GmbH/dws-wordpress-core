@@ -24,6 +24,14 @@ abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DW
      */
     protected $framework_slug;
 
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @var     string  $init_hook
+     */
+    protected $init_hook = 'init';
+
     //endregion
 
     //region INHERITED FUNCTIONS
@@ -37,7 +45,8 @@ abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DW
      * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
      */
     protected function define_functionality_hooks($loader) {
-        $loader->add_action('init', $this, 'set_framework_slug');
+        $loader->add_action('init', $this, 'set_fields', PHP_INT_MIN);
+        $loader->add_action('init', $this, 'trigger_init_ready', PHP_INT_MIN + 1);
         $loader->add_filter(DWS_Settings::get_hook_name('framework_adapter'), $this, 'maybe_return_instance', 10, 2);
     }
 
@@ -51,7 +60,19 @@ abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DW
      * @since   2.0.0
      * @version 2.0.0
      */
-    public abstract function set_framework_slug();
+    public abstract function set_fields();
+
+    /**
+     * Register an action on the init hook of the framework to set everything up.
+     *
+     * @since   2.0.0
+     * @version 2.0.0
+     */
+    public final function trigger_init_ready() {
+        add_action($this->init_hook, function() {
+            do_action(DWS_Settings::get_hook_name('init'));
+        });
+    }
 
     /**
      * Maybe return the instance of the current class on filter.

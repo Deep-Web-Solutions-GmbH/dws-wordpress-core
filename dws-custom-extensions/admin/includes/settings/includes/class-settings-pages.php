@@ -88,9 +88,10 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
      */
     protected function define_functionality_hooks($loader) {
-        $loader->add_action('plugins_loaded', $this, 'add_main_page', PHP_INT_MAX);
-        $loader->add_action('plugins_loaded', $this, 'add_sub_pages', PHP_INT_MAX);
+        $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_main_page', PHP_INT_MAX);
+        $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_sub_pages', PHP_INT_MAX);
 
+        /*
         return; // CHECK THINGS AFTER THIS ...
         $adaptor_name = DWS_General_Adaptor::framework_namespace();
 
@@ -102,12 +103,13 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
             $loader->add_action($adaptor::FRAMEWORK_INIT_HOOK_NAME, $this, 'add_pages_groups', PHP_INT_MAX - 1);
             $loader->add_action($adaptor::FRAMEWORK_INIT_HOOK_NAME, $this, 'add_pages_group_fields', PHP_INT_MAX);
             $loader->add_action($adaptor::FRAMEWORK_INIT_HOOK_NAME, $this, 'add_floating_update_button', PHP_INT_MAX);
-        } catch (\ReflectionException $exception) { /* literally impossible currently */ }
+        } catch (\ReflectionException $exception) { /* literally impossible currently * }
 
 
 
         $loader->add_action('dws_main_page', $this, 'add_options_postbox');
         $loader->add_action('wp_ajax_' . self::CLEAR_TRANSIENTS_ACTION, $this, 'ajax_clear_transients');
+        */
     }
 
     /**
