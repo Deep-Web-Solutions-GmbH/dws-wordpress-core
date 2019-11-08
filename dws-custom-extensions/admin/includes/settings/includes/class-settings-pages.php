@@ -71,7 +71,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * @version 2.0.0
      *
      * @access  private
-     * @var     array   $pages      Maintains a list of the slugs of all registered CF options pages of this plugin.
+     * @var     array   $pages      Maintains a list of the slugs of all registered options pages of this plugin.
      */
     private static $pages = array(self::MAIN_OPTIONS_SLUG, self::MODULES_OPTIONS_SLUG, self::THEME_OPTIONS_SLUG);
 
