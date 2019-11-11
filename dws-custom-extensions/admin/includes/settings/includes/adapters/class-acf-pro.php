@@ -84,37 +84,45 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
         return acf_add_options_page($args);
     }
 
-
-    //  TODO: forget about rest for now
-
-
     /**
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @param   array   $parameters
-     * @param   array   $parent
+     * @param   string  $parent_slug
+     * @param   string  $page_title
+     * @param   string  $menu_title
+     * @param   string  $capability
+     * @param   string  $menu_slug
+     * @param   array   $other
      *
-     * @return  array   The validated and final page settings.
+     * @return  false|array
      */
-    public static function register_settings_subpage($parameters, $parent = array()) {
-        if( !function_exists('acf_add_options_sub_page') || ( empty($parent['menu_slug']) && empty($parameters['parent_slug']) ) || empty($parameters['menu_title']) || empty($parameters['menu_slug']) ) { return null; }
+    public static function register_settings_subpage($parent_slug, $page_title, $menu_title, $capability, $menu_slug, $other = array()) {
+        if (!function_exists('acf_add_options_sub_page')) { return false; }
 
-        return acf_add_options_sub_page(array(
-                'page_title'        => isset($parameters['page_title']) ? $parameters['page_title'] : $parameters['menu_title'],
-                'menu_title'        => $parameters['menu_title'],
-                'menu_slug'         => $parameters['menu_slug'],
-                'capability'        => isset($parameters['capability']) ? $parameters['capability'] : '',
-                'position'          => isset($parameters['position']) ? $parameters['position'] : '',
-                'parent_slug'       => isset($parameters['parent_slug']) ? $parameters['parent_slug'] : $parent['menu_slug'],
-                'icon_url'          => isset($parameters['icon_url']) ? $parameters['icon_url'] : '',
-                'redirect'          => isset($parameters['redirect']) ? $parameters['redirect'] : false,
-                'post_id'           => isset($parameters['post_id']) ? $parameters['post_id'] : '',
-                'autoload'          => isset($parameters['autoload']) ? $parameters['autoload'] : false,
-                'update_button'     => isset($parameters['update_button']) ? $parameters['update_button'] : '',
-                'updated_message'   => isset($parameters['updated_message']) ? $parameters['updated_message'] : ''
+        $args = wp_parse_args($other, array(
+            'page_title'        => $page_title,
+            'menu_title'        => $menu_title,
+            'menu_slug'         => $menu_slug,
+            'capability'        => $capability,
+            'position'          => '',
+            'parent_slug'       => $parent_slug,
+            'icon_url'          => '',
+            'redirect'          => false,
+            'post_id'           => '',
+            'autoload'          => false,
+            'update_button'     => '',
+            'updated_message'   => ''
         ));
+
+        return acf_add_options_sub_page($args);
     }
+
+
+
+
+
+    //  TODO: forget about rest for now
 
     /**
      * @since   2.0.0
