@@ -35,29 +35,39 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      * @since   2.0.0
      * @version 2.0.0
      *
+     * @param   string  $page_title
+     * @param   string  $menu_title
+     * @param   string  $capability
+     * @param   string  $menu_slug
      * @param   array   $other
      *
-     * @return  array   The validated and final page settings.
+     * @return  false|array     The validated and final page settings.
      */
-    public static function register_settings_page($page_name, $page_slug, $other = array()) {
-        if( !function_exists('new_cmb2_box') || (empty($other['id']) && empty($other['key'])) || ( empty($other['menu_title']) && empty($other['title']) ) || ( empty($other['menu_slug']) && empty($other['option_key']) ) )  { return null; }
+    public static function register_settings_page($page_title, $menu_title, $capability, $menu_slug, $other = array()) {
+        if (!function_exists('new_cmb2_box'))  { return false; }
 
-        return new_cmb2_box(array(
-                    'id'                        => isset($other['id']) ? $other['id'] : $other['key'],
-                    'title'                     => isset($other['title']) ? $other['title'] : $other['menu_title'],
-                    'object_types'              => array( 'options-page' ),
-                    'option_key'                => isset($other['option_key']) ? $other['option_key'] : $other['menu_slug'],
-                    'icon_url'                  => isset($other['icon_url']) ? $other['icon_url'] : '',
-                    'menu_title'                => isset($other['menu_title']) ? $other['menu_title'] : $other['title'],
-                    'parent_slug'               => isset($other['parent_slug']) ? $other['parent_slug'] : '',
-                    'capability'                => isset($other['capability']) ? $other['capability'] : '',
-                    'position'                  => isset($other['position']) ? $other['position'] : '',
-                    'admin_menu_hook'           => isset($other['admin_menu_hook']) ? $other['admin_menu_hook'] : '',
-                    'display_cb'                => isset($other['display_cb']) ? $other['display_cb'] : false,
-                    'save_button'               => isset($other['save_button']) ? $other['save_button'] : $other['update_button'],
-                    'disable_settings_errors'   => isset($other['disable_settings_errors']) ? $other['disable_settings_errors'] : false,
-                    'message_cb'                => isset($other['message_cb']) ? $other['message_cb'] : ''
+        $args = wp_parse_args($other, array(
+            'id'                        => 'dws_ioungf897uhrg7yg', // Reminder: you told me to hard code this :)
+            'title'                     => $page_title,
+            'object_types'              => array( 'options-page' ),
+            'option_key'                => $menu_slug,
+            'icon_url'                  => '',
+            'menu_title'                => $menu_title,
+            'position'                  => '',
+            'parent_slug'               => '',
+            'capability'                => $capability,
+            'display_cb'                => false,
+            'save_button'               => __('Save', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+            'disable_settings_errors'   => false,
+            'message_cb'                => ''
         ));
+
+        $result = new_cmb2_box($args);
+        if ($result instanceof \CMB2) {
+            $result = $args;
+        }
+
+        return $result;
     }
 
 
@@ -293,4 +303,4 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
     }
 
     //endregion
-}
+} DWS_CMB2_Adapter::maybe_initialize_singleton('gm8ugh874hngf87gbcu');

@@ -69,6 +69,9 @@ abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DW
      * @version 2.0.0
      */
     public final function trigger_init_ready() {
+        $selected_framework = DWS_Settings::get_option_framework_slug();
+        if ($selected_framework !== $this->framework_slug) { return; }
+
         add_action($this->init_hook, function() {
             do_action(DWS_Settings::get_hook_name('init'));
         });

@@ -18,11 +18,15 @@ interface DWS_Adapter {
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @param   string  $page_name
-     * @param   string  $page_slug
+     * @param   string  $page_title
+     * @param   string  $menu_title
+     * @param   string  $capability
+     * @param   string  $menu_slug
      * @param   array   $other
+     *
+     * @return  false|array Returns false or the array of parameters the chosen framework takes.
      */
-    public static function register_settings_page($page_name, $page_slug, $other = array());
+    public static function register_settings_page($page_title, $menu_title, $capability, $menu_slug, $other = array());
 
 
     // TODO: ignore everything from here on

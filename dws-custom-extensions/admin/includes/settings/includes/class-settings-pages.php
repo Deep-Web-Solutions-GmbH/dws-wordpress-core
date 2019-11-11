@@ -89,7 +89,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      */
     protected function define_functionality_hooks($loader) {
         $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_main_page', PHP_INT_MAX);
-        $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_sub_pages', PHP_INT_MAX);
+        //$loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_sub_pages', PHP_INT_MAX);
 
         /*
         return; // CHECK THINGS AFTER THIS ...
@@ -136,29 +136,28 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * We add the main page which deals with general settings for the whole website.
      *
      * @since   1.0.0
-     * @version 1.0.0
+     * @version 2.0.0
      */
     public function add_main_page() {
         $adaptor = DWS_Settings::get_option_framework_adapter();
+        $result = $adaptor::register_settings_page(
+            __('Custom Extensions', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+            __('Custom Extensions', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+            Permissions::SEE_AND_EDIT_DWS_CORE_OPTIONS,
+            self::MAIN_OPTIONS_SLUG,
+            array(
+                'icon_url'   => 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(DWS_Admin::get_assets_base_path() . 'dws_logo.svg')),
+                'redirect'   => false,
+                'position'   => 3
+            )
+        );
 
-        return;
-//
-//        $adaptor = DWS_General_Adaptor::framework_namespace();
-//
-//        $page = array(
-//            'menu_title' => __('Custom Extensions', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-//            'page_title' => __('Deep Web Solutions: Custom Extensions Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-//            'menu_slug'  => self::MAIN_OPTIONS_SLUG,
-//            'capability' => Permissions::SEE_AND_EDIT_DWS_CORE_OPTIONS,
-//            'icon_url'   => 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(DWS_Admin::get_assets_base_path() . 'dws_logo.svg')),
-//            'redirect'   => false,
-//            'position'   => 3
-//        );
-//        $page = $adaptor::format_page($page);
-//        $adaptor::add_page($page);
-//
-//        // we add an "artificial" submenu-page such that the first menu entry is named differently
-//        add_submenu_page(self::MAIN_OPTIONS_SLUG, '', __('Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 'administrator', self::MAIN_OPTIONS_SLUG);
+        if ($result === false) {
+            error_log('Failed to register main settings page.');
+        }
+
+        // we add an "artificial" submenu-page such that the first menu entry is named differently
+        // add_submenu_page(self::MAIN_OPTIONS_SLUG, '', __('Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 'administrator', self::MAIN_OPTIONS_SLUG);
     }
 
     /**

@@ -55,27 +55,33 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      * @since   2.0.0
      * @version 2.0.0
      *
+     * @param   string  $page_title
+     * @param   string  $menu_title
+     * @param   string  $capability
+     * @param   string  $menu_slug
      * @param   array   $other
      *
-     * @return  array   The validated and final page settings.
+     * @return  false|array     The validated and final page settings.
      */
-    public static function register_settings_page($page_name, $page_slug, $other = array()) {
-        if( !function_exists('acf_add_options_page') || empty($other['menu_title']) || empty($other['menu_slug']) ) { return null; }
+    public static function register_settings_page($page_title, $menu_title, $capability, $menu_slug, $other = array()) {
+        if (!function_exists('acf_add_options_page')) { return false; }
 
-        return acf_add_options_page(array(
-                'page_title'        => isset($other['page_title']) ? $other['page_title'] : $other['menu_title'],
-                'menu_title'        => $other['menu_title'],
-                'menu_slug'         => $other['menu_slug'],
-                'capability'        => isset($other['capability']) ? $other['capability'] : '',
-                'position'          => isset($other['position']) ? $other['position'] : '',
-                'parent_slug'       => isset($other['parent_slug']) ? $other['parent_slug'] : '',
-                'icon_url'          => isset($other['icon_url']) ? $other['icon_url'] : '',
-                'redirect'          => isset($other['redirect']) ? $other['redirect'] : false,
-                'post_id'           => isset($other['post_id']) ? $other['post_id'] : '',
-                'autoload'          => isset($other['autoload']) ? $other['autoload'] : false,
-                'update_button'     => isset($other['update_button']) ? $other['update_button'] : '',
-                'updated_message'   => isset($other['updated_message']) ? $other['updated_message'] : ''
+        $args = wp_parse_args($other, array(
+            'page_title'        => $page_title,
+            'menu_title'        => $menu_title,
+            'menu_slug'         => $menu_slug,
+            'capability'        => $capability,
+            'position'          => '',
+            'parent_slug'       => '',
+            'icon_url'          => '',
+            'redirect'          => false,
+            'post_id'           => '',
+            'autoload'          => false,
+            'update_button'     => '',
+            'updated_message'   => ''
         ));
+
+        return acf_add_options_page($args);
     }
 
 
@@ -394,4 +400,4 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
     }
 
     //endregion
-}
+} DWS_ACFPro_Adapter::maybe_initialize_singleton('rgfjn87uy4578yhbf67');
