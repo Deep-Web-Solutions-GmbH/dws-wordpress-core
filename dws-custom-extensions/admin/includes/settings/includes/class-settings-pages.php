@@ -89,7 +89,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      */
     protected function define_functionality_hooks($loader) {
         $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_main_page', PHP_INT_MAX);
-        //$loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_sub_pages', PHP_INT_MAX);
+        $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_sub_pages', PHP_INT_MAX);
 
         /*
         return; // CHECK THINGS AFTER THIS ...
@@ -139,8 +139,8 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * @version 2.0.0
      */
     public function add_main_page() {
-        $adaptor = DWS_Settings::get_option_framework_adapter();
-        $result = $adaptor::register_settings_page(
+        $adapter = DWS_Settings::get_option_framework_adapter();
+        $result = $adapter::register_settings_page(
             __('Custom Extensions', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
             __('Custom Extensions', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
             Permissions::SEE_AND_EDIT_DWS_CORE_OPTIONS,
@@ -154,21 +154,21 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
 
         if ($result === false) {
             error_log('Failed to register main settings page.');
+        } else {
+            // we add an "artificial" submenu-page such that the first menu entry is named differently
+            add_submenu_page(self::MAIN_OPTIONS_SLUG, __('Deep Web Solutions: Custom Extensions Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), __('Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), Permissions::SEE_AND_EDIT_DWS_CORE_OPTIONS, self::MAIN_OPTIONS_SLUG);
         }
-
-        // we add an "artificial" submenu-page such that the first menu entry is named differently
-        // add_submenu_page(self::MAIN_OPTIONS_SLUG, '', __('Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 'administrator', self::MAIN_OPTIONS_SLUG);
     }
 
     /**
      * We let our other sub-pages to register here.
      *
      * @since   1.0.0
-     * @version 1.0.0
+     * @version 2.0.0
      */
     public function add_sub_pages() {
-        return;
-        //$adaptor = DWS_General_Adaptor::framework_namespace();
+        $adapter = DWS_Settings::get_option_framework_adapter();
+
         /**
          * @since   1.0.0
          * @since   1.2.0   Added 'capability' field.
@@ -185,53 +185,41 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
          *          ...
          *      ]
          */
-//        $other_sub_pages = apply_filters(self::get_hook_name('subpages'), array());
-//        $other_sub_pages = $adaptor::format_subpage($other_sub_pages);
-//
-//        $sub_pages = $adaptor::format_subpage(array(
-//            array(
-//                'page_title' => __('Deep Web Solutions: Custom Extensions Modules Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-//                'menu_title' => __('Modules Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-//                'menu_slug'  => self::MODULES_OPTIONS_SLUG,
-//                'capability' => Permissions::SEE_AND_EDIT_DWS_MODULES_OPTIONS
-//            ),
-//            array(
-//                'page_title' => __('Deep Web Solutions: Custom Extensions Theme Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-//                'menu_title' => __('Theme Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-//                'menu_slug'  => self::THEME_OPTIONS_SLUG,
-//                'capability' => Permissions::SEE_AND_EDIT_DWS_THEME_OPTIONS
-//            )
-//        ));
-//
-//        $sub_pages = array_merge($sub_pages, $other_sub_pages);
-//
-//        foreach ($sub_pages as $sub_page) {
-//            if (!isset($sub_page['menu_title'], $sub_page['menu_slug'], $sub_page['capability'])) {
-//                continue;
-//            }
-//
-//            // make sure the subpage slug is "normalized"
-//            if (strpos($sub_page['menu_slug'], self::MENU_PAGES_SLUG_PREFIX) !== 0) {
-//                $sub_page['menu_slug'] = self::MENU_PAGES_SLUG_PREFIX . $sub_page['menu_slug'];
-//            }
-//
-//            // add the current subpage both to WordPress and to our cache
-//            self::$pages[] = $sub_page['menu_slug'];
-//            $subpage = $adaptor::format_subpage(
-//                array(
-//                    'page_title'  => isset($sub_page['page_title']) ? $sub_page['page_title'] : $sub_page['menu_title'],
-//                    'menu_title'  => $sub_page['menu_title'],
-//                    'menu_slug'   => $sub_page['menu_slug'],
-//                    'capability'  => $sub_page['capability'],
-//                    'parent_slug' => self::MAIN_OPTIONS_SLUG,
-//                )
-//            );
-//
-//            $adaptor::add_subpage($subpage);
-//        }
-//
-//        // make sure our internal cache is unique
-//        self::$pages = array_unique(self::$pages);
+        $other_sub_pages = apply_filters(self::get_hook_name('subpages'), array());
+
+        $sub_pages = array(
+            array(
+                'page_title' => __('Deep Web Solutions: Custom Extensions Modules Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                'menu_title' => __('Modules Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                'menu_slug'  => self::MODULES_OPTIONS_SLUG,
+                'capability' => Permissions::SEE_AND_EDIT_DWS_MODULES_OPTIONS
+            ),
+            array(
+                'page_title' => __('Deep Web Solutions: Custom Extensions Theme Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                'menu_title' => __('Theme Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                'menu_slug'  => self::THEME_OPTIONS_SLUG,
+                'capability' => Permissions::SEE_AND_EDIT_DWS_THEME_OPTIONS
+            )
+        );
+
+        $sub_pages = array_merge($sub_pages, $other_sub_pages);
+        foreach ($sub_pages as $sub_page) {
+            // Make sure the subpage slug is "normalized"
+            if (strpos($sub_page['menu_slug'], self::MENU_PAGES_SLUG_PREFIX) !== 0) {
+                $sub_page['menu_slug'] = self::MENU_PAGES_SLUG_PREFIX . $sub_page['menu_slug'];
+            }
+
+            // Add the current subpage both to WordPress and to our cache
+            self::$pages[] = $sub_page['menu_slug'];
+            $result = $adapter::register_settings_subpage(self::MAIN_OPTIONS_SLUG, $sub_page['page_title'], $sub_page['menu_title'], $sub_page['capability'], $sub_page['menu_slug'], $sub_page);
+
+            if ($result === false) {
+                error_log('Failed to register sub-settings page: ' . $sub_page['menu_title']);
+            }
+        }
+
+        // Make sure our internal cache is unique
+        self::$pages = array_unique(self::$pages);
     }
 
     /**

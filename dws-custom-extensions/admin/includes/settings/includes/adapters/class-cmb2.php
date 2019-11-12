@@ -70,41 +70,51 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
         return $result;
     }
 
-
-    //  TODO: forget about rest for now
-
-
-
-
     /**
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @param   array   $parameters
-     * @param   array   $parent
+     * @param   string  $parent_slug
+     * @param   string  $page_title
+     * @param   string  $menu_title
+     * @param   string  $capability
+     * @param   string  $menu_slug
+     * @param   array   $other
      *
-     * @return  array   The validated and final page settings.
+     * @return  false|array
      */
-    public static function register_settings_subpage($parameters, $parent = array()) {
-        if( !function_exists('new_cmb2_box') || (empty($parameters['id']) && empty($parameters['key'])) || ( empty($parent['menu_slug']) && empty($parameters['parent_slug']) ) || ( empty($parameters['menu_title']) && empty($parameters['title']) ) || ( empty($parameters['menu_slug']) && empty($parameters['option_key']) ) ) { return null; }
+    public static function register_settings_subpage($parent_slug, $page_title, $menu_title, $capability, $menu_slug, $other = array()) {
+        if (!function_exists('new_cmb2_box')) { return false; }
 
-        return new_cmb2_box(array(
-                    'id'                        => isset($parameters['id']) ? $parameters['id'] : $parameters['key'],
-                    'title'                     => isset($parameters['title']) ? $parameters['title'] : $parameters['menu_title'],
-                    'object_types'              => array( 'options-page' ),
-                    'option_key'                => isset($parameters['option_key']) ? $parameters['option_key'] : $parameters['menu_slug'],
-                    'icon_url'                  => isset($parameters['icon_url']) ? $parameters['icon_url'] : '',
-                    'menu_title'                => isset($parameters['menu_title']) ? $parameters['menu_title'] : $parameters['title'],
-                    'parent_slug'               => isset($parameters['parent_slug']) ? $parameters['parent_slug'] : $parent['menu_slug'],
-                    'capability'                => isset($parameters['capability']) ? $parameters['capability'] : '',
-                    'position'                  => isset($parameters['position']) ? $parameters['position'] : '',
-                    'admin_menu_hook'           => isset($parameters['admin_menu_hook']) ? $parameters['admin_menu_hook'] : '',
-                    'display_cb'                => isset($parameters['display_cb']) ? $parameters['display_cb'] : false,
-                    'save_button'               => isset($parameters['save_button']) ? $parameters['save_button'] : $parameters['update_button'],
-                    'disable_settings_errors'   => isset($parameters['disable_settings_errors']) ? $parameters['disable_settings_errors'] : false,
-                    'message_cb'                => isset($parameters['message_cb']) ? $parameters['message_cb'] : ''
+        $args = wp_parse_args($other, array(
+            'id'                        => md5($menu_slug),
+            'title'                     => $page_title,
+            'object_types'              => array( 'options-page' ),
+            'option_key'                => $menu_slug,
+            'icon_url'                  => '',
+            'menu_title'                => $menu_title,
+            'parent_slug'               => $parent_slug,
+            'capability'                => $capability,
+            'position'                  => '',
+            'display_cb'                => false,
+            'save_button'               => __('Save', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+            'disable_settings_errors'   => false,
+            'message_cb'                => ''
         ));
+
+        $result = new_cmb2_box($args);
+        if ($result instanceof \CMB2) {
+            $result = $args;
+        }
+
+        return $result;
     }
+
+
+
+
+
+    //  TODO: forget about rest for now
 
     /**
      * @since   2.0.0

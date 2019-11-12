@@ -28,21 +28,26 @@ interface DWS_Adapter {
      */
     public static function register_settings_page($page_title, $menu_title, $capability, $menu_slug, $other = array());
 
-
-    // TODO: ignore everything from here on
-
-
-
-
-
     /**
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @param   array   $parameters
-     * @param   array   $parent
+     * @param   string  $parent_slug
+     * @param   string  $page_title
+     * @param   string  $menu_title
+     * @param   string  $capability
+     * @param   string  $menu_slug
+     * @param   array   $other
+     *
+     * @return  false|array Returns false or the array of parameters the chosen framework takes.
      */
-    public static function register_settings_subpage($parameters, $parent);
+    public static function register_settings_subpage($parent_slug, $page_title, $menu_title, $capability, $menu_slug, $other = array());
+
+
+
+
+
+    //TODO: ignore everything from here on
 
     /**
      * @since   2.0.0
