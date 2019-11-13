@@ -90,6 +90,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
     protected function define_functionality_hooks($loader) {
         $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_main_page', PHP_INT_MAX);
         $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_sub_pages', PHP_INT_MAX);
+        $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_pages_groups', PHP_INT_MAX - 1);
 
         /*
         return; // CHECK THINGS AFTER THIS ...
@@ -100,7 +101,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
 
             error_log($adaptor);
 
-            $loader->add_action($adaptor::FRAMEWORK_INIT_HOOK_NAME, $this, 'add_pages_groups', PHP_INT_MAX - 1);
+            $
             $loader->add_action($adaptor::FRAMEWORK_INIT_HOOK_NAME, $this, 'add_pages_group_fields', PHP_INT_MAX);
             $loader->add_action($adaptor::FRAMEWORK_INIT_HOOK_NAME, $this, 'add_floating_update_button', PHP_INT_MAX);
         } catch (\ReflectionException $exception) { /* literally impossible currently * }
@@ -343,37 +344,31 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * Registers local groups with ACF.
      *
      * @since   1.0.0
-     * @version 1.0.0
+     * @version 2.0.0
      *
      * @param   array   $groups     A list of ACF-conform groups of fields to be registered with ACF.
      * @param   string  $location   The slug of the options page on which the groups must appear on.
      */
     private function add_groups($groups, $location) {
-        return;
-//        $adaptor = DWS_General_Adaptor::framework_namespace();
-//
-//        foreach ($groups as $group) {
-//            if (!isset($group['key'], $group['title'], $group['fields'])) {
-//                continue;
-//            }
-//
-//            $group = array(
-//                'key'      => self::GROUP_KEY_PREFIX . $group['key'],
-//                'title'    => $group['title'],
-//                'fields'   => $group['fields'],
-//                'location' => array(
-//                    array(
-//                        array(
-//                            'param'    => 'options_page',
-//                            'operator' => '==',
-//                            'value'    => $location
-//                        ),
-//                    ),
-//                )
-//            );
-//            $group = $adaptor::format_group($group);
-//            $adaptor::add_group($group);
-//        }
+        $adapter = DWS_Settings::get_option_framework_adapter();
+        foreach ($groups as $group) {
+            if (!isset($group['key'], $group['title'])) {
+                error_log('Failed to register group in: ' . $location);
+                continue;
+            }
+            if (empty($group['key']) || empty($group['title'])) {
+                error_log('Failed to register group in: ' . $location);
+                continue;
+            }
+
+            $adapter::register_options_page_group(
+                $group['key'],
+                $group['title'],
+                $location,
+                $group
+            );
+
+        }
     }
 
     /**
