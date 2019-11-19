@@ -368,10 +368,12 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      * @version 2.0.0
      *
      * @param   string  $field_id
+     * @param   string  $location
      *
      * @return  mixed   Option value.
+     *
      */
-    public static function get_field($field_id) {
+    public static function get_field_value($field_id, $location = null) {
         if( !function_exists('get_field') || empty($field_id) ) { return; }
 
         return get_field($field_id);

@@ -58,11 +58,11 @@ interface DWS_Adapter {
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @param   string              $group_id
-     * @param   string              $key
-     * @param   string              $type
-     * @param   array               $parameters
-     * @param   string              $location
+     * @param   string  $group_id
+     * @param   string  $key
+     * @param   string  $type
+     * @param   array   $parameters
+     * @param   string  $location
      */
     public static function register_options_group_field($group_id, $key, $type, $parameters, $location);
 
@@ -72,9 +72,9 @@ interface DWS_Adapter {
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @param   string                  $parent_id
-     * @param   array                   $parameters
-     * @param   null   $location
+     * @param   string  $parent_id
+     * @param   array   $parameters
+     * @param   null    $location
      */
     public static function register_settings_field($parent_id, $parameters, $location);
 
@@ -83,8 +83,9 @@ interface DWS_Adapter {
      * @version 2.0.0
      *
      * @param   string  $field_id
+     * @param   string  $location
      */
-    public static function get_field($field_id);
+    public static function get_field_value($field_id, $location);
 
     //endregion
 }

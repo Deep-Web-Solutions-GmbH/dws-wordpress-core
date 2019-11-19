@@ -88,9 +88,9 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
      */
     protected function define_functionality_hooks($loader) {
-        $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_main_page', PHP_INT_MAX);
-        $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_sub_pages', PHP_INT_MAX);
-        $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_pages_groups', PHP_INT_MAX - 1);
+        $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_main_page', PHP_INT_MAX - 100);
+        $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_sub_pages', PHP_INT_MAX - 100);
+        $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_pages_groups', PHP_INT_MAX - 50);
 
         /*
         return; // CHECK THINGS AFTER THIS ...
@@ -351,13 +351,14 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      */
     private function add_groups($groups, $location) {
         $adapter = DWS_Settings::get_option_framework_adapter();
+
         foreach ($groups as $group) {
             if (!isset($group['key'], $group['title'])) {
-                error_log('Failed to register group in: ' . $location);
+                error_log('Failed to register group in: ' . $location .  'Make sure the group key and title are set.');
                 continue;
             }
             if (empty($group['key']) || empty($group['title'])) {
-                error_log('Failed to register group in: ' . $location);
+                error_log('Failed to register group in: ' . $location . 'Make sure the group key and title are not empty.');
                 continue;
             }
 
@@ -367,7 +368,6 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
                 $location,
                 $group
             );
-
         }
     }
 

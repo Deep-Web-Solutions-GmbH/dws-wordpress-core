@@ -14,6 +14,7 @@ if (!defined('ABSPATH')) { exit; }
  * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
  */
 final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
+
     //region CLASS INHERITED FUNCTIONS
 
     /**
@@ -47,7 +48,7 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
         if (!function_exists('new_cmb2_box'))  { return false; }
 
         $args = wp_parse_args($other, array(
-            'id'                        => 'dws_ioungf897uhrg7yg', // Reminder: you told me to hard code this :)
+            'id'                        => md5($menu_slug),
             'title'                     => $page_title,
             'object_types'              => array( 'options-page' ),
             'option_key'                => $menu_slug,
@@ -62,12 +63,9 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
             'message_cb'                => ''
         ));
 
-        $result = new_cmb2_box($args);
-        if ($result instanceof \CMB2) {
-            $result = $args;
-        }
+        new_cmb2_box($args);
 
-        return $result;
+        return $args;
     }
 
     /**
@@ -102,51 +100,59 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
             'message_cb'                => ''
         ));
 
-        $result = new_cmb2_box($args);
-        if ($result instanceof \CMB2) {
-            $result = $args;
-        }
+        new_cmb2_box($args);
 
-        return $result;
+        return $args;
     }
-
-
-
-
-
-    //  TODO: forget about rest for now
 
     /**
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @param   array   $parameters
-     * @param   object  $location
-     * @param   null    $post_type
-     *
-     * @return  string  The id of the group.
+     * @param   string  $key
+     * @param   string  $title
+     * @param   string  $location
+     * @param   array   $other
      */
-    public static function register_settings_group($parameters, $location, $post_type = null) {
-        if( !function_exists('add_field') || (empty($parameters['id']) && empty($parameters['key'])) || empty($location) || ( empty($parameters['menu_title']) && empty($parameters['options']['group_title']) ) ) { return null; }
+    public static function register_options_page_group($key, $title, $location, $other = array()) {
+        if (!class_exists('CMB2')) { return; }
 
-        return $location->add_field(array(
-                'id' => isset($parameters['id']) ? $parameters['id'] : $parameters['key'],
-                'type' => 'group',
-                'description' => isset($parameters['description']) ? $parameters['description'] : '',
-                'repeatable' => isset($parameters['repeatable']) ? $parameters['repeatable'] : false,
-                'options' => array(
-                    'group_title'       => isset($parameters['options']['group_title']) ? $parameters['options']['group_title'] : 'Entry {#}', // {#} gets replaced by row number
-                    'add_button'        => isset($parameters['options']['add_button']) ? $parameters['options']['add_button'] : '',
-                    'remove_button'     => isset($parameters['options']['remove_button']) ? $parameters['options']['remove_button'] : '',
-                    'sortable'          => isset($parameters['options']['sortable']) ? $parameters['options']['sortable'] : true,
-                    'closed'         => isset($parameters['options']['closed']) ? $parameters['options']['closed'] : true,
-                    'remove_confirm' => isset($parameters['options']['remove_confirm']) ? $parameters['options']['remove_confirm'] : '',
-                ),
-                'before_group'   => isset($parameters['before_group']) ? $parameters['before_group'] : '',
-                'after_group'   => isset($parameters['after_group']) ? $parameters['after_group'] : '',
-                'before_group_row'   => isset($parameters['before_group_row']) ? $parameters['before_group_row'] : '',
-                'after_group_row'   => isset($parameters['after_group_row']) ? $parameters['after_group_row'] : ''
+        if (isset($other['fields']) && !empty($other['fields'])) {
+            $fields = $other['fields'];
+            unset($other['fields']);
+        }
+
+        $args = wp_parse_args($other, array(
+            'id' => $key,
+            'type' => 'group',
+            'repeatable'  => false,
+            'options' => array(
+                'group_title'       => $title // {#} gets replaced by row number
+            )
         ));
+
+        $cmb = cmb2_get_metabox(md5($location));
+
+        $group_field_id = $cmb->add_field($args);
+
+        if (isset($fields)) {
+            foreach ($fields as $field) {
+                if ($field['type'] == 'repeater') {
+                    $other = array(
+                        'id' => $field['key'],
+                        'type' => 'group',
+                        'repeatable'  => true,
+                        'options' => array(
+                            'group_title'       => isset($field['title']) ? $field['title'] : $field['label']
+                        ),
+                        'fields' => $field['sub_fields']
+                    );
+                    self::register_options_page_group($field['key'], $field['title'], $location, $other);
+                } else {
+                    self::register_options_group_field($group_field_id, $field['key'], $field['type'], $field, $location);
+                }
+            }
+        }
     }
 
     /**
@@ -154,14 +160,20 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      * @version 2.0.0
      *
      * @param   string              $group_id
+     * @param   string              $key
+     * @param   string              $type
      * @param   array               $parameters
-     * @param   object(cmb2_box)    $location
+     * @param   string              $location
      */
-    public static function register_settings_group_field($group_id, $parameters, $location) {
-        if( !function_exists('add_group_field') || empty($parameters['type']) || ( empty($group_id) && empty($parameters['parent']) ) || empty($location) || (empty($parameters['id']) && empty($parameters['key'])) ) { return; }
+    public static function register_options_group_field($group_id, $key, $type, $parameters, $location) {
+        if (!class_exists('CMB2')) { return; }
 
-        $location->add_group_field($group_id, self::formatting_settings_field($parameters));
+        $cmb = cmb2_get_metabox(md5($location));
+
+        $cmb->add_group_field($group_id, self::formatting_settings_field($key, $type, $parameters, $location));
     }
+
+    //  TODO: forget about rest for now
 
     /**
      * @since   2.0.0
@@ -174,7 +186,161 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
     public static function register_settings_field($parameters, $location, $parent_id = null) {
         if( !function_exists('add_field') || empty($parameters['type']) || empty($location) || (empty($parameters['id']) && empty($parameters['key'])) ) { return; }
 
-        switch($parameters['type']){
+//        switch($parameters['type']){
+//            case 'text_small':
+//            case 'text_medium':
+//            case 'text_email':
+//            case 'text_money':
+//            case 'textarea':
+//            case 'textarea_small':
+//            case 'textarea_code':
+//            case 'oembed':
+//            case 'checkbox':
+//            case 'hidden':
+//            case 'select_timezone':
+//            case 'text':
+//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array()));
+//                break;
+//            case 'text_time':
+//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
+//                    'time_format' => isset($parameters['time_format']) ? $parameters['time_format'] : ''
+//                )));
+//                break;
+//            case 'text_url':
+//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
+//                    'protocols' => isset($parameters['protocols']) ? $parameters['protocols'] : array(),
+//                )));
+//                break;
+//            case 'text_date_timestamp':
+//            case 'text_datetime_timestamp':
+//            case 'text_datetime_timestamp_timezone':
+//            case 'text_date':
+//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
+//                    'timezone_meta_key'   => isset($parameters['timezone_meta_key']) ? $parameters['timezone_meta_key'] : '',
+//                    'date_format'   => isset($parameters['date_format']) ? $parameters['date_format'] : 'l jS \of F Y'
+//                )));
+//                break;
+//            case 'colorpicker':
+//            case 'wysiwyg':
+//            case 'multicheck':
+//            case 'multicheck_inline':
+//            case 'radio':
+//            case 'radio_inline':
+//            case 'select':
+//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
+//                    'options' => isset($parameters['options']) ? $parameters['options'] : array(),
+//                    'options_cb' => isset($parameters['options_cb']) ? $parameters['options_cb'] : ''
+//                )));
+//                break;
+//            case 'taxonomy_radio_inline':
+//            case 'taxonomy_radio_hierarchical':
+//            case 'taxonomy_multicheck':
+//            case 'taxonomy_multicheck_inline':
+//            case 'taxonomy_multicheck_hierarchical':
+//            case 'taxonomy_radio':
+//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
+//                    'remove_default'    => isset($parameters['remove_default']) ? $parameters['remove_default'] : true,
+//                    'query_args' => isset($parameters['query_args']) ? $parameters['query_args'] : '',
+//                    'text' => isset($parameters['text']) ? $parameters['text'] : array()
+//                )));
+//                break;
+//            case 'taxonomy_select':
+//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
+//                    'remove_default'    => isset($parameters['remove_default']) ? $parameters['remove_default'] : true,
+//                    'query_args' => isset($parameters['query_args']) ? $parameters['query_args'] : ''
+//                )));
+//                break;
+//            case 'image':
+//            case 'file':
+//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
+//                    'text' => isset($parameters['text']) ? $parameters['text'] : array(),
+//                    'options' => isset($parameters['options']) ? $parameters['options'] : array(),
+//                    'options_cb' => isset($parameters['options_cb']) ? $parameters['options_cb'] : ''
+//                )));
+//                break;
+//            case 'gallery':
+//            case 'file_list':
+//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
+//                    'preview_size' => isset($parameters['preview_size']) ? $parameters['preview_size'] : array(50, 50),
+//                    'query_args' => isset($parameters['query_args']) ? $parameters['query_args'] : '',
+//                    'text' => isset($parameters['text']) ? $parameters['text'] : array()
+//                )));
+//                break;
+//        }
+    }
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @param   string      $field_id
+     * @param   string      $location_id
+     *
+     * @return  false|mixed Option value.
+     */
+    public static function get_field_value($field_id, $location_id) {
+        if (!class_exists('CMB2') || empty($field_id) || empty($location_id)) { error_log("here1"); return; }
+
+        $value = cmb2_get_field_value($field_id, $field_id);
+        return $value;
+    }
+
+    //endregion
+
+    //region HELPERS
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @param   string              $key
+     * @param   string              $type
+     * @param   array               $parameters
+     * @param   string              $location
+     *
+     * @return  array   Formatted array for registering generic ACF field
+     */
+    public static function formatting_settings_field($key, $type, $parameters, $location) {
+
+//        if (isset($parameters['conditional_logic']) && !empty($parameters['conditional_logic'])) {
+//            if(sizeof($parameters['conditional_logic']) > 1 || sizeof($parameters['conditional_logic'][0]) > 1) {
+//                error_log("CMB2 adapter only supports one conditional logic for displaying a field. Field " . $key . " will display and disregard the conditional logic.");
+//            }
+//
+//            $loaction_id = md5($location);
+//
+//            $field = get_post_meta( $loaction_id, $parameters['conditional_logic'][0][0]['field'], 1 );
+//            $operator = $parameters['conditional_logic'][0][0]['operator'];
+//            $value = $parameters['conditional_logic'][0][0]['value'];
+//            $return = self::compare($field, $operator, $value);
+//
+//            $parameters['show_on_cb'] = $return ? 'return_true' : 'return_false';
+//
+//            unset($parameters['conditional_logic']);
+//        }
+
+        $args = wp_parse_args($parameters, array(
+            'name'          => $parameters['label'],
+            'desc'          => $parameters['instructions'],
+            'id'            => $key,
+            'type'          => $type,
+            'attributes'    => array(),
+            'repeatable'    => false,
+            'default'       => $parameters['default_value'],
+            'show_names'    => true,
+            'show_on_cb'    =>'return_true'
+        ));
+
+        $args['name'] = $parameters['label'];
+
+        switch($type){
+            case 'wysiwyg':
+            case 'multicheck':
+            case 'multicheck_inline':
+            case 'radio':
+            case 'radio_inline':
+            case 'image':
+            case 'file':
             case 'text_small':
             case 'text_medium':
             case 'text_email':
@@ -187,38 +353,16 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
             case 'hidden':
             case 'select_timezone':
             case 'text':
-                $location->add_field(array_merge(self::formatting_settings_field($parameters), array()));
-                break;
-            case 'text_time':
-                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-                    'time_format' => isset($parameters['time_format']) ? $parameters['time_format'] : ''
-                )));
-                break;
-            case 'text_url':
-                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-                    'protocols' => isset($parameters['protocols']) ? $parameters['protocols'] : array(),
-                )));
+                $args['type'] = $type;
                 break;
             case 'text_date_timestamp':
             case 'text_datetime_timestamp':
             case 'text_datetime_timestamp_timezone':
             case 'text_date':
-                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-                    'timezone_meta_key'   => isset($parameters['timezone_meta_key']) ? $parameters['timezone_meta_key'] : '',
-                    'date_format'   => isset($parameters['date_format']) ? $parameters['date_format'] : 'l jS \of F Y'
-                )));
-                break;
-            case 'colorpicker':
-            case 'wysiwyg':
-            case 'multicheck':
-            case 'multicheck_inline':
-            case 'radio':
-            case 'radio_inline':
-            case 'select':
-                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-                    'options' => isset($parameters['options']) ? $parameters['options'] : array(),
-                    'options_cb' => isset($parameters['options_cb']) ? $parameters['options_cb'] : ''
-                )));
+                $args['type'] = $type;
+                $args = wp_parse_args($parameters, array(
+                    'date_format'       => 'l jS \of F Y'
+                ));
                 break;
             case 'taxonomy_radio_inline':
             case 'taxonomy_radio_hierarchical':
@@ -226,91 +370,139 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
             case 'taxonomy_multicheck_inline':
             case 'taxonomy_multicheck_hierarchical':
             case 'taxonomy_radio':
-                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-                    'remove_default'    => isset($parameters['remove_default']) ? $parameters['remove_default'] : true,
-                    'query_args' => isset($parameters['query_args']) ? $parameters['query_args'] : '',
-                    'text' => isset($parameters['text']) ? $parameters['text'] : array()
-                )));
-                break;
             case 'taxonomy_select':
-                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-                    'remove_default'    => isset($parameters['remove_default']) ? $parameters['remove_default'] : true,
-                    'query_args' => isset($parameters['query_args']) ? $parameters['query_args'] : ''
-                )));
+                $args['type'] = $type;
+                $args = wp_parse_args($parameters, array(
+                    'remove_default'    => true
+                ));
                 break;
-            case 'image':
-            case 'file':
-                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-                    'text' => isset($parameters['text']) ? $parameters['text'] : array(),
-                    'options' => isset($parameters['options']) ? $parameters['options'] : array(),
-                    'options_cb' => isset($parameters['options_cb']) ? $parameters['options_cb'] : ''
-                )));
+            case 'taxonomy':
+                $args['type'] = 'taxonomy_select';
+                $args = wp_parse_args($parameters, array(
+                    'remove_default'    => true
+                ));
+                break;
+            case 'text_time':
+            case 'time_picker':
+                $args['type'] = 'text_time';
+                break;
+            case 'text_url':
+            case 'url':
+                $args['type'] = 'text_url';
+                $args = wp_parse_args($parameters, array(
+                    'protocols' => array( 'http', 'https', 'ftp', 'ftps', 'mailto', 'news', 'irc', 'gopher', 'nntp', 'feed', 'telnet' )
+                ));
                 break;
             case 'gallery':
             case 'file_list':
-                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-                    'preview_size' => isset($parameters['preview_size']) ? $parameters['preview_size'] : array(50, 50),
-                    'query_args' => isset($parameters['query_args']) ? $parameters['query_args'] : '',
-                    'text' => isset($parameters['text']) ? $parameters['text'] : array()
-                )));
+                $args['type'] = 'file_list';
+                $args = wp_parse_args($parameters, array(
+                    'preview_size' => array(50, 50)
+                ));
                 break;
+            case 'number':
+            case 'password':
+                $args['type'] = 'text';
+                break;
+            case 'email':
+                $args['type'] = 'text_email';
+                break;
+            case 'select':
+                $args['type'] = 'select';
+                $args['options'] = isset($parameters['choices']) ? $parameters['choices'] : $parameters['options'];
+                break;
+            case 'true_false':
+                $args['type'] = 'select';
+                $args['options'] = array(
+                    'none'  => __('None', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                    'true'  => __('True', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                    'false' => __('False', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                );
+                break;
+            case 'colorpicker':
+            case 'color_picker':
+                $args['type'] = 'colorpicker';
+                break;
+            case 'acf_code_field':
+                $args['type'] = 'textarea_code';
+                break;
+            default:
+                $args['type'] = 'text';
+                error_log("The field type \"" . $type . "\" for field " . $key . " is not available in CMB2 and its adapter. Defaulting to text field type.");
         }
+
+        return $args;
     }
 
-    /**
-     * @since   2.0.0
-     * @version 2.0.0
-     *
-     * @param   string  $field_id
-     *
-     * @return  mixed   Option value.
-     */
-    public static function get_field($field_id) {
-        if( !function_exists('get_data') || empty($field_id) ) { return; }
-
-        return get_data($field_id);
-    }
-
-    //endregion
-
-    //region HELPERS
-
-    /**
-     * @since   2.0.0
-     * @version 2.0.0
-     *
-     * @param   array               $parameters
-     *
-     * @return  array   Formatted array for registering generic ACF field
-     */
-    public static function formatting_settings_field($parameters){
-        return array(
-            'name'          => isset($parameters['name']) ? $parameters['name'] : '',
-            'label_cb' => isset($parameters['label_cb']) ? $parameters['label_cb'] : '',
-            'description'   => isset($parameters['description']) ? $parameters['description'] : '',
-            'id'            => isset($parameters['id']) ? $parameters['id'] : $parameters['key'],
-            'type'          => $parameters['type'],
-            'repeatable'    => isset($parameters['repeatable']) ? $parameters['repeatable'] : false,
-            'default'   => isset($parameters['default']) ? $parameters['default'] : $parameters['placeholder'],
-            'default_cb'   => isset($parameters['default_cb']) ? $parameters['default_cb'] : '',
-            'show_names'    => isset($parameters['show_names']) ? $parameters['show_names'] : true,
-            'classes'   => isset($parameters['classes']) ? $parameters['classes'] : '',
-            'classes_cb'   => isset($parameters['classes_cb']) ? $parameters['classes_cb'] : '',
-            'on_front'    => isset($parameters['on_front']) ? $parameters['on_front'] : false,
-            'attributes'          => isset($parameters['attributes']) ? $parameters['attributes'] : array(),
-            'before'   => isset($parameters['before']) ? $parameters['before'] : '',
-            'after'   => isset($parameters['after']) ? $parameters['after'] : '',
-            'before_row'   => isset($parameters['before_row']) ? $parameters['before_row'] : '',
-            'after_row'   => isset($parameters['after_row']) ? $parameters['after_row'] : '',
-            'before_field'   => isset($parameters['before_field']) ? $parameters['before_field'] : '',
-            'after_field'   => isset($parameters['after_field']) ? $parameters['after_field'] : '',
-            'show_on_cb'   => isset($parameters['show_on_cb']) ? $parameters['show_on_cb'] : '',
-            'sanitization_cb'    => isset($parameters['sanitization_cb']) ? $parameters['sanitization_cb'] : true,
-            'escape_cb'    => isset($parameters['escape_cb']) ? $parameters['escape_cb'] : true,
-            'render_row_cb'   => isset($parameters['render_row_cb']) ? $parameters['render_row_cb'] : '',
-            'save_field'    => isset($parameters['save_field']) ? $parameters['save_field'] : true,
-        );
-    }
+//    /**
+//     * @since   2.0.0
+//     * @version 2.0.0
+//     *
+//     * @param   $field
+//     * @param   $operator
+//     * @param   $value
+//     *
+//     * @return  bool
+//     */
+//    public static function compare($field, $operator, $value) {
+//
+//        if (is_numeric($value)) { $value = intval($value); }
+//        if ($value === 'false') { $value = false; }
+//        if ($value === 'true') { $value = true; }
+//
+//        switch ($operator) {
+//            case '==':
+//                $result = $field == $value ? true : false;
+//                break;
+//            case '===':
+//                $result = $field === $value ? true : false;
+//                break;
+//            case '!=':
+//                $result = $field != $value ? true : false;
+//                break;
+//            case '<>':
+//                $result = $field <> $value ? true : false;
+//                break;
+//            case '!==':
+//                $result = $field !== $value ? true : false;
+//                break;
+//            case '<':
+//                $result = $field < $value ? true : false;
+//                break;
+//            case '>':
+//                $result = $field > $value ? true : false;
+//                break;
+//            case '<=':
+//                $result = $field <= $value ? true : false;
+//                break;
+//            case '>=':
+//                $result = $field >= $value ? true : false;
+//                break;
+//            default:
+//                $result = true;
+//        }
+//        return $result;
+//    }
+//
+//    /**
+//     * @since   2.0.0
+//     * @version 2.0.0
+//     *
+//     * @return  bool   True
+//     */
+//    public static function return_true() {
+//        return true;
+//    }
+//
+//    /**
+//     * @since   2.0.0
+//     * @version 2.0.0
+//     *
+//     * @return  bool   True
+//     */
+//    public static function return_false() {
+//        return false;
+//    }
 
     //endregion
 } DWS_CMB2_Adapter::maybe_initialize_singleton('gm8ugh874hngf87gbcu');
