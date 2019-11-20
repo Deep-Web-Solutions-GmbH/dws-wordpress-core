@@ -131,6 +131,7 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
         if (!function_exists('acf_add_local_field_group')) { return; }
 
         $key = strpos($key, 'group_') === 0 ? $key : self::GROUP_KEY_PREFIX . $key; // Must begin with 'group_'
+        $other['key'] = $key;
         $args = wp_parse_args($other, array(
             'key'                   => $key,
             'title'                 => $title,
@@ -168,7 +169,29 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
     public static function register_options_group_field($group_id, $key, $type, $parameters, $location = null){
         if (!function_exists('acf_add_local_field')) { return; }
 
-        acf_add_local_field(self::formatting_settings_field($group_id, $key, $type, $parameters));
+        $group_id = (strpos($group_id, 'field_') === 0 || strpos($group_id, 'group_') === 0)
+            ? $group_id
+            : (self::GROUP_KEY_PREFIX . $group_id);
+
+        $parameters['parent'] = $group_id;
+
+        acf_add_local_field(self::formatting_settings_field($key, $type, $group_id, $parameters));
+    }
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @param   string  $key
+     * @param   string  $type
+     * @param   string  $parent_id
+     * @param   array   $parameters
+     * @param   null    $location
+     */
+    public static function register_settings_field($key, $type, $parent_id, $parameters, $location = null) {
+        if (!function_exists('acf_add_local_field')) { return; }
+
+        acf_add_local_field(self::formatting_settings_field($key, $type, $parent_id, $parameters));
     }
 
     //  TODO: forget about rest for now
@@ -177,206 +200,16 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @param   string  $parent_id
-     * @param   array   $parameters
-     * @param   null    $location
-     */
-    public static function register_settings_field($parent_id, $parameters, $location = null) {
-        // TODO: Check if the string of each case is the same as the one acf uses
-
-        if( !function_exists('acf_add_local_field') || empty($parameters['key']) || empty($parameters['type']) || ( empty($parent_id) && empty($parameters['parent']) ) ) { return; }
-
-//        switch($parameters['type']){
-//            case 'text':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'placeholder'   => isset($parameters['placeholder']) ? $parameters['placeholder'] : '',
-//                    'prepend'       => isset($parameters['prepend']) ? $parameters['prepend'] : '',
-//                    'append'        => isset($parameters['append']) ? $parameters['append'] : '',
-//                    'maxlength'     => isset($parameters['maxlength']) ? $parameters['maxlength'] : '',
-//                    'readonly'      => isset($parameters['readonly']) ? $parameters['readonly'] : 0,
-//                    'disabled'      => isset($parameters['disabled']) ? $parameters['disabled'] : 0
-//                )));
-//                break;
-//            case 'textarea':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'placeholder'   => isset($parameters['placeholder']) ? $parameters['placeholder'] : '',
-//                    'maxlength'     => isset($parameters['maxlength']) ? $parameters['maxlength'] : '',
-//                    'rows'          => isset($parameters['rows']) ? $parameters['rows'] : '',
-//                    'new_lines'     => isset($parameters['new_lines']) ? $parameters['new_lines'] : 'wpautop', // Choices of 'wpautop' (Automatically add paragraphs), 'br' (Automatically add <br>) or '' (No Formatting)
-//                    'readonly'      => isset($parameters['readonly']) ? $parameters['readonly'] : 0,
-//                    'disabled'      => isset($parameters['disabled']) ? $parameters['disabled'] : 0
-//                )));
-//                break;
-//            case 'number':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'placeholder'   => isset($parameters['placeholder']) ? $parameters['placeholder'] : '',
-//                    'prepend'       => isset($parameters['prepend']) ? $parameters['prepend'] : '',
-//                    'append'        => isset($parameters['append']) ? $parameters['append'] : '',
-//                    'min'           => isset($parameters['min']) ? $parameters['min'] : '',
-//                    'max'           => isset($parameters['max']) ? $parameters['max'] : '',
-//                    'step'          => isset($parameters['step']) ? $parameters['step'] : ''
-//                )));
-//                break;
-//            case 'password':
-//            case 'email':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'placeholder'   => isset($parameters['placeholder']) ? $parameters['placeholder'] : '',
-//                    'prepend'       => isset($parameters['prepend']) ? $parameters['prepend'] : '',
-//                    'append'        => isset($parameters['append']) ? $parameters['append'] : ''
-//                )));
-//                break;
-//            case 'url':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'placeholder'   => isset($parameters['placeholder']) ? $parameters['placeholder'] : ''
-//                )));
-//                break;
-//            case 'wysiwyg':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'tabs'          => isset($parameters['tabs']) ? $parameters['tabs'] : 'all', // Choices of 'all' (Visual & Text), 'visual' (Visual Only) or text (Text Only)
-//                    'toolbar'       => isset($parameters['toolbar']) ? $parameters['toolbar'] : 'full', // Choices of 'full' (Full), 'basic' (Basic) or a custom toolbar
-//                    'media_upload'  => isset($parameters['media_upload']) ? $parameters['media_upload'] : 1
-//                )));
-//                break;
-//            case 'oembed':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'width'     => isset($parameters['width']) ? $parameters['width'] : '',
-//                    'height'    => isset($parameters['height']) ? $parameters['height'] : ''
-//                )));
-//                break;
-//            case 'image':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'return_format' => isset($parameters['return_format']) ? $parameters['return_format'] : 'array', // Choices of 'array' (Image Array), 'url' (Image URL), 'id' (Image ID)
-//                    'preview_size'  => isset($parameters['preview_size']) ? $parameters['preview_size'] : 'thumbnail',
-//                    'library'       => isset($parameters['library']) ? $parameters['library'] : 'all', // Choices of 'all' (All Images) or 'uploadedTo' (Uploaded to post)
-//                    'min_width'     => isset($parameters['min_width']) ? $parameters['min_width'] : 0,
-//                    'min_height'    => isset($parameters['min_height']) ? $parameters['min_height'] : 0,
-//                    'min_size'      => isset($parameters['min_size']) ? $parameters['min_size'] : 0,
-//                    'max_width'     => isset($parameters['max_width']) ? $parameters['max_width'] : 0,
-//                    'max_height'    => isset($parameters['max_height']) ? $parameters['max_height'] : 0,
-//                    'max_size'      => isset($parameters['']) ? $parameters[''] : 0,
-//                    'mime_types'    => isset($parameters['mime_types']) ? $parameters['mime_types'] : ''
-//                )));
-//                break;
-//            case 'file':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'return_format' => isset($parameters['return_format']) ? $parameters['return_format'] : 'array', // Choices of 'array' (File Array), 'url' (File URL) or 'id' (File ID)
-//                    'preview_size'  => isset($parameters['preview_size']) ? $parameters['preview_size'] : 'thumbnail',
-//                    'library'       => isset($parameters['library']) ? $parameters['library'] : 'all', // Choices of 'all' (All Images) or 'uploadedTo' (Uploaded to post)
-//                    'min_size'      => isset($parameters['min_size']) ? $parameters['min_size'] : 0,
-//                    'max_size'      => isset($parameters['']) ? $parameters[''] : 0,
-//                    'mime_types'    => isset($parameters['mime_types']) ? $parameters['mime_types'] : ''
-//                )));
-//                break;
-//            case 'gallery':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'min'           => isset($parameters['min']) ? $parameters['min'] : 0,
-//                    'max'           => isset($parameters['max']) ? $parameters['max'] : 0,
-//                    'preview_size'  => isset($parameters['preview_size']) ? $parameters['preview_size'] : 'thumbnail',
-//                    'library'       => isset($parameters['library']) ? $parameters['library'] : 'all', // Choices of 'all' (All Images) or 'uploadedTo' (Uploaded to post)
-//                    'min_width'     => isset($parameters['min_width']) ? $parameters['min_width'] : 0,
-//                    'min_height'    => isset($parameters['min_height']) ? $parameters['min_height'] : 0,
-//                    'min_size'      => isset($parameters['min_size']) ? $parameters['min_size'] : 0,
-//                    'max_width'     => isset($parameters['max_width']) ? $parameters['max_width'] : 0,
-//                    'max_height'    => isset($parameters['max_height']) ? $parameters['max_height'] : 0,
-//                    'max_size'      => isset($parameters['']) ? $parameters[''] : 0,
-//                    'mime_types'    => isset($parameters['mime_types']) ? $parameters['mime_types'] : ''
-//                )));
-//                break;
-//            case 'select':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'choices'       => isset($parameters['']) ? $parameters[''] : array(),
-//                    'allow_null'    => isset($parameters['']) ? $parameters[''] : 0,
-//                    'multiple'      => isset($parameters['']) ? $parameters[''] : 0,
-//                    'ui'            => isset($parameters['']) ? $parameters[''] : 0,
-//                    'ajax'          => isset($parameters['']) ? $parameters[''] : 0,
-//                    'placeholder'   => isset($parameters['placeholder']) ? $parameters['placeholder'] : ''
-//                )));
-//                break;
-//            case 'checkbox':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'choices'       => isset($parameters['choices']) ? $parameters['choices'] : array(),
-//                    'layout'        => isset($parameters['layout']) ? $parameters['layout'] : 'vertical', // Choices of 'vertical' or 'horizontal'
-//                    'allow_custom'  => isset($parameters['allow_custom']) ? $parameters['allow_custom'] : false,
-//                    'save_custom'   => isset($parameters['save_custom']) ? $parameters['save_custom'] : false,
-//                    'toggle'        => isset($parameters['toggle']) ? $parameters['toggle'] : false,
-//                    'return_format' => isset($parameters['return_format']) ? $parameters['return_format'] : 'value' // Choices of 'value', 'label' or 'array'
-//                )));
-//                break;
-//            case 'radio':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'choices'           => isset($parameters['choices']) ? $parameters['choices'] : array(),
-//                    'other_choice'      => isset($parameters['other_choice']) ? $parameters['other_choice'] : 0,
-//                    'save_other_choice' => isset($parameters['save_other_choice']) ? $parameters['save_other_choice'] : 0,
-//                    'layout'            => isset($parameters['layout']) ? $parameters['layout'] : 'vertical' // Choices of 'vertical' or 'horizontal'
-//                )));
-//                break;
-//            case 'true_false':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'message'   => isset($parameters['message']) ? $parameters['message'] : 0,
-//                )));
-//                break;
-//            case 'post_object':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'post_type'     => isset($parameters['post_type']) ? $parameters['post_type'] : '',
-//                    'taxonomy'      => isset($parameters['taxonomy']) ? $parameters['taxonomy'] : '',
-//                    'allow_null'    => isset($parameters['allow_null']) ? $parameters['allow_null'] : 0,
-//                    'multiple'      => isset($parameters['multiple']) ? $parameters['multiple'] : 0,
-//                    'return_format' => isset($parameters['return_format']) ? $parameters['return_format'] : 'object', // Choices of 'object' (Post object) or 'id' (Post ID)
-//                )));
-//                break;
-//            case 'page_link':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'post_type'     => isset($parameters['post_type']) ? $parameters['post_type'] : '',
-//                    'taxonomy'      => isset($parameters['taxonomy']) ? $parameters['taxonomy'] : '',
-//                    'allow_null'    => isset($parameters['allow_null']) ? $parameters['allow_null'] : 0,
-//                    'multiple'      => isset($parameters['multiple']) ? $parameters['multiple'] : 0
-//                )));
-//                break;
-//            case 'relationship':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'post_type'     => isset($parameters['post_type']) ? $parameters['post_type'] : '',
-//                    'taxonomy'      => isset($parameters['taxonomy']) ? $parameters['taxonomy'] : '',
-//                    'filters'       => isset($parameters['filters']) ? $parameters['filters'] : array('search', 'post_type', 'taxonomy'), // Choices of 'search' (Search input), 'post_type' (Post type select) and 'taxonomy' (Taxonomy select)
-//                    'elements'      => isset($parameters['elements']) ? $parameters['elements'] : array(), // Choices of 'featured_image' (Featured image icon)
-//                    'min'           => isset($parameters['min']) ? $parameters['min'] : 0,
-//                    'max'           => isset($parameters['max']) ? $parameters['max'] : 0,
-//                    'return_format' => isset($parameters['return_format']) ? $parameters['return_format'] : 'object', // Choices of 'object' (Post object) or 'id' (Post ID)
-//                )));
-//                break;
-//            case 'taxonomy':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'taxonomy'          => isset($parameters['taxonomy']) ? $parameters['taxonomy'] : '',
-//                    'field_type'        => isset($parameters['field_type']) ? $parameters['field_type'] : 'checkbox', // Choices of 'checkbox' (Checkbox inputs), 'multi_select' (Select field - multiple), 'radio' (Radio inputs) or 'select' (Select field)
-//                    'allow_null'        => isset($parameters['']) ? $parameters[''] : 0,
-//                    'load_save_terms'   => isset($parameters['']) ? $parameters[''] : 0,
-//                    'return_format'		=> isset($parameters['']) ? $parameters[''] : 'id', // Choices of 'object' (Term object) or 'id' (Term ID)
-//                    'add_term'			=> isset($parameters['']) ? $parameters[''] : 1
-//                )));
-//                break;
-//            case 'user':
-//                acf_add_local_field(array_merge(self::formatting_settings_field($parent_id, $parameters), array(
-//                    'role'          => isset($parameters['role']) ? $parameters['role'] : array(),
-//                    'allow_null'    => isset($parameters['allow_null']) ? $parameters['allow_null'] : 0,
-//                    'multiple'      => isset($parameters['multiple']) ? $parameters['multiple'] : 0
-//                )));
-//                break;
-//        }
-    }
-
-    /**
-     * @since   2.0.0
-     * @version 2.0.0
-     *
      * @param   string  $field_id
-     * @param   string  $location
+     * @param   string  $location_id
      *
      * @return  mixed   Option value.
      *
      */
-    public static function get_field_value($field_id, $location = null) {
-        if( !function_exists('get_field') || empty($field_id) ) { return; }
+    public static function get_field_value($field_id, $location_id = null) {
+        if (!function_exists('get_field')) { return; }
 
-        return get_field($field_id);
+        return get_field($field_id, $location_id);
     }
 
     //endregion
@@ -387,6 +220,7 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      * @since   2.0.0
      * @version 2.0.0
      *
+     *
      * @param   string  $location_id
      * @param   string  $key
      * @param   string  $type
@@ -394,24 +228,50 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      *
      * @return  array   Formatted array for registering generic ACF field
      */
-    public static function formatting_settings_field($location_id, $key, $type, $parameters) {
+    public static function formatting_settings_field($key, $type, $location_id, $parameters) {
         $key = strpos($key, 'field_') === 0 ? $key : self::FIELD_KEY_PREFIX . $key; // Must begin with 'field_'
-        return array(
-            'key'               => $key,  // Must begin with 'field_'
-            'label'             => isset($parameters['label']) ? $parameters['label'] : '',
-            'name'              => isset($parameters['name']) ? $parameters['name'] : '',
-            'type'              => $type,
-            'instructions'      => isset($parameters['instructions']) ? $parameters['instructions'] : '',
-            'required'          => isset($parameters['required']) ? $parameters['required'] : 0,
-            'conditional_logic' => isset($parameters['conditional_logic']) ? $parameters['conditional_logic'] : 0, // Best to use the ACF UI and export to understand the array structure.
-            'wrapper'           => array (
-                'width' => isset($parameters['wrapper']['width']) ? $parameters['wrapper']['width'] : '',
-                'class' => isset($parameters['wrapper']['class']) ? $parameters['wrapper']['class'] : '',
-                'id'    => isset($parameters['wrapper']['id']) ? $parameters['wrapper']['id'] : ''
-            ),
-            'default_value'     => isset($parameters['default_value']) ? $parameters['default_value'] : '',
-            'parent'            => $location_id
-        );
+        $parameters['key'] = $key;
+        $args = wp_parse_args($parameters, array(
+            array(
+                'key'               => $key,
+                'type'              => $type,
+                'required'          => 0,
+                'conditional_logic' => 0, // Best to use the ACF UI and export to understand the array structure.
+                'parent'            => $location_id
+            )
+        ));
+
+        // TODO: Check if the string of each case is the same as the one acf uses
+
+        switch($args['type']){
+            case 'text':
+            case 'textarea':
+            case 'number':
+            case 'password':
+            case 'email':
+            case 'oembed':
+            case 'select':
+            case 'true_false':
+            case 'page_link':
+            case 'user':
+            case 'acf_code_field':
+            case 'url':
+            case 'wysiwyg':
+            case 'file':
+            case 'image':
+            case 'gallery':
+            case 'checkbox':
+            case 'radio':
+            case 'post_object':
+            case 'relationship':
+            case 'taxonomy':
+                break;
+            default:
+                $args['type'] = 'text';
+                error_log("The field type \"" . $type . "\" for field " . $key . " is not available in ACF Pro and its adapter. Defaulting to text field type.");
+        }
+
+        return $args;
     }
 
     //endregion

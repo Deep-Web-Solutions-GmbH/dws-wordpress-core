@@ -1,6 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Core;
+use Deep_Web_Solutions\Admin\DWS_Settings;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 
 if (!defined('ABSPATH')) { exit; }
@@ -470,17 +471,18 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * Checks whether the current functionality is currently active on this website.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
 	 * @return  bool    True if the current functionality is active, otherwise false.
 	 */
 	protected final static function is_active() {
 		$current = self::get_instance();
+        $adapter = DWS_Settings::get_option_framework_adapter();
 
 		do {
 			$current = get_class($current);
 
-			if (!self::$must_use[$current] && !get_field('functionality_' . self::$functionalities_by_name[$current]::get_root_id(), 'option')) {
+			if (!self::$must_use[$current] && !$adapter::get_field_value('functionality_' . self::$functionalities_by_name[$current]::get_root_id(), 'option')) {
 				return false;
 			}
 

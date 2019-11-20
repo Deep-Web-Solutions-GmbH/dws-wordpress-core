@@ -90,21 +90,14 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
     protected function define_functionality_hooks($loader) {
         $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_main_page', PHP_INT_MAX - 100);
         $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_sub_pages', PHP_INT_MAX - 100);
+
         $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_pages_groups', PHP_INT_MAX - 50);
+        $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_pages_group_fields', PHP_INT_MAX - 25);
 
         /*
-        return; // CHECK THINGS AFTER THIS ...
-        $adaptor_name = DWS_General_Adaptor::framework_namespace();
 
-        try {
-            $adaptor = new \ReflectionClass($adaptor_name);
 
-            error_log($adaptor);
-
-            $
-            $loader->add_action($adaptor::FRAMEWORK_INIT_HOOK_NAME, $this, 'add_pages_group_fields', PHP_INT_MAX);
             $loader->add_action($adaptor::FRAMEWORK_INIT_HOOK_NAME, $this, 'add_floating_update_button', PHP_INT_MAX);
-        } catch (\ReflectionException $exception) { /* literally impossible currently * }
 
 
 
@@ -375,49 +368,30 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * Registers local fields with ACF.
      *
      * @since   1.0.0
-     * @version 1.0.0
+     * @version 2.0.0
      *
      * @param   array   $fields     A list of ACF-conform fields that must be registered with ACF to an existing group.
      */
     private function add_fields($fields) {
-        return;
-//        $adaptor = DWS_General_Adaptor::framework_namespace();
-//
-//        if($adaptor == 'ACF_Adaptor') {
-//            // there is a bug in ACF ... if group fields are added after the 'acf/include_fields' action,
-//            // then they are not registered properly ... this way, we do the action ourselves and everything is fine
-//            global $wp_actions;
-//            unset($wp_actions['acf/include_fields']);
-//        }
-//
-//        foreach ($fields as $field) {
-//            if (!isset($field['parent'])) {
-//                continue;
-//            }
-//
-//            $field['parent'] = (strpos($field['parent'], 'field_') === 0 || strpos($field['parent'], 'group_') === 0)
-//                ? $field['parent']
-//                : (self::GROUP_KEY_PREFIX . $field['parent']);
-//
-//            $field = $adaptor::format_fields($field);
-//            $adaptor::add_fields($field);
-//        }
-//
-//        if($adaptor == 'ACF_Adaptor') {
-//            if (!doing_action('acf/include_fields')) {
-//                do_action('acf/include_fields', 5);
-//            } else {
-//                $wp_actions['acf/include_fields'] = 1;
-//            }
-//        }
+        $adapter = DWS_Settings::get_option_framework_adapter();
 
-    }
+        foreach ($fields as $field) {
+            if (!isset($field['parent'], $field['key'], $field['type'])) {
+                error_log('Failed to register field in. Make sure the field parent, key, and type are set.');
+                continue;
+            }
+            if (empty($field['parent']) || empty($field['key']) || empty($field['type'])) {
+                error_log('Failed to register field in. Make sure the field parent, key, and type are not empty.');
+                continue;
+            }
 
-    public static function get_field() {
-
-    }
-
-    public static function update_field() {
+            $adapter::register_options_group_field(
+                $field['parent'],
+                $field['key'],
+                $field['type'],
+                $field
+            );
+        }
 
     }
 

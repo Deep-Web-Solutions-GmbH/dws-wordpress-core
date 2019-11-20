@@ -127,7 +127,7 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
             'type' => 'group',
             'repeatable'  => false,
             'options' => array(
-                'group_title'       => $title // {#} gets replaced by row number
+                'group_title'       => $title
             )
         ));
 
@@ -170,104 +170,28 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
 
         $cmb = cmb2_get_metabox(md5($location));
 
-        $cmb->add_group_field($group_id, self::formatting_settings_field($key, $type, $parameters, $location));
+        $cmb->add_group_field($group_id, self::formatting_settings_field($key, $type, $parameters));
     }
-
-    //  TODO: forget about rest for now
 
     /**
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @param   string              $parent_id
-     * @param   object(cmb2_box)    $location
-     * @param   array               $parameters
+     * @param   string  $key
+     * @param   string  $type
+     * @param   string  $location
+     * @param   array   $parameters
+     * @param   null    $parent_id
+     *
      */
-    public static function register_settings_field($parameters, $location, $parent_id = null) {
-        if( !function_exists('add_field') || empty($parameters['type']) || empty($location) || (empty($parameters['id']) && empty($parameters['key'])) ) { return; }
+    public static function register_settings_field($key, $type, $location, $parameters, $parent_id = null) {
+        if (!function_exists('add_field')) { return; }
 
-//        switch($parameters['type']){
-//            case 'text_small':
-//            case 'text_medium':
-//            case 'text_email':
-//            case 'text_money':
-//            case 'textarea':
-//            case 'textarea_small':
-//            case 'textarea_code':
-//            case 'oembed':
-//            case 'checkbox':
-//            case 'hidden':
-//            case 'select_timezone':
-//            case 'text':
-//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array()));
-//                break;
-//            case 'text_time':
-//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-//                    'time_format' => isset($parameters['time_format']) ? $parameters['time_format'] : ''
-//                )));
-//                break;
-//            case 'text_url':
-//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-//                    'protocols' => isset($parameters['protocols']) ? $parameters['protocols'] : array(),
-//                )));
-//                break;
-//            case 'text_date_timestamp':
-//            case 'text_datetime_timestamp':
-//            case 'text_datetime_timestamp_timezone':
-//            case 'text_date':
-//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-//                    'timezone_meta_key'   => isset($parameters['timezone_meta_key']) ? $parameters['timezone_meta_key'] : '',
-//                    'date_format'   => isset($parameters['date_format']) ? $parameters['date_format'] : 'l jS \of F Y'
-//                )));
-//                break;
-//            case 'colorpicker':
-//            case 'wysiwyg':
-//            case 'multicheck':
-//            case 'multicheck_inline':
-//            case 'radio':
-//            case 'radio_inline':
-//            case 'select':
-//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-//                    'options' => isset($parameters['options']) ? $parameters['options'] : array(),
-//                    'options_cb' => isset($parameters['options_cb']) ? $parameters['options_cb'] : ''
-//                )));
-//                break;
-//            case 'taxonomy_radio_inline':
-//            case 'taxonomy_radio_hierarchical':
-//            case 'taxonomy_multicheck':
-//            case 'taxonomy_multicheck_inline':
-//            case 'taxonomy_multicheck_hierarchical':
-//            case 'taxonomy_radio':
-//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-//                    'remove_default'    => isset($parameters['remove_default']) ? $parameters['remove_default'] : true,
-//                    'query_args' => isset($parameters['query_args']) ? $parameters['query_args'] : '',
-//                    'text' => isset($parameters['text']) ? $parameters['text'] : array()
-//                )));
-//                break;
-//            case 'taxonomy_select':
-//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-//                    'remove_default'    => isset($parameters['remove_default']) ? $parameters['remove_default'] : true,
-//                    'query_args' => isset($parameters['query_args']) ? $parameters['query_args'] : ''
-//                )));
-//                break;
-//            case 'image':
-//            case 'file':
-//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-//                    'text' => isset($parameters['text']) ? $parameters['text'] : array(),
-//                    'options' => isset($parameters['options']) ? $parameters['options'] : array(),
-//                    'options_cb' => isset($parameters['options_cb']) ? $parameters['options_cb'] : ''
-//                )));
-//                break;
-//            case 'gallery':
-//            case 'file_list':
-//                $location->add_field(array_merge(self::formatting_settings_field($parameters), array(
-//                    'preview_size' => isset($parameters['preview_size']) ? $parameters['preview_size'] : array(50, 50),
-//                    'query_args' => isset($parameters['query_args']) ? $parameters['query_args'] : '',
-//                    'text' => isset($parameters['text']) ? $parameters['text'] : array()
-//                )));
-//                break;
-//        }
+        $cmb = cmb2_get_metabox(md5($location));
+        $cmb->add_field(self::formatting_settings_field($key, $type, $parameters));
     }
+
+    //  TODO: forget about rest for now
 
     /**
      * @since   2.0.0
@@ -279,10 +203,10 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      * @return  false|mixed Option value.
      */
     public static function get_field_value($field_id, $location_id) {
-        if (!class_exists('CMB2') || empty($field_id) || empty($location_id)) { error_log("here1"); return; }
+        if (!class_exists('CMB2')) { return; }
+        $location_id = md5($location_id);
 
-        $value = cmb2_get_field_value($field_id, $field_id);
-        return $value;
+        return cmb2_get_field_value($location_id, $field_id);
     }
 
     //endregion
@@ -296,31 +220,20 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      * @param   string              $key
      * @param   string              $type
      * @param   array               $parameters
-     * @param   string              $location
      *
      * @return  array   Formatted array for registering generic ACF field
      */
-    public static function formatting_settings_field($key, $type, $parameters, $location) {
+    public static function formatting_settings_field($key, $type, $parameters) {
 
+//        We will ignore conditional logic for CMB2 for now
 //        if (isset($parameters['conditional_logic']) && !empty($parameters['conditional_logic'])) {
-//            if(sizeof($parameters['conditional_logic']) > 1 || sizeof($parameters['conditional_logic'][0]) > 1) {
-//                error_log("CMB2 adapter only supports one conditional logic for displaying a field. Field " . $key . " will display and disregard the conditional logic.");
-//            }
-//
-//            $loaction_id = md5($location);
-//
-//            $field = get_post_meta( $loaction_id, $parameters['conditional_logic'][0][0]['field'], 1 );
-//            $operator = $parameters['conditional_logic'][0][0]['operator'];
-//            $value = $parameters['conditional_logic'][0][0]['value'];
-//            $return = self::compare($field, $operator, $value);
-//
-//            $parameters['show_on_cb'] = $return ? 'return_true' : 'return_false';
-//
+//            $parameters['show_on_cb'] = 'cmb_show_on_meta_value';
 //            unset($parameters['conditional_logic']);
 //        }
 
+        $parameters['name'] = $parameters['label'];
         $args = wp_parse_args($parameters, array(
-            'name'          => $parameters['label'],
+            'name'          => $parameters['name'],
             'desc'          => $parameters['instructions'],
             'id'            => $key,
             'type'          => $type,
@@ -331,9 +244,7 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
             'show_on_cb'    =>'return_true'
         ));
 
-        $args['name'] = $parameters['label'];
-
-        switch($type){
+        switch($args['type']){
             case 'wysiwyg':
             case 'multicheck':
             case 'multicheck_inline':
@@ -353,14 +264,12 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
             case 'hidden':
             case 'select_timezone':
             case 'text':
-                $args['type'] = $type;
                 break;
             case 'text_date_timestamp':
             case 'text_datetime_timestamp':
             case 'text_datetime_timestamp_timezone':
             case 'text_date':
-                $args['type'] = $type;
-                $args = wp_parse_args($parameters, array(
+                $args = wp_parse_args($args, array(
                     'date_format'       => 'l jS \of F Y'
                 ));
                 break;
@@ -371,14 +280,13 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
             case 'taxonomy_multicheck_hierarchical':
             case 'taxonomy_radio':
             case 'taxonomy_select':
-                $args['type'] = $type;
-                $args = wp_parse_args($parameters, array(
+                $args = wp_parse_args($args, array(
                     'remove_default'    => true
                 ));
                 break;
             case 'taxonomy':
                 $args['type'] = 'taxonomy_select';
-                $args = wp_parse_args($parameters, array(
+                $args = wp_parse_args($args, array(
                     'remove_default'    => true
                 ));
                 break;
@@ -389,14 +297,14 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
             case 'text_url':
             case 'url':
                 $args['type'] = 'text_url';
-                $args = wp_parse_args($parameters, array(
+                $args = wp_parse_args($args, array(
                     'protocols' => array( 'http', 'https', 'ftp', 'ftps', 'mailto', 'news', 'irc', 'gopher', 'nntp', 'feed', 'telnet' )
                 ));
                 break;
             case 'gallery':
             case 'file_list':
                 $args['type'] = 'file_list';
-                $args = wp_parse_args($parameters, array(
+                $args = wp_parse_args($args, array(
                     'preview_size' => array(50, 50)
                 ));
                 break;
@@ -414,9 +322,9 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
             case 'true_false':
                 $args['type'] = 'select';
                 $args['options'] = array(
-                    'none'  => __('None', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                    'true'  => __('True', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
                     'false' => __('False', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                    'true'  => __('True', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN)
+
                 );
                 break;
             case 'colorpicker':
@@ -438,70 +346,85 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
 //     * @since   2.0.0
 //     * @version 2.0.0
 //     *
-//     * @param   $field
+//     * @param   object  $field
+//     *
+//     * @return  bool    display or not
+//     */
+//    function cmb_show_on_meta_value( $field ) {
+//        $field_id = $field['conditional_logic'][0][0]['field'];
+//        $operator = $field['conditional_logic'][0][0]['field'];
+//        $wanted_value = $field['conditional_logic'][0][0]['value'];
+//
+//        $post_id = 0;
+//
+//        // If we're showing it based on ID, get the current ID
+//        if (isset($_GET['post'])) {
+//            $post_id = $_GET['post'];
+//        } elseif (isset($_POST['post_ID'])) {
+//            $post_id = $_POST['post_ID'];
+//        }
+//
+//        if (! $post_id) {
+//            return 1;
+//        }
+//
+//        $value = get_post_meta( $post_id, $field_id, true );
+//
+//        if (empty($wanted_value)) {
+//            return 1;
+//        }
+//
+//        return self::compare($value, $operator, $wanted_value);
+//    }
+//
+//    /**
+//     * @since   2.0.0
+//     * @version 2.0.0
+//     *
+//     * @param   $field_value
 //     * @param   $operator
-//     * @param   $value
+//     * @param   $wanted_value
 //     *
 //     * @return  bool
 //     */
-//    public static function compare($field, $operator, $value) {
+//    public static function compare($field_value, $operator, $wanted_value) {
 //
-//        if (is_numeric($value)) { $value = intval($value); }
-//        if ($value === 'false') { $value = false; }
-//        if ($value === 'true') { $value = true; }
+//        if (is_numeric($wanted_value)) { $wanted_value = intval($wanted_value); }
+//        if ($wanted_value === 'false') { $wanted_value = false; }
+//        if ($wanted_value === 'true') { $wanted_value = true; }
 //
 //        switch ($operator) {
 //            case '==':
-//                $result = $field == $value ? true : false;
+//                $result = $field_value == $wanted_value ? true : false;
 //                break;
 //            case '===':
-//                $result = $field === $value ? true : false;
+//                $result = $field_value === $wanted_value ? true : false;
 //                break;
 //            case '!=':
-//                $result = $field != $value ? true : false;
+//                $result = $field_value != $wanted_value ? true : false;
 //                break;
 //            case '<>':
-//                $result = $field <> $value ? true : false;
+//                $result = $field_value <> $wanted_value ? true : false;
 //                break;
 //            case '!==':
-//                $result = $field !== $value ? true : false;
+//                $result = $field_value !== $wanted_value ? true : false;
 //                break;
 //            case '<':
-//                $result = $field < $value ? true : false;
+//                $result = $field_value < $wanted_value ? true : false;
 //                break;
 //            case '>':
-//                $result = $field > $value ? true : false;
+//                $result = $field_value > $wanted_value ? true : false;
 //                break;
 //            case '<=':
-//                $result = $field <= $value ? true : false;
+//                $result = $field_value <= $wanted_value ? true : false;
 //                break;
 //            case '>=':
-//                $result = $field >= $value ? true : false;
+//                $result = $field_value >= $wanted_value ? true : false;
 //                break;
 //            default:
-//                $result = true;
+//                $result = false;
 //        }
 //        return $result;
-//    }
-//
-//    /**
-//     * @since   2.0.0
-//     * @version 2.0.0
-//     *
-//     * @return  bool   True
-//     */
-//    public static function return_true() {
-//        return true;
-//    }
-//
-//    /**
-//     * @since   2.0.0
-//     * @version 2.0.0
-//     *
-//     * @return  bool   True
-//     */
-//    public static function return_false() {
-//        return false;
 //    }
 
     //endregion

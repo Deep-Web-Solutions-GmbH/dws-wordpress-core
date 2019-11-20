@@ -66,24 +66,26 @@ interface DWS_Adapter {
      */
     public static function register_options_group_field($group_id, $key, $type, $parameters, $location);
 
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @param   string  $key
+     * @param   string  $type
+     * @param   string  $parent_id
+     * @param   array   $parameters
+     * @param   null    $location
+     */
+    public static function register_settings_field($key, $type, $parent_id, $parameters, $location);
+
     //TODO: ignore everything from here on
 
     /**
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @param   string  $parent_id
-     * @param   array   $parameters
-     * @param   null    $location
-     */
-    public static function register_settings_field($parent_id, $parameters, $location);
-
-    /**
-     * @since   2.0.0
-     * @version 2.0.0
-     *
      * @param   string  $field_id
-     * @param   string  $location
+     * @param   string  $location_id
      */
     public static function get_field_value($field_id, $location);
 

@@ -40,14 +40,24 @@ abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DW
      * @since   2.0.0
      * @version 2.0.0
      *
+     * @see     DWS_Functionality_Template::local_configure()
+     */
+    protected function local_configure() {
+        parent::local_configure();
+        $this->set_fields();
+        add_filter(DWS_Settings::get_hook_name('framework_adapter'), array($this, 'maybe_return_instance'), 10, 2);
+    }
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
      * @see     DWS_Functionality_Template::define_functionality_hooks()
      *
      * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
      */
     protected function define_functionality_hooks($loader) {
-        $loader->add_action('init', $this, 'set_fields', PHP_INT_MIN);
         $loader->add_action('init', $this, 'trigger_init_ready', PHP_INT_MIN + 1);
-        $loader->add_filter(DWS_Settings::get_hook_name('framework_adapter'), $this, 'maybe_return_instance', 10, 2);
     }
 
     //endregion
