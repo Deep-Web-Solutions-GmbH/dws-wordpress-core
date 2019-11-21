@@ -94,16 +94,8 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
         $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_pages_groups', PHP_INT_MAX - 50);
         $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_pages_group_fields', PHP_INT_MAX - 25);
 
-        /*
-
-
-            $loader->add_action($adaptor::FRAMEWORK_INIT_HOOK_NAME, $this, 'add_floating_update_button', PHP_INT_MAX);
-
-
-
         $loader->add_action('dws_main_page', $this, 'add_options_postbox');
         $loader->add_action('wp_ajax_' . self::CLEAR_TRANSIENTS_ACTION, $this, 'ajax_clear_transients');
-        */
     }
 
     /**
@@ -270,18 +262,17 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * Adds a postbox to the DWS main admin page for "ACF options"-related actions.
      *
      * @since   1.5.3
-     * @version 1.5.3
+     * @version 2.0.0
      */
     public function add_options_postbox() {
-        return;
-//        $adaptor = DWS_General_Adaptor::framework_namespace();
-//
-//        $link_to_clear_transients = add_query_arg('action', self::CLEAR_TRANSIENTS_ACTION, admin_url('admin-ajax.php'));
-//        echo '<div class="dws-postbox">
-//                    <h2 class="dws-with-subtitle">'. __($adaptor::OPTIONS_FRAMEWORK_NAME_UPPERCASE . ' options', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</h2>
-//                    <p class="dws-subtitle">'. __('Perform various actions related to the '. $adaptor::OPTIONS_FRAMEWORK_NAME_UPPERCASE . ' options', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</p>
-//                    <a href="'. $link_to_clear_transients .'"><button class="button button-primary button-large">' . __('Clear transients', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
-//                </div>';
+        $selected_framework = strtoupper(DWS_Settings::get_option_framework_slug());
+
+        $link_to_clear_transients = add_query_arg('action', self::CLEAR_TRANSIENTS_ACTION, admin_url('admin-ajax.php'));
+        echo '<div class="dws-postbox">
+                    <h2 class="dws-with-subtitle">'. __('Settings options', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</h2>
+                    <p class="dws-subtitle">'. __('Perform various actions related to the settings options', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</p>
+                    <a href="'. $link_to_clear_transients .'"><button class="button button-primary button-large">' . __('Clear transients', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) . '</button></a>
+                </div>';
     }
 
     /**
@@ -385,10 +376,10 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
                 continue;
             }
 
-            $adapter::register_options_group_field(
-                $field['parent'],
+            $adapter::register_settings_field(
                 $field['key'],
                 $field['type'],
+                $field['parent'],
                 $field
             );
         }

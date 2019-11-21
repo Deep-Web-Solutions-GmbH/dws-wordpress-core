@@ -1,8 +1,10 @@
 <?php
 
 namespace Deep_Web_Solutions\Admin\Settings\Adapters;
+use Deep_Web_Solutions\Admin\DWS_Settings;
 use Deep_Web_Solutions\Admin\Settings\DWS_Adapter;
 use Deep_Web_Solutions\Admin\Settings\DWS_Adapter_Base;
+use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -40,6 +42,19 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      * @since   2.0.0
      * @version 2.0.0
      *
+     * @see     DWS_Functionality_Template::define_functionality_hooks()
+     *
+     * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+     */
+    protected function define_functionality_hooks($loader) {
+        parent::define_functionality_hooks($loader);
+        $loader->add_action(self::get_hook_name('init'), $this, 'add_floating_update_button', PHP_INT_MAX - 100);
+    }
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
      * @see     DWS_Adapter_Base::set_framework_slug()
      */
     public function set_fields() {
@@ -70,15 +85,7 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
             'page_title'        => $page_title,
             'menu_title'        => $menu_title,
             'menu_slug'         => $menu_slug,
-            'capability'        => $capability,
-            'position'          => '',
-            'parent_slug'       => '',
-            'icon_url'          => '',
-            'redirect'          => false,
-            'post_id'           => '',
-            'autoload'          => false,
-            'update_button'     => '',
-            'updated_message'   => ''
+            'capability'        => $capability
         ));
 
         return acf_add_options_page($args);
@@ -105,14 +112,7 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
             'menu_title'        => $menu_title,
             'menu_slug'         => $menu_slug,
             'capability'        => $capability,
-            'position'          => '',
-            'parent_slug'       => $parent_slug,
-            'icon_url'          => '',
-            'redirect'          => false,
-            'post_id'           => '',
-            'autoload'          => false,
-            'update_button'     => '',
-            'updated_message'   => ''
+            'parent_slug'       => $parent_slug
         ));
 
         return acf_add_options_sub_page($args);
@@ -207,9 +207,28 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      *
      */
     public static function get_field_value($field_id, $location_id = null) {
-        if (!function_exists('get_field')) { return; }
+        if (!function_exists('get_field')) { return null; }
 
         return get_field($field_id, $location_id);
+    }
+
+    //endregion
+
+    //region COMPATIBILITY LOGIC
+
+    /**
+     * If the current page is the General Settings in DWS Custom Extensions then enqueue some scripts.
+     *
+     * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
+     *
+     * @since   1.3.3
+     * @version 2.0.0
+     */
+    public function add_floating_update_button(){
+        if (isset($_REQUEST['page']) && strpos($_REQUEST['page'], DWS_Settings_Pages::MENU_PAGES_SLUG_PREFIX) === 0) {
+            wp_enqueue_style( DWS_Settings_Pages::get_asset_handle('floating-button-style'), DWS_Settings::get_assets_base_path( true ) . 'style.css', array(), DWS_Settings_Pages::get_plugin_version(), 'all' );
+            wp_enqueue_script(DWS_Settings_Pages::get_asset_handle('floating-button'), DWS_Settings::get_assets_base_path( true ) . 'floating-update-button.js', array( 'jquery' ), DWS_Settings_Pages::get_plugin_version(), true);
+        }
     }
 
     //endregion
@@ -232,44 +251,10 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
         $key = strpos($key, 'field_') === 0 ? $key : self::FIELD_KEY_PREFIX . $key; // Must begin with 'field_'
         $parameters['key'] = $key;
         $args = wp_parse_args($parameters, array(
-            array(
-                'key'               => $key,
-                'type'              => $type,
-                'required'          => 0,
-                'conditional_logic' => 0, // Best to use the ACF UI and export to understand the array structure.
-                'parent'            => $location_id
-            )
+            'key'               => $key,
+            'type'              => $type,
+            'parent'            => $location_id
         ));
-
-        // TODO: Check if the string of each case is the same as the one acf uses
-
-        switch($args['type']){
-            case 'text':
-            case 'textarea':
-            case 'number':
-            case 'password':
-            case 'email':
-            case 'oembed':
-            case 'select':
-            case 'true_false':
-            case 'page_link':
-            case 'user':
-            case 'acf_code_field':
-            case 'url':
-            case 'wysiwyg':
-            case 'file':
-            case 'image':
-            case 'gallery':
-            case 'checkbox':
-            case 'radio':
-            case 'post_object':
-            case 'relationship':
-            case 'taxonomy':
-                break;
-            default:
-                $args['type'] = 'text';
-                error_log("The field type \"" . $type . "\" for field " . $key . " is not available in ACF Pro and its adapter. Defaulting to text field type.");
-        }
 
         return $args;
     }
