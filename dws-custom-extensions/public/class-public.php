@@ -2,6 +2,7 @@
 
 namespace Deep_Web_Solutions\Front;
 use Deep_Web_Solutions\Admin\DWS_Admin;
+use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 use Deep_Web_Solutions\Core\DWS_Root;
 
 if (!defined('ABSPATH')) { exit; }
@@ -20,19 +21,19 @@ final class DWS_Public extends DWS_Root {
 
 	/**
 	 * @since   1.2.4
-	 * @version 1.2.4
+	 * @version 2.0.0
 	 *
-	 * @var     string  CUSTOM_CSS  The name of the ACF fields which stores CSS to be added globally to the website.
+	 * @var     string  CUSTOM_CSS  The id of the fields which stores CSS to be added globally to the website.
 	 */
-	const CUSTOM_CSS = 'dws_public_global-css';
+	const CUSTOM_CSS = 'field_dhsg8h48wegwew';
 
 	/**
 	 * @since   1.2.4
-	 * @version 1.2.4
+	 * @version 2.0.0
 	 *
-	 * @var     string  CUSTOM_JS   The name of the ACF fields which stores JS to be added globally to the website.
+	 * @var     string  CUSTOM_JS   The id of the fields which stores JS to be added globally to the website.
 	 */
-	const CUSTOM_JS  = 'dws_public_global-js';
+	const CUSTOM_JS  = 'field_dsg543ejh98er';
 
 	//endregion
 
@@ -104,7 +105,7 @@ final class DWS_Public extends DWS_Root {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.2.4
+	 * @version 2.0.0
 	 *
 	 * @see     DWS_Root::enqueue_assets()
 	 */
@@ -116,8 +117,8 @@ final class DWS_Public extends DWS_Root {
 		wp_enqueue_script(self::get_asset_handle('collapsible-content'), self::get_assets_base_path(true) . 'collapsible-content.js', array('jquery'), self::get_plugin_version(), true);
 		wp_enqueue_style(self::get_asset_handle('collapsible-content'), self::get_assets_base_path(true) . 'collapsible-content.css', array(), self::get_plugin_version(), 'all');
 
-		wp_add_inline_style(self::get_asset_handle(), get_field(self::CUSTOM_CSS, 'option'));
-		wp_add_inline_script(self::get_asset_handle(), get_field(self::CUSTOM_JS, 'option'));
+		wp_add_inline_style(self::get_asset_handle(), DWS_Settings_Pages::get_field(self::CUSTOM_CSS, self::get_options_page_slug()));
+		wp_add_inline_script(self::get_asset_handle(), DWS_Settings_Pages::get_field(self::CUSTOM_JS, self::get_options_page_slug()));
 	}
 
     /**

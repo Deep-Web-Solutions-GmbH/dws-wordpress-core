@@ -236,20 +236,25 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
 //        We will ignore conditional logic for CMB2 for now
 //        if (isset($parameters['conditional_logic']) && !empty($parameters['conditional_logic'])) {
 //            $parameters['show_on_cb'] = 'cmb_show_on_meta_value';
-//            unset($parameters['conditional_logic']);
+            unset($parameters['conditional_logic']);
 //        }
 
-        $parameters['name'] = $parameters['label'];
+        if(isset($parameters['label']) && !empty($parameters['label'])) {
+            $parameters['name'] = $parameters['label'];
+        }
+
+        if(isset($parameters['wrapper']['class']) && !empty($parameters['wrapper']['class'])) {
+            $parameters['classes'] = $parameters['wrapper']['class'];
+            if($type != 'color_picker' || $type != 'colorpicker') { unset($parameters['wrapper']); }
+        }
+
         $args = wp_parse_args($parameters, array(
-            'name'          => $parameters['name'],
             'desc'          => $parameters['instructions'],
             'id'            => $key,
             'type'          => $type,
-            'attributes'    => array(),
             'repeatable'    => false,
             'default'       => $parameters['default_value'],
-            'show_names'    => true,
-            'show_on_cb'    =>'return_true'
+            'show_names'    => true
         ));
 
         switch ($args['type']) {

@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Provides one centralized place to define customer service options.
  *
  * @since   1.0.0
- * @version 1.3.3
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -20,52 +20,52 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 
 	/**
 	 * @since       1.3.3
-	 * @version     1.3.3
+	 * @version     2.0.0
 	 *
-	 * @var     string  SHOW_CUSTOMER_EMAIL     The name of the ACF option field which indicates whether there exists
+	 * @var     string  SHOW_CUSTOMER_EMAIL     The id of the option field which indicates whether there exists
 	 *                                          a customer email address.
 	 */
-	private const SHOW_CUSTOMER_EMAIL = 'dws_customer-service_show-customer-email';
+	private const SHOW_CUSTOMER_EMAIL = 'field_fjak3jfh80hf3h0';
 	/**
-	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @since       1.0.0
+	 * @version     2.0.0
 	 *
-	 * @var     string  CUSTOMER_EMAIL  The name of the ACF options field that holds the email address that customers
+	 * @var     string  CUSTOMER_EMAIL  The id of the options field that holds the email address that customers
 	 *                                  should send emails to.
 	 */
-    private const CUSTOMER_EMAIL = 'dws_customer-service_customer-email';
+    private const CUSTOMER_EMAIL = 'field_hg8e7hg8e47ghes';
 	/**
 	 * @since       1.3.3
-	 * @version     1.3.3
+	 * @version     2.0.0
 	 *
-	 * @var     string  SHOW_HOTLINE_PHONE_NUMBER   The name of the ACF option field which indicates whether there exists
+	 * @var     string  SHOW_HOTLINE_PHONE_NUMBER   The id of the option field which indicates whether there exists
 	 *                                              a hotline phone number.
 	 */
-    private const SHOW_HOTLINE_PHONE_NUMBER = 'dws_customer-service_show-hotline-phone-number';
+    private const SHOW_HOTLINE_PHONE_NUMBER = 'field_y9vt30y24y02vt09';
 	/**
-	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @since       1.0.0
+	 * @version     2.0.0
 	 *
-	 * @var     string  HOTLINE_PHONE_NUMBER    The name of the ACF options field that holds the phone number that
+	 * @var     string  HOTLINE_PHONE_NUMBER    The id of the options field that holds the phone number that
 	 *                                          customers should reach out to.
 	 */
-    private const HOTLINE_PHONE_NUMBER = 'dws_customer-service_hotline-phone-number';
+    private const HOTLINE_PHONE_NUMBER = 'field_595a7fcb23b8a';
 	/**
 	 * @since       1.3.3
-	 * @version     1.3.3
+	 * @version     2.0.0
 	 *
-	 * @var     string  SHOW_HOTLINE_AVAILABILITY   The name of the ACF option field which indicates whether there exists
+	 * @var     string  SHOW_HOTLINE_AVAILABILITY   The id of the option field which indicates whether there exists
 	 *                                              a hotline availability.
 	 */
-    private const SHOW_HOTLINE_AVAILABILITY = 'dws_customer-service_show-hotline-availability';
+    private const SHOW_HOTLINE_AVAILABILITY = 'field_wpvb4fwp3wvw3wp3';
 	/**
-	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @since       1.0.0
+	 * @version     2.0.0
 	 *
-	 * @var     string HOTLINE_AVAILABILITY     The name of the ACF options field that holds the availability of the
+	 * @var     string HOTLINE_AVAILABILITY     The id of the options field that holds the availability of the
 	 *                                          phone number that customers should reach out to.
 	 */
-    private const HOTLINE_AVAILABILITY = 'dws_customer-service_hotline-availability';
+    private const HOTLINE_AVAILABILITY = 'field_595a80ac23b8d';
 
 	//endregion
 
@@ -223,14 +223,14 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * Returns the email address saved as the customer email address.
 	 *
 	 * @since   1.0.0
-	 * @version 1.3.3
+	 * @version 2.0.0
 	 *
 	 * @param   array   $atts   The shortcode options.
 	 *
 	 * @return  string  The email address for customers.
 	 */
 	public function get_customer_email($atts = array()) {
-		if (!DWS_Settings_Pages::get_field('field_hg8e7hg8e47ghes', self::get_options_page_slug())){
+		if (!DWS_Settings_Pages::get_field(self::SHOW_CUSTOMER_EMAIL, self::get_options_page_slug())){
 			error_log('Shortcode [dws_customer_email] is used on object ID ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
 			return '[dws_customer_email]';
 		}
@@ -247,7 +247,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 			), $atts
 		);
 
-		$address = DWS_Settings_Pages::get_field('field_hg8e7hg8e47ghes', self::get_options_page_slug());
+		$address = DWS_Settings_Pages::get_field(self::CUSTOMER_EMAIL, self::get_options_page_slug());
 		return $atts['just_text']
 			? $address
 			: "<a 	href='mailto:$address' 
@@ -259,14 +259,14 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * Returns the phone number saved as the hotline number.
 	 *
 	 * @since   1.0.0
-	 * @version 1.3.3
+	 * @version 2.0.0
 	 *
 	 * @param   array   $atts   The shortcode options.
 	 *
 	 * @return  string  The phone number for customers.
 	 */
 	public function get_hotline_number($atts = array()) {
-		if (!get_field(self::SHOW_HOTLINE_PHONE_NUMBER, 'option')){
+		if (!DWS_Settings_Pages::get_field(self::SHOW_HOTLINE_PHONE_NUMBER, self::get_options_page_slug())){
 			error_log('Shortcode [dws_hotline_number] is used on object ID ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
 			return '[dws_hotline_number]';
 		}
@@ -283,7 +283,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 			), $atts
 		);
 
-		$number = get_field(self::HOTLINE_PHONE_NUMBER, 'option');
+		$number = DWS_Settings_Pages::get_field(self::HOTLINE_PHONE_NUMBER, self::get_options_page_slug());
 		return $atts['just_text']
 			? $number
 			: "<a 	href='tel:$number' 
@@ -296,14 +296,14 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * and displays them nicely in a table.
 	 *
 	 * @since   1.0.0
-	 * @version 1.3.3
+	 * @version 2.0.0
 	 *
 	 * @param   array   $atts   The shortcode options.
 	 *
 	 * @return  string  The phone number availability in HTML format.
 	 */
 	public function render_opening_hours($atts = array()) {
-		if (!get_field(self::SHOW_HOTLINE_AVAILABILITY, 'option')){
+		if (!DWS_Settings_Pages::get_field(self::SHOW_HOTLINE_AVAILABILITY, self::get_options_page_slug())){
 			error_log('Shortcode [dws_hotline_availability] is used on object ID ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
 			return '[dws_hotline_availability]';
 		}
