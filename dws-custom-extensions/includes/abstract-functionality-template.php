@@ -22,18 +22,18 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string  TEMPLATE_FILES_OVERWRITES       The prefix of the name of the options field which holds the
+	 * @var     string  TEMPLATE_FILES_OVERWRITES       The prefix of the id of the options field which holds the
 	 *                                                  options to overwrite templates for the current functionality.
 	 */
-	const TEMPLATE_FILES_OVERWRITES = 'template_file_overwrites_';
+	const TEMPLATE_FILES_OVERWRITES = 'field_dsg4gh4j64jj65';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string  TEMPLATE_FILE_OVERWRITE_PREIFX      The prefix of the name of options fields for overwriting
+	 * @var     string  TEMPLATE_FILE_OVERWRITE_PREIFX      The prefix of the id of options fields for overwriting
 	 *                                                      templates of the current functionality.
 	 */
-	const TEMPLATE_FILE_OVERWRITE_PREFIX = 'template_file_overwrite_';
+	const TEMPLATE_FILE_OVERWRITE_PREFIX = 'field_h4748g3g34g34g';
 
 	/**
 	 * @since   1.0.0
@@ -355,8 +355,8 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 			array_map(
 				function ($template_file) {
 					return array(
-						'key'           => join('_', array('field_h4748g3g34g34g', self::get_root_id(), $template_file)),
-						'name'          => join('_', array(self::TEMPLATE_FILE_OVERWRITE_PREFIX, $template_file)),
+						'key'           => join('_', array(self::TEMPLATE_FILE_OVERWRITE_PREFIX, self::get_root_id(), $template_file)),
+						'name'          => join('_', array('template_file_overwrite_', $template_file)),
 						'label'         => $template_file,
 						'type'          => 'true_false',
 						'message'       => sprintf(__('Overwrite this template?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $template_file),
@@ -369,8 +369,8 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 		if (!empty($template_file_options_array)) {
 			$must_use_options[] = array_filter(
 				array(
-					'key'               => join('_', array('field_dsg4gh4j64jj65', self::get_root_id())),
-					'name'              => self::TEMPLATE_FILES_OVERWRITES . self::get_root_id(),
+					'key'               => join('_', array(self::TEMPLATE_FILES_OVERWRITES, self::get_root_id())),
+					'name'              => 'template_file_overwrites_' . self::get_root_id(),
 					'label'             => __('Template files', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 					'type'              => 'group',
 					'instructions'      => __(
@@ -598,9 +598,9 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 */
 	protected final function can_overwrite_file($file) {
 		return in_array($file, $this->maybe_overridable_templates())
-			? boolval(get_field(self::TEMPLATE_FILES_OVERWRITES . join('_', array(self::get_root_id(),
+			? boolval(DWS_Settings_Pages::get_field(self::TEMPLATE_FILES_OVERWRITES . join('_', array(self::get_root_id(),
 			                                                               self::TEMPLATE_FILE_OVERWRITE_PREFIX,
-			                                                                      $file)), 'option'))
+			                                                                      $file)), self::get_options_page_slug()))
 			: false;
 	}
 
