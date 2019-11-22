@@ -83,8 +83,8 @@ final class DWS_Public extends DWS_Root {
 	protected function admin_options() {
 		return array(
 			array(
-				'key'       => 'field_dhsg8h48wegwew',
-				'name'      => self::CUSTOM_CSS,
+				'key'       => self::CUSTOM_CSS,
+				'name'      => 'dws_public_global-css',
 				'label'     => __('Custom global CSS', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'type'      => 'acf_code_field',
 				'wrapper'   => array('width' => '50%'),
@@ -92,8 +92,8 @@ final class DWS_Public extends DWS_Root {
 				'rows'      => 15
 			),
 			array(
-				'key'       => 'field_dsg543ejh98er',
-				'name'      => self::CUSTOM_JS,
+				'key'       => self::CUSTOM_JS,
+				'name'      => 'dws_public_global-js',
 				'label'     => __('Custom global JS', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'type'      => 'acf_code_field',
 				'wrapper'   => array('width' => '50%'),

@@ -96,16 +96,16 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	protected function functionality_options() {
 		return array(
 			array(
-				'key'                   => 'field_fjak3jfh80hf3h0',
-				'name'                  => self::SHOW_CUSTOMER_EMAIL,
+				'key'                   => self::SHOW_CUSTOMER_EMAIL,
+				'name'                  => 'dws_customer-service_show-customer-email',
 				'label'                 => __('Do you have customer email?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'instructions'          => __('In case you have an email for the customers to write to, activate this option.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'type'                  => 'true_false',
 				'ui'                    => 1
 			),
 			array(
-				'key'          => 'field_hg8e7hg8e47ghes',
-				'name'         => self::CUSTOMER_EMAIL,
+				'key'          => self::CUSTOMER_EMAIL,
+				'name'         => 'dws_customer-service_customer-email',
 				'label'        => __('Customer email', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'instructions' => __('This email will appear on the website for the customers to write to.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'type'         => 'text',
@@ -121,16 +121,16 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 				)
 			),
 			array(
-				'key'                   => 'field_y9vt30y24y02vt09',
-				'name'                  => self::SHOW_HOTLINE_PHONE_NUMBER,
+				'key'                   => self::SHOW_HOTLINE_PHONE_NUMBER,
+				'name'                  => 'dws_customer-service_show-hotline-phone-number',
 				'label'                 => __('Do you have hotline phone number', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'instructions'          => __('In case you have a hotline phone number for the customers to call you on, activate this option.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'type'                  => 'true_false',
 				'ui'                    => 1
 			),
 			array(
-				'key'          => 'field_595a7fcb23b8a',
-				'name'         => self::HOTLINE_PHONE_NUMBER,
+				'key'          => self::HOTLINE_PHONE_NUMBER,
+				'name'         => 'dws_customer-service_hotline-phone-number',
 				'label'        => __('Hotline phone number', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'instructions' => __('This phone number will appear on the website for the customers to call.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'type'         => 'text',
@@ -146,16 +146,16 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 				)
 			),
 			array(
-				'key'                   => 'field_wpvb4fwp3wvw3wp3',
-				'name'                  => self::SHOW_HOTLINE_AVAILABILITY,
+				'key'                   => self::SHOW_HOTLINE_AVAILABILITY,
+				'name'                  => 'dws_customer-service_show-hotline-availability',
 				'label'                 => __('Do you want to add hotline availability?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'instructions'          => __('In case you want to indicate your hotline availability, activate this option.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'type'                  => 'true_false',
 				'ui'                    => 1
 			),
 			array(
-				'key'          => 'field_595a80ac23b8d',
-				'name'         => self::HOTLINE_AVAILABILITY,
+				'key'          => self::HOTLINE_AVAILABILITY,
+				'name'         => 'dws_customer-service_hotline-availability',
 				'label'        => __('Hotline availability', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'instructions' => __('Select the times when the hotline is available.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'type'         => 'repeater',
