@@ -1,6 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Front;
+use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 use Deep_Web_Solutions\Core\DWS_Functionality_Template;
 use Deep_Web_Solutions\Core\DWS_Helper;
 
@@ -10,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * Outputs CSS to enable the use of nicely circled content (like numbers etc.).
  *
  * @since   1.0.0
- * @version 1.3.3
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -36,44 +37,44 @@ final class DWS_CircledContent extends DWS_Functionality_Template {
 	const DEFAULT_TEXT_COLOR = '#000000';
 	/**
 	 * @since   1.3.3
-	 * @version 1.3.3
+	 * @version 2.0.0
 	 *
 	 * @var     string  SHOW_CIRCLED_CONTENT_SETTINGS   The name of the ACF option field that hold the information
 	 *                                                  whether the user wants to modify circled content settings.
 	 */
-	const SHOW_CIRCLED_CONTENT_SETTINGS = 'dws_circled-content_show-circled-content-settings';
+	const SHOW_CIRCLED_CONTENT_SETTINGS = 'field_rcpn89q8ec3ufe9p';
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
-	 * @var     string  CIRCLED_CONTENT_BG_COLOR    The name of the ACF options field that holds the background color of
+	 * @var     string  CIRCLED_CONTENT_BG_COLOR    The id of the options field that holds the background color of
 	 *                                              the circled content.
 	 */
-	const CIRCLED_CONTENT_BG_COLOR = 'dws_circled-content_background-color';
+	const CIRCLED_CONTENT_BG_COLOR = 'field_h487g2g4g4hve';
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
-	 * @var     string  CIRCLED_CONTENT_TEXT_COLOR      The name of the ACF options field that holds the text color of
+	 * @var     string  CIRCLED_CONTENT_TEXT_COLOR      The id of the options field that holds the text color of
 	 *                                                  the circled content.
 	 */
-	const CIRCLED_CONTENT_TEXT_COLOR = 'dws_circled-content_text-color';
+	const CIRCLED_CONTENT_TEXT_COLOR = 'field_shg5hrjytjr6';
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
-	 * @var     string  CIRCLED_CONTENT_BG_COLOR_HOVER      The name of the ACF options field that holds the background
+	 * @var     string  CIRCLED_CONTENT_BG_COLOR_HOVER      The id of the options field that holds the background
 	 *                                                      color of the circled content on hover.
 	 */
-	const CIRCLED_CONTENT_BG_COLOR_HOVER = 'dws_circled-content_background-color_hover';
+	const CIRCLED_CONTENT_BG_COLOR_HOVER = 'field_wagawggg5h45h4';
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
-	 * @var     string  CIRCLED_CONTENT_TEXT_COLOR_HOVER    The name of the ACF options field that holds the text color
+	 * @var     string  CIRCLED_CONTENT_TEXT_COLOR_HOVER    The id of the options field that holds the text color
 	 *                                                      of the circled content on hover.
 	 */
-	const CIRCLED_CONTENT_TEXT_COLOR_HOVER = 'dws_circled-content_text-color_hover';
+	const CIRCLED_CONTENT_TEXT_COLOR_HOVER = 'field_sawgawg4gh6h6';
 
 	//endregion
 
@@ -81,7 +82,7 @@ final class DWS_CircledContent extends DWS_Functionality_Template {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.3.3
+	 * @version 2.0.0
 	 *
 	 * @see     DWS_Functionality_Template::functionality_options()
 	 *
@@ -90,15 +91,15 @@ final class DWS_CircledContent extends DWS_Functionality_Template {
 	protected function functionality_options() {
 		return array(
 			array(
-				'key'       => 'field_rcpn89q8ec3ufe9p',
-				'name'      => self::SHOW_CIRCLED_CONTENT_SETTINGS,
+				'key'       => self::SHOW_CIRCLED_CONTENT_SETTINGS,
+				'name'      => 'dws_circled-content_show-circled-content-settings',
 				'label'     => __('Do you want to modify the appearance of the circled content?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'type'      => 'true_false',
 				'ui'        => 1
 			),
 			array(
-				'key'                   => 'field_h487g2g4g4hve',
-				'name'                  => self::CIRCLED_CONTENT_BG_COLOR,
+				'key'                   => self::CIRCLED_CONTENT_BG_COLOR,
+				'name'                  => 'dws_circled-content_background-color',
 				'label'                 => __('Background color', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'type'                  => 'color_picker',
 				'required'              => 1,
@@ -114,8 +115,8 @@ final class DWS_CircledContent extends DWS_Functionality_Template {
 				)
 			),
 			array(
-				'key'                   => 'field_shg5hrjytjr6',
-				'name'                  => self::CIRCLED_CONTENT_TEXT_COLOR,
+				'key'                   => self::CIRCLED_CONTENT_TEXT_COLOR,
+				'name'                  => 'dws_circled-content_text-color',
 				'label'                 => __('Text color', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'type'                  => 'color_picker',
 				'required'              => 1,
@@ -131,8 +132,8 @@ final class DWS_CircledContent extends DWS_Functionality_Template {
 				)
 			),
 			array(
-				'key'                   => 'field_wagawggg5h45h4',
-				'name'                  => self::CIRCLED_CONTENT_BG_COLOR_HOVER,
+				'key'                   => self::CIRCLED_CONTENT_BG_COLOR_HOVER,
+				'name'                  => 'dws_circled-content_background-color_hover',
 				'label'                 => __('Background color on hover', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'type'                  => 'color_picker',
 				'required'              => 1,
@@ -148,8 +149,8 @@ final class DWS_CircledContent extends DWS_Functionality_Template {
 				)
 			),
 			array(
-				'key'                   => 'field_sawgawg4gh6h6',
-				'name'                  => self::CIRCLED_CONTENT_TEXT_COLOR_HOVER,
+				'key'                   => self::CIRCLED_CONTENT_TEXT_COLOR_HOVER,
+				'name'                  => 'dws_circled-content_text-color_hover',
 				'label'                 => __('Text color on hover', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'type'                  => 'color_picker',
 				'required'              => 1,
@@ -169,21 +170,21 @@ final class DWS_CircledContent extends DWS_Functionality_Template {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.3.3
+	 * @version 2.0.0
 	 *
 	 * @see     DWS_Functionality_Template::enqueue_assets()
 	 */
 	public function enqueue_assets() {
-		if (!get_field(self::SHOW_CIRCLED_CONTENT_SETTINGS, 'option')){
+		if (!DWS_Settings_Pages::get_field(self::SHOW_CIRCLED_CONTENT_SETTINGS, self::get_options_page_slug())){
 			$circled_content_bg_color = self::DEFAULT_BG_COLOR;
 			$circled_content_text_color = self::DEFAULT_TEXT_COLOR;
 			$circled_content_bg_color_hover = self::DEFAULT_BG_COLOR;
 			$circled_content_bg_text_color_hover = self::DEFAULT_TEXT_COLOR;
 		} else {
-            $circled_content_bg_color = get_field(self::CIRCLED_CONTENT_BG_COLOR, 'option');
-            $circled_content_text_color = get_field(self::CIRCLED_CONTENT_TEXT_COLOR, 'option');
-            $circled_content_bg_color_hover = get_field(self::CIRCLED_CONTENT_BG_COLOR_HOVER, 'option');
-            $circled_content_bg_text_color_hover = get_field(self::CIRCLED_CONTENT_TEXT_COLOR_HOVER, 'option');
+            $circled_content_bg_color = DWS_Settings_Pages::get_field(self::CIRCLED_CONTENT_BG_COLOR, self::get_options_page_slug());
+            $circled_content_text_color = DWS_Settings_Pages::get_field(self::CIRCLED_CONTENT_TEXT_COLOR, self::get_options_page_slug());
+            $circled_content_bg_color_hover = DWS_Settings_Pages::get_field(self::CIRCLED_CONTENT_BG_COLOR_HOVER, self::get_options_page_slug());
+            $circled_content_bg_text_color_hover = DWS_Settings_Pages::get_field(self::CIRCLED_CONTENT_TEXT_COLOR_HOVER, self::get_options_page_slug());
         }
 
 		DWS_Helper::add_inline_stylesheet_to_false_handle(
