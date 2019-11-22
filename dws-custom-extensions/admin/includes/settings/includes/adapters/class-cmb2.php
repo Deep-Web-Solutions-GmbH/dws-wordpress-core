@@ -25,7 +25,7 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      */
     public function set_fields() {
         $this->framework_slug = 'cmb2';
-        $this->init_hook = 'cmb2_admin_init';
+        $this->init_hook = 'cmb2_init';
     }
 
     //endregion
@@ -191,22 +191,30 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
         $cmb->add_field(self::formatting_settings_field($key, $type, $parameters));
     }
 
-    //  TODO: forget about rest for now
-
     /**
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @param   string      $field_id
-     * @param   string      $location_id
+     * @param   string  $field
+     * @param   string  $option_page_slug
      *
-     * @return  false|mixed Option value.
+     * @return  mixed   Option value.
      */
-    public static function get_field_value($field_id, $location_id) {
-        if (!class_exists('CMB2')) { return; }
-        $location_id = md5($location_id);
+    public static function get_options_field_value($field, $option_page_slug) {
+        if (!class_exists('CMB2')) { return null; }
 
-        return cmb2_get_field_value($location_id, $field_id);
+        $settings = get_option($option_page_slug, array());
+        if (!is_array($settings)) { return null; }
+
+        foreach ($settings as $groups) {
+            foreach ($groups as $group) {
+                if (in_array($group[$field], $group)) {
+                    return $group[$field];
+                }
+            }
+        }
+
+        return null;
     }
 
     //endregion
@@ -223,7 +231,7 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      *
      * @return  array   Formatted array for registering generic ACF field
      */
-    public static function formatting_settings_field($key, $type, $parameters) {
+    private static function formatting_settings_field($key, $type, $parameters) {
 
 //        We will ignore conditional logic for CMB2 for now
 //        if (isset($parameters['conditional_logic']) && !empty($parameters['conditional_logic'])) {
@@ -244,7 +252,7 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
             'show_on_cb'    =>'return_true'
         ));
 
-        switch($args['type']){
+        switch ($args['type']) {
             case 'wysiwyg':
             case 'multicheck':
             case 'multicheck_inline':
@@ -324,7 +332,6 @@ final class DWS_CMB2_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
                 $args['options'] = array(
                     'false' => __('False', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
                     'true'  => __('True', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN)
-
                 );
                 break;
             case 'colorpicker':

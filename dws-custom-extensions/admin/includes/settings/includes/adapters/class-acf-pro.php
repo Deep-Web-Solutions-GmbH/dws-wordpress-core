@@ -194,22 +194,18 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
         acf_add_local_field(self::formatting_settings_field($key, $type, $parent_id, $parameters));
     }
 
-    //  TODO: forget about rest for now
-
     /**
-     * @since   2.0.0
-     * @version 2.0.0
-     *
-     * @param   string  $field_id
-     * @param   string  $location_id
+     * @param   string  $field
+     * @param   string  $option_page_slug
      *
      * @return  mixed   Option value.
+     *@version 2.0.0
      *
+     * @since   2.0.0
      */
-    public static function get_field_value($field_id, $location_id = null) {
+    public static function get_options_field_value($field, $option_page_slug = null) {
         if (!function_exists('get_field')) { return null; }
-
-        return get_field($field_id, $location_id);
+        return get_field($field, 'option');
     }
 
     //endregion
@@ -239,7 +235,6 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      * @since   2.0.0
      * @version 2.0.0
      *
-     *
      * @param   string  $location_id
      * @param   string  $key
      * @param   string  $type
@@ -247,16 +242,14 @@ final class DWS_ACFPro_Adapter extends DWS_Adapter_Base implements DWS_Adapter {
      *
      * @return  array   Formatted array for registering generic ACF field
      */
-    public static function formatting_settings_field($key, $type, $location_id, $parameters) {
+    private static function formatting_settings_field($key, $type, $location_id, $parameters) {
         $key = strpos($key, 'field_') === 0 ? $key : self::FIELD_KEY_PREFIX . $key; // Must begin with 'field_'
         $parameters['key'] = $key;
-        $args = wp_parse_args($parameters, array(
-            'key'               => $key,
+
+        return wp_parse_args($parameters, array(
             'type'              => $type,
             'parent'            => $location_id
         ));
-
-        return $args;
     }
 
     //endregion

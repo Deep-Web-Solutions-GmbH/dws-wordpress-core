@@ -1,6 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Front;
+use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 use Deep_Web_Solutions\Core\DWS_Functionality_Template;
 
 if (!defined('ABSPATH')) { exit; }
@@ -24,7 +25,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @var     string  SHOW_CUSTOMER_EMAIL     The name of the ACF option field which indicates whether there exists
 	 *                                          a customer email address.
 	 */
-	const SHOW_CUSTOMER_EMAIL = 'dws_customer-service_show-customer-email';
+	private const SHOW_CUSTOMER_EMAIL = 'dws_customer-service_show-customer-email';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
@@ -32,7 +33,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @var     string  CUSTOMER_EMAIL  The name of the ACF options field that holds the email address that customers
 	 *                                  should send emails to.
 	 */
-	const CUSTOMER_EMAIL = 'dws_customer-service_customer-email';
+    private const CUSTOMER_EMAIL = 'dws_customer-service_customer-email';
 	/**
 	 * @since       1.3.3
 	 * @version     1.3.3
@@ -40,7 +41,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @var     string  SHOW_HOTLINE_PHONE_NUMBER   The name of the ACF option field which indicates whether there exists
 	 *                                              a hotline phone number.
 	 */
-	const SHOW_HOTLINE_PHONE_NUMBER = 'dws_customer-service_show-hotline-phone-number';
+    private const SHOW_HOTLINE_PHONE_NUMBER = 'dws_customer-service_show-hotline-phone-number';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
@@ -48,7 +49,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @var     string  HOTLINE_PHONE_NUMBER    The name of the ACF options field that holds the phone number that
 	 *                                          customers should reach out to.
 	 */
-	const HOTLINE_PHONE_NUMBER = 'dws_customer-service_hotline-phone-number';
+    private const HOTLINE_PHONE_NUMBER = 'dws_customer-service_hotline-phone-number';
 	/**
 	 * @since       1.3.3
 	 * @version     1.3.3
@@ -56,7 +57,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @var     string  SHOW_HOTLINE_AVAILABILITY   The name of the ACF option field which indicates whether there exists
 	 *                                              a hotline availability.
 	 */
-	const SHOW_HOTLINE_AVAILABILITY = 'dws_customer-service_show-hotline-availability';
+    private const SHOW_HOTLINE_AVAILABILITY = 'dws_customer-service_show-hotline-availability';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
@@ -64,7 +65,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @var     string HOTLINE_AVAILABILITY     The name of the ACF options field that holds the availability of the
 	 *                                          phone number that customers should reach out to.
 	 */
-	const HOTLINE_AVAILABILITY = 'dws_customer-service_hotline-availability';
+    private const HOTLINE_AVAILABILITY = 'dws_customer-service_hotline-availability';
 
 	//endregion
 
@@ -229,7 +230,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @return  string  The email address for customers.
 	 */
 	public function get_customer_email($atts = array()) {
-		if (!get_field(self::SHOW_CUSTOMER_EMAIL, 'option')){
+		if (!DWS_Settings_Pages::get_field('field_hg8e7hg8e47ghes', self::get_options_page_slug())){
 			error_log('Shortcode [dws_customer_email] is used on object ID ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
 			return '[dws_customer_email]';
 		}
@@ -246,7 +247,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 			), $atts
 		);
 
-		$address = get_field(self::CUSTOMER_EMAIL, 'option');
+		$address = DWS_Settings_Pages::get_field('field_hg8e7hg8e47ghes', self::get_options_page_slug());
 		return $atts['just_text']
 			? $address
 			: "<a 	href='mailto:$address' 

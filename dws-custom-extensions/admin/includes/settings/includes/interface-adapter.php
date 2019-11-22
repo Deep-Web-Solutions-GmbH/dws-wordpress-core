@@ -78,16 +78,16 @@ interface DWS_Adapter {
      */
     public static function register_settings_field($key, $type, $parent_id, $parameters, $location);
 
-    //TODO: ignore everything from here on
-
     /**
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @param   string  $field_id
-     * @param   string  $location_id
+     * @param   string  $field
+     * @param   string  $option_page_slug
+     *
+     * @return  mixed
      */
-    public static function get_field_value($field_id, $location);
+    public static function get_options_field_value($field, $option_page_slug);
 
     //endregion
 }

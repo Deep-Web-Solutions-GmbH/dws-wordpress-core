@@ -35,6 +35,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * @var     string      MAIN_OPTIONS_SLUG       The slug of the main settings menu.
      */
     public const MAIN_OPTIONS_SLUG = self::MENU_PAGES_SLUG_PREFIX . 'general';
+
     /**
      * @since   2.0.0
      * @version 2.0.0
@@ -42,6 +43,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * @var     string      MODULES_OPTIONS_SLUG        The slug of the modules settings menu.
      */
     public const MODULES_OPTIONS_SLUG = self::MENU_PAGES_SLUG_PREFIX . 'modules';
+
     /**
      * @since   2.0.0
      * @version 2.0.0
@@ -293,6 +295,20 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
     //endregion
 
     //region HELPERS
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @param   string  $field
+     * @param   string  $settings_page_slug
+     *
+     * @return  mixed
+     */
+    public static function get_field($field, $settings_page_slug) {
+        $adapter = DWS_Settings::get_option_framework_adapter();
+        return $adapter::get_options_field_value($field, $settings_page_slug);
+    }
 
     /**
      * Makes sure that we always use the same format for generating the hook on which classes

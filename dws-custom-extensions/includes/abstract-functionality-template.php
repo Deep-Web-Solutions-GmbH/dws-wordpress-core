@@ -477,12 +477,11 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 */
 	protected final static function is_active() {
 		$current = self::get_instance();
-        $adapter = DWS_Settings::get_option_framework_adapter();
 
 		do {
 			$current = get_class($current);
 
-			if (!self::$must_use[$current] && !$adapter::get_field_value('functionality_' . self::$functionalities_by_name[$current]::get_root_id(), 'option')) {
+			if (!self::$must_use[$current] && !DWS_Settings_Pages::get_field('field_rhgoegererg_' . self::$functionalities_by_name[$current]::get_root_id(), self::get_options_page_slug())) {
 				return false;
 			}
 

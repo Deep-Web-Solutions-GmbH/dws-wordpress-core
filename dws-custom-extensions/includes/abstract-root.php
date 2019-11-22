@@ -462,5 +462,17 @@ abstract class DWS_Root extends DWS_Singleton {
 		));
 	}
 
+    /**
+     * Returns the slug of the options page on which the current root object registers its options.
+     *
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @return  string  The slug of the options page.
+     */
+	public static function get_options_page_slug() {
+	    return DWS_Settings_Pages::MAIN_OPTIONS_SLUG;
+    }
+
 	//endregion
 }
