@@ -67,8 +67,6 @@ final class DWS_Settings extends DWS_Functionality_Template {
         // NOW WE'LL LOAD THE INDIVIDUAL ADAPTERS
         // TODO VERY VERY IMPORTANT: WHEN THIS WORKS, MOVE EACH ADAPTER TO ITS OWN DWS PLUGIN
         /** @noinspection PhpIncludeInspection */
-        require_once(self::get_includes_base_path() . 'adapters/class-acf-pro.php');
-        /** @noinspection PhpIncludeInspection */
         require_once(self::get_includes_base_path() . 'adapters/class-cmb2.php');
     }
 
