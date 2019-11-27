@@ -1,7 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Core;
-use Deep_Web_Solutions\Admin\ACF\ACF_Options;
+use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) { exit; }
  * The DWS Functionality Template adapted to fit a functionality of a DWS Module.
  *
  * @since   1.0.0
- * @version 1.4.0
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -42,7 +42,7 @@ abstract class DWS_Module_Functionality_Template extends DWS_Functionality_Templ
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
 	 * @see     DWS_Functionality_Template::local_configure()
 	 */
@@ -52,7 +52,7 @@ abstract class DWS_Module_Functionality_Template extends DWS_Functionality_Templ
 		if (!empty(self::get_parent())) {
 			$this->settings_filter = $this->children_settings_filter;
 		} else {
-			$this->settings_filter = ACF_Options::get_page_groups_hook(ACF_Options::MODULES_OPTIONS_SLUG);
+			$this->settings_filter = DWS_Settings_Pages::get_page_groups_hook(DWS_Settings_Pages::MODULES_OPTIONS_SLUG);
 		}
 	}
 

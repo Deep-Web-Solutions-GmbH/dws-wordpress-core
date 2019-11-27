@@ -1,13 +1,19 @@
 === DWS WordPress Core ===
-Contributors: Antonius Hegyes, Dushan Terzikj
-Requires at least: 5.1.1
-Tested up to: 5.1.1
-Requires PHP: 7.2
-Stable tag: 1.5.3
+Contributors: Antonius Hegyes, Dushan Terzikj, Fatine Tazi
+Requires at least: 5.3
+Tested up to: 5.3
+Requires PHP: 7.3
+Stable tag: 2.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 === Changelog ===
+
+= 2.0.0 =
+* Code became agnostic to the options plugin used. Now supports: ACF5 Pro and CMB2.
+* Fixed a bug in the admin notices class.
+* Added the options framework select in the main DWS Core Settings page.
+* Added which plugins have to be installed and activated depending on the selected framework.
 
 = 1.5.3 =
 * Clear transients option.

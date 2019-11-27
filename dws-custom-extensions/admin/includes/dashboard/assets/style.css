@@ -64,6 +64,19 @@
     line-height: 1em;
 }
 
+#dws-dashboard .dws-select {
+    padding: 10px 25px 20px 25px;
+    margin: 16px 0;
+    border: 1px solid #e5e5e5;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    background: #fff;
+}
+
+#dws-dashboard .dws-select select {
+    width: 400px;
+}
+
 #dws-dashboard .dws-postbox {
     padding: 10px 25px 20px 25px;
     margin: 16px 0;
@@ -82,4 +95,9 @@
     color: #555d66;
     font-size: 16px;
     line-height: 1.5em;
+}
+
+.dws_options_framework_select {
+    list-style-type:disc;
+    padding-left: 18px;
 }

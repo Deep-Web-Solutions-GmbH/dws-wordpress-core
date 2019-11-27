@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles the registration and display of DWS notices in the admin area.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -101,19 +101,21 @@ final class DWS_Admin_Notices extends DWS_Functionality_Template {
 	 * on the next page load.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
 	 * @param   string 	$message 	The message that should be displayed to the current user on the next page load.
 	 * @param   string 	$type    	The type of the message to be displayed.
 	 */
 	public static function add_admin_notice_to_user($message, $type = self::ERROR) {
 		$user_id = get_current_user_id();
-		$notices = get_user_meta($user_id, 'dws_admin_notices');
+		$notices = get_user_meta($user_id, 'dws_admin_notices', true);
+
+		if (!is_array($notices)) { $notices = array(); }
 
 		$notices[$type]   = isset($notices[$type]) ? $notices[$type] : array();
 		$notices[$type][] = $message;
 
-		add_user_meta($user_id, 'dws_admin_notices', $notices, true);
+		update_user_meta($user_id, 'dws_admin_notices', $notices);
 	}
 
 	//endregion

@@ -1,7 +1,8 @@
 <?php
 
 namespace Deep_Web_Solutions\Core;
-use Deep_Web_Solutions\Admin\ACF\ACF_Options;
+use Deep_Web_Solutions\Admin\DWS_Settings;
+use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -9,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Provides all the piping required for developing a DWS Functionality.
  *
  * @since   1.0.0
- * @version 1.4.0
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -21,18 +22,18 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string  TEMPLATE_FILES_OVERWRITES       The prefix of the name of the ACF options field which holds the
+	 * @var     string  TEMPLATE_FILES_OVERWRITES       The prefix of the id of the options field which holds the
 	 *                                                  options to overwrite templates for the current functionality.
 	 */
-	const TEMPLATE_FILES_OVERWRITES = 'template_file_overwrites_';
+	const TEMPLATE_FILES_OVERWRITES = 'field_dsg4gh4j64jj65';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string  TEMPLATE_FILE_OVERWRITE_PREIFX      The prefix of the name of ACF options fields for overwriting
+	 * @var     string  TEMPLATE_FILE_OVERWRITE_PREIFX      The prefix of the id of options fields for overwriting
 	 *                                                      templates of the current functionality.
 	 */
-	const TEMPLATE_FILE_OVERWRITE_PREFIX = 'template_file_overwrite_';
+	const TEMPLATE_FILE_OVERWRITE_PREFIX = 'field_h4748g3g34g34g';
 
 	/**
 	 * @since   1.0.0
@@ -92,7 +93,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @version 1.0.0
 	 *
 	 * @access  protected
-	 * @var     string      $children_settings_filter       The ACF options filter on which the children of this functionality
+	 * @var     string      $children_settings_filter       The options filter on which the children of this functionality
 	 *                                                      define their own option fields.
 	 */
 	protected $children_settings_filter;
@@ -229,14 +230,14 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
 	 * @see     DWS_Root::local_configure()
 	 */
 	protected function local_configure() {
 		parent::local_configure();
 
-		$this->children_settings_filter = ACF_Options::get_page_groups_fields_hook(ACF_Options::MAIN_OPTIONS_SLUG);
+		$this->children_settings_filter = DWS_Settings_Pages::get_page_groups_fields_hook(DWS_Settings_Pages::MAIN_OPTIONS_SLUG);
 		if (!empty(self::get_parent())) {
 			$this->settings_filter = $this->children_settings_filter;
 		}
@@ -354,8 +355,8 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 			array_map(
 				function ($template_file) {
 					return array(
-						'key'           => join('_', array('field_h4748g3g34g34g', self::get_root_id(), $template_file)),
-						'name'          => join('_', array(self::TEMPLATE_FILE_OVERWRITE_PREFIX, $template_file)),
+						'key'           => join('_', array(self::TEMPLATE_FILE_OVERWRITE_PREFIX, self::get_root_id(), $template_file)),
+						'name'          => join('_', array('template_file_overwrite_', $template_file)),
 						'label'         => $template_file,
 						'type'          => 'true_false',
 						'message'       => sprintf(__('Overwrite this template?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $template_file),
@@ -368,8 +369,8 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 		if (!empty($template_file_options_array)) {
 			$must_use_options[] = array_filter(
 				array(
-					'key'               => join('_', array('field_dsg4gh4j64jj65', self::get_root_id())),
-					'name'              => self::TEMPLATE_FILES_OVERWRITES . self::get_root_id(),
+					'key'               => join('_', array(self::TEMPLATE_FILES_OVERWRITES, self::get_root_id())),
+					'name'              => 'template_file_overwrites_' . self::get_root_id(),
 					'label'             => __('Template files', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 					'type'              => 'group',
 					'instructions'      => __(
@@ -470,7 +471,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * Checks whether the current functionality is currently active on this website.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
 	 * @return  bool    True if the current functionality is active, otherwise false.
 	 */
@@ -480,7 +481,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 		do {
 			$current = get_class($current);
 
-			if (!self::$must_use[$current] && !get_field('functionality_' . self::$functionalities_by_name[$current]::get_root_id(), 'option')) {
+			if (!self::$must_use[$current] && !DWS_Settings_Pages::get_field('field_rhgoegererg_' . self::$functionalities_by_name[$current]::get_root_id(), self::get_options_page_slug())) {
 				return false;
 			}
 
@@ -597,9 +598,9 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 */
 	protected final function can_overwrite_file($file) {
 		return in_array($file, $this->maybe_overridable_templates())
-			? boolval(get_field(self::TEMPLATE_FILES_OVERWRITES . join('_', array(self::get_root_id(),
+			? boolval(DWS_Settings_Pages::get_field(self::TEMPLATE_FILES_OVERWRITES . join('_', array(self::get_root_id(),
 			                                                               self::TEMPLATE_FILE_OVERWRITE_PREFIX,
-			                                                                      $file)), 'option'))
+			                                                                      $file)), self::get_options_page_slug()))
 			: false;
 	}
 

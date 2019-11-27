@@ -1,7 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Core;
-use Deep_Web_Solutions\Admin\ACF\ACF_Options;
+use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 use Deep_Web_Solutions\Custom_Extensions;
 
 if (!defined('ABSPATH')) { exit; }
@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Template for encapsulating some of the most often required abilities of a class.
  *
  * @since   1.0.0
- * @version 1.5.2
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Singleton
@@ -42,7 +42,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @version 1.0.0
 	 *
 	 * @access  protected
-	 * @var     string      $settings_filter    The name of the filter on which this class will register its ACF options.
+	 * @var     string      $settings_filter    The name of the filter on which this class will register its options.
 	 */
 	protected $settings_filter;
 
@@ -61,6 +61,7 @@ abstract class DWS_Root extends DWS_Singleton {
 
 	//region MAGIC METHODS
 
+    /** @noinspection PhpMissingParentConstructorInspection */
 	/**
 	 * The DWS_Root constructor.
 	 *
@@ -231,10 +232,10 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * these defaults will be used.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 */
 	protected function local_configure() {
-		$this->settings_filter = ACF_Options::get_page_groups_hook(ACF_Options::MAIN_OPTIONS_SLUG);
+		$this->settings_filter = DWS_Settings_Pages::get_page_groups_hook(DWS_Settings_Pages::MAIN_OPTIONS_SLUG);
 	}
 
 	/**
@@ -252,9 +253,9 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param   array   $groups     The ACF options groups registered so far.
+	 * @param   array   $groups     The options groups registered so far.
 	 *
-	 * @return  array   The ACF options groups registered so far including the group of the current class, if
+	 * @return  array   The options groups registered so far including the group of the current class, if
 	 *                  applicable.
 	 */
 	public function define_options($groups) {
@@ -460,6 +461,18 @@ abstract class DWS_Root extends DWS_Singleton {
 			)
 		));
 	}
+
+    /**
+     * Returns the slug of the options page on which the current root object registers its options.
+     *
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @return  string  The slug of the options page.
+     */
+	public static function get_options_page_slug() {
+	    return DWS_Settings_Pages::MAIN_OPTIONS_SLUG;
+    }
 
 	//endregion
 }
