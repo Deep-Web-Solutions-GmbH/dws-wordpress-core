@@ -52,7 +52,7 @@ interface DWS_Adapter {
      * @param   string  $location
      * @param   array   $other
      */
-    public static function register_options_page_group($key, $title, $location, $other = array());
+    public static function register_settings_page_group($key, $title, $location, $other = array());
 
     /**
      * @since   2.0.0
@@ -64,7 +64,7 @@ interface DWS_Adapter {
      * @param   array   $parameters
      * @param   string  $location
      */
-    public static function register_options_group_field($group_id, $key, $type, $parameters, $location);
+    public static function register_settings_group_field($group_id, $key, $type, $parameters, $location);
 
     /**
      * @since   2.0.0
@@ -87,7 +87,7 @@ interface DWS_Adapter {
      *
      * @return  mixed
      */
-    public static function get_options_field_value($field, $option_page_slug);
+    public static function get_settings_field_value($field, $option_page_slug);
 
     //endregion
 }

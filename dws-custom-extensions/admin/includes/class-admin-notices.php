@@ -1,7 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Admin;
-use Deep_Web_Solutions\Core\DWS_Functionality_Template;
+use Deep_Web_Solutions\Base\DWS_Functionality_Template;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -23,28 +23,28 @@ final class DWS_Admin_Notices extends DWS_Functionality_Template {
 	 *
 	 * @var     string  ERROR   The slug of admin error notices.
 	 */
-	const ERROR = 'error';
+	public const ERROR = 'error';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
 	 * @var     string  WARNING     The slug of admin warning notices.
 	 */
-	const WARNING = 'warning';
+    public const WARNING = 'warning';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
 	 * @var     string  SUCCESS     The slug of admin success notices.
 	 */
-	const SUCCESS = 'success';
+    public const SUCCESS = 'success';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
 	 * @var     string  INFO    The slug of admin info notices.
 	 */
-	const INFO = 'info';
+    public const INFO = 'info';
 
 	//endregion
 
@@ -56,7 +56,7 @@ final class DWS_Admin_Notices extends DWS_Functionality_Template {
      *
      * @see     DWS_Functionality_Template::define_functionality_hooks()
      *
-	 * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+	 * @param   \Deep_Web_Solutions\Core\DWS_Loader   $loader
 	 */
 	protected function define_functionality_hooks($loader) {
 		$loader->add_action('admin_notices', $this, 'print_admin_notices');

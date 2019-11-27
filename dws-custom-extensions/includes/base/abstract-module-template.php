@@ -1,6 +1,6 @@
 <?php
 
-namespace Deep_Web_Solutions\Core;
+namespace Deep_Web_Solutions\Base;
 
 if (!defined('ABSPATH')) { exit; }
 

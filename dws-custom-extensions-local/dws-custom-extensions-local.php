@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) { exit; }
 
 /**
- * The DWS Custom Local Extensions bootstrap file.
+ * The DWS Custom Extensions Local bootstrap file.
  *
  * @since             1.0.0
  *

@@ -61,18 +61,3 @@ function dws_replace_url_param(url, paramName, paramValue) {
 
     return url + (url.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue;
 }
-
-/**
- * @deprecated since version 1.5.0
- */
-function get_param_by_name(name, url) {
-    console.log("DEPRECATED USE OF THE get_param_by_name FUNCTION. PLEASE USE THE NEW dws_get_param_by_name FUNCTION");
-    return dws_get_param_by_name(name, url);
-}
-/**
- * @deprecated since version 1.5.0
- */
-function replace_url_param(url, paramName, paramValue) {
-    console.log("DEPRECATED USE OF THE replace_url_param FUNCTION. PLEASE USE THE NEW dws_replace_url_param FUNCTION");
-    return dws_replace_url_param(url, paramName, paramValue);
-}

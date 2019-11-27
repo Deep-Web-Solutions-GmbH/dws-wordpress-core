@@ -1,6 +1,9 @@
 <?php
 
-namespace Deep_Web_Solutions\Core;
+namespace Deep_Web_Solutions\Helpers;
+use Deep_Web_Solutions\Base\DWS_Installable;
+use Deep_Web_Solutions\Base\DWS_Root;
+
 if (!defined('ABSPATH')) { exit; }
 
 /**
@@ -22,7 +25,7 @@ final class DWS_Permissions extends DWS_Root implements DWS_Installable {
 	 *
 	 * @var     string  CAPABILITY_PREFIX   The string that all DWS capabilities must be prefixed with.
 	 */
-	const CAPABILITY_PREFIX = 'dws_can_';
+	public const CAPABILITY_PREFIX = 'dws_can_';
 
 	//endregion
 
@@ -47,7 +50,6 @@ final class DWS_Permissions extends DWS_Root implements DWS_Installable {
 			 */
 			apply_filters(self::get_hook_name('custom-permissions'), array())
 		);
-
 		$capabilities_to_remove = array_diff(
 			array_filter(
 				array_map(
@@ -58,6 +60,7 @@ final class DWS_Permissions extends DWS_Root implements DWS_Installable {
 			), array_values($custom_capabilities)
 		);
 
+        // perform the capabilities adding and removal
 		foreach ($capabilities_to_remove as $capability) {
 			$admin_role->remove_cap($capability);
 		}
@@ -180,7 +183,7 @@ abstract class Permissions_Base extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param   DWS_WordPress_Loader    $loader
+	 * @param   \Deep_Web_Solutions\Core\DWS_Loader $loader
 	 */
 	protected function define_hooks($loader) {
 		$loader->add_filter(DWS_Permissions::get_hook_name('custom-permissions'), $this, 'register_custom_permissions');

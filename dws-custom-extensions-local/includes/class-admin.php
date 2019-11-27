@@ -2,7 +2,7 @@
 
 namespace Deep_Web_Solutions\Local\Core;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
-use Deep_Web_Solutions\Core\DWS_Root;
+use Deep_Web_Solutions\Base\DWS_Root;
 use Deep_Web_Solutions\Local\Permissions;
 
 if (!defined('ABSPATH')) { exit; }
@@ -37,7 +37,7 @@ final class DWS_Local_Admin extends DWS_Root {
 	 *
 	 * @see     DWS_Root::define_hooks()
 	 *
-	 * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+	 * @param   \Deep_Web_Solutions\Core\DWS_Loader   $loader
 	 */
 	protected function define_hooks($loader) {
 		$loader->add_filter(DWS_Settings_Pages::get_hook_name('subpages'), $this, 'register_local_options_subpage');

@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) { exit; }
 
 /**
- * The DWS Custom Extensions bootstrap file.
+ * The DWS Custom Extensions Core bootstrap file.
  *
  * @since               1.0.0
  * @since               1.1.0   Update notifications
@@ -74,7 +74,7 @@ if (dws_custom_extensions_requirements_met()) {
 	 * Abstract class defining the functionality of a singleton. Required because the
 	 * main plugin class is a singleton itself.
 	 */
-	require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/abstract-singleton.php');
+	require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'includes/base/abstract-singleton.php');
 
 	/** @noinspection PhpIncludeInspection */
 	/**

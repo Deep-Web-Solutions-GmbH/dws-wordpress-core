@@ -1,8 +1,8 @@
 <?php
 
 namespace Deep_Web_Solutions\Admin\Settings;
-use Deep_Web_Solutions\Core\DWS_Permissions;
-use Deep_Web_Solutions\Core\Permissions_Base;
+use Deep_Web_Solutions\Helpers\DWS_Permissions;
+use Deep_Web_Solutions\Helpers\Permissions_Base;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -21,24 +21,24 @@ final class Permissions extends Permissions_Base {
 	 * @since   1.2.0
 	 * @version 1.2.0
 	 *
-	 * @var     string  SEE_AND_EDIT_DWS_CORE_OPTIONS   Determines whether the current user has access to edit the
-	 *                                                  DWS Core options.
+	 * @var     string  SEE_AND_EDIT_DWS_CORE_SETTINGS   Determines whether the current user has access to edit the
+	 *                                                  DWS Core settings.
 	 */
-	const SEE_AND_EDIT_DWS_CORE_OPTIONS = DWS_Permissions::CAPABILITY_PREFIX . 'see_and_edit_dws_core_options';
+	public const SEE_AND_EDIT_DWS_CORE_SETTINGS = DWS_Permissions::CAPABILITY_PREFIX . 'see_and_edit_dws_core_settings';
 	/**
 	 * @since   1.2.0
 	 * @version 1.2.0
 	 *
-	 * @var     string  SEE_AND_EDIT_DWS_MODULES_OPTIONS    Determines whether the current user has access to edit the
-	 *                                                      DWS Modules options.
+	 * @var     string  SEE_AND_EDIT_DWS_MODULES_SETTINGS    Determines whether the current user has access to edit the
+	 *                                                      DWS Modules settings.
 	 */
-	const SEE_AND_EDIT_DWS_MODULES_OPTIONS = DWS_Permissions::CAPABILITY_PREFIX . 'see_and_edit_dws_modules_options';
+    public const SEE_AND_EDIT_DWS_MODULES_SETTINGS = DWS_Permissions::CAPABILITY_PREFIX . 'see_and_edit_dws_modules_settings';
 	/**
 	 * @since   1.2.0
 	 * @version 1.2.0
 	 *
-	 * @var     string  SEE_AND_EDIT_DWS_THEME_OPTIONS      Determines whether the current user has access to edit the
-	 *                                                      DWS Theme options.
+	 * @var     string  SEE_AND_EDIT_DWS_THEME_SETTINGS      Determines whether the current user has access to edit the
+	 *                                                      DWS Theme settings.
 	 */
-	const SEE_AND_EDIT_DWS_THEME_OPTIONS = DWS_Permissions::CAPABILITY_PREFIX . 'see_and_edit_dws_theme_options';
+    public const SEE_AND_EDIT_DWS_THEME_SETTINGS = DWS_Permissions::CAPABILITY_PREFIX . 'see_and_edit_dws_theme_settings';
 }

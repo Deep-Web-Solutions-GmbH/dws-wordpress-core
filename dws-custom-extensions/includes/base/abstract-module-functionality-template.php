@@ -1,6 +1,6 @@
 <?php
 
-namespace Deep_Web_Solutions\Core;
+namespace Deep_Web_Solutions\Base;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 
 if (!defined('ABSPATH')) { exit; }
@@ -52,9 +52,21 @@ abstract class DWS_Module_Functionality_Template extends DWS_Functionality_Templ
 		if (!empty(self::get_parent())) {
 			$this->settings_filter = $this->children_settings_filter;
 		} else {
-			$this->settings_filter = DWS_Settings_Pages::get_page_groups_hook(DWS_Settings_Pages::MODULES_OPTIONS_SLUG);
+			$this->settings_filter = DWS_Settings_Pages::get_page_groups_hook(self::get_settings_page_slug());
 		}
 	}
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @see     DWS_Module_Functionality_Template
+     *
+     * @return  string  The slug of the options page.
+     */
+    public static function get_settings_page_slug() {
+        return DWS_Settings_Pages::MODULES_SETTINGS_SLUG;
+    }
 
 	//endregion
 }

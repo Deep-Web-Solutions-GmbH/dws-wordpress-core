@@ -3,7 +3,8 @@
 namespace Deep_Web_Solutions\Front;
 use Deep_Web_Solutions\Admin\DWS_Admin;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
-use Deep_Web_Solutions\Core\DWS_Root;
+use Deep_Web_Solutions\Base\DWS_Root;
+use Deep_Web_Solutions\Core\DWS_Loader;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -23,17 +24,25 @@ final class DWS_Public extends DWS_Root {
 	 * @since   1.2.4
 	 * @version 2.0.0
 	 *
-	 * @var     string  CUSTOM_CSS  The id of the fields which stores CSS to be added globally to the website.
+	 * @var     string  CUSTOM_CSS  The id of the field which stores CSS to be added globally to the website.
 	 */
-	const CUSTOM_CSS = 'field_dhsg8h48wegwew';
+	private const CUSTOM_CSS = 'field_dhsg8h48wegwew';
 
 	/**
 	 * @since   1.2.4
 	 * @version 2.0.0
 	 *
-	 * @var     string  CUSTOM_JS   The id of the fields which stores JS to be added globally to the website.
+	 * @var     string  CUSTOM_JS   The id of the field which stores JS to be added globally to the website.
 	 */
-	const CUSTOM_JS  = 'field_dsg543ejh98er';
+    private const CUSTOM_JS  = 'field_dsg543ejh98er';
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @var     string  ENQUEUE_COLLAPSIBLE_ASSETS   The id of the field which determines whether the collapsible assets should be enqueued.
+     */
+    private const ENQUEUE_COLLAPSIBLE_ASSETS = 'field_sha747hy8grw';
 
 	//endregion
 
@@ -46,7 +55,7 @@ final class DWS_Public extends DWS_Root {
      *
      * @see     DWS_Root::define_hooks()
      *
-     * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+     * @param   DWS_Loader      $loader
      */
 	protected function define_hooks($loader) {
 		$loader->add_action('wp_head', $this, 'add_frontend_js_object_support', PHP_INT_MAX);
@@ -62,10 +71,6 @@ final class DWS_Public extends DWS_Root {
 		/** @noinspection PhpIncludeInspection */
 		/** This class creates handy shortcodes for customer service related activities. */
 		require_once(self::get_includes_base_path() . 'class-customer-service.php');
-
-		/** @noinspection PhpIncludeInspection */
-		/** Handles the output of CSS and settings to enclose text in a circle. */
-		require_once(self::get_includes_base_path() . 'class-circled-content.php');
 
 		/** @noinspection PhpIncludeInspection */
 		/** Loads style for fancy-looking front-end messages. */
@@ -99,7 +104,14 @@ final class DWS_Public extends DWS_Root {
 				'wrapper'   => array('width' => '50%'),
 				'mode'      => 'javascript',
 				'rows'      => 15
-			)
+			),
+            array(
+                'key'       => self::ENQUEUE_COLLAPSIBLE_ASSETS,
+                'name'      => 'dws_public_enqueue-collapsible-assets',
+                'label'     => __('Enqueue collapsible assets?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                'type'      => 'true_false',
+                'ui'        => 1
+            )
 		);
 	}
 
@@ -112,13 +124,15 @@ final class DWS_Public extends DWS_Root {
 	public function enqueue_assets() {
 		wp_enqueue_script(self::get_asset_handle(), self::get_assets_base_path(true) . 'scripts.js', array('jquery'), self::get_plugin_version(), true);
 		wp_enqueue_script(DWS_Admin::get_asset_handle('public'), DWS_Admin::get_assets_base_path(true) . 'scripts.js', array('jquery'), self::get_plugin_version(), true);
+        wp_add_inline_script(self::get_asset_handle(), DWS_Settings_Pages::get_field(self::CUSTOM_JS, self::get_settings_page_slug()));
+
 		wp_enqueue_style(self::get_asset_handle(), self::get_assets_base_path(true) . 'style.css', array(), self::get_plugin_version(), 'all');
+        wp_add_inline_style(self::get_asset_handle(), DWS_Settings_Pages::get_field(self::CUSTOM_CSS, self::get_settings_page_slug()));
 
-		wp_enqueue_script(self::get_asset_handle('collapsible-content'), self::get_assets_base_path(true) . 'collapsible-content.js', array('jquery'), self::get_plugin_version(), true);
-		wp_enqueue_style(self::get_asset_handle('collapsible-content'), self::get_assets_base_path(true) . 'collapsible-content.css', array(), self::get_plugin_version(), 'all');
-
-		wp_add_inline_style(self::get_asset_handle(), DWS_Settings_Pages::get_field(self::CUSTOM_CSS, self::get_options_page_slug()));
-		wp_add_inline_script(self::get_asset_handle(), DWS_Settings_Pages::get_field(self::CUSTOM_JS, self::get_options_page_slug()));
+        if (DWS_Settings_Pages::get_field(self::ENQUEUE_COLLAPSIBLE_ASSETS, self::get_settings_page_slug())) {
+            wp_enqueue_script(self::get_asset_handle('collapsible-content'), self::get_assets_base_path(true) . 'collapsible-content.js', array('jquery'), self::get_plugin_version(), true);
+            wp_enqueue_style(self::get_asset_handle('collapsible-content'), self::get_assets_base_path(true) . 'collapsible-content.css', array(), self::get_plugin_version(), 'all');
+        }
 	}
 
     /**

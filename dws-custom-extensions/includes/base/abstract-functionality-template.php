@@ -1,8 +1,9 @@
 <?php
 
-namespace Deep_Web_Solutions\Core;
-use Deep_Web_Solutions\Admin\DWS_Settings;
+namespace Deep_Web_Solutions\Base;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
+use Deep_Web_Solutions\Core\DWS_Loader;
+use Deep_Web_Solutions\Helpers\DWS_Helper;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -25,15 +26,15 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @var     string  TEMPLATE_FILES_OVERWRITES       The prefix of the id of the options field which holds the
 	 *                                                  options to overwrite templates for the current functionality.
 	 */
-	const TEMPLATE_FILES_OVERWRITES = 'field_dsg4gh4j64jj65';
+	private const TEMPLATE_FILES_OVERWRITES = 'field_dsg4gh4j64jj65';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string  TEMPLATE_FILE_OVERWRITE_PREIFX      The prefix of the id of options fields for overwriting
+	 * @var     string  TEMPLATE_FILE_OVERWRITE_PREFIX      The prefix of the id of options fields for overwriting
 	 *                                                      templates of the current functionality.
 	 */
-	const TEMPLATE_FILE_OVERWRITE_PREFIX = 'field_h4748g3g34g34g';
+    private const TEMPLATE_FILE_OVERWRITE_PREFIX = 'field_h4748g3g34g34g';
 
 	/**
 	 * @since   1.0.0
@@ -161,10 +162,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 		// load language files, if available
 		if (is_dir(self::get_custom_base_path('languages'))) {
 			load_muplugin_textdomain(self::get_language_domain(), str_replace(WPMU_PLUGIN_DIR, '', self::get_custom_base_path('languages')));
-			DWS_WordPress_Loader::get_instance()->add_action('loco_plugins_data', $this, 'register_with_loco_translate_plugin');
-			DWS_WordPress_Loader::get_instance()->add_action('dws_wpml_get-mu_plugins', $this, 'properly_register_plugin_with_wpml', 100); // priority must be higher than 10 !!!
-			DWS_WordPress_Loader::get_instance()->add_action('dws_wpml_plugin-file-name', $this, 'properly_name_plugin_with_wpml', 10, 2);
-			DWS_WordPress_Loader::get_instance()->add_action('dws_wpml_mu-plugin-data', $this, 'properly_add_plugin_data_to_wpml', 10, 2);
+			DWS_Loader::get_instance()->add_action('loco_plugins_data', $this, 'register_with_loco_translate_plugin');
 		}
 	}
 
@@ -237,7 +235,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	protected function local_configure() {
 		parent::local_configure();
 
-		$this->children_settings_filter = DWS_Settings_Pages::get_page_groups_fields_hook(DWS_Settings_Pages::MAIN_OPTIONS_SLUG);
+		$this->children_settings_filter = DWS_Settings_Pages::get_page_groups_fields_hook(DWS_Settings_Pages::MAIN_SETTINGS_SLUG);
 		if (!empty(self::get_parent())) {
 			$this->settings_filter = $this->children_settings_filter;
 		}
@@ -249,7 +247,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 *
 	 * @see     DWS_Root::define_hooks()
 	 *
-	 * @param   DWS_WordPress_Loader    $loader
+	 * @param   DWS_Loader  $loader
 	 */
 	protected final function define_hooks($loader) {
 		if (static::is_active()) {
@@ -440,7 +438,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param   DWS_WordPress_Loader    $loader     The DWS Custom Extensions core loader.
+	 * @param   DWS_Loader  $loader     The DWS Custom Extensions core loader.
 	 */
 	protected function define_functionality_hooks($loader) { /* child classes can overwrite this */ }
 
@@ -481,7 +479,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 		do {
 			$current = get_class($current);
 
-			if (!self::$must_use[$current] && !DWS_Settings_Pages::get_field('field_rhgoegererg_' . self::$functionalities_by_name[$current]::get_root_id(), self::get_options_page_slug())) {
+			if (!self::$must_use[$current] && !DWS_Settings_Pages::get_field('field_rhgoegererg_' . self::$functionalities_by_name[$current]::get_root_id(), self::get_settings_page_slug())) {
 				return false;
 			}
 
@@ -517,69 +515,6 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 		return $plugins;
 	}
 
-    /**
-     * Properly registers the DWS WordPress core plugin with WPML.
-     *
-     * @since   1.3.0
-     * @version 1.3.0
-     *
-     * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
-     *
-     * @see     wp_get_mu_plugins()
-     *
-     * @param   array   $mu_plugins     The mu-plugins installed.
-     *
-     * @return  array   The proper mu-plugin of the core.
-     */
-    public function properly_register_plugin_with_wpml($mu_plugins) {
-        $mu_plugins[] = self::get_base_path(false, true);
-        return $mu_plugins;
-    }
-
-    /**
-     * Returns the name of the plugin, either only it's file name or it's full path.
-     *
-     * @since   1.3.0
-     * @version 1.3.0
-     *
-     * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
-     *
-     * @param   string  $plugin_file    The file name of the plugin.
-     * @param   string  $full_path      The full path of the plugin.
-     *
-     * @return  string  Either just the file name of the plugin or the full path of the plugin.
-     */
-    public function properly_name_plugin_with_wpml($plugin_file, $full_path) {
-        if (strpos($full_path, self::get_base_path()) !== false) {
-            return $full_path;
-        }
-
-        return $plugin_file;
-    }
-
-    /**
-     * Adds some data to the mu-plugins provided.
-     *
-     * @since   1.3.0
-     * @version 1.3.0
-     *
-     * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
-     *
-     * @param   array   $plugin_info    The information of the mu-plugin currently available.
-     * @param   string  $plugin_file    The name of the plugin file as it's registered with WPML.
-     *
-     * @return  array   Potentially modified mu-plugin information.
-     */
-    public function properly_add_plugin_data_to_wpml ($plugin_info, $plugin_file) {
-        if (strpos($plugin_file, self::get_base_path()) !== false) {
-            $plugin_info['Name']        = 'MU :: ' . self::get_root_public_name();
-            $plugin_info['TextDomain']  = self::get_language_domain();
-            $plugin_info['DomainPath']  = self::get_custom_base_path('languages');
-        }
-
-        return $plugin_info;
-    }
-
 	//endregion
 
 	//region HELPERS
@@ -600,7 +535,7 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 		return in_array($file, $this->maybe_overridable_templates())
 			? boolval(DWS_Settings_Pages::get_field(self::TEMPLATE_FILES_OVERWRITES . join('_', array(self::get_root_id(),
 			                                                               self::TEMPLATE_FILE_OVERWRITE_PREFIX,
-			                                                                      $file)), self::get_options_page_slug()))
+			                                                                      $file)), self::get_settings_page_slug()))
 			: false;
 	}
 

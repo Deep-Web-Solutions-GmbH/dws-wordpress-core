@@ -1,8 +1,8 @@
 <?php
 
 namespace Deep_Web_Solutions\Local;
-use Deep_Web_Solutions\Core\DWS_Singleton;
-use Deep_Web_Solutions\Core\DWS_WordPress_Loader;
+use Deep_Web_Solutions\Base\DWS_Singleton;
+use Deep_Web_Solutions\Core\DWS_Loader;
 use Deep_Web_Solutions\Local\Core\DWS_Local_Admin;
 
 if (!defined('ABSPATH')) { exit; }
@@ -68,7 +68,8 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 
 	//region MAGIC METHODS
 
-	/**
+    /** @noinspection PhpMissingParentConstructorInspection */
+    /**
 	 * Defines the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -128,7 +129,7 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 	 * @version 1.0.0
 	 */
 	public function run() {
-		$loader = DWS_WordPress_Loader::get_instance();
+		$loader = DWS_Loader::get_instance();
 		$loader->run();
 	}
 

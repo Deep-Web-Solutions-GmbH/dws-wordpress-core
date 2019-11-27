@@ -1,6 +1,7 @@
 <?php
 
-namespace Deep_Web_Solutions\Core;
+namespace Deep_Web_Solutions\Helpers;
+use Deep_Web_Solutions\Base\DWS_Root;
 
 /**
  * Provides a nice interface to interact with the WP login experience.
@@ -20,10 +21,10 @@ final class DWS_Login extends DWS_Root {
 	 *
 	 * @see     DWS_Root::define_shortcodes()
 	 *
-	 * @param   DWS_WordPress_Loader    $loader
+	 * @param   \Deep_Web_Solutions\Core\DWS_Loader     $loader
 	 */
 	protected function define_shortcodes($loader) {
-		$loader->add_shortcode('express_login_link', $this, 'get_login_link_sc');
+        $loader->add_shortcode('express_login_link', $this, 'get_login_link_sc');
 	}
 
 	/**

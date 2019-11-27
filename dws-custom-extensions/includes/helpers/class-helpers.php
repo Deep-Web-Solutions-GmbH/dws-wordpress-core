@@ -1,6 +1,6 @@
 <?php
 
-namespace Deep_Web_Solutions\Core;
+namespace Deep_Web_Solutions\Helpers;
 use Deep_Web_Solutions\Front\DWS_Public;
 
 if (!defined('ABSPATH')) { exit; }
@@ -60,6 +60,7 @@ final class DWS_Helper {
 				}
 			}
 		}
+
 		return false;
 	}
 
@@ -225,8 +226,7 @@ final class DWS_Helper {
 	 * @param   string  $css        The CSS content to be added inline.
 	 */
 	public static function add_inline_stylesheet_to_false_handle($handle, $css) {
-		wp_register_style($handle, false);
-		wp_enqueue_style($handle);
+		wp_register_style($handle, false); wp_enqueue_style($handle);
 		wp_add_inline_style($handle, $css);
 	}
 

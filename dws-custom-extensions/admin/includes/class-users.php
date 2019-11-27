@@ -1,9 +1,10 @@
 <?php
 
 namespace Deep_Web_Solutions\Admin;
-use Deep_Web_Solutions\Core\DWS_Functionality_Template;
-use Deep_Web_Solutions\Core\DWS_Installable;
-use Deep_Web_Solutions\Core\DWS_WordPress_Cron;
+use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
+use Deep_Web_Solutions\Base\DWS_Functionality_Template;
+use Deep_Web_Solutions\Base\DWS_Installable;
+use Deep_Web_Solutions\Helpers\DWS_Cron;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -18,6 +19,19 @@ if (!defined('ABSPATH')) { exit; }
  * @see     DWS_Installable
  */
 final class DWS_Users extends DWS_Functionality_Template implements DWS_Installable {
+    //region FIELDS AND CONSTANTS
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @var     string  SHOULD_LOG_OUT_USERS_AT_MIDNIGHT    The ID of the field name which determines whether the midnight users
+     *                                                      cron should be executed or not.
+     */
+    private const SHOULD_LOG_OUT_USERS_AT_MIDNIGHT = 'field_sahf783g278fewfw';
+
+    //endregion
+
 	//region INSTALLATION
 
 	/**
@@ -88,7 +102,7 @@ final class DWS_Users extends DWS_Functionality_Template implements DWS_Installa
 	 * @see     DWS_Functionality_Template::init()
 	 */
 	public function init() {
-		DWS_WordPress_Cron::schedule_event(self::get_hook_name('auto-logout'));
+		DWS_Cron::schedule_event(self::get_hook_name('auto-logout'));
 	}
 
 	/**
@@ -97,17 +111,36 @@ final class DWS_Users extends DWS_Functionality_Template implements DWS_Installa
 	 *
 	 * @see     DWS_Functionality_Template::define_functionality_hooks()
 	 *
-	 * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+	 * @param   \Deep_Web_Solutions\Core\DWS_Loader   $loader
 	 */
 	protected function define_functionality_hooks($loader) {
 		$loader->add_action('wp_ajax_is_user_logged_in', $this, 'ajax_check_user_logged_in');
 		$loader->add_action('wp_ajax_nopriv_is_user_logged_in', $this, 'ajax_check_user_logged_in');
 
-		$loader->add_filter('register_post_type_args', $this, 'remove_addNew_from_admin_bar', PHP_INT_MAX);
-		$loader->add_action(self::get_hook_name('auto-logout'), $this, 'logout_users');
+		if (DWS_Settings_Pages::get_field(self::SHOULD_LOG_OUT_USERS_AT_MIDNIGHT, self::get_settings_page_slug())) {
+            $loader->add_action(self::get_hook_name('auto-logout'), $this, 'logout_users');
+        }
 	}
 
-	//endregion
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @return  array[]
+     */
+	protected function functionality_options() {
+        return array(
+            array(
+                'key'   => self::SHOULD_LOG_OUT_USERS_AT_MIDNIGHT,
+                'name'  => 'dws_admin-users_should-log-out-users-at-midnight',
+                'label' => __('Should log out users at midnight?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                'type'  => 'true_false',
+                'ui'    => 1
+            )
+        );
+    }
+
+    //endregion
 
 	//region COMPATIBILITY LOGIC
 
@@ -120,24 +153,6 @@ final class DWS_Users extends DWS_Functionality_Template implements DWS_Installa
 	public function ajax_check_user_logged_in() {
 		echo is_user_logged_in() ? 'yes' : 'no';
 		die;
-	}
-
-	/**
-	 * By default, for every registered post type there will be a shortcut in
-	 * the admin bar to create the post. It's easier if we just disable that than
-	 * making sure that custom permissions don't display the links to the wrong users.
-	 *
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @param   array   $args   The arguments of a soon-to-be-registered WP post type.
-	 *
-	 * @return  array   The arguments of a soon-to-be-registered WP post type that guarantee there will be no options
-	 *                  in the admin bar.
-	 */
-	public function remove_addNew_from_admin_bar($args) {
-		$args['show_in_admin_bar'] = false;
-		return $args;
 	}
 
 	/**

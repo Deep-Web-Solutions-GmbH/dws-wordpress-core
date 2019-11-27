@@ -3,7 +3,9 @@
 namespace Deep_Web_Solutions\Core;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Installation;
 use Deep_Web_Solutions\Admin\DWS_Settings;
+use Deep_Web_Solutions\Base\DWS_Root;
 use Deep_Web_Solutions\Custom_Extensions;
+use Deep_Web_Solutions\Helpers\DWS_Permissions;
 
 if (!defined( 'ABSPATH')) { exit; }
 
@@ -46,7 +48,7 @@ final class DWS_Installation extends DWS_Root {
 	 *
 	 * @see     DWS_Root::define_hooks()
 	 *
-	 * @param   DWS_WordPress_Loader    $loader
+	 * @param   DWS_Loader    $loader
 	 */
 	protected function define_hooks($loader) {
 		$loader->add_action('wp_ajax_' . self::INSTALL_ACTION, $this, 'run_installation', PHP_INT_MIN);
@@ -89,6 +91,7 @@ final class DWS_Installation extends DWS_Root {
         update_option(self::INSTALL_OPTION, Custom_Extensions::get_version());
 
 		wp_safe_redirect('/wp-admin/');
+        status_header(200); wp_die();
 	}
 
 	/**
@@ -110,7 +113,7 @@ final class DWS_Installation extends DWS_Root {
             //TODO ideally, the user could select right here the framework and it would "auto-magically" install and activate
 
             // generate HTML for select field
-            $supported_options_frameworks = DWS_Settings::get_supported_options_frameworks();
+            $supported_options_frameworks = DWS_Settings::get_supported_settings_frameworks();
             $html = '';
 
             foreach ($supported_options_frameworks as $framework) {

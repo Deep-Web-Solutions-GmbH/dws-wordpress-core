@@ -25,7 +25,7 @@ final class DWS_Local_i18n extends DWS_Local_Root {
 	 *
 	 * @see     DWS_Root::define_hooks()
 	 *
-	 * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+	 * @param   \Deep_Web_Solutions\Core\DWS_Loader   $loader
 	 */
 	protected function define_hooks($loader) {
 		$loader->add_action('plugins_loaded', $this, 'load_muplugin_textdomain');

@@ -5,12 +5,12 @@ use Deep_Web_Solutions\Admin\Settings\DWS_Adapter;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Installation;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 use Deep_Web_Solutions\Admin\Settings\Permissions;
-use Deep_Web_Solutions\Core\DWS_Functionality_Template;
+use Deep_Web_Solutions\Base\DWS_Functionality_Template;
 
 if (!defined('ABSPATH')) { exit; }
 
 /**
- * Handles all the settings related extensions including the options pages.
+ * Handles all the settings related extensions including the settings pages.
  *
  * @since   2.0.0
  * @version 2.0.0
@@ -60,14 +60,9 @@ final class DWS_Settings extends DWS_Functionality_Template {
         DWS_Settings_Installation::maybe_initialize_singleton('gh4w87ghew87fgrwed');
 
         /** @noinspection PhpIncludeInspection */
-        /** Handles the settings pages and the options therein. */
+        /** Handles the settings pages and the settings therein. */
         require_once(self::get_includes_base_path() . 'class-settings-pages.php');
         DWS_Settings_Pages::maybe_initialize_singleton('j89hg3854gh3433e');
-
-        // NOW WE'LL LOAD THE INDIVIDUAL ADAPTERS
-        // TODO VERY VERY IMPORTANT: WHEN THIS WORKS, MOVE EACH ADAPTER TO ITS OWN DWS PLUGIN
-        /** @noinspection PhpIncludeInspection */
-        require_once(self::get_includes_base_path() . 'adapters/class-cmb2.php');
     }
 
     //endregion
@@ -84,8 +79,8 @@ final class DWS_Settings extends DWS_Functionality_Template {
      *
      * @return  DWS_Adapter
      */
-    public static function get_option_framework_adapter($slug = false) {
-        $selectedFramework = ($slug === false) ? self::get_option_framework_slug() : $slug;
+    public static function get_settings_framework_adapter($slug = false) {
+        $selectedFramework = ($slug === false) ? self::get_settings_framework_slug() : $slug;
         return apply_filters(self::get_hook_name('framework_adapter'), null, $selectedFramework);
     }
 
@@ -95,9 +90,9 @@ final class DWS_Settings extends DWS_Functionality_Template {
      *
      * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.de>
      *
-     * @return  string  The options framework used by the DWS WP Core.
+     * @return  string  The settings framework used by the DWS WP Core.
      */
-    public static function get_option_framework_slug() {
+    public static function get_settings_framework_slug() {
         return get_option(self::SETTINGS_FRAMEWORK, '');
     }
 
@@ -109,7 +104,7 @@ final class DWS_Settings extends DWS_Functionality_Template {
      *
      * @return  bool    False if value was not updated and true if value was updated.
      */
-    public static function update_option_framework_slug($new_slug) {
+    public static function update_settings_framework_slug($new_slug) {
         return update_option(self::SETTINGS_FRAMEWORK, $new_slug);
     }
 
@@ -119,7 +114,7 @@ final class DWS_Settings extends DWS_Functionality_Template {
      *
      * @return  bool    True, if option is successfully deleted. False on failure.
      */
-    public static function delete_option_framework_slug() {
+    public static function delete_settings_framework_slug() {
         return delete_option(self::SETTINGS_FRAMEWORK);
     }
 
@@ -127,14 +122,20 @@ final class DWS_Settings extends DWS_Functionality_Template {
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @return  array   The supported options frameworks from the remote JSON file.
+     * @return  array   The supported settings frameworks from the remote JSON file.
      */
-    public static function get_supported_options_frameworks() {
-        $auth           = base64_encode('dws-web-project:XOsj2gidQ9GJwYNpMlb4jkqVDkPoE6LR8QPIAxW0NgtiotRslpcYFkXMV6Uj');
-        $context        = stream_context_create(['http' => ['header' => "Authorization: Basic $auth"]]);
-        $plugins_config = file_get_contents('https://config.deep-web-solutions.de/dws_supported_frameworks.json', false, $context);
+    public static function get_supported_settings_frameworks() {
+        $settings_frameworks = get_transient(self::get_asset_handle('settings-frameworks'));
+        if (empty($settings_frameworks)) {
+            $auth           = base64_encode('dws-web-project:XOsj2gidQ9GJwYNpMlb4jkqVDkPoE6LR8QPIAxW0NgtiotRslpcYFkXMV6Uj');
+            $context        = stream_context_create(['http' => ['header' => "Authorization: Basic $auth"]]);
+            $plugins_config = file_get_contents('https://config.deep-web-solutions.de/supported-settings-frameworks.json', false, $context);
 
-        return json_decode($plugins_config, true);
+            $settings_frameworks = json_decode($plugins_config, true);
+            set_transient(self::get_asset_handle('settings-frameworks'), $settings_frameworks, 60 * 60 * 24);
+        }
+
+        return $settings_frameworks;
     }
 
     //endregion

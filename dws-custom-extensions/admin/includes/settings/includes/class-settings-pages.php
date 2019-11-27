@@ -3,12 +3,12 @@
 namespace Deep_Web_Solutions\Admin\Settings;
 use Deep_Web_Solutions\Admin\DWS_Settings;
 use Deep_Web_Solutions\Admin\DWS_Admin;
-use Deep_Web_Solutions\Core\DWS_Functionality_Template;
+use Deep_Web_Solutions\Base\DWS_Functionality_Template;
 
 if (!defined('ABSPATH')) { exit; }
 
 /**
- * Handles the settings pages and the options therein.
+ * Handles the settings pages and the settings therein.
  *
  * @since   2.0.0
  * @version 2.0.0
@@ -23,8 +23,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @var     string      MENU_PAGES_SLUG_PREFIX      The proper prefix of the slug of all CF options pages of this
-     *                                                  plugin.
+     * @var     string      MENU_PAGES_SLUG_PREFIX      The proper prefix of the slug of all settings pages of this plugin.
      */
     public const MENU_PAGES_SLUG_PREFIX = 'dws_custom-extensions-settings_';
 
@@ -32,39 +31,31 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @var     string      MAIN_OPTIONS_SLUG       The slug of the main settings menu.
+     * @var     string      MAIN_SETTINGS_SLUG      The slug of the main settings menu.
      */
-    public const MAIN_OPTIONS_SLUG = self::MENU_PAGES_SLUG_PREFIX . 'general';
+    public const MAIN_SETTINGS_SLUG = self::MENU_PAGES_SLUG_PREFIX . 'general';
 
     /**
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @var     string      MODULES_OPTIONS_SLUG        The slug of the modules settings menu.
+     * @var     string      MODULES_SETTINGS_SLUG       The slug of the modules settings menu.
      */
-    public const MODULES_OPTIONS_SLUG = self::MENU_PAGES_SLUG_PREFIX . 'modules';
+    public const MODULES_SETTINGS_SLUG = self::MENU_PAGES_SLUG_PREFIX . 'modules';
 
     /**
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @var     string      THEME_OPTIONS_SLUG      The slug of the theme settings menu.
+     * @var     string      THEME_SETTINGS_SLUG     The slug of the theme settings menu.
      */
-    public const THEME_OPTIONS_SLUG = self::MENU_PAGES_SLUG_PREFIX . 'theme';
+    public const THEME_SETTINGS_SLUG = self::MENU_PAGES_SLUG_PREFIX . 'theme';
 
     /**
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @var     string      GROUP_KEY_PREFIX        All options groups start with this prefix.
-     */
-    private const GROUP_KEY_PREFIX = 'group_hiurhgvv8gh2v4_';
-
-    /**
-     * @since   2.0.0
-     * @version 2.0.0
-     *
-     * @var     string  CLEAR_TRANSIENTS_ACTION     The name of the AJAX action which will clear the CF options transients.
+     * @var     string  CLEAR_TRANSIENTS_ACTION     The name of the AJAX action which will clear the settings transients.
      */
     private const CLEAR_TRANSIENTS_ACTION = 'dws-core_settings_clear-transients';
 
@@ -73,9 +64,9 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * @version 2.0.0
      *
      * @access  private
-     * @var     array   $pages      Maintains a list of the slugs of all registered options pages of this plugin.
+     * @var     array   $pages      Maintains a list of the slugs of all registered settings pages of this plugin.
      */
-    private static $pages = array(self::MAIN_OPTIONS_SLUG, self::MODULES_OPTIONS_SLUG, self::THEME_OPTIONS_SLUG);
+    private static $pages = array(self::MAIN_SETTINGS_SLUG, self::MODULES_SETTINGS_SLUG, self::THEME_SETTINGS_SLUG);
 
     //endregion
 
@@ -87,7 +78,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      *
      * @see     DWS_Functionality_Template::define_functionality_hooks()
      *
-     * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+     * @param   \Deep_Web_Solutions\Core\DWS_Loader   $loader
      */
     protected function define_functionality_hooks($loader) {
         $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_main_page', PHP_INT_MAX - 100);
@@ -96,7 +87,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
         $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_pages_groups', PHP_INT_MAX - 50);
         $loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'add_pages_group_fields', PHP_INT_MAX - 25);
 
-        $loader->add_action('dws_main_page', $this, 'add_options_postbox');
+        $loader->add_action('dws_main_page', $this, 'add_settings_postbox');
         $loader->add_action('wp_ajax_' . self::CLEAR_TRANSIENTS_ACTION, $this, 'ajax_clear_transients');
     }
 
@@ -127,12 +118,12 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * @version 2.0.0
      */
     public function add_main_page() {
-        $adapter = DWS_Settings::get_option_framework_adapter();
+        $adapter = DWS_Settings::get_settings_framework_adapter();
         $result = $adapter::register_settings_page(
             __('Custom Extensions', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
             __('Custom Extensions', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-            Permissions::SEE_AND_EDIT_DWS_CORE_OPTIONS,
-            self::MAIN_OPTIONS_SLUG,
+            Permissions::SEE_AND_EDIT_DWS_CORE_SETTINGS,
+            self::MAIN_SETTINGS_SLUG,
             array(
                 'icon_url'   => 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(DWS_Admin::get_assets_base_path() . 'dws_logo.svg')),
                 'redirect'   => false,
@@ -144,7 +135,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
             error_log('Failed to register main settings page.');
         } else {
             // we add an "artificial" submenu-page such that the first menu entry is named differently
-            add_submenu_page(self::MAIN_OPTIONS_SLUG, __('Deep Web Solutions: Custom Extensions Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), __('Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), Permissions::SEE_AND_EDIT_DWS_CORE_OPTIONS, self::MAIN_OPTIONS_SLUG);
+            add_submenu_page(self::MAIN_SETTINGS_SLUG, __('Deep Web Solutions: Custom Extensions Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), __('Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), Permissions::SEE_AND_EDIT_DWS_CORE_SETTINGS, self::MAIN_SETTINGS_SLUG);
         }
     }
 
@@ -155,20 +146,20 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * @version 2.0.0
      */
     public function add_sub_pages() {
-        $adapter = DWS_Settings::get_option_framework_adapter();
+        $adapter = DWS_Settings::get_settings_framework_adapter();
 
         /**
          * @since   1.0.0
          * @since   1.2.0   Added 'capability' field.
          * @version 1.2.0
          *
-         * @param   array[]     $other_sub_pages    Array of other options sub-pages to be added.
+         * @param   array[]     $other_sub_pages    Array of other settings sub-pages to be added.
          *      $other_sub_pages = [
          *          [
-         *              'page_title'    =>  (string) The title displayed on the options page. Optional.
+         *              'page_title'    =>  (string) The title displayed on the settings page. Optional.
          *              'menu_title'    =>  (string) The title displayed in the menu. Required.
-         *              'menu_slug'     =>  (string) The slug of the options page. Required.
-         *              'capability'    =>  (string) The WP capability needed to see and edit the options. Required.
+         *              'menu_slug'     =>  (string) The slug of the settings page. Required.
+         *              'capability'    =>  (string) The WP capability needed to see and edit the settings. Required.
          *          ]
          *          ...
          *      ]
@@ -179,14 +170,14 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
             array(
                 'page_title' => __('Deep Web Solutions: Custom Extensions Modules Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
                 'menu_title' => __('Modules Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                'menu_slug'  => self::MODULES_OPTIONS_SLUG,
-                'capability' => Permissions::SEE_AND_EDIT_DWS_MODULES_OPTIONS
+                'menu_slug'  => self::MODULES_SETTINGS_SLUG,
+                'capability' => Permissions::SEE_AND_EDIT_DWS_MODULES_SETTINGS
             ),
             array(
                 'page_title' => __('Deep Web Solutions: Custom Extensions Theme Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
                 'menu_title' => __('Theme Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                'menu_slug'  => self::THEME_OPTIONS_SLUG,
-                'capability' => Permissions::SEE_AND_EDIT_DWS_THEME_OPTIONS
+                'menu_slug'  => self::THEME_SETTINGS_SLUG,
+                'capability' => Permissions::SEE_AND_EDIT_DWS_THEME_SETTINGS
             )
         );
 
@@ -199,7 +190,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
 
             // Add the current subpage both to WordPress and to our cache
             self::$pages[] = $sub_page['menu_slug'];
-            $result = $adapter::register_settings_subpage(self::MAIN_OPTIONS_SLUG, $sub_page['page_title'], $sub_page['menu_title'], $sub_page['capability'], $sub_page['menu_slug'], $sub_page);
+            $result = $adapter::register_settings_subpage(self::MAIN_SETTINGS_SLUG, $sub_page['page_title'], $sub_page['menu_title'], $sub_page['capability'], $sub_page['menu_slug'], $sub_page);
 
             if ($result === false) {
                 error_log('Failed to register sub-settings page: ' . $sub_page['menu_title']);
@@ -211,7 +202,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
     }
 
     /**
-     * Adds groups to the options pages.
+     * Adds groups to the settings pages.
      *
      * @since   1.0.0
      * @version 1.5.1
@@ -236,39 +227,25 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      */
     public function add_pages_group_fields() {
         foreach (self::$pages as $page) {
-            $fields = get_transient(self::get_page_groups_fields_hook($page));
+            $location = self::get_page_groups_fields_hook($page);
+            $fields = get_transient($location);
+
             if ($fields === false) {
-                $fields = apply_filters(self::get_page_groups_fields_hook($page), array());
-                set_transient(self::get_page_groups_fields_hook($page), $fields, 24 * 60 * 60);
+                $fields = apply_filters($location, array());
+                set_transient($location, $fields, 24 * 60 * 60);
             }
 
-            self::add_fields($fields);
+            self::add_fields($fields, $location);
         }
     }
 
     /**
-     * If the current page is the General Settings in DWS Custom Extensions then enqueue some scripts.
-     *
-     * @author  Dushan Terzikj  <d.terzikj@deep-web-solutions.de>
-     *
-     * @since   1.3.3
-     * @version 1.4.0
-     */
-    public function add_floating_update_button(){
-        if (isset($_REQUEST['page']) && strpos($_REQUEST['page'], self::MENU_PAGES_SLUG_PREFIX) === 0) {
-            wp_enqueue_script(self::get_asset_handle('floating-button'), DWS_Settings::get_assets_base_path( true ) . 'floating-update-button.js', array( 'jquery' ), self::get_plugin_version(), true);
-        }
-    }
-
-    /**
-     * Adds a postbox to the DWS main admin page for "ACF options"-related actions.
+     * Adds a postbox to the DWS main admin page for settings-related actions.
      *
      * @since   1.5.3
      * @version 2.0.0
      */
-    public function add_options_postbox() {
-        $selected_framework = strtoupper(DWS_Settings::get_option_framework_slug());
-
+    public function add_settings_postbox() {
         $link_to_clear_transients = add_query_arg('action', self::CLEAR_TRANSIENTS_ACTION, admin_url('admin-ajax.php'));
         echo '<div class="dws-postbox">
                     <h2 class="dws-with-subtitle">'. __('Settings options', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN) .'</h2>
@@ -278,7 +255,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
     }
 
     /**
-     * Clear the transients of the ACF options.
+     * Clear the transients of the settings.
      *
      * @since   1.5.3
      * @version 1.5.3
@@ -306,20 +283,20 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * @return  mixed
      */
     public static function get_field($field, $settings_page_slug) {
-        $adapter = DWS_Settings::get_option_framework_adapter();
-        return $adapter::get_options_field_value($field, $settings_page_slug);
+        $adapter = DWS_Settings::get_settings_framework_adapter();
+        return is_null($adapter) ? null : $adapter::get_settings_field_value($field, $settings_page_slug);
     }
 
     /**
      * Makes sure that we always use the same format for generating the hook on which classes
-     * should define their ACF options groups based on the page on which they want the options present.
+     * should define their ACF settings groups based on the page on which they want the settings present.
      *
      * @since   1.0.0
      * @version 1.0.0
      *
      * @param   string  $page_slug      The slug of the page on which the ACF groups must be generated on.
      *
-     * @return  string  The hook on which the class must define its ACF options groups.
+     * @return  string  The hook on which the class must define its ACF settings groups.
      */
     public static function get_page_groups_hook($page_slug) {
         return join('_', array(self::get_hook_name($page_slug), 'groups'));
@@ -327,30 +304,30 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
 
     /**
      * Makes sure that we always use the same format for generating the hook on which classes
-     * should define their 'late' ACF options fields based on the page on which the group was registered on.
+     * should define their 'late' settings fields based on the page on which the group was registered on.
      *
      * @since   1.0.0
      * @version 1.0.0
      *
      * @param   string  $page_slug      The slug of the page on which the ACF groups will be generated on.
      *
-     * @return  string  The hook on which the class must define its 'late' ACF options fields.
+     * @return  string  The hook on which the class must define its 'late' ACF settings fields.
      */
     public static function get_page_groups_fields_hook($page_slug) {
         return join('_', array(self::get_hook_name($page_slug), 'groups-fields'));
     }
 
     /**
-     * Registers local groups with ACF.
+     * Registers local groups with our settings framework of choice.
      *
      * @since   1.0.0
      * @version 2.0.0
      *
      * @param   array   $groups     A list of ACF-conform groups of fields to be registered with ACF.
-     * @param   string  $location   The slug of the options page on which the groups must appear on.
+     * @param   string  $location   The slug of the settings page on which the groups must appear on.
      */
     private function add_groups($groups, $location) {
-        $adapter = DWS_Settings::get_option_framework_adapter();
+        $adapter = DWS_Settings::get_settings_framework_adapter();
 
         foreach ($groups as $group) {
             if (!isset($group['key'], $group['title'])) {
@@ -362,7 +339,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
                 continue;
             }
 
-            $adapter::register_options_page_group(
+            $adapter::register_settings_page_group(
                 $group['key'],
                 $group['title'],
                 $location,
@@ -372,15 +349,15 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
     }
 
     /**
-     * Registers local fields with ACF.
+     * Registers local fields with our settings framework of choice.
      *
      * @since   1.0.0
      * @version 2.0.0
      *
      * @param   array   $fields     A list of ACF-conform fields that must be registered with ACF to an existing group.
      */
-    private function add_fields($fields) {
-        $adapter = DWS_Settings::get_option_framework_adapter();
+    private function add_fields($fields, $location) {
+        $adapter = DWS_Settings::get_settings_framework_adapter();
 
         foreach ($fields as $field) {
             if (!isset($field['parent'], $field['key'], $field['type'])) {
@@ -396,7 +373,8 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
                 $field['key'],
                 $field['type'],
                 $field['parent'],
-                $field
+                $field,
+                $location
             );
         }
 

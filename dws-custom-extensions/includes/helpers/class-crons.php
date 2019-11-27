@@ -1,6 +1,7 @@
 <?php
 
-namespace Deep_Web_Solutions\Core;
+namespace Deep_Web_Solutions\Helpers;
+use Deep_Web_Solutions\Base\DWS_Root;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -13,7 +14,7 @@ if (!defined('ABSPATH')) { exit; }
  *
  * @see     DWS_Root
  */
-final class DWS_WordPress_Cron extends DWS_Root {
+final class DWS_Cron extends DWS_Root {
 	//region FIELDS AND CONSTANTS
 
 	/**
@@ -22,63 +23,77 @@ final class DWS_WordPress_Cron extends DWS_Root {
 	 *
 	 * @var     string      MINUTES_5   The slug of the DWS 5 minute cron interval.
 	 */
-	const MINUTES_5 = 'dws_minutes_5';
+	public const MINUTES_5 = 'dws_minutes_5';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string      MINUTES_5   The slug of the DWS 10 minute cron interval.
+	 * @var     string      MINUTES_10      The slug of the DWS 10 minute cron interval.
 	 */
-	const MINUTES_10 = 'dws_minutes_10';
+    public const MINUTES_10 = 'dws_minutes_10';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string      MINUTES_5   The slug of the DWS 15 minute cron interval.
+	 * @var     string      MINUTES_15      The slug of the DWS 15 minute cron interval.
 	 */
-	const MINUTES_15 = 'dws_minutes_15';
+    public const MINUTES_15 = 'dws_minutes_15';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string      MINUTES_5   The slug of the DWS 30 minute cron interval.
+	 * @var     string      MINUTES_30      The slug of the DWS 30 minute cron interval.
 	 */
-	const MINUTES_30 = 'dws_minutes_30';
+    public const MINUTES_30 = 'dws_minutes_30';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string      MINUTES_5   The slug of the DWS 1 hour cron interval.
+	 * @var     string      HOURS_1     The slug of the DWS 1 hour cron interval.
 	 */
-	const HOURS_1 = 'dws_hours_1';
+    public const HOURS_1 = 'dws_hours_1';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string      MINUTES_5   The slug of the DWS 2 hours cron interval.
+	 * @var     string      HOURS_2     The slug of the DWS 2 hours cron interval.
 	 */
-	const HOURS_2 = 'dws_hours_2';
+    public const HOURS_2 = 'dws_hours_2';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string      MINUTES_5   The slug of the DWS 3 hours cron interval.
+	 * @var     string      HOURS_3     The slug of the DWS 3 hours cron interval.
 	 */
-	const HOURS_3 = 'dws_hours_3';
+    public const HOURS_3 = 'dws_hours_3';
 	/**
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @var     string      MINUTES_5   The slug of the DWS 4 hours cron interval.
+	 * @var     string      HOURS_4     The slug of the DWS 4 hours cron interval.
 	 */
-	const HOURS_4 = 'dws_hours_4';
-	/**
-	 * @since   1.0.0
-	 * @version 1.0.0
-	 *
-	 * @var     string      MINUTES_5   The slug of the DWS 6 hours cron interval.
-	 */
-	const HOURS_6 = 'dws_hours_6';
+    public const HOURS_4 = 'dws_hours_4';
+    /**
+     * @since   1.0.0
+     * @version 1.0.0
+     *
+     * @var     string      HOURS_6     The slug of the DWS 6 hours cron interval.
+     */
+    public const HOURS_6 = 'dws_hours_6';
+    /**
+     * @since   1.0.0
+     * @version 1.0.0
+     *
+     * @var     string      HOURS_12    The slug of the DWS 12 hours cron interval.
+     */
+    public const HOURS_12 = 'dws_hours_12';
+    /**
+     * @since   1.0.0
+     * @version 1.0.0
+     *
+     * @var     string      HOURS_24        The slug of the DWS 24 hours cron interval.
+     */
+    public const HOURS_24 = 'dws_hours_24';
 
 	/**
 	 * @since   1.0.0
@@ -109,7 +124,9 @@ final class DWS_WordPress_Cron extends DWS_Root {
 			self::HOURS_2    => array('interval' => 2 * 60 * 60,    'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 2)),
 			self::HOURS_3    => array('interval' => 3 * 60 * 60,    'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 3)),
 			self::HOURS_4    => array('interval' => 4 * 60 * 60,    'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 4)),
-			self::HOURS_6    => array('interval' => 6 * 60 * 60,    'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 6)),
+            self::HOURS_6    => array('interval' => 6 * 60 * 60,    'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 6)),
+            self::HOURS_12   => array('interval' => 12 * 60 * 60,   'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 12)),
+            self::HOURS_24   => array('interval' => 24 * 60 * 60,   'display' => sprintf(__('Every %s hours', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), 24))
 		);
 	}
 
@@ -119,7 +136,7 @@ final class DWS_WordPress_Cron extends DWS_Root {
 	 *
 	 * @see     DWS_Root::define_hooks()
 	 *
-	 * @param   DWS_WordPress_Loader    $loader
+	 * @param   \Deep_Web_Solutions\Core\DWS_Loader     $loader
 	 */
 	protected function define_hooks($loader) {
 		$loader->add_filter('cron_schedules', $this, 'register_new_cron_schedules');
@@ -159,13 +176,8 @@ final class DWS_WordPress_Cron extends DWS_Root {
 	 * @param   string|bool     $name       The friendly name of the interval. If not given, the slug will be used.
 	 */
 	public static function add_interval($slug, $interval, $name = false) {
-		if (empty($slug)) {
-			error_log('Could not add interval with empty slug to cron schedules!');
-			return;
-		} else if (!is_integer($interval) || $interval < 60) {
-			error_log("Invalid interval value for interval with slug $slug.");
-			return;
-		}
+		if (empty($slug)) { error_log('Could not add interval with empty slug to cron schedules!'); return; }
+		else if (!is_integer($interval) || $interval < 60) { error_log("Invalid interval value for interval with slug $slug."); return; }
 
 		$name                   = empty($name) ? $slug : $name;
 		self::$intervals[$slug] = array('interval' => $interval, 'display' => $name);
@@ -183,9 +195,7 @@ final class DWS_WordPress_Cron extends DWS_Root {
 	 * @param   array       $args           Arguments to pass to the hook function(s).
 	 */
 	public static function schedule_event($hook, $recurrence = 'daily', $timestamp = false, $args = array()) {
-		if (wp_next_scheduled($hook)) {
-			return;
-		}
+		if (wp_next_scheduled($hook)) { return; }
 
 		// if the timestamp is not given, start running it at midnight
 		$timestamp = is_integer($timestamp)

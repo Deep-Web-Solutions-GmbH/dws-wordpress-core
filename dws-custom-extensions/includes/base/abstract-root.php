@@ -1,8 +1,10 @@
 <?php
 
-namespace Deep_Web_Solutions\Core;
+namespace Deep_Web_Solutions\Base;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
+use Deep_Web_Solutions\Core\DWS_Loader;
 use Deep_Web_Solutions\Custom_Extensions;
+use Deep_Web_Solutions\Helpers\DWS_Helper;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -53,7 +55,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @version 1.0.0
 	 *
 	 * @access  private
-	 * @var     DWS_WordPress_Loader    $loader     The instance of the DWS CustomExtensions Core Loader.
+	 * @var     DWS_Loader  $loader     The instance of the DWS CustomExtensions Core Loader.
 	 */
 	private $loader;
 
@@ -79,7 +81,7 @@ abstract class DWS_Root extends DWS_Singleton {
 		self::$root_id[static::class]          = $root_id;
 		self::$root_public_name[static::class] = $root_name ?: static::class;
 
-		$this->loader = DWS_WordPress_Loader::get_instance();
+		$this->loader = DWS_Loader::get_instance();
 		$this->loader->add_action('muplugins_loaded', $this, 'configure_class');
 
 		$this->load_dependencies();
@@ -235,7 +237,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @version 2.0.0
 	 */
 	protected function local_configure() {
-		$this->settings_filter = DWS_Settings_Pages::get_page_groups_hook(DWS_Settings_Pages::MAIN_OPTIONS_SLUG);
+		$this->settings_filter = DWS_Settings_Pages::get_page_groups_hook(self::get_settings_page_slug());
 	}
 
 	/**
@@ -305,7 +307,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param   DWS_WordPress_Loader    $loader     The DWS Custom Extensions Core Loader.
+	 * @param   DWS_Loader      $loader     The DWS Custom Extensions Core Loader.
 	 */
 	protected function define_hooks($loader) { /* child classes can overwrite this */ }
 
@@ -315,7 +317,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * @since   1.0.0
 	 * @version 1.0.0
 	 *
-	 * @param   DWS_WordPress_Loader    $loader     The DWS Custom Extensions Core Loader.
+	 * @param   DWS_Loader      $loader     The DWS Custom Extensions Core Loader.
 	 */
 	protected function define_shortcodes($loader) { /* child classes can overwrite this */ }
 
@@ -470,8 +472,8 @@ abstract class DWS_Root extends DWS_Singleton {
      *
      * @return  string  The slug of the options page.
      */
-	public static function get_options_page_slug() {
-	    return DWS_Settings_Pages::MAIN_OPTIONS_SLUG;
+	public static function get_settings_page_slug() {
+	    return DWS_Settings_Pages::MAIN_SETTINGS_SLUG;
     }
 
 	//endregion

@@ -2,7 +2,7 @@
 
 namespace Deep_Web_Solutions\Front;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
-use Deep_Web_Solutions\Core\DWS_Functionality_Template;
+use Deep_Web_Solutions\Base\DWS_Functionality_Template;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -77,7 +77,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 *
 	 * @see     DWS_CustomerService::define_shortcodes()
 	 *
-	 * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+	 * @param   \Deep_Web_Solutions\Core\DWS_Loader   $loader
 	 */
 	protected function define_shortcodes($loader) {
 		$loader->add_shortcode('dws_customer_email', $this, 'get_customer_email');
@@ -230,7 +230,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @return  string  The email address for customers.
 	 */
 	public function get_customer_email($atts = array()) {
-		if (!DWS_Settings_Pages::get_field(self::SHOW_CUSTOMER_EMAIL, self::get_options_page_slug())){
+		if (!DWS_Settings_Pages::get_field(self::SHOW_CUSTOMER_EMAIL, self::get_settings_page_slug())){
 			error_log('Shortcode [dws_customer_email] is used on object ID ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
 			return '[dws_customer_email]';
 		}
@@ -247,7 +247,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 			), $atts
 		);
 
-		$address = DWS_Settings_Pages::get_field(self::CUSTOMER_EMAIL, self::get_options_page_slug());
+		$address = DWS_Settings_Pages::get_field(self::CUSTOMER_EMAIL, self::get_settings_page_slug());
 		return $atts['just_text']
 			? $address
 			: "<a 	href='mailto:$address' 
@@ -266,7 +266,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @return  string  The phone number for customers.
 	 */
 	public function get_hotline_number($atts = array()) {
-		if (!DWS_Settings_Pages::get_field(self::SHOW_HOTLINE_PHONE_NUMBER, self::get_options_page_slug())){
+		if (!DWS_Settings_Pages::get_field(self::SHOW_HOTLINE_PHONE_NUMBER, self::get_settings_page_slug())){
 			error_log('Shortcode [dws_hotline_number] is used on object ID ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
 			return '[dws_hotline_number]';
 		}
@@ -283,7 +283,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 			), $atts
 		);
 
-		$number = DWS_Settings_Pages::get_field(self::HOTLINE_PHONE_NUMBER, self::get_options_page_slug());
+		$number = DWS_Settings_Pages::get_field(self::HOTLINE_PHONE_NUMBER, self::get_settings_page_slug());
 		return $atts['just_text']
 			? $number
 			: "<a 	href='tel:$number' 
@@ -303,7 +303,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 	 * @return  string  The phone number availability in HTML format.
 	 */
 	public function render_opening_hours($atts = array()) {
-		if (!DWS_Settings_Pages::get_field(self::SHOW_HOTLINE_AVAILABILITY, self::get_options_page_slug())){
+		if (!DWS_Settings_Pages::get_field(self::SHOW_HOTLINE_AVAILABILITY, self::get_settings_page_slug())){
 			error_log('Shortcode [dws_hotline_availability] is used on object ID ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
 			return '[dws_hotline_availability]';
 		}

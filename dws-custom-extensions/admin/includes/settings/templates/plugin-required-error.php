@@ -17,9 +17,9 @@ if (!defined('ABSPATH')) { exit; }
 <div class="error">
     <p>
         <?php
-        echo sprintf(
-            __('%s error: Please choose a custom fields plugin in the DWS Settings page. Do not forget to install and activate it.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-            DWS_CUSTOM_EXTENSIONS_NAME);
+            echo sprintf(
+                __('%s error: Please choose a custom fields plugin in the DWS Settings page. Do not forget to install and activate it.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                DWS_CUSTOM_EXTENSIONS_NAME);
         ?>
     </p>
 </div>

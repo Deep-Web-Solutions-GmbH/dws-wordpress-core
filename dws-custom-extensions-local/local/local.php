@@ -1,9 +1,9 @@
 <?php
 
 namespace Deep_Web_Solutions\Local;
-use Deep_Web_Solutions\Core\DWS_Helper;
-use Deep_Web_Solutions\Core\DWS_Singleton;
-use Deep_Web_Solutions\Core\DWS_WordPress_Loader;
+use Deep_Web_Solutions\Base\DWS_Singleton;
+use Deep_Web_Solutions\Core\DWS_Loader;
+use Deep_Web_Solutions\Helpers\DWS_Helper;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -39,7 +39,7 @@ final class DWS_Local extends DWS_Singleton {
      */
     protected function __construct() {
         // define internationalization
-        $loader = DWS_WordPress_Loader::get_instance();
+        $loader = DWS_Loader::get_instance();
         $loader->add_action('plugins_loaded', $this, 'load_muplugin_textdomain');
         $loader->add_action('loco_plugins_data', $this, 'register_with_loco_translate_plugin');
 

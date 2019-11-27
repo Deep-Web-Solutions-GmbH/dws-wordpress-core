@@ -2,7 +2,7 @@
 
 namespace Deep_Web_Solutions\Local\Core;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
-use Deep_Web_Solutions\Core\DWS_Root;
+use Deep_Web_Solutions\Base\DWS_Root;
 use Deep_Web_Solutions\Local\Custom_Extensions_Local;
 
 if (!defined('ABSPATH')) { exit; }

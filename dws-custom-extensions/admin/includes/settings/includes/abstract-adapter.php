@@ -2,7 +2,7 @@
 
 namespace Deep_Web_Solutions\Admin\Settings;
 use Deep_Web_Solutions\Admin\DWS_Settings;
-use Deep_Web_Solutions\Core\DWS_Functionality_Template;
+use Deep_Web_Solutions\Base\DWS_Functionality_Template;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -54,7 +54,7 @@ abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DW
      *
      * @see     DWS_Functionality_Template::define_functionality_hooks()
      *
-     * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+     * @param   \Deep_Web_Solutions\Core\DWS_Loader   $loader
      */
     protected function define_functionality_hooks($loader) {
         $loader->add_action('init', $this, 'trigger_init_ready', PHP_INT_MIN + 1);
@@ -79,7 +79,7 @@ abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DW
      * @version 2.0.0
      */
     public final function trigger_init_ready() {
-        $selected_framework = DWS_Settings::get_option_framework_slug();
+        $selected_framework = DWS_Settings::get_settings_framework_slug();
         if ($selected_framework !== $this->framework_slug) { return; }
 
         add_action($this->init_hook, function() {

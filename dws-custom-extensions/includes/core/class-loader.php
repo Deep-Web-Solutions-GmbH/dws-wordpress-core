@@ -1,6 +1,8 @@
 <?php
 
 namespace Deep_Web_Solutions\Core;
+use Deep_Web_Solutions\Base\DWS_Singleton;
+
 if (!defined('ABSPATH')) { exit; }
 
 /**
@@ -16,7 +18,7 @@ if (!defined('ABSPATH')) { exit; }
  *
  * @see     DWS_Singleton
  */
-final class DWS_WordPress_Loader extends DWS_Singleton {
+final class DWS_Loader extends DWS_Singleton {
 	//region FIELDS
 
 	/**
@@ -45,6 +47,7 @@ final class DWS_WordPress_Loader extends DWS_Singleton {
 
 	//region MAGIC METHODS
 
+    /** @noinspection PhpMissingParentConstructorInspection */
 	/**
 	 * Initialize the collections used to maintain the actions and filters.
 	 *

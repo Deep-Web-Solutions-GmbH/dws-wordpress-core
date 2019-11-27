@@ -1,7 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Admin;
-use Deep_Web_Solutions\Core\DWS_Root;
+use Deep_Web_Solutions\Base\DWS_Root;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -23,7 +23,7 @@ final class DWS_Admin extends DWS_Root {
      *
      * @see     DWS_Root::define_hooks()
      *
-     * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+     * @param   \Deep_Web_Solutions\Core\DWS_Loader   $loader
      */
     protected function define_hooks($loader) {
         $loader->add_action('admin_head', $this, 'add_backend_js_object_support', PHP_INT_MAX);

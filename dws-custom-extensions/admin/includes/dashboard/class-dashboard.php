@@ -3,7 +3,7 @@
 namespace Deep_Web_Solutions\Admin;
 use Deep_Web_Solutions\Admin\Dashboard\DWS_Recommended_Plugins;
 use Deep_Web_Solutions\Admin\Dashboard\Permissions;
-use Deep_Web_Solutions\Core\DWS_Functionality_Template;
+use Deep_Web_Solutions\Base\DWS_Functionality_Template;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -25,7 +25,7 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 	 *
 	 * @var     string  MENU_PAGES_SLUG_PREFIX  The proper prefix of the slug of all DWS dashboard pages.
 	 */
-	const MENU_PAGES_SLUG_PREFIX = 'dws_custom-extensions_';
+	public const MENU_PAGES_SLUG_PREFIX = 'dws_custom-extensions_';
 
 	/**
 	 * @since   1.0.0
@@ -47,7 +47,7 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 	 *
 	 * @see     DWS_Functionality_Template::define_functionality_hooks()
 	 *
-	 * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+	 * @param   \Deep_Web_Solutions\Core\DWS_Loader   $loader
 	 */
 	protected function define_functionality_hooks($loader) {
 		$loader->add_filter('admin_menu', $this, 'register_menu_page', PHP_INT_MAX);
@@ -78,7 +78,9 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
      * @param   string  $hook
      */
 	public function admin_enqueue_assets($hook) {
-        wp_enqueue_style(self::get_asset_handle(), self::get_assets_base_path(true) . 'style.css', array(), self::get_plugin_version());
+	    if (strpos($_GET['page'], self::MENU_PAGES_SLUG_PREFIX) === 0) {
+            wp_enqueue_style(self::get_asset_handle(), self::get_assets_base_path(true) . 'style.css', array(), self::get_plugin_version());
+        }
     }
 
     /**
@@ -130,16 +132,16 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 		 *      ]
 		 */
 		$submenu_pages = apply_filters(self::get_hook_name('submenus'), array());
-		foreach ($submenu_pages as $page_slug => $options) {
-			if (!isset($options['menu_title'], $options['capability'])) {
+		foreach ($submenu_pages as $page_slug => $settings_page) {
+			if (!isset($settings_page['menu_title'], $settings_page['capability'])) {
 				continue;
 			}
 
 			add_submenu_page(
 				self::$main_page_slug,
-				isset($options['page_title']) ? $options['page_title'] : $options['menu_title'],
-				$options['menu_title'],
-				$options['capability'],
+				isset($settings_page['page_title']) ? $settings_page['page_title'] : $settings_page['menu_title'],
+				$settings_page['menu_title'],
+				$settings_page['capability'],
 				$page_slug,
 				array($this, 'menu_page_screen')
 			);

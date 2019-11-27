@@ -29,8 +29,8 @@ namespace {
 
 namespace Deep_Web_Solutions\Admin\Dashboard {
 	use Deep_Web_Solutions\Admin\DWS_Dashboard;
-	use Deep_Web_Solutions\Core\DWS_Functionality_Template;
-	use Deep_Web_Solutions\Core\DWS_Installation;
+    use Deep_Web_Solutions\Base\DWS_Functionality_Template;
+    use Deep_Web_Solutions\Core\DWS_Installation;
 
 	/**
 	 * Configures an instance of the TGM Plugin Activation library.
@@ -63,7 +63,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 *
 		 * @see     DWS_Functionality_Template::define_functionality_hooks()
 		 *
-		 * @param   \Deep_Web_Solutions\Core\DWS_WordPress_Loader   $loader
+		 * @param   \Deep_Web_Solutions\Core\DWS_Loader   $loader
 		 */
 		protected function define_functionality_hooks($loader) {
 			$loader->add_filter(DWS_Dashboard::get_hook_name('submenus'), $this, 'register_submenu_page');
