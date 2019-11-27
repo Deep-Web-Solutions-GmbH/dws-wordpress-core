@@ -14,6 +14,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 * Fixed a bug in the admin notices class.
 * Added the options framework select in the main DWS Core Settings page.
 * Added which plugins have to be installed and activated depending on the selected framework.
+* Updated the PUC library to v4.8.1
 
 = 1.5.3 =
 * Clear transients option.

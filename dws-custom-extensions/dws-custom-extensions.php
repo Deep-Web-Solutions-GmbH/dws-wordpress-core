@@ -6,10 +6,11 @@
  * @since               1.0.0
  * @since               1.1.0   Update notifications
  * @since               1.2.0   Updates and installation of plugins, including dws plugins and dws modules.
+ * @since               2.0.0   Temp directory constant
  *
  * @wordpress-plugin
- * Plugin Name:         DeepWebSolutions Custom Extensions
- * Description:         This plugin handles all the core custom extensions to this WordPress installation.
+ * Plugin Name:         DWS Custom Extensions Core
+ * Description:         Handles all the core custom extensions to this WordPress installation.
  * Version:             2.0.0
  * Author:              Deep Web Solutions GmbH
  * Author URI:          https://www.deep-web-solutions.de
@@ -25,6 +26,7 @@ define('DWS_CUSTOM_EXTENSIONS_MIN_WP', '5.1.1');
 
 define('DWS_CUSTOM_EXTENSIONS_BASE_PATH', plugin_dir_path(__FILE__));
 define('DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN', 'dws_custom-extensions');
+define('DWS_CUSTOM_EXTENSIONS_TEMP_DIR', trailingslashit(trailingslashit(wp_upload_dir(null, false)['basedir']) . 'deep-web-solutions'));
 define('DWS_GITHUB_ACCESS_TOKEN', 'd6e10cc22fce9c7e4d5dd716f93359f529e1b086');
 
 /**
@@ -83,6 +85,7 @@ if (dws_custom_extensions_requirements_met()) {
 
 	if (class_exists('\Deep_Web_Solutions\Custom_Extensions')) {
 		$GLOBALS['dws_custom-extensions'] = \Deep_Web_Solutions\Custom_Extensions::get_instance();
+
 		/**
 		 * It is very important that the loader gets ran again after we make sure that all the actions have been
 		 * registered, and that's only at the end of this action.
@@ -90,7 +93,7 @@ if (dws_custom_extensions_requirements_met()) {
 		 * @see     \Deep_Web_Solutions\Core\DWS_Root::__construct()
 		 * @see     \Deep_Web_Solutions\Core\DWS_Root::configure_class()
 		 */
-		add_action('muplugins_loaded', array($GLOBALS['dws_custom-extensions'], 'run'), PHP_INT_MAX);
+        add_action('muplugins_loaded', array($GLOBALS['dws_custom-extensions'], 'run'), PHP_INT_MAX);
 	}
 } else {
 	add_action('admin_notices', 'dws_requirements_error');

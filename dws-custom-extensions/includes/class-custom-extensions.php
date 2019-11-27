@@ -134,20 +134,17 @@ final class Custom_Extensions extends DWS_Singleton {
         DWS_Helper::load_files(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'modules'); // modules must load before the plugins so that the DWS plugins can make use of and safely extend the modules classes
 		DWS_Helper::load_files(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'plugins');
 
-		/** Fix an incompatibility with UpdraftPlus' use of the Puc library */
-		if(!(isset($_REQUEST['page']) && $_REQUEST['page'] === 'updraftplus') && !wp_doing_ajax()) {
-			// make sure we check for updates
-			$this->update_checker = \Puc_v4p6_Factory::buildUpdateChecker(
-				'https://github.com/Deep-Web-Solutions-GmbH/dws-wordpress-core',
-				DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'dws-custom-extensions.php',
-				'dws-wordpress-core',
-				12,
-				'',
-				'dws-loader.php'
-			);
-			$this->update_checker->setAuthentication( DWS_GITHUB_ACCESS_TOKEN );
-			$this->update_checker->setBranch( 'master' );
-		}
+        // make sure we check for updates
+        $this->update_checker = \Puc_v4p8_Factory::buildUpdateChecker(
+            'https://github.com/Deep-Web-Solutions-GmbH/dws-wordpress-core',
+            WPMU_PLUGIN_DIR . '/dws-loader.php',
+            'dws-wordpress-core',
+            12,
+            '',
+            'dws-loader.php'
+        );
+        $this->update_checker->setAuthentication(DWS_GITHUB_ACCESS_TOKEN);
+        $this->update_checker->setBranch('master');
 
 		// plugin has been initialized, now run it
 		$this->run();
@@ -261,12 +258,9 @@ final class Custom_Extensions extends DWS_Singleton {
 		/** It is important to have the WordPress plugin functions loaded. */
 		require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
-        /** Fix an incompatibility with UpdraftPlus' use of the Puc library */
-		if(!(isset($_REQUEST['page']) && $_REQUEST['page'] === 'updraftplus') && !wp_doing_ajax()) {
-			/** @noinspection PhpIncludeInspection */
-			/** We use this external library to check for new plugin version in GitHub releases. */
-			require_once( DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/plugin-update-checker/plugin-update-checker.php' );
-		}
+        /** @noinspection PhpIncludeInspection */
+        /** We use this external library to check for new plugin version in GitHub releases. */
+        require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/plugin-update-checker/plugin-update-checker.php');
 
 		/** @noinspection PhpIncludeInspection */
 		/** We use this external library to install and update plugins. */

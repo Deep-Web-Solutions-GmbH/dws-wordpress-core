@@ -274,7 +274,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * @return  bool|string False if no update available, otherwise available version.
 		 */
 		public static function get_dws_plugin_version($source, $plugin_path) {
-			$update_checker = \Puc_v4p6_Factory::buildUpdateChecker(
+			$update_checker = \Puc_v4p8_Factory::buildUpdateChecker(
 				$source, $plugin_path
 			);
 			$update_checker->setAuthentication(DWS_GITHUB_ACCESS_TOKEN);

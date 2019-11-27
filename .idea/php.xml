@@ -2,10 +2,10 @@
 <project version="4">
   <component name="PhpIncludePathManager">
     <include_path>
-      <path value="$USER_HOME$/Deep Web Solutions GmbH/Programming - WordPress Libraries/wordpress/wordpress_5.2.4" />
-      <path value="$USER_HOME$/Deep Web Solutions GmbH/Programming - WordPress Libraries/plugins/advanced-access-manager/advanced-access-manager_5.6.0" />
-      <path value="$USER_HOME$/Deep Web Solutions GmbH/Programming - WordPress Libraries/plugins/express-login-for-wordpress/express-login-for-wordpress_1.3.6" />
-      <path value="$USER_HOME$/Deep Web Solutions GmbH/Programming - WordPress Libraries/plugins/advanced-custom-fields/advanced-custom-fields-pro_5.8.6" />
+      <path value="$USER_HOME$/Deep Web Solutions GmbH/Programming - WordPress Libraries/wordpress/wordpress_5.3.0" />
+      <path value="$USER_HOME$/Deep Web Solutions GmbH/Programming - WordPress Libraries/plugins/advanced-access-manager/advanced-access-manager_6.0.4" />
+      <path value="$USER_HOME$/Deep Web Solutions GmbH/Programming - WordPress Libraries/plugins/express-login-for-wordpress/express-login-for-wordpress_1.4.1" />
+      <path value="$USER_HOME$/Deep Web Solutions GmbH/Programming - WordPress Libraries/plugins/advanced-custom-fields/advanced-custom-fields-pro_5.8.7" />
       <path value="$USER_HOME$/Deep Web Solutions GmbH/Programming - WordPress Libraries/plugins/cmb2/cmb2_2.6.0" />
     </include_path>
   </component>
