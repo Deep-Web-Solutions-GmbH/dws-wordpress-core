@@ -76,8 +76,8 @@ final class DWS_FancyMessages extends DWS_Functionality_Template {
 		return array_merge(
 			array(
 				array(
-					'key'     => 'field_h7843eghfy7834f43g44hg4',
-					'name'    => self::MESSAGES_OVERWRITE_PLUGINS,
+					'key'     => self::MESSAGES_OVERWRITE_PLUGINS,
+					'name'    => 'dws_public-fancy-messages_overwrite-colors',
 					'message' => __('Overwrite compatible plugin\'s message styles?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 					'type'    => 'true_false',
 					'ui'      => 1
@@ -89,32 +89,68 @@ final class DWS_FancyMessages extends DWS_Functionality_Template {
 					function ($message_type) {
 						return array(
 							array(
-								'key'     => join('_', array($message_type, self::MESSAGE_BG_COLOR)),
-								'name'    => $message_type . '_dws_fancy-messages_bg-color',
-								'label'   => sprintf(__('Choose the color for %s messages background', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $message_type),
-								'type'    => 'color_picker',
-								'wrapper' => array('width' => '25%')
+								'key'               => join('_', array($message_type, self::MESSAGE_BG_COLOR)),
+								'name'              => $message_type . '_dws_fancy-messages_bg-color',
+								'label'             => sprintf(__('Choose the color for %s messages background', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $message_type),
+								'type'              => 'color_picker',
+								'wrapper'           => array('width' => '25%'),
+                                'conditional_logic' => array(
+                                    array(
+                                        array(
+                                            'field'     => self::MESSAGES_OVERWRITE_PLUGINS,
+                                            'operator'  => '==',
+                                            'value'     => '1'
+                                        )
+                                    )
+                                )
 							),
 							array(
-								'key'     => join('_', array($message_type, self::MESSAGE_TEXT_COLOR)),
-								'name'    => $message_type . '_dws_fancy-messages_text-color',
-								'label'   => sprintf(__('Choose the color for %s messages text', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $message_type),
-								'type'    => 'color_picker',
-								'wrapper' => array('width' => '25%')
+								'key'               => join('_', array($message_type, self::MESSAGE_TEXT_COLOR)),
+								'name'              => $message_type . '_dws_fancy-messages_text-color',
+								'label'             => sprintf(__('Choose the color for %s messages text', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $message_type),
+								'type'              => 'color_picker',
+								'wrapper'           => array('width' => '25%'),
+                                'conditional_logic' => array(
+                                    array(
+                                        array(
+                                            'field'     => self::MESSAGES_OVERWRITE_PLUGINS,
+                                            'operator'  => '==',
+                                            'value'     => '1'
+                                        )
+                                    )
+                                )
 							),
 							array(
-								'key'     => join('_', array($message_type, self::MESSAGE_BORDER_COLOR)),
-								'name'    => $message_type . '_dws_fancy-messages_border-color',
-								'label'   => sprintf(__('Choose the color for %s messages border', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $message_type),
-								'type'    => 'color_picker',
-								'wrapper' => array('width' => '25%')
+								'key'               => join('_', array($message_type, self::MESSAGE_BORDER_COLOR)),
+								'name'              => $message_type . '_dws_fancy-messages_border-color',
+								'label'             => sprintf(__('Choose the color for %s messages border', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $message_type),
+								'type'              => 'color_picker',
+								'wrapper'           => array('width' => '25%'),
+                                'conditional_logic' => array(
+                                    array(
+                                        array(
+                                            'field'     => self::MESSAGES_OVERWRITE_PLUGINS,
+                                            'operator'  => '==',
+                                            'value'     => '1'
+                                        )
+                                    )
+                                )
 							),
 							array(
-								'key'     => join('_', array($message_type, self::MESSAGE_ICON_COLOR)),
-								'name'    => $message_type . '_dws_fancy-messages_icon-color',
-								'label'   => sprintf(__('Choose the color for %s messages icon', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $message_type),
-								'type'    => 'color_picker',
-								'wrapper' => array('width' => '25%')
+								'key'               => join('_', array($message_type, self::MESSAGE_ICON_COLOR)),
+								'name'              => $message_type . '_dws_fancy-messages_icon-color',
+								'label'             => sprintf(__('Choose the color for %s messages icon', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), $message_type),
+								'type'              => 'color_picker',
+								'wrapper'           => array('width' => '25%'),
+                                'conditional_logic' => array(
+                                    array(
+                                        array(
+                                            'field'     => self::MESSAGES_OVERWRITE_PLUGINS,
+                                            'operator'  => '==',
+                                            'value'     => '1'
+                                        )
+                                    )
+                                )
 							)
 						);
 					},
@@ -162,4 +198,4 @@ final class DWS_FancyMessages extends DWS_Functionality_Template {
 	}
 
 	//endregion
-} DWS_FancyMessages::maybe_initialize_singleton('dhg84w7hg8w4giuw');
+} DWS_FancyMessages::maybe_initialize_singleton('dhg84w7hg8w4giuw', false);

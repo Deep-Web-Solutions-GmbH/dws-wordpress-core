@@ -266,7 +266,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
             delete_transient(self::get_page_groups_fields_hook($page));
         }
 
-        wp_safe_redirect('/wp-admin/');
+        wp_safe_redirect(admin_url('?page=dws_custom-extensions_main'));
     }
 
     //endregion

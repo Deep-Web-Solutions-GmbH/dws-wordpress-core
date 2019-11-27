@@ -107,7 +107,7 @@ final class DWS_Users extends DWS_Functionality_Template implements DWS_Installa
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.0
 	 *
 	 * @see     DWS_Functionality_Template::define_functionality_hooks()
 	 *
@@ -117,7 +117,7 @@ final class DWS_Users extends DWS_Functionality_Template implements DWS_Installa
 		$loader->add_action('wp_ajax_is_user_logged_in', $this, 'ajax_check_user_logged_in');
 		$loader->add_action('wp_ajax_nopriv_is_user_logged_in', $this, 'ajax_check_user_logged_in');
 
-		if (DWS_Settings_Pages::get_field(self::SHOULD_LOG_OUT_USERS_AT_MIDNIGHT, self::get_settings_page_slug())) {
+        if (DWS_Settings_Pages::get_field(self::SHOULD_LOG_OUT_USERS_AT_MIDNIGHT, self::get_settings_page_slug())) {
             $loader->add_action(self::get_hook_name('auto-logout'), $this, 'logout_users');
         }
 	}

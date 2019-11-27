@@ -113,7 +113,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 				'conditional_logic'     => array(
 					array(
 						array(
-							'field'     => 'field_fjak3jfh80hf3h0',
+							'field'     => self::SHOW_CUSTOMER_EMAIL,
 							'operator'  => '==',
 							'value'     => '1'
 						)
@@ -138,7 +138,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 				'conditional_logic'     => array(
 					array(
 						array(
-							'field'     => 'field_y9vt30y24y02vt09',
+							'field'     => self::SHOW_HOTLINE_PHONE_NUMBER,
 							'operator'  => '==',
 							'value'     => '1'
 						)
@@ -205,7 +205,7 @@ final class DWS_CustomerService extends DWS_Functionality_Template {
 				'conditional_logic'     => array(
 					array(
 						array(
-							'field'     => 'field_wpvb4fwp3wvw3wp3',
+							'field'     => self::SHOW_HOTLINE_AVAILABILITY,
 							'operator'  => '==',
 							'value'     => '1'
 						)

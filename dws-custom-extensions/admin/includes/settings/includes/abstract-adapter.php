@@ -3,6 +3,7 @@
 namespace Deep_Web_Solutions\Admin\Settings;
 use Deep_Web_Solutions\Admin\DWS_Settings;
 use Deep_Web_Solutions\Base\DWS_Functionality_Template;
+use Deep_Web_Solutions\Core\DWS_Loader;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -44,20 +45,29 @@ abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DW
      */
     protected function local_configure() {
         parent::local_configure();
-        $this->set_fields();
+        $this->set_fields(); $this->trigger_init_ready();
         add_filter(DWS_Settings::get_hook_name('framework_adapter'), array($this, 'maybe_return_instance'), 10, 2);
     }
 
     /**
-     * @since   2.0.0
-     * @version 2.0.0
+     * DWS_Adapter_Base constructor.
      *
-     * @see     DWS_Functionality_Template::define_functionality_hooks()
+     * @param   string          $functionality_id
+     * @param   bool            $must_use
+     * @param   string          $parent_functionality_id
+     * @param   string          $options_parent_id
+     * @param   bool|string     $functionality_description
+     * @param   bool|string     $functionality_name
      *
-     * @param   \Deep_Web_Solutions\Core\DWS_Loader   $loader
+     * @see     DWS_Functionality_Template::__construct
      */
-    protected function define_functionality_hooks($loader) {
-        $loader->add_action('init', $this, 'trigger_init_ready', PHP_INT_MIN + 1);
+    public function __construct($functionality_id, $must_use = true, $parent_functionality_id = '', $options_parent_id = '', $functionality_description = false, $functionality_name = false) {
+        parent::__construct($functionality_id, $must_use, $parent_functionality_id, $options_parent_id, $functionality_description, $functionality_name);
+
+        /** @var DWS_Loader $loader */
+        $loader = DWS_Loader::get_instance();
+        $loader->remove_action('muplugins_loaded', $this, 'configure_class');
+        $loader->add_action('muplugins_loaded', $this, 'configure_class', 0); // this ensures that adapter load before everything else
     }
 
     //endregion
@@ -78,7 +88,7 @@ abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DW
      * @since   2.0.0
      * @version 2.0.0
      */
-    public final function trigger_init_ready() {
+    private final function trigger_init_ready() {
         $selected_framework = DWS_Settings::get_settings_framework_slug();
         if ($selected_framework !== $this->framework_slug) { return; }
 

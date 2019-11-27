@@ -407,8 +407,15 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 				);
 			}
 			$conditional_logic_local = array_merge($conditional_logic_local, $this->get_option_conditional_logic(self::get_parent()));
+
 			if (!empty($conditional_logic_local)) {
-				array_unshift($conditional_logic, $conditional_logic_local);
+			    if (empty($conditional_logic)) {
+			        $conditional_logic[] = $conditional_logic_local;
+                } else {
+			        foreach ($conditional_logic as &$logic) {
+                        $logic = array_merge($logic, $conditional_logic_local);
+                    }
+                }
 			}
 
 			$option['conditional_logic'] = $conditional_logic;

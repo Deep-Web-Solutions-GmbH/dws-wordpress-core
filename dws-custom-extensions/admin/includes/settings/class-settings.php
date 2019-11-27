@@ -88,6 +88,20 @@ final class DWS_Settings extends DWS_Functionality_Template {
      * @since   2.0.0
      * @version 2.0.0
      *
+     * @param   string      $field
+     * @param   int|false   $post_id
+     *
+     * @return  mixed
+     */
+    public static function get_field($field, $post_id = false) {
+        $adapter = DWS_Settings::get_settings_framework_adapter();
+        return is_null($adapter) ? null : $adapter::get_field_value($field, $post_id);
+    }
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
      * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.de>
      *
      * @return  string  The settings framework used by the DWS WP Core.

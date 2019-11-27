@@ -73,7 +73,7 @@ final class DWS_Installation extends DWS_Root {
 		}
 
 		foreach (get_declared_classes() as $declared_class) {
-			if (!in_array('Deep_Web_Solutions\Core\DWS_Installable', class_implements($declared_class))) {
+			if (!in_array('Deep_Web_Solutions\Base\DWS_Installable', class_implements($declared_class))) {
 				continue;
 			}
 

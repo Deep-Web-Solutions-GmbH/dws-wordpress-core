@@ -89,5 +89,16 @@ interface DWS_Adapter {
      */
     public static function get_settings_field_value($field, $option_page_slug);
 
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @param   string      $field
+     * @param   int|false   $post_id
+     *
+     * @return  mixed
+     */
+    public static function get_field_value($field, $post_id = false);
+
     //endregion
 }
