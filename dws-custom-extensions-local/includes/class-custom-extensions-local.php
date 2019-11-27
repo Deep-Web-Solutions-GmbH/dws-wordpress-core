@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * The core plugin class that is used to define internationalization, hooks, and local extensions.
  *
  * @since   1.0.0
- * @version 1.3.0
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  */
 final class Custom_Extensions_Local extends DWS_Singleton {
@@ -218,15 +218,15 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 	 * @version 1.0.0
 	 */
 	private function load_dependencies() {
-		//region ABSTRACT CLASSES
+		//region BASE CLASSES
 
 		/** @noinspection PhpIncludeInspection */
 		/** The core root template tailored to the needs of local extensions. */
-		require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'includes/abstract-root.php');
+		require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'includes/base/abstract-root.php');
 
 		/** @noinspection PhpIncludeInspection */
 		/** The core functionality template tailored to the needs of local extensions. */
-		require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'includes/abstract-functionality.php');
+		require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'includes/base/abstract-functionality.php');
 
 		//endregion
 
@@ -234,21 +234,25 @@ final class Custom_Extensions_Local extends DWS_Singleton {
 
 		/** @noinspection PhpIncludeInspection */
 		/** Responsible for defining custom WP capabilities. */
-		require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'includes/class-permissions.php');
+		require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'includes/core/class-permissions.php');
 
 		/** @noinspection PhpIncludeInspection */
 		/** Responsible for defining internationalization functionality of the plugin. */
-		require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'includes/class-i18n.php');
+		require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'includes/core/class-i18n.php');
 
 		/** @noinspection PhpIncludeInspection */
 		/** Responsible for setting up the admin area for this plugin. */
-		require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'includes/class-admin.php');
-
-		/** @noinspection PhpIncludeInspection */
-		/** Responsible for loading the local extensions. */
-		require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'local/local.php');
+		require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'includes/core/class-admin.php');
 
 		//endregion
+
+        //region FUNCTIONALITY CLASSES
+
+        /** @noinspection PhpIncludeInspection */
+        /** Responsible for loading the local extensions. */
+        require_once(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH . 'local/local.php');
+
+        //endregion
 	}
 
 	//endregion

@@ -2,15 +2,15 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: DeepWebSolutions Custom Extensions\n"
-"POT-Creation-Date: 2018-11-16 18:52+0100\n"
-"PO-Revision-Date: 2018-11-16 18:52+0100\n"
-"Last-Translator: Antonius Hegyes <a.hegyes@deep-web-solutions.de>\n"
-"Language-Team: Antonius Hegyes <a.hegyes@deep-web-solutions.de>\n"
+"Project-Id-Version: DWS Custom Extensions Core\n"
+"POT-Creation-Date: 2019-11-27 21:51+0100\n"
+"PO-Revision-Date: 2019-11-27 21:51+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: dws-custom-extensions.php\n"
@@ -19,99 +19,10 @@ msgstr ""
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: admin/includes/acf/includes/class-acf-options.php:120
-msgid "Custom Extensions"
-msgstr ""
-
-#: admin/includes/acf/includes/class-acf-options.php:121
-msgid "Deep Web Solutions: Custom Extensions Core Settings"
-msgstr ""
-
-#: admin/includes/acf/includes/class-acf-options.php:131
-msgid "Core Settings"
-msgstr ""
-
-#: admin/includes/acf/includes/class-acf-options.php:161
-msgid "Deep Web Solutions: Custom Extensions Modules Settings"
-msgstr ""
-
-#: admin/includes/acf/includes/class-acf-options.php:162
-msgid "Modules Settings"
-msgstr ""
-
-#: admin/includes/acf/includes/class-acf-options.php:167
-msgid "Deep Web Solutions: Custom Extensions Theme Settings"
-msgstr ""
-
-#: admin/includes/acf/includes/class-acf-options.php:168
-msgid "Theme Settings"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:30
-msgid "Post comments"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:71
-msgid "Default Value"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:72
-msgid "Appears when creating a new post"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:82
-msgid "Placeholder Text"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:83
-msgid "Appears within the input"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:93
-msgid "Character Limit"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:94
-msgid "Leave blank for no limit"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:104
-msgid "Rows"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:105
-msgid "Sets the textarea height"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:116
-msgid "New Lines"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:117
-msgid "Controls how new lines are rendered"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:121
-msgid "Automatically add paragraphs"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:122
-msgid "Automatically add &lt;br&gt;"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:123
-msgid "No Formatting"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:182
-msgid "Add comment"
-msgstr ""
-
-#: admin/includes/acf/includes/custom-field-types/fields/acf-post_comments-v5.php:309
-#, php-format
-msgid "- added on %s by"
+#: admin/includes/class-users.php:136
+msgid "Should log out users at midnight?"
 msgstr ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:94
@@ -123,24 +34,31 @@ msgid "Deep Web Solutions: Custom Extensions Recommended Plugins"
 msgstr ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:154
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:334
 msgid "Install Required Plugins"
 msgstr ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:155
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:335
 msgid "Install Plugins"
 msgstr ""
 
+#. translators: %s: plugin name.
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:156
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:337
 #, php-format
 msgid "Installing Plugin: %s"
 msgstr ""
 
+#. translators: %s: plugin name.
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:157
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:339
 #, php-format
 msgid "Updating Plugin: %s"
 msgstr ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:158
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:340
 msgid "Something went wrong with the plugin API."
 msgstr ""
 
@@ -169,21 +87,27 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
+#. translators: 1: plugin name(s).
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:175
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:361
 #, php-format
 msgid "There is an update available for: %1$s."
 msgid_plural "There are updates available for the following plugins: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
+#. translators: 1: plugin name(s).
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:180
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:367
 #, php-format
 msgid "The following required plugin is currently inactive: %1$s."
 msgid_plural "The following required plugins are currently inactive: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
+#. translators: 1: plugin name(s).
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:185
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:373
 #, php-format
 msgid "The following recommended plugin is currently inactive: %1$s."
 msgid_plural "The following recommended plugins are currently inactive: %1$s."
@@ -191,36 +115,48 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:190
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:378
 msgid "Begin installing plugin"
 msgid_plural "Begin installing plugins"
 msgstr[0] ""
 msgstr[1] ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:195
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:383
 msgid "Begin updating plugin"
 msgid_plural "Begin updating plugins"
 msgstr[0] ""
 msgstr[1] ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:200
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:388
 msgid "Begin activating plugin"
 msgid_plural "Begin activating plugins"
 msgstr[0] ""
 msgstr[1] ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:204
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:392
 msgid "Return to Required Plugins Installer"
 msgstr ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:205
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:394
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3258
 msgid "Plugin activated successfully."
 msgstr ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:206
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:395
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3045
 msgid "The following plugin was activated successfully:"
-msgstr ""
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
 
+#. translators: 1: plugin name.
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:207
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:397
 #, php-format
 msgid "No action taken. Plugin %1$s was already active."
 msgstr ""
@@ -232,30 +168,37 @@ msgid ""
 "Extensions. Please update the plugin."
 msgstr ""
 
+#. translators: 1: dashboard link.
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:209
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:401
 #, php-format
 msgid "All plugins installed and activated successfully. %1$s"
 msgstr ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:210
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:402
 msgid "Dismiss this notice"
 msgstr ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:211
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:403
 msgid ""
 "There are one or more required or recommended plugins to install, update or "
 "activate."
 msgstr ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:212
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:404
 msgid "Please contact the administrator of this site for help."
 msgstr ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:821
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2646
 msgid "Version"
 msgstr ""
 
 #: admin/includes/dashboard/includes/class-recommended-plugins.php:822
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2647
 msgid "Status"
 msgstr ""
 
@@ -276,30 +219,122 @@ msgstr ""
 msgid "The DWS Core is installed and ready to go!"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:308
-#: includes/abstract-root.php:265
+#: admin/includes/settings/includes/class-installation.php:88
+msgid "Settings Framework"
+msgstr ""
+
+#: admin/includes/settings/includes/class-installation.php:89
+msgid "Please select your desired settings framework."
+msgstr ""
+
+#: admin/includes/settings/includes/class-installation.php:95
+msgid "Save"
+msgstr ""
+
+#: admin/includes/settings/includes/class-installation.php:112
+msgid "Successfully set the settings framework."
+msgstr ""
+
+#: admin/includes/settings/includes/class-installation.php:117
+msgid "Failed to set the settings framework. Please try again!"
+msgstr ""
+
+#: admin/includes/settings/includes/class-settings-pages.php:123
+#: admin/includes/settings/includes/class-settings-pages.php:124
+msgid "Custom Extensions"
+msgstr ""
+
+#: admin/includes/settings/includes/class-settings-pages.php:138
+msgid "Deep Web Solutions: Custom Extensions Core Settings"
+msgstr ""
+
+#: admin/includes/settings/includes/class-settings-pages.php:138
+msgid "Core Settings"
+msgstr ""
+
+#: admin/includes/settings/includes/class-settings-pages.php:171
+msgid "Deep Web Solutions: Custom Extensions Modules Settings"
+msgstr ""
+
+#: admin/includes/settings/includes/class-settings-pages.php:172
+msgid "Modules Settings"
+msgstr ""
+
+#: admin/includes/settings/includes/class-settings-pages.php:177
+msgid "Deep Web Solutions: Custom Extensions Theme Settings"
+msgstr ""
+
+#: admin/includes/settings/includes/class-settings-pages.php:178
+msgid "Theme Settings"
+msgstr ""
+
+#: admin/includes/settings/includes/class-settings-pages.php:251
+msgid "Settings options"
+msgstr ""
+
+#: admin/includes/settings/includes/class-settings-pages.php:252
+msgid "Perform various actions related to the settings options"
+msgstr ""
+
+#: admin/includes/settings/includes/class-settings-pages.php:253
+msgid "Clear transients"
+msgstr ""
+
+#: admin/includes/settings/templates/not-active-plugin-error.php:20
+msgid "Please install and activate the following plugin(s):"
+msgstr ""
+
+#: admin/includes/settings/templates/plugin-required-error.php:21
+#, php-format
+msgid ""
+"%s error: Please choose a custom fields plugin in the DWS Settings page. Do "
+"not forget to install and activate it."
+msgstr ""
+
+#: admin/templates/requirements-error.php:18
+#, php-format
+msgid ""
+"%s error: Your environment doesn't meet all of the system requirements "
+"listed below."
+msgstr ""
+
+#: admin/templates/requirements-error.php:26
+#: admin/templates/requirements-error.php:31
+#, php-format
+msgid "You're running version %s"
+msgstr ""
+
+#: admin/templates/requirements-error.php:37
+msgid ""
+"If you need to upgrade your version of PHP you can ask your hosting company "
+"for assistance, and if you need help upgrading WordPress you can refer to <a "
+"href=\"http://codex.wordpress.org/Upgrading_WordPress\">the Codex</a>."
+msgstr ""
+
+#: includes/base/abstract-functionality-template.php:307
+#: includes/base/abstract-root.php:268
 #, php-format
 msgid "'%s' options"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:337
+#: includes/base/abstract-functionality-template.php:336
 msgid "Is functionality active?"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:345
+#: includes/base/abstract-functionality-template.php:344
 #, php-format
 msgid "Is sub-functionality '%s' active?"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:361
+#: includes/base/abstract-functionality-template.php:360
 msgid "Overwrite this template?"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:373
+#: includes/base/abstract-functionality-template.php:372
 msgid "Template files"
 msgstr ""
 
-#: includes/abstract-functionality-template.php:376
+#: includes/base/abstract-functionality-template.php:375
 msgid ""
 "If unchecked, the respective template will NOT be used from the Custom "
 "Extensions plugin.\n"
@@ -308,224 +343,595 @@ msgid ""
 "\t\t\t\t\thave precedence."
 msgstr ""
 
-#: includes/abstract-root.php:205
+#: includes/base/abstract-root.php:208
 #, php-format
 msgid "You did not properly configure the class %s"
 msgstr ""
 
-#: includes/class-crons.php:104 includes/class-crons.php:105
-#: includes/class-crons.php:106 includes/class-crons.php:107
+#: includes/core/class-installation.php:130
+#, php-format
+msgid ""
+"DWS Wordpress Core has been detected! Please click on '%s' to install it and "
+"then install the required plugins for your settings framework of choice to "
+"start using DWS WP Core."
+msgstr ""
+
+#: includes/core/class-installation.php:131
+#: includes/core/class-installation.php:138
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2810
+msgid "Install"
+msgstr ""
+
+#: includes/core/class-installation.php:134
+msgid "The following settings framework are available (pick just one):"
+msgstr ""
+
+#: includes/core/class-installation.php:142
+msgid "Looks like a newer version of the core is available. Update it here!"
+msgstr ""
+
+#: includes/core/class-installation.php:144
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2816
+msgid "Update"
+msgstr ""
+
+#: includes/core/class-installation.php:159
+#: includes/core/class-installation.php:161
+msgid "Reinstall"
+msgstr ""
+
+#: includes/core/class-installation.php:160
+msgid "Do you want to reinstall the DWS core?"
+msgstr ""
+
+#: includes/helpers/class-crons.php:119 includes/helpers/class-crons.php:120
+#: includes/helpers/class-crons.php:121 includes/helpers/class-crons.php:122
 #, php-format
 msgid "Every %s minutes"
 msgstr ""
 
-#: includes/class-crons.php:108 includes/class-crons.php:109
-#: includes/class-crons.php:110 includes/class-crons.php:111
-#: includes/class-crons.php:112
+#: includes/helpers/class-crons.php:123 includes/helpers/class-crons.php:124
+#: includes/helpers/class-crons.php:125 includes/helpers/class-crons.php:126
+#: includes/helpers/class-crons.php:127 includes/helpers/class-crons.php:128
+#: includes/helpers/class-crons.php:129
 #, php-format
 msgid "Every %s hours"
 msgstr ""
 
-#: includes/class-installation.php:106
+#. translators: 1: plugin name(s).
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:343
+#, php-format
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: plugin name(s).
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:349
+#, php-format
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: plugin name(s).
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:355
+#, php-format
 msgid ""
-"DWS Wordpress core has been detected! Please click on Install to install it"
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:393
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:920
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2626
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3681
+msgid "Return to the Dashboard"
 msgstr ""
 
-#: includes/class-installation.php:107
-msgid "Install"
+#. translators: 1: plugin name.
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:399
+#, php-format
+msgid ""
+"Plugin not activated. A higher version of %s is needed for this theme. "
+"Please update the plugin."
 msgstr ""
 
-#: includes/class-installation.php:111
-msgid "Looks like a newer version of the core is available. Update it here!"
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:607
+msgid "This plugin needs to be updated to be compatible with your theme."
 msgstr ""
 
-#: includes/class-installation.php:113
-msgid "Update"
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:608
+msgid "Update Required"
 msgstr ""
 
-#: includes/class-installation.php:129 includes/class-installation.php:131
-msgid "Reinstall"
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:725
+msgid "Set the parent_slug config variable instead."
 msgstr ""
 
-#: includes/class-installation.php:130
-msgid "Do you want to reinstall the DWS core?"
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:1027
+msgid ""
+"The remote plugin package does not contain a folder with the desired slug "
+"and renaming did not work."
 msgstr ""
 
-#: public/class-public.php:87
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:1027
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:1030
+msgid ""
+"Please contact the plugin provider and ask them to package their plugin "
+"according to the WordPress guidelines."
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:1030
+msgid ""
+"The remote plugin package consists of more than one file, but the files are "
+"not packaged in a folder."
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:1214
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3041
+msgctxt "plugin A *and* plugin B"
+msgid "and"
+msgstr ""
+
+#. translators: %s: version number
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2075
+#, php-format
+msgid "TGMPA v%s"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2366
+msgid "Required"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2369
+msgid "Recommended"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2385
+msgid "WordPress Repository"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2388
+msgid "External Source"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2391
+msgid "Pre-Packaged"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2408
+msgid "Not Installed"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2412
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2414
+msgid "Active"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2420
+msgid "Required Update not Available"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2423
+msgid "Requires Update"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2426
+msgid "Update recommended"
+msgstr ""
+
+#. translators: 1: install status, 2: update status
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2435
+#, php-format
+msgctxt "Install/Update Status"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#. translators: 1: number of plugins.
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2481
+#, php-format
+msgctxt "plugins"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of plugins.
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2485
+#, php-format
+msgid "To Install <span class=\"count\">(%s)</span>"
+msgid_plural "To Install <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of plugins.
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2489
+#, php-format
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of plugins.
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2493
+#, php-format
+msgid "To Activate <span class=\"count\">(%s)</span>"
+msgid_plural "To Activate <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2575
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2583
+msgid "Installed version:"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2591
+msgid "Minimum required version:"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2603
+msgid "Available version:"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2626
+msgid "No plugins to install, update or activate."
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2640
+msgid "Plugin"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2641
+msgid "Source"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2642
+msgid "Type"
+msgstr ""
+
+#. translators: %2$s: plugin name in screen reader markup
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2696
+#, php-format
+msgid "Install %2$s"
+msgstr ""
+
+#. translators: %2$s: plugin name in screen reader markup
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2701
+#, php-format
+msgid "Update %2$s"
+msgstr ""
+
+#. translators: %2$s: plugin name in screen reader markup
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2707
+#, php-format
+msgid "Activate %2$s"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2777
+msgid "Upgrade message from the plugin author:"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2819
+msgid "Activate"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2850
+msgid "No plugins were selected to be installed. No action taken."
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2852
+msgid "No plugins were selected to be updated. No action taken."
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2893
+msgid "No plugins are available to be installed at this time."
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:2895
+msgid "No plugins are available to be updated at this time."
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3001
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3027
+msgid "No plugins are available to be activated at this time."
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3257
+msgid "Plugin activation failed."
+msgstr ""
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3599
+#, php-format
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#. translators: 1: plugin name, 2: error message.
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3602
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#. translators: 1: plugin name.
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3604
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3608
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#. translators: 1: plugin name.
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3610
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3610
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3618
+msgid "Show Details"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3610
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3618
+msgid "Hide Details"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3611
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3613
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3616
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#. translators: 1: plugin name.
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3618
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3619
+msgid "All installations have been completed."
+msgstr ""
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: libraries/TGM-Plugin-Activation/class-tgm-plugin-activation.php:3621
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: libraries/plugin-update-checker/Puc/v4p6/Plugin/Ui.php:54
+#: libraries/plugin-update-checker/Puc/v4p8/Plugin/Ui.php:54
+msgid "View details"
+msgstr ""
+
+#: libraries/plugin-update-checker/Puc/v4p6/Plugin/Ui.php:77
+#: libraries/plugin-update-checker/Puc/v4p8/Plugin/Ui.php:77
+#, php-format
+msgid "More information about %s"
+msgstr ""
+
+#: libraries/plugin-update-checker/Puc/v4p6/Plugin/Ui.php:128
+#: libraries/plugin-update-checker/Puc/v4p8/Plugin/Ui.php:128
+msgid "Check for updates"
+msgstr ""
+
+#: libraries/plugin-update-checker/Puc/v4p6/Plugin/Ui.php:213
+#: libraries/plugin-update-checker/Puc/v4p8/Plugin/Ui.php:213
+#, php-format
+msgctxt "the plugin title"
+msgid "The %s plugin is up to date."
+msgstr ""
+
+#: libraries/plugin-update-checker/Puc/v4p6/Plugin/Ui.php:215
+#: libraries/plugin-update-checker/Puc/v4p8/Plugin/Ui.php:215
+#, php-format
+msgctxt "the plugin title"
+msgid "A new version of the %s plugin is available."
+msgstr ""
+
+#: libraries/plugin-update-checker/Puc/v4p6/Plugin/Ui.php:217
+#: libraries/plugin-update-checker/Puc/v4p8/Plugin/Ui.php:217
+#, php-format
+msgctxt "the plugin title"
+msgid "Could not determine if updates are available for %s."
+msgstr ""
+
+#: libraries/plugin-update-checker/Puc/v4p6/Plugin/Ui.php:223
+#: libraries/plugin-update-checker/Puc/v4p8/Plugin/Ui.php:223
+#, php-format
+msgid "Unknown update checker status \"%s\""
+msgstr ""
+
+#: libraries/plugin-update-checker/Puc/v4p6/Vcs/PluginUpdateChecker.php:98
+#: libraries/plugin-update-checker/Puc/v4p8/Vcs/PluginUpdateChecker.php:98
+msgid "There is no changelog available."
+msgstr ""
+
+#: public/class-public.php:93
 msgid "Custom global CSS"
 msgstr ""
 
-#: public/class-public.php:96
+#: public/class-public.php:102
 msgid "Custom global JS"
 msgstr ""
 
-#: public/includes/class-circled-content.php:95
-msgid "Do you want to modify the appearance of the circled content?"
-msgstr ""
-
-#: public/includes/class-circled-content.php:102
-msgid "Background color"
-msgstr ""
-
-#: public/includes/class-circled-content.php:119
-msgid "Text color"
-msgstr ""
-
-#: public/includes/class-circled-content.php:136
-msgid "Background color on hover"
-msgstr ""
-
-#: public/includes/class-circled-content.php:153
-msgid "Text color on hover"
-msgstr ""
-
-#: public/includes/class-customer-service.php:100
-msgid "Do you have customer email?"
+#: public/class-public.php:111
+msgid "Enqueue collapsible assets?"
 msgstr ""
 
 #: public/includes/class-customer-service.php:101
+msgid "Do you have customer email?"
+msgstr ""
+
+#: public/includes/class-customer-service.php:102
 msgid ""
 "In case you have an email for the customers to write to, activate this "
 "option."
 msgstr ""
 
-#: public/includes/class-customer-service.php:108
+#: public/includes/class-customer-service.php:109
 msgid "Customer email"
 msgstr ""
 
-#: public/includes/class-customer-service.php:109
+#: public/includes/class-customer-service.php:110
 msgid "This email will appear on the website for the customers to write to."
 msgstr ""
 
-#: public/includes/class-customer-service.php:125
+#: public/includes/class-customer-service.php:126
 msgid "Do you have hotline phone number"
 msgstr ""
 
-#: public/includes/class-customer-service.php:126
+#: public/includes/class-customer-service.php:127
 msgid ""
 "In case you have a hotline phone number for the customers to call you on, "
 "activate this option."
 msgstr ""
 
-#: public/includes/class-customer-service.php:133
+#: public/includes/class-customer-service.php:134
 msgid "Hotline phone number"
 msgstr ""
 
-#: public/includes/class-customer-service.php:134
+#: public/includes/class-customer-service.php:135
 msgid "This phone number will appear on the website for the customers to call."
 msgstr ""
 
-#: public/includes/class-customer-service.php:150
+#: public/includes/class-customer-service.php:151
 msgid "Do you want to add hotline availability?"
 msgstr ""
 
-#: public/includes/class-customer-service.php:151
+#: public/includes/class-customer-service.php:152
 msgid ""
 "In case you want to indicate your hotline availability, activate this option."
 msgstr ""
 
-#: public/includes/class-customer-service.php:158
+#: public/includes/class-customer-service.php:159
 msgid "Hotline availability"
 msgstr ""
 
-#: public/includes/class-customer-service.php:159
+#: public/includes/class-customer-service.php:160
 msgid "Select the times when the hotline is available."
 msgstr ""
 
-#: public/includes/class-customer-service.php:169
+#: public/includes/class-customer-service.php:170
 msgid "Day of the week"
 msgstr ""
 
-#: public/includes/class-customer-service.php:170
+#: public/includes/class-customer-service.php:171
 msgid "Select the day(s) for which the times should apply."
 msgstr ""
 
-#: public/includes/class-customer-service.php:174
+#: public/includes/class-customer-service.php:175
 msgid "Monday"
 msgstr ""
 
-#: public/includes/class-customer-service.php:175
+#: public/includes/class-customer-service.php:176
 msgid "Tuesday"
 msgstr ""
 
-#: public/includes/class-customer-service.php:176
+#: public/includes/class-customer-service.php:177
 msgid "Wednesday"
 msgstr ""
 
-#: public/includes/class-customer-service.php:177
+#: public/includes/class-customer-service.php:178
 msgid "Thursday"
 msgstr ""
 
-#: public/includes/class-customer-service.php:178
+#: public/includes/class-customer-service.php:179
 msgid "Friday"
 msgstr ""
 
-#: public/includes/class-customer-service.php:179
+#: public/includes/class-customer-service.php:180
 msgid "Saturday"
 msgstr ""
 
-#: public/includes/class-customer-service.php:180
+#: public/includes/class-customer-service.php:181
 msgid "Sunday"
 msgstr ""
 
-#: public/includes/class-customer-service.php:188
+#: public/includes/class-customer-service.php:189
 msgid "From"
 msgstr ""
 
-#: public/includes/class-customer-service.php:197
+#: public/includes/class-customer-service.php:198
 msgid "To"
 msgstr ""
 
-#: public/includes/class-customer-service.php:241
-#: public/includes/class-customer-service.php:277
+#: public/includes/class-customer-service.php:242
+#: public/includes/class-customer-service.php:278
 msgid "Contact"
 msgstr ""
 
-#: public/includes/class-customer-service.php:242
+#: public/includes/class-customer-service.php:243
 msgid "Email"
 msgstr ""
 
-#: public/includes/class-customer-service.php:278
+#: public/includes/class-customer-service.php:279
 msgid "Phone number"
 msgstr ""
 
-#: public/includes/class-customer-service.php:355
+#: public/includes/class-customer-service.php:356
 #, php-format
 msgid "%s - %s o'clock"
 msgstr ""
 
-#: public/includes/class-fancy-messages.php:80
+#: public/includes/class-fancy-messages.php:81
 msgid "Overwrite compatible plugin's message styles?"
 msgstr ""
 
-#: public/includes/class-fancy-messages.php:93
+#: public/includes/class-fancy-messages.php:94
 #, php-format
 msgid "Choose the color for %s messages background"
 msgstr ""
 
-#: public/includes/class-fancy-messages.php:100
+#: public/includes/class-fancy-messages.php:110
 #, php-format
 msgid "Choose the color for %s messages text"
 msgstr ""
 
-#: public/includes/class-fancy-messages.php:107
+#: public/includes/class-fancy-messages.php:126
 #, php-format
 msgid "Choose the color for %s messages border"
 msgstr ""
 
-#: public/includes/class-fancy-messages.php:114
+#: public/includes/class-fancy-messages.php:142
 #, php-format
 msgid "Choose the color for %s messages icon"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-msgid "DeepWebSolutions Custom Extensions"
+msgid "DWS Custom Extensions Core"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid ""
-"This plugin handles all the core custom extensions to this WordPress "
-"installation."
+msgid "Handles all the core custom extensions to this WordPress installation."
 msgstr ""
 
 #. Author of the plugin/theme

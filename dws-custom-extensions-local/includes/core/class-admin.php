@@ -25,7 +25,7 @@ final class DWS_Local_Admin extends DWS_Root {
 	 *
 	 * @var     string  LOCAL_OPTIONS_SLUG      The slug of the options page for local extensions.
 	 */
-	const LOCAL_OPTIONS_SLUG = DWS_Settings_Pages::MENU_PAGES_SLUG_PREFIX . 'local';
+	public const LOCAL_OPTIONS_SLUG = DWS_Settings_Pages::MENU_PAGES_SLUG_PREFIX . 'local';
 
 	//endregion
 

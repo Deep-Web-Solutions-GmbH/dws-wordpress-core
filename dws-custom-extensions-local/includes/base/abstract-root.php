@@ -1,8 +1,9 @@
 <?php
 
-namespace Deep_Web_Solutions\Local\Core;
+namespace Deep_Web_Solutions\Local\Base;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 use Deep_Web_Solutions\Base\DWS_Root;
+use Deep_Web_Solutions\Local\Core\DWS_Local_Admin;
 use Deep_Web_Solutions\Local\Custom_Extensions_Local;
 
 if (!defined('ABSPATH')) { exit; }
@@ -10,8 +11,8 @@ if (!defined('ABSPATH')) { exit; }
 /**
  * The core root template tailored to the needs of local extensions.
  *
- * @version 1.0.0
- * @since   2.0.0
+ * @since   1.0.0
+ * @version 2.0.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -26,7 +27,7 @@ abstract class DWS_Local_Root extends DWS_Root {
 	 * @see     DWS_Root::local_configure()
 	 */
 	protected function local_configure() {
-		$this->settings_filter = DWS_Settings_Pages::get_page_groups_hook(DWS_Local_Admin::LOCAL_OPTIONS_SLUG);
+		$this->settings_filter = DWS_Settings_Pages::get_page_groups_hook(self::get_settings_page_slug());
 	}
 
 	/**
@@ -40,6 +41,18 @@ abstract class DWS_Local_Root extends DWS_Root {
 	public static function get_relative_base_path() {
 		return str_replace(DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH, '', self::get_base_path());
 	}
+
+    /**
+     * @since   2.0.0
+     * @version 2.0.0
+     *
+     * @see     DWS_Functionality_Template::get_settings_page_slug()
+     *
+     * @return  string
+     */
+    public static function get_settings_page_slug() {
+        return DWS_Local_Admin::LOCAL_OPTIONS_SLUG;
+    }
 
 	//endregion
 
