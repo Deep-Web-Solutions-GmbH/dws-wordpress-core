@@ -1,9 +1,0 @@
-div.CodeMirror-scroll {
-    height: 300px !important;
-}
-
-.dws_floating-update-button {
-    position: fixed;
-    min-width: 280px;
-    z-index: 10;
-}
