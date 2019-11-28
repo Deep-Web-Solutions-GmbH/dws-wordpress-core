@@ -323,7 +323,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * @since   1.0.0
      * @version 2.0.2
      *
-     * @param   array   $groups     A list of ACF-conform groups of fields to be registered with ACF.
+     * @param   array   $groups     A list of groups of fields to be registered with the settings framework.
      * @param   string  $location   The slug of the settings page on which the groups must appear on.
      */
     private function add_groups($groups, $location) {
