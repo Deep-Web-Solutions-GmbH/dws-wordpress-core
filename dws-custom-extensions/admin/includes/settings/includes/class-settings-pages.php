@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles the settings pages and the settings therein.
  *
  * @since   2.0.0
- * @version 2.0.0
+ * @version 2.0.2
  * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -321,7 +321,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * Registers local groups with our settings framework of choice.
      *
      * @since   1.0.0
-     * @version 2.0.0
+     * @version 2.0.2
      *
      * @param   array   $groups     A list of ACF-conform groups of fields to be registered with ACF.
      * @param   string  $location   The slug of the settings page on which the groups must appear on.
@@ -343,6 +343,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
                 $group['key'],
                 $group['title'],
                 $location,
+                $group['fields'] ?? array(),
                 $group
             );
         }
@@ -352,7 +353,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      * Registers local fields with our settings framework of choice.
      *
      * @since   1.0.0
-     * @version 2.0.0
+     * @version 2.0.2
      *
      * @param   array   $fields     A list of ACF-conform fields that must be registered with ACF to an existing group.
      */
@@ -369,7 +370,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
                 continue;
             }
 
-            $adapter::register_settings_field(
+            $adapter::register_field(
                 $field['key'],
                 $field['type'],
                 $field['parent'],

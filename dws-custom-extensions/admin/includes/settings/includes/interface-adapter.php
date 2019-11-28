@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) { exit; }
  * Interface for interacting with a settings framework.
  *
  * @since   2.0.0
- * @version 2.0.0
+ * @version 2.0.2
  * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
  */
 interface DWS_Adapter {
@@ -45,18 +45,31 @@ interface DWS_Adapter {
 
     /**
      * @since   2.0.0
-     * @version 2.0.0
+     * @version 2.0.2
      *
      * @param   string  $key
      * @param   string  $title
      * @param   string  $location
+     * @param   array   $fields
      * @param   array   $other
      */
-    public static function register_settings_page_group($key, $title, $location, $other = array());
+    public static function register_settings_page_group($key, $title, $location, $fields, $other = array());
+
+    /**
+     * @since   2.0.2
+     * @version 2.0.2
+     *
+     * @param   string  $key
+     * @param   string  $title
+     * @param   array   $location
+     * @param   array   $fields
+     * @param   array   $other
+     */
+    public static function register_generic_group($key, $title, $location, $fields, $other = array());
 
     /**
      * @since   2.0.0
-     * @version 2.0.0
+     * @version 2.0.2
      *
      * @param   string  $group_id
      * @param   string  $key
@@ -64,7 +77,7 @@ interface DWS_Adapter {
      * @param   array   $parameters
      * @param   string  $location
      */
-    public static function register_settings_group_field($group_id, $key, $type, $parameters, $location);
+    public static function register_field_to_group($group_id, $key, $type, $parameters, $location);
 
     /**
      * @since   2.0.0
@@ -76,7 +89,7 @@ interface DWS_Adapter {
      * @param   array   $parameters
      * @param   null    $location
      */
-    public static function register_settings_field($key, $type, $parent_id, $parameters, $location);
+    public static function register_field($key, $type, $parent_id, $parameters, $location);
 
     /**
      * @since   2.0.0
