@@ -112,6 +112,22 @@ final class DWS_Settings extends DWS_Functionality_Template {
     }
 
     /**
+     * @since   2.0.2
+     * @version 2.0.2
+     *
+     * @param   string  $key
+     * @param   string  $title
+     * @param   array   $location
+     * @param   array   $fields
+     * @param   array   $other
+     */
+    public static function register_group($key, $title, $location, $fields, $other = array()) {
+        $adapter = DWS_Settings::get_settings_framework_adapter();
+        if(is_null($adapter)) { return;}
+        $adapter::register_generic_group($key, $title, $location, $fields, $other);
+    }
+
+    /**
      * @since   2.0.0
      * @version 2.0.0
      *
