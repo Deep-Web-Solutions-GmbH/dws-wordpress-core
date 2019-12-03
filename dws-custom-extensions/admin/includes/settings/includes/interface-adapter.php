@@ -113,5 +113,38 @@ interface DWS_Adapter {
      */
     public static function get_field_value($field, $post_id = false);
 
+    /**
+     * @since   2.0.2
+     * @version 2.0.2
+     *
+     * @param   array   $field
+     * @param   bool    $do_on_ajax
+     *
+     * @return  array
+     */
+    public static function css_hide_field($field, $do_on_ajax = false);
+
+    /**
+     * @since   2.0.2
+     * @version 2.0.2
+     *
+     * @param   array   $field
+     * @param   bool    $do_on_ajax
+     *
+     * @return  array
+     */
+    public static function make_field_uneditable($field, $do_on_ajax = false);
+
+    /**
+     * @since   2.0.2
+     * @version 2.0.2
+     *
+     * @param   array   $field
+     * @param   string  $permission
+     *
+     * @return  array
+     */
+    public static function maybe_make_field_uneditable($field, $permission);
+
     //endregion
 }

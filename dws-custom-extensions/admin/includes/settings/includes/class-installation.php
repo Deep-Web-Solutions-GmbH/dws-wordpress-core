@@ -120,7 +120,7 @@ final class DWS_Settings_Installation extends DWS_Functionality_Template {
         }
 
         wp_safe_redirect(admin_url('admin.php?page=dws_custom-extensions_main'));
-        status_header(200); wp_die();
+        status_header(200); //wp_die();
     }
 
     /**
