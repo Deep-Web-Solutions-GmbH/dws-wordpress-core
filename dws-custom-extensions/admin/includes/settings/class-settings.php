@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles all the settings related extensions including the settings pages.
  *
  * @since   2.0.0
- * @version 2.0.0
+ * @version 2.0.2
  * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -96,6 +96,19 @@ final class DWS_Settings extends DWS_Functionality_Template {
     public static function get_field($field, $post_id = false) {
         $adapter = DWS_Settings::get_settings_framework_adapter();
         return is_null($adapter) ? null : $adapter::get_field_value($field, $post_id);
+    }
+
+    /**
+     * @since   2.0.2
+     * @version 2.0.2
+     *
+     * @param   array      $field
+     *
+     * @return  mixed
+     */
+    public static function make_field_uneditable($field) {
+        $adapter = DWS_Settings::get_settings_framework_adapter();
+        return is_null($adapter) ? null : $adapter::make_field_uneditable($field);
     }
 
     /**
