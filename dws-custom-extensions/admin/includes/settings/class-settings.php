@@ -102,6 +102,20 @@ final class DWS_Settings extends DWS_Functionality_Template {
      * @since   2.0.2
      * @version 2.0.2
      *
+     * @param   string      $field
+     * @param   mixed       $new_value
+     * @param   int|false   $post_id
+     */
+    public static function update_field($field, $new_value, $post_id = false) {
+        $adapter = DWS_Settings::get_settings_framework_adapter();
+        if(is_null($adapter)) { return; }
+        $adapter::update_field_value($field, $new_value, $post_id);
+    }
+
+    /**
+     * @since   2.0.2
+     * @version 2.0.2
+     *
      * @param   array      $field
      *
      * @return  mixed

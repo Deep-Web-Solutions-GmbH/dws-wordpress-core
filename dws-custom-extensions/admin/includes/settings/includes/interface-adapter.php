@@ -103,6 +103,18 @@ interface DWS_Adapter {
     public static function get_settings_field_value($field, $option_page_slug);
 
     /**
+     * @since   2.0.2
+     * @version 2.0.2
+     *
+     * @param   string      $field
+     * @param   mixed       $new_value
+     * @param   string      $option_page_slug
+     *
+     * @return  bool        True on successful update, false on failure.
+     */
+    public static function update_settings_field_value($field, $new_value, $option_page_slug);
+
+    /**
      * @since   2.0.0
      * @version 2.0.0
      *
@@ -112,6 +124,18 @@ interface DWS_Adapter {
      * @return  mixed
      */
     public static function get_field_value($field, $post_id = false);
+
+    /**
+     * @since   2.0.2
+     * @version 2.0.2
+     *
+     * @param   string      $field
+     * @param   mixed       $new_value
+     * @param   int|false   $post_id
+     *
+     * @return  bool        True on successful update, false on failure.
+     */
+    public static function update_field_value($field, $new_value, $post_id = false);
 
     /**
      * @since   2.0.2
