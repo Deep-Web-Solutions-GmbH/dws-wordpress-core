@@ -2,10 +2,12 @@
 
 namespace Deep_Web_Solutions\Admin;
 use Deep_Web_Solutions\Admin\Settings\DWS_Adapter;
+use Deep_Web_Solutions\Admin\Settings\DWS_noop_Adapter;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Installation;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 use Deep_Web_Solutions\Admin\Settings\Permissions;
 use Deep_Web_Solutions\Base\DWS_Functionality_Template;
+use Deep_Web_Solutions\Helpers\DWS_Permissions;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -13,7 +15,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles all the settings related extensions including the settings pages.
  *
  * @since   2.0.0
- * @version 2.0.2
+ * @version 2.0.3
  * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -36,7 +38,7 @@ final class DWS_Settings extends DWS_Functionality_Template {
 
     /**
      * @since   2.0.0
-     * @version 2.0.0
+     * @version 2.0.3
      *
      * @see     DWS_Functionality_Template::load_dependencies()
      */
@@ -48,6 +50,11 @@ final class DWS_Settings extends DWS_Functionality_Template {
         /** @noinspection PhpIncludeInspection */
         /** Template for encapsulating some of the most often required abilities of a settings framework. */
         require_once(self::get_includes_base_path() . 'abstract-adapter.php');
+
+        /** @noinspection PhpIncludeInspection */
+        /** Settings adapter for when there's no adapter present. */
+        require_once(self::get_includes_base_path() . 'class-adapter-noop.php');
+        DWS_noop_Adapter::maybe_initialize_singleton('dg3e89hgre87ghee');
 
         /** @noinspection PhpIncludeInspection */
         /** The custom DWS permissions needed to enhance the settings pages. */
@@ -71,7 +78,7 @@ final class DWS_Settings extends DWS_Functionality_Template {
 
     /**
      * @since   2.0.0
-     * @version 2.0.0
+     * @version 2.0.3
      *
      * @author  Antonius Hegyes <a.hegyes@deep-web-solutions.de>
      *
@@ -81,12 +88,13 @@ final class DWS_Settings extends DWS_Functionality_Template {
      */
     public static function get_settings_framework_adapter($slug = false) {
         $selectedFramework = ($slug === false) ? self::get_settings_framework_slug() : $slug;
-        return apply_filters(self::get_hook_name('framework_adapter'), null, $selectedFramework);
+        $adapter = apply_filters(self::get_hook_name('framework_adapter'), null, $selectedFramework);
+        return is_null($adapter) ? DWS_noop_Adapter::get_instance() : $adapter;
     }
 
     /**
      * @since   2.0.0
-     * @version 2.0.0
+     * @version 2.0.3
      *
      * @param   string      $field
      * @param   int|false   $post_id
@@ -95,12 +103,12 @@ final class DWS_Settings extends DWS_Functionality_Template {
      */
     public static function get_field($field, $post_id = false) {
         $adapter = DWS_Settings::get_settings_framework_adapter();
-        return is_null($adapter) ? null : $adapter::get_field_value($field, $post_id);
+        return $adapter::get_field_value($field, $post_id);
     }
 
     /**
      * @since   2.0.2
-     * @version 2.0.2
+     * @version 2.0.3
      *
      * @param   string      $field
      * @param   mixed       $new_value
@@ -108,26 +116,53 @@ final class DWS_Settings extends DWS_Functionality_Template {
      */
     public static function update_field($field, $new_value, $post_id = false) {
         $adapter = DWS_Settings::get_settings_framework_adapter();
-        if(is_null($adapter)) { return; }
         $adapter::update_field_value($field, $new_value, $post_id);
     }
 
     /**
-     * @since   2.0.2
-     * @version 2.0.2
+     * @since   2.0.3
+     * @version 2.0.3
      *
-     * @param   array      $field
-     *
-     * @return  mixed
+     * @param   string  $key
+     * @param   string  $location
      */
-    public static function make_field_uneditable($field) {
+    public static function remove_field($key, $location) {
         $adapter = DWS_Settings::get_settings_framework_adapter();
-        return is_null($adapter) ? null : $adapter::make_field_uneditable($field);
+        $adapter::remove_field($key, $location);
     }
 
     /**
-     * @since   2.0.2
-     * @version 2.0.2
+     * @since   2.0.3
+     * @version 2.0.3
+     *
+     * @param   array   $field
+     * @param   bool    $do_on_ajax
+     *
+     * @return  null|array
+     */
+    public static function make_field_uneditable($field, $do_on_ajax = false) {
+        $adapter = DWS_Settings::get_settings_framework_adapter();
+        return $adapter::make_field_uneditable($field, $do_on_ajax);
+    }
+
+    /**
+     * @since   2.0.3
+     * @version 2.0.3
+     *
+     * @param   array   $field
+     * @param   string  $permission
+     *
+     * @return  mixed
+     */
+    public static function maybe_make_field_uneditable($field, $permission) {
+        $adapter = DWS_Settings::get_settings_framework_adapter();
+        return !DWS_Permissions::has(array($permission, 'administrator'), null, 'or')
+            ? $adapter::make_field_uneditable($field) : $field;
+    }
+
+    /**
+     * @since   2.0.3
+     * @version 2.0.3
      *
      * @param   string  $key
      * @param   string  $title
@@ -137,7 +172,6 @@ final class DWS_Settings extends DWS_Functionality_Template {
      */
     public static function register_group($key, $title, $location, $fields, $other = array()) {
         $adapter = DWS_Settings::get_settings_framework_adapter();
-        if(is_null($adapter)) { return;}
         $adapter::register_generic_group($key, $title, $location, $fields, $other);
     }
 

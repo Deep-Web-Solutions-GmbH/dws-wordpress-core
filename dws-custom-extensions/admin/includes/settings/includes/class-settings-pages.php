@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles the settings pages and the settings therein.
  *
  * @since   2.0.0
- * @version 2.0.2
+ * @version 2.0.3
  * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -275,7 +275,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
 
     /**
      * @since   2.0.0
-     * @version 2.0.0
+     * @version 2.0.3
      *
      * @param   string  $field
      * @param   string  $settings_page_slug
@@ -284,12 +284,12 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      */
     public static function get_field($field, $settings_page_slug) {
         $adapter = DWS_Settings::get_settings_framework_adapter();
-        return is_null($adapter) ? null : $adapter::get_settings_field_value($field, $settings_page_slug);
+        return $adapter::get_settings_field_value($field, $settings_page_slug);
     }
 
     /**
-     * @since   2.0.2
-     * @version 2.0.2
+     * @since   2.0.3
+     * @version 2.0.3
      *
      * @param   string      $field
      * @param   mixed       $new_value
@@ -297,7 +297,6 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
      */
     public static function update_field($field, $new_value, $post_id = false) {
         $adapter = DWS_Settings::get_settings_framework_adapter();
-        if(is_null($adapter)) { return; }
         $adapter::update_settings_field_value($field, $new_value, $post_id);
     }
 
