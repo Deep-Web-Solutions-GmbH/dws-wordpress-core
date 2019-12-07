@@ -344,11 +344,11 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
 
         foreach ($groups as $group) {
             if (!isset($group['key'], $group['title'])) {
-                error_log('Failed to register group in: ' . $location .  'Make sure the group key and title are set.');
+                error_log('Failed to register group in: ' . $location .  '. Make sure the group key and title are set.');
                 continue;
             }
             if (empty($group['key']) || empty($group['title'])) {
-                error_log('Failed to register group in: ' . $location . 'Make sure the group key and title are not empty.');
+                error_log('Failed to register group in: ' . $location . '. Make sure the group key and title are not empty.');
                 continue;
             }
 

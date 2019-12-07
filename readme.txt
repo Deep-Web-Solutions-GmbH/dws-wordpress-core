@@ -3,11 +3,14 @@ Contributors: Antonius Hegyes, Dushan Terzikj, Fatine Tazi
 Requires at least: 5.3
 Tested up to: 5.3
 Requires PHP: 7.3
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 === Changelog ===
+
+= 2.0.4 =
+* More wrapper classes
 
 = 2.0.3 =
 * Further extensions to the settings interface.

@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles all the settings related extensions including the settings pages.
  *
  * @since   2.0.0
- * @version 2.0.3
+ * @version 2.0.4
  * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -129,6 +129,20 @@ final class DWS_Settings extends DWS_Functionality_Template {
     public static function remove_field($key, $location) {
         $adapter = DWS_Settings::get_settings_framework_adapter();
         $adapter::remove_field($key, $location);
+    }
+
+    /**
+     * @since   2.0.4
+     * @version 2.0.4
+     *
+     * @param   array   $field
+     * @param   bool    $do_on_ajax
+     *
+     * @return  array
+     */
+    public static function css_hide_field($field, $do_on_ajax = false) {
+        $adapter = DWS_Settings::get_settings_framework_adapter();
+        return $adapter::css_hide_field($field, $do_on_ajax);
     }
 
     /**
