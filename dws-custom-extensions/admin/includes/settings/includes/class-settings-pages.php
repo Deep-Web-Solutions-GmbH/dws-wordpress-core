@@ -391,7 +391,6 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
                 $location
             );
         }
-
     }
 
 	//endregion
