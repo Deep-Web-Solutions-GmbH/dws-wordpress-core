@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * Template for encapsulating some of the most often required abilities of a settings framework.
  *
  * @since   2.0.0
- * @version 2.0.0
+ * @version 2.0.4
  * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
  */
 abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DWS_Adapter {
@@ -33,6 +33,14 @@ abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DW
      */
     protected $init_hook = 'init';
 
+    /**
+     * @since   2.0.4
+     * @version 2.0.4
+     *
+     * @var     string
+     */
+    protected $update_field_hook = null;
+
     //endregion
 
     //region INHERITED FUNCTIONS
@@ -45,7 +53,7 @@ abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DW
      */
     protected function local_configure() {
         parent::local_configure();
-        $this->set_fields(); $this->trigger_init_ready();
+        $this->set_fields(); $this->trigger_custom_hooks();
         add_filter(DWS_Settings::get_hook_name('framework_adapter'), array($this, 'maybe_return_instance'), 10, 2);
     }
 
@@ -83,18 +91,23 @@ abstract class DWS_Adapter_Base extends DWS_Functionality_Template implements DW
     public abstract function set_fields();
 
     /**
-     * Register an action on the init hook of the framework to set everything up.
+     * Register different actions on the framework specific hooks.
      *
      * @since   2.0.0
-     * @version 2.0.0
+     * @version 2.0.4
      */
-    private final function trigger_init_ready() {
+    private final function trigger_custom_hooks() {
         $selected_framework = DWS_Settings::get_settings_framework_slug();
         if ($selected_framework !== $this->framework_slug) { return; }
 
         add_action($this->init_hook, function() {
             do_action(DWS_Settings::get_hook_name('init'));
         });
+        if (!is_null($this->update_field_hook)) {
+            add_filter($this->update_field_hook, function($value, $post_id = false, $field = false, $original = false) {
+                return apply_filters(DWS_Settings::get_hook_name('update-field'), $value, $post_id, $field, $original);
+            }, 10, 4);
+        }
     }
 
     /**
