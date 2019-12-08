@@ -1,6 +1,7 @@
 <?php
 
 namespace Deep_Web_Solutions\Base;
+use Deep_Web_Solutions\Admin\DWS_Settings;
 use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 use Deep_Web_Solutions\Core\DWS_Loader;
 use Deep_Web_Solutions\Custom_Extensions;
@@ -12,7 +13,7 @@ if (!defined('ABSPATH')) { exit; }
  * Template for encapsulating some of the most often required abilities of a class.
  *
  * @since   1.0.0
- * @version 2.0.0
+ * @version 2.0.4
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Singleton
@@ -196,7 +197,7 @@ abstract class DWS_Root extends DWS_Singleton {
 	 * enabling the functionality of this class just to make sure that we don't get any "file not found" errors.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.0.4
 	 */
 	public final function configure_class() {
 		$this->local_configure();
@@ -212,7 +213,7 @@ abstract class DWS_Root extends DWS_Singleton {
 		}
 
 		// always define a place where children classes can add their own settings and enqueue their assets
-		$this->loader->add_action('acf/init', $this, 'init'); // by doing this on the acf/init, we make sure that ACF is loaded and that we can perform actions before defining the DWS options
+		$this->loader->add_action(DWS_Settings::get_hook_name('init'), $this, 'init', PHP_INT_MIN); // by doing this on the init of the settings framework, we make sure that the framework is loaded and that we can perform actions before defining the DWS options
 		$this->loader->add_filter($this->settings_filter, $this, 'define_options');
 		$this->loader->add_action('admin_enqueue_scripts', $this, 'admin_enqueue_assets');
 		$this->loader->add_action('wp_enqueue_scripts', $this, 'enqueue_assets', PHP_INT_MAX);
