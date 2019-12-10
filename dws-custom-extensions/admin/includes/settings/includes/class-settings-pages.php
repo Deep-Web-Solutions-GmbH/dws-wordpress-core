@@ -125,7 +125,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
             Permissions::SEE_AND_EDIT_DWS_CORE_SETTINGS,
             self::MAIN_SETTINGS_SLUG,
             array(
-                'icon_url'   => 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(DWS_Admin::get_assets_base_path() . 'dws_logo.svg')),
+                'icon_url'   => 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(DWS_LOGO)),
                 'redirect'   => false,
                 'position'   => 3
             )
@@ -135,7 +135,7 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
             error_log('Failed to register main settings page.');
         } else {
             // we add an "artificial" submenu-page such that the first menu entry is named differently
-            add_submenu_page(self::MAIN_SETTINGS_SLUG, __('Deep Web Solutions: Custom Extensions Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), __('Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), Permissions::SEE_AND_EDIT_DWS_CORE_SETTINGS, self::MAIN_SETTINGS_SLUG);
+            add_submenu_page(self::MAIN_SETTINGS_SLUG, __(DWS_WHITELABEL_NAME . ': Custom Extensions Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), __('Core Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN), Permissions::SEE_AND_EDIT_DWS_CORE_SETTINGS, self::MAIN_SETTINGS_SLUG);
         }
     }
 
@@ -168,13 +168,13 @@ final class DWS_Settings_Pages extends DWS_Functionality_Template {
 
         $sub_pages = array(
             array(
-                'page_title' => __('Deep Web Solutions: Custom Extensions Modules Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                'page_title' => __(DWS_WHITELABEL_NAME . ': Custom Extensions Modules Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
                 'menu_title' => __('Modules Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
                 'menu_slug'  => self::MODULES_SETTINGS_SLUG,
                 'capability' => Permissions::SEE_AND_EDIT_DWS_MODULES_SETTINGS
             ),
             array(
-                'page_title' => __('Deep Web Solutions: Custom Extensions Theme Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                'page_title' => __(DWS_WHITELABEL_NAME . ': Custom Extensions Theme Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
                 'menu_title' => __('Theme Settings', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
                 'menu_slug'  => self::THEME_SETTINGS_SLUG,
                 'capability' => Permissions::SEE_AND_EDIT_DWS_THEME_SETTINGS

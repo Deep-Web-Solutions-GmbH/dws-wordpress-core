@@ -109,7 +109,7 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 	 */
 	public function register_menu_page() {
 		add_menu_page(
-			'Deep Web Solutions', 'Deep Web Solutions',
+            DWS_WHITELABEL_NAME, DWS_WHITELABEL_NAME,
 			Permissions::SEE_DWS_MENU_AND_DASHBOARD,
 			self::$main_page_slug,
 			array($this, 'menu_page_screen'),

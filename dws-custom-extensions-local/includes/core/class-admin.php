@@ -59,7 +59,7 @@ final class DWS_Local_Admin extends DWS_Root {
 	 */
 	public function register_local_options_subpage($sub_pages) {
 		$sub_pages[] = array(
-			'page_title' => __('Deep Web Solutions: Custom Extensions Local Settings', DWS_CUSTOM_EXTENSIONS_LOCAL_LANG_DOMAIN),
+			'page_title' => __(DWS_WHITELABEL_NAME . ': Custom Extensions Local Settings', DWS_CUSTOM_EXTENSIONS_LOCAL_LANG_DOMAIN),
 			'menu_title' => __('Local Settings', DWS_CUSTOM_EXTENSIONS_LOCAL_LANG_DOMAIN),
 			'menu_slug'  => self::LOCAL_OPTIONS_SLUG,
 			'capability' => Permissions::SEE_AND_EDIT_DWS_LOCAL_SETTINGS

@@ -1,4 +1,6 @@
-<?php if (!defined('ABSPATH')) { exit; }
+<?php
+
+if (!defined('ABSPATH')) { exit; }
 
 /**
  * The DWS Custom Extensions Core bootstrap file.
@@ -20,7 +22,7 @@
  * Domain Path:         /languages
  */
 
-define('DWS_CUSTOM_EXTENSIONS_NAME', 'Deep Web Solutions: Custom Extensions');
+define('DWS_CUSTOM_EXTENSIONS_NAME', DWS_WHITELABEL_NAME . ': Custom Extensions');
 define('DWS_CUSTOM_EXTENSIONS_MIN_PHP', '7.2');
 define('DWS_CUSTOM_EXTENSIONS_MIN_WP', '5.1.1');
 

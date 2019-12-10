@@ -93,7 +93,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 			$submenus[$this->plugins_page_slug] = array(
 				'menu_title' => __('Recommended Plugins', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
 				'page_title' => __(
-					'Deep Web Solutions: Custom Extensions Recommended Plugins',
+                    DWS_WHITELABEL_NAME . ': Custom Extensions Recommended Plugins',
 					DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN
 				),
 				'capability' => Permissions::SEE_RECOMMENDED_PLUGINS

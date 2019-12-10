@@ -5,6 +5,10 @@ use Deep_Web_Solutions\Base\DWS_Root;
 
 if (!defined('ABSPATH')) { exit; }
 
+if (!defined('DWS_LOGO')) {
+    define('DWS_LOGO', DWS_Admin::get_assets_base_path() . 'dws_logo.svg');
+}
+
 /**
  * Orchestrates the DWS Core extensions of the back-end area of the website.
  *

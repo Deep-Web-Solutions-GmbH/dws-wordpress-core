@@ -1,4 +1,6 @@
-<?php if (!defined('ABSPATH')) { exit; }
+<?php use Deep_Web_Solutions\Admin\DWS_Admin;
+
+if (!defined('ABSPATH')) { exit; }
 
 /**
  * The DWS Custom Extensions Local bootstrap file.
@@ -17,7 +19,7 @@
  * Domain Path:       /languages
  */
 
-define('DWS_CUSTOM_EXTENSIONS_NAME_LOCAL', 'Deep Web Solutions: Custom Extensions Local');
+define('DWS_CUSTOM_EXTENSIONS_NAME_LOCAL', DWS_WHITELABEL_NAME . ': Custom Extensions Local');
 
 define('DWS_CUSTOM_EXTENSIONS_LOCAL_BASE_PATH', plugin_dir_path(__FILE__));
 define('DWS_CUSTOM_EXTENSIONS_LOCAL_LANG_DOMAIN', 'dws_custom-extensions-local');
