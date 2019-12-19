@@ -70,7 +70,7 @@ final class DWS_Public extends DWS_Root {
 	protected function load_dependencies() {
 		/** @noinspection PhpIncludeInspection */
 		/** This class creates handy shortcodes for customer service related activities. */
-		require_once(self::get_includes_base_path() . 'class-customer-service.php');
+		require_once(self::get_includes_base_path() . 'class-contact.php');
 
 		/** @noinspection PhpIncludeInspection */
 		/** Loads style for fancy-looking front-end messages. */
