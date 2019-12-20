@@ -12,6 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 = 2.1.0 =
 * Refactored the contact class
 * Whitelabeling feature
+* Local Functionality Template get_version major updates
 
 = 2.0.4 =
 * More wrapper classes
