@@ -1,6 +1,4 @@
-<?php use Deep_Web_Solutions\Admin\DWS_Admin;
-
-if (!defined('ABSPATH')) { exit; }
+<?php if (!defined('ABSPATH')) { exit; }
 
 /**
  * The DWS Custom Extensions Local bootstrap file.
@@ -10,7 +8,7 @@ if (!defined('ABSPATH')) { exit; }
  * @wordpress-plugin
  * Plugin Name:       DWS Custom Extensions Local
  * Description:       Handles all the local custom extensions to this WordPress installation.
- * Version:           1.3.0
+ * Version:           2.1.0
  * Author:            Deep Web Solutions GmbH
  * Author URI:        https://www.deep-web-solutions.de
  * License:           GPL-3.0+

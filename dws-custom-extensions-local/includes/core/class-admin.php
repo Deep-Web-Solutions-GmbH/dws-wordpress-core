@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * Orchestrates the DWS Local Extensions of the back-end area of a website.
  *
  * @version 1.0.0
- * @since   2.0.0
+ * @since   2.1.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -51,7 +51,7 @@ final class DWS_Local_Admin extends DWS_Root {
 	 * Registers a local extensions options page with the DWS Custom Extensions plugin.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.1.0
 	 *
 	 * @param   array   $sub_pages      The other 3rd-party options pages that have been already registered.
 	 *
@@ -59,7 +59,7 @@ final class DWS_Local_Admin extends DWS_Root {
 	 */
 	public function register_local_options_subpage($sub_pages) {
 		$sub_pages[] = array(
-			'page_title' => __(DWS_WHITELABEL_NAME . ': Custom Extensions Local Settings', DWS_CUSTOM_EXTENSIONS_LOCAL_LANG_DOMAIN),
+			'page_title' => sprintf(__('%s: Custom Extensions Local Settings', DWS_CUSTOM_EXTENSIONS_LOCAL_LANG_DOMAIN), DWS_WHITELABEL_NAME),
 			'menu_title' => __('Local Settings', DWS_CUSTOM_EXTENSIONS_LOCAL_LANG_DOMAIN),
 			'menu_slug'  => self::LOCAL_OPTIONS_SLUG,
 			'capability' => Permissions::SEE_AND_EDIT_DWS_LOCAL_SETTINGS

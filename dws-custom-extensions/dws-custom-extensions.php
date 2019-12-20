@@ -1,6 +1,4 @@
-<?php
-
-if (!defined('ABSPATH')) { exit; }
+<?php if (!defined('ABSPATH')) { exit; }
 
 /**
  * The DWS Custom Extensions Core bootstrap file.
@@ -13,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * @wordpress-plugin
  * Plugin Name:         DWS Custom Extensions Core
  * Description:         Handles all the core custom extensions to this WordPress installation.
- * Version:             2.0.4
+ * Version:             2.1.0
  * Author:              Deep Web Solutions GmbH
  * Author URI:          https://www.deep-web-solutions.de
  * License:             GPL-3.0+
@@ -22,11 +20,15 @@ if (!defined('ABSPATH')) { exit; }
  * Domain Path:         /languages
  */
 
-define('DWS_CUSTOM_EXTENSIONS_NAME', DWS_WHITELABEL_NAME . ': Custom Extensions');
-define('DWS_CUSTOM_EXTENSIONS_MIN_PHP', '7.2');
-define('DWS_CUSTOM_EXTENSIONS_MIN_WP', '5.1.1');
-
 define('DWS_CUSTOM_EXTENSIONS_BASE_PATH', plugin_dir_path(__FILE__));
+
+defined('DWS_WHITELABEL_NAME') or define('DWS_WHITELABEL_NAME', 'Deep Web Solutions');
+defined('DWS_WHITELABEL_LOGO') or define('DWS_WHITELABEL_LOGO', DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'admin/assets/dws_logo.svg');
+
+define('DWS_CUSTOM_EXTENSIONS_NAME', DWS_WHITELABEL_NAME . ': Custom Extensions');
+define('DWS_CUSTOM_EXTENSIONS_MIN_PHP', '7.3');
+define('DWS_CUSTOM_EXTENSIONS_MIN_WP', '5.3');
+
 define('DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN', 'dws_custom-extensions');
 define('DWS_CUSTOM_EXTENSIONS_TEMP_DIR', trailingslashit(trailingslashit(wp_upload_dir(null, false)['basedir']) . 'deep-web-solutions'));
 define('DWS_GITHUB_ACCESS_TOKEN', 'd6e10cc22fce9c7e4d5dd716f93359f529e1b086');

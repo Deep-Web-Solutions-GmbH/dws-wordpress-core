@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Provides one centralized place to define contact options.
  *
  * @since   1.0.0
- * @version 2.0.0
+ * @version 2.1.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -18,26 +18,17 @@ if (!defined('ABSPATH')) { exit; }
 final class DWS_Contact extends DWS_Functionality_Template {
 	//region FIELDS AND CONSTANTS
 
-    /**
-     * @since       2.0.0
-     * @version     2.0.0
-     *
-     * @var     string  SHOW_CONTACT_EMAIL     The id of the option field which indicates whether there exists
-     *                                          a contact email address.
-     */
-    private const SHOW_CONTACT_EMAIL = 'field_fjak3jfh80hf3h0';
-
 	/**
-	 * @since       1.3.3
-	 * @version     2.0.0
+	 * @since       2.1.0
+	 * @version     2.1.0
 	 *
 	 * @var     string  CONTACT_EMAILS     The id of the option field which holds the repeater of contact emails.
 	 */
 	private const CONTACT_EMAILS = 'field_dfbuvdigvyhd8vf';
 
     /**
-     * @since       2.0.0
-     * @version     2.0.0
+     * @since       2.1.0
+     * @version     2.1.0
      *
      * @var     string  CONTACT_EMAILS_NAME     The id of the option field which holds the name of the email.
      */
@@ -45,51 +36,43 @@ final class DWS_Contact extends DWS_Functionality_Template {
 
 	/**
 	 * @since       1.0.0
-	 * @version     2.0.0
+	 * @version     2.1.0
 	 *
 	 * @var     string  CONTACT_EMAIL  The id of the options field that holds the email address that customers
 	 *                                  should send emails to.
 	 */
     private const CONTACT_EMAIL = 'field_hg8e7hg8e47ghes';
-	/**
-	 * @since       1.3.3
-	 * @version     2.0.0
-	 *
-	 * @var     string  SHOW_CONTACT_PHONE_NUMBER   The id of the option field which indicates whether there exists
-	 *                                              a hotline phone number.
-	 */
-    private const SHOW_CONTACT_PHONE_NUMBER = 'field_y9vt30y24y02vt09';
 
     /**
      * @since       1.3.3
-     * @version     2.0.0
+     * @version     2.1.0
      *
      * @var     string  CONTACT_PHONE_NUMBERS     The id of the option field which holds the repeater of contact phone numbers.
      */
     private const CONTACT_PHONE_NUMBERS = 'field_dfiufbi8d7tgsysyt67';
 
 	/**
-	 * @since       2.0.0
-	 * @version     2.0.0
+	 * @since       2.1.0
+	 * @version     2.1.0
 	 *
-	 * @var     string  HOTLINE_PHONE_NUMBER    The id of the options field that holds the phone number that
+	 * @var     string  CONTACT_PHONE_NUMBER    The id of the options field that holds the phone number that
 	 *                                          customers should reach out to.
 	 */
     private const CONTACT_PHONE_NUMBER = 'field_595a7fcb23b8a';
 
     /**
-     * @since       2.0.0
-     * @version     2.0.0
+     * @since       2.1.0
+     * @version     2.1.0
      *
      * @var     string  CONTACT_PHONE_NUMBER_NAME     The id of the option field which holds the name of the phone number.
      */
     private const CONTACT_PHONE_NUMBER_NAME = 'field_fgrvbisbdiugads87tdg';
 	/**
 	 * @since       1.0.0
-	 * @version     2.0.0
+	 * @version     2.1.0
 	 *
-	 * @var     string HOTLINE_AVAILABILITY     The id of the repeater field that holds the availability of the
-	 *                                          phone number that customers should reach out to.
+	 * @var     string PHONE_NUMBER_AVAILABILITY        The id of the repeater field that holds the availability of the
+	 *                                                  phone number that customers should reach out to.
 	 */
     private const PHONE_NUMBER_AVAILABILITY = 'field_595a80ac23b8d';
 
@@ -99,7 +82,7 @@ final class DWS_Contact extends DWS_Functionality_Template {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.1.0
 	 *
 	 * @see     DWS_Contact::define_shortcodes()
 	 *
@@ -107,14 +90,13 @@ final class DWS_Contact extends DWS_Functionality_Template {
 	 */
 	protected function define_shortcodes($loader) {
 		$loader->add_shortcode('dws_contact_email', $this, 'get_contact_email');
-		$loader->add_shortcode('dws_contact_phone_number', $this, 'get_contact_phone_number');
+		$loader->add_shortcode('dws_contact_phone_number', $this, 'get_phone_number');
 		$loader->add_shortcode('dws_contact_phone_availability', $this, 'render_opening_hours');
-        $loader->add_shortcode('dws_contact_random', $this, 'render_random');
 	}
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.3.3
+	 * @version 2.1.0
 	 *
 	 * @see     DWS_Functionality_Template::functionality_options()
 	 *
@@ -123,22 +105,7 @@ final class DWS_Contact extends DWS_Functionality_Template {
 	protected function functionality_options() {
 		return array(
             array(
-                'key'                   => 'random',
-                'name'                  => 'random',
-                'label'                 => __('random', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                'instructions'          => __('random', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                'type'                  => 'text'
-            ),
-            array(
-                'key'                   => self::SHOW_CONTACT_EMAIL,
-                'name'                  => 'dws_contact-service_show-contact-email',
-                'label'                 => __('Do you have contact emails?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                'instructions'          => __('In case you have an email for the customers to write to, activate this option.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                'type'                  => 'true_false',
-                'ui'                    => 1
-            ),
-            array(
-                'key'          => self::CONTACT_PHONE_NUMBER_NAME,
+                'key'          => self::CONTACT_EMAILS,
                 'name'         => 'dws_contact_emails',
                 'label'        => __('Emails', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
                 'instructions' => __('The emails will appear on the website for the customers to write to.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
@@ -148,40 +115,25 @@ final class DWS_Contact extends DWS_Functionality_Template {
                 'max'          => 7,
                 'sub_fields'   => array(
                     array(
-                        'key'          => self::CONTACT_EMAIL_NAME,
-                        'name'         => 'dws_contact_email-name',
-                        'label'        => __('Contact email name', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                        'instructions' => __('The name attribute of the shortcode.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                        'type'         => 'text',
-                        'required'     => 1
+                        'key'           => self::CONTACT_EMAIL_NAME,
+                        'name'          => 'dws_contact_email-name',
+                        'label'         => __('Contact email name', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                        'instructions'  => __('The name attribute of the shortcode.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                        'type'          => 'text',
+                        'required'      => 1,
+                        'wrapper'       => array('width' => '25%')
                     ),
                     array(
-                        'key'          => self::CONTACT_EMAIL,
-                        'name'         => 'dws_contact_email',
-                        'label'        => __('Contact email', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                        'instructions' => __('This email will appear on the website for the customers to write to.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                        'type'         => 'text',
-                        'required'     => 1
-                    )
-                ),
-                'conditional_logic'     => array(
-                    array(
-                        array(
-                            'field'     => self::SHOW_CONTACT_EMAIL,
-                            'operator'  => '==',
-                            'value'     => '1'
-                        )
+                        'key'           => self::CONTACT_EMAIL,
+                        'name'          => 'dws_contact_email',
+                        'label'         => __('Contact email', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                        'instructions'  => __('This email will appear on the website for the customers to write to.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                        'type'          => 'text',
+                        'required'      => 1,
+                        'wrapper'       => array('width' => '75%')
                     )
                 )
             ),
-			array(
-				'key'                   => self::SHOW_CONTACT_PHONE_NUMBER,
-				'name'                  => 'dws_contact_show-contact-phone-number',
-				'label'                 => __('Do you have contact phone numbers?', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-				'instructions'          => __('In case you have contact phone numbers for the customers to call you on, activate this option.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-				'type'                  => 'true_false',
-				'ui'                    => 1
-			),
             array(
                 'key'          => self::CONTACT_PHONE_NUMBERS,
                 'name'         => 'dws_contact_phone-numbers',
@@ -193,32 +145,34 @@ final class DWS_Contact extends DWS_Functionality_Template {
                 'max'          => 7,
                 'sub_fields'   => array(
                     array(
-                        'key'          => self::CONTACT_PHONE_NUMBER_NAME,
-                        'name'         => 'dws_contact_phone-number-name',
-                        'label'        => __('Contact phone number name', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                        'instructions' => __('The name attribute of the shortcode.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                        'type'         => 'text',
-                        'required'     => 1
+                        'key'           => self::CONTACT_PHONE_NUMBER_NAME,
+                        'name'          => 'dws_contact_phone-number-name',
+                        'label'         => __('Contact phone number name', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                        'instructions'  => __('The name attribute of the shortcode.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                        'type'          => 'text',
+                        'required'      => 1,
+                        'wrapper'       => array('width' => '25%')
                     ),
                     array(
-                        'key'          => self::CONTACT_PHONE_NUMBER,
-                        'name'         => 'dws_contact_phone-number',
-                        'label'        => __('Phone number', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                        'instructions' => __('This phone number will appear on the website for the customers to call.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                        'type'         => 'text',
-                        'required'     => 1,
+                        'key'           => self::CONTACT_PHONE_NUMBER,
+                        'name'          => 'dws_contact_phone-number',
+                        'label'         => __('Phone number', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                        'instructions'  => __('This phone number will appear on the website for the customers to call.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                        'type'          => 'text',
+                        'required'      => 1,
+                        'wrapper'       => array('width' => '35%')
                     ),
                     array(
-                        'key'          => self::PHONE_NUMBER_AVAILABILITY,
-                        'name'         => 'dws_contact_phone-number-availability',
-                        'label'        => __('Phone number availability', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                        'instructions' => __('The phone numbers availability will appear on the website.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-                        'type'         => 'repeater',
-                        'required'     => 1,
-                        'min'          => 1,
-                        'max'          => 7,
-                        'layout'       => 'table',
-                        'sub_fields'   => array(
+                        'key'           => self::PHONE_NUMBER_AVAILABILITY,
+                        'name'          => 'dws_contact_phone-number-availability',
+                        'label'         => __('Phone number availability', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                        'instructions'  => __('The phone numbers availability will appear on the website.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+                        'type'          => 'repeater',
+                        'required'      => 1,
+                        'min'           => 1,
+                        'max'           => 7,
+                        'layout'        => 'table',
+                        'sub_fields'    => array(
                             array(
                                 'key'           => 'field_595a80bc23b8e',
                                 'name'          => 'day_of_the_week',
@@ -256,17 +210,9 @@ final class DWS_Contact extends DWS_Functionality_Template {
                                 'display_format' => 'H:i',
                                 'return_format'  => 'H:i',
                             )
-                        )
+                        ),
+                        'wrapper'       => array('width' => '40%')
                     ),
-                ),
-                'conditional_logic'     => array(
-                    array(
-                        array(
-                            'field'     => self::SHOW_CONTACT_PHONE_NUMBER,
-                            'operator'  => '==',
-                            'value'     => '1'
-                        )
-                    )
                 )
             )
 		);
@@ -280,47 +226,37 @@ final class DWS_Contact extends DWS_Functionality_Template {
 	 * Returns the email address saved.
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.1.0
 	 *
 	 * @param   array   $atts       The shortcode options.
 	 *
 	 * @return  string  The email address.
 	 */
 	public function get_contact_email($atts = array()) {
-		if (!DWS_Settings_Pages::get_field(self::SHOW_CONTACT_EMAIL, self::get_settings_page_slug())){
-			error_log('Shortcode [dws_contact_email] is used on object ID ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
-			return '[dws_contact_email]';
-		}
-
-        error_log(json_encode($atts));
-
 		$atts = shortcode_atts(
 			array(
-                'name'        => '',
-				'class'        => '',
-				'style'        => '',
-				'track_cat'    => __('Contact', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-				'track_action' => __('Email', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-				'track_label'  => '',
-				'pre_text'     => '',
-				'just_text'    => false
+                'name'          => '',
+				'class'         => '',
+				'style'         => '',
+				'track_cat'     => __('Contact', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+				'track_action'  => __('Email', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+				'track_label'   => '',
+				'pre_text'      => '',
+				'just_text'     => false
 			), $atts
 		);
-
-        error_log(json_encode($atts));
-
         $address = '';
 
 		$rows = DWS_Settings_Pages::get_field(self::CONTACT_EMAILS, self::get_settings_page_slug());
-		if($rows) {
+		if ($rows) {
             foreach ($rows as $row) {
-                error_log($atts['name']);
                 if ($row['dws_contact_email-name'] == $atts['name']) {
                     $address = $row['dws_contact_email'];
                     break;
                 }
             }
         }
+
 		return $atts['just_text']
 			? $address
 			: "<a 	href='mailto:$address' 
@@ -332,35 +268,29 @@ final class DWS_Contact extends DWS_Functionality_Template {
 	 * Returns the phone number saved.
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.1.0
 	 *
 	 * @param   array   $atts       The shortcode options.
 	 *
 	 * @return  string  The phone number.
 	 */
 	public function get_phone_number($atts = array()) {
-		if (!DWS_Settings_Pages::get_field(self::SHOW_CONTACT_PHONE_NUMBER, self::get_settings_page_slug())){
-			error_log('Shortcode [dws_phone_number] is used on object ID ' . get_queried_object_id() . ' even though functionality is turned off! Please turn on the functionality first.');
-			return '[dws_phone_number]';
-		}
-
 		$atts = shortcode_atts(
 			array(
-                'name'        => '',
-				'class'        => '',
-				'style'        => '',
-				'track_cat'    => __('Contact', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-				'track_action' => __('Phone number', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-				'track_label'  => '',
-				'pre_text'     => '',
-				'just_text'    => false
+                'name'          => '',
+				'class'         => '',
+				'style'         => '',
+				'track_cat'     => __('Contact', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+				'track_action'  => __('Phone number', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
+				'track_label'   => '',
+				'pre_text'      => '',
+				'just_text'     => false
 			), $atts
 		);
-
 		$number = '';
 
         $rows = DWS_Settings_Pages::get_field(self::CONTACT_PHONE_NUMBERS, self::get_settings_page_slug());
-        if($rows) {
+        if ($rows) {
             foreach ($rows as $row) {
                 if ($row['dws_contact_phone-number-name'] == $atts['name']) {
                     $number = $row['dws_contact_phone-number'];
@@ -373,29 +303,44 @@ final class DWS_Contact extends DWS_Functionality_Template {
             ? $number
             : "<a 	href='tel:$number' 
                     onclick='if(typeof(ga) !== \"undefined\") { ga(\"send\", \"event\", \"{$atts['track_cat']}\", \"{$atts['track_action']}\", \"{$atts['track_label']}\"); }' 
-                    class='{$atts['class']}' style='{$atts['style']}'>{$atts['pre_text']} <span class='dws_hotline_number'>$number</span></a>";
+                    class='{$atts['class']}' style='{$atts['style']}'>{$atts['pre_text']} <span class='dws_phone_number'>$number</span></a>";
 	}
 
 	/**
-	 * Takes the settings saved for hotline availability
-	 * and displays them nicely in a table.
+	 * Takes the settings saved for phone number availability and displays them nicely in a table.
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.1.0
 	 *
 	 * @param   array   $atts   The shortcode options.
 	 *
 	 * @return  string  The phone number availability in HTML format.
 	 */
 	public function render_opening_hours($atts = array()) {
-        $rows = DWS_Settings_Pages::get_field(self::PHONE_NUMBER_AVAILABILITY, self::get_settings_page_slug());
-        if(!$rows) {
-            error_log('Shortcode [dws_phone_availability] is used on object ID ' . get_queried_object_id() . ' even though it is empty! ');
-            return '[dws_phone_availability]';
+	    $atts = shortcode_atts(
+	        array(
+                'name'  => '',
+                'id'    => '',
+                'class' => '',
+                'style' => '',
+                'table' => 'no'
+            ), $atts
+        );
+
+        $phone_number_rows = DWS_Settings_Pages::get_field(self::CONTACT_PHONE_NUMBERS, self::get_settings_page_slug());
+        $availability_rows = array();
+
+        if ($phone_number_rows) {
+            foreach ($phone_number_rows as $row) {
+                if ($row['dws_contact_phone-number-name'] == $atts['name']) {
+                    $availability_rows = $row['dws_contact_phone-number-availability'];
+                    break;
+                }
+            }
         }
 
         $availability = array();
-        foreach($rows as $row) {
+        foreach ($availability_rows as $row) {
             $days = (array)$row['day_of_the_week'];
             if (count($days) === 1) {
                 $row['label'] = $days[0]['label'];
@@ -431,7 +376,6 @@ final class DWS_Contact extends DWS_Functionality_Template {
             $availability[] = $row;
         }
 
-
         if ($atts['table'] === 'yes') {
             $html = "<table id='{$atts['id']}' class='{$atts['class']}' style='{$atts['style']}'>";
             foreach ($availability as $row) {
@@ -448,22 +392,6 @@ final class DWS_Contact extends DWS_Functionality_Template {
 
         return $html;
 	}
-
-    /**
-     * Takes the settings saved for random text field
-     *
-     * @since   1.0.0
-     * @version 2.0.0
-     *
-     * @param   array   $atts   The shortcode options.
-     *
-     * @return  string  The phone number availability in HTML format.
-     */
-    public function render_random($atts = array()) {
-        $random = DWS_Settings_Pages::get_field('random', self::get_settings_page_slug());
-
-        return $random;
-    }
 
 	//endregion
 } DWS_Contact::maybe_initialize_singleton('h4g87hg82dege');

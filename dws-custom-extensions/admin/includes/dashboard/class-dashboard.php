@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles the functionality of our own DeepWebSolutions menu in the WP backend.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 2.1.0
  * @author  Antonius Cezar Hegyes   <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -105,7 +105,7 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 	 * Registers the DWS admin menu pages.
 	 *
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.1.0
 	 */
 	public function register_menu_page() {
 		add_menu_page(
@@ -113,7 +113,7 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 			Permissions::SEE_DWS_MENU_AND_DASHBOARD,
 			self::$main_page_slug,
 			array($this, 'menu_page_screen'),
-			'data:image/svg+xml;base64,' . base64_encode(file_get_contents(DWS_Admin::get_assets_base_path() . 'dws_logo.svg')),
+			'data:image/svg+xml;base64,' . base64_encode(file_get_contents(DWS_WHITELABEL_LOGO)),
 			3
 		);
 

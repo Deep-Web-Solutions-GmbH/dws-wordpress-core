@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) { exit; }
  * Orchestrates the DWS Core extensions of the front-end area of the website.
  *
  * @since   1.0.0
- * @version 1.4.0
+ * @version 2.1.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -63,13 +63,13 @@ final class DWS_Public extends DWS_Root {
 
 	/**
 	 * @since   1.0.0
-	 * @version 1.0.0
+	 * @version 2.1.0
 	 *
 	 * @see     DWS_Root::load_dependencies()
 	 */
 	protected function load_dependencies() {
 		/** @noinspection PhpIncludeInspection */
-		/** This class creates handy shortcodes for customer service related activities. */
+		/** This class creates handy shortcodes for contact related activities. */
 		require_once(self::get_includes_base_path() . 'class-contact.php');
 
 		/** @noinspection PhpIncludeInspection */

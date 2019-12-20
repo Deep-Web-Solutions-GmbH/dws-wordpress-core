@@ -36,7 +36,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 	 * Configures an instance of the TGM Plugin Activation library.
 	 *
 	 * @since   1.2.0
-	 * @version 1.2.0
+	 * @version 2.1.0
 	 * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
 	 *
 	 * @see     DWS_Functionality_Template
@@ -83,7 +83,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * Registers the recommended plugins submenu page with the dashboard parent menu.
 		 *
 		 * @since   1.2.0
-		 * @version 1.2.0
+		 * @version 2.1.0
 		 *
 		 * @param   array   $submenus   All submenus registered so far.
 		 *
@@ -92,10 +92,10 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		public function register_submenu_page($submenus) {
 			$submenus[$this->plugins_page_slug] = array(
 				'menu_title' => __('Recommended Plugins', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
-				'page_title' => __(
-                    DWS_WHITELABEL_NAME . ': Custom Extensions Recommended Plugins',
+				'page_title' => sprintf(__(
+                    '%s: Custom Extensions Recommended Plugins',
 					DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN
-				),
+				), DWS_WHITELABEL_NAME),
 				'capability' => Permissions::SEE_RECOMMENDED_PLUGINS
 			);
 

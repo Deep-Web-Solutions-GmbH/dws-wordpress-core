@@ -15,10 +15,6 @@
  * License URI:         http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
-if (!defined('DWS_WHITELABEL_NAME')) {
-    define('DWS_WHITELABEL_NAME', 'Deep Web Solutions');
-}
-
 require_once('dws-custom-extensions/dws-custom-extensions.php');
 if (class_exists('\Deep_Web_Solutions\Custom_Extensions') && Deep_Web_Solutions\Custom_Extensions::is_active()) {
 	if (file_exists(WPMU_PLUGIN_DIR . '/dws-custom-extensions-local/dws-custom-extensions-local.php')) {
