@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) { exit; }
  * Provides one centralized place to define contact options.
  *
  * @since   1.0.0
- * @version 2.1.0
+ * @version 2.1.1
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -96,7 +96,7 @@ final class DWS_Contact extends DWS_Functionality_Template {
 
 	/**
 	 * @since   1.0.0
-	 * @version 2.1.0
+	 * @version 2.1.1
 	 *
 	 * @see     DWS_Functionality_Template::functionality_options()
 	 *
@@ -110,9 +110,8 @@ final class DWS_Contact extends DWS_Functionality_Template {
                 'label'        => __('Emails', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
                 'instructions' => __('The emails will appear on the website for the customers to write to.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
                 'type'         => 'repeater',
-                'required'     => 1,
-                'min'          => 1,
-                'max'          => 7,
+                'required'     => 0,
+                'min'          => 0,
                 'sub_fields'   => array(
                     array(
                         'key'           => self::CONTACT_EMAIL_NAME,
@@ -140,9 +139,8 @@ final class DWS_Contact extends DWS_Functionality_Template {
                 'label'        => __('Phone numbers', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
                 'instructions' => __('The phone numbers will appear on the website for the customers to call.', DWS_CUSTOM_EXTENSIONS_LANG_DOMAIN),
                 'type'         => 'repeater',
-                'required'     => 1,
-                'min'          => 1,
-                'max'          => 7,
+                'required'     => 0,
+                'min'          => 0,
                 'sub_fields'   => array(
                     array(
                         'key'           => self::CONTACT_PHONE_NUMBER_NAME,
@@ -226,7 +224,7 @@ final class DWS_Contact extends DWS_Functionality_Template {
 	 * Returns the email address saved.
 	 *
 	 * @since   1.0.0
-	 * @version 2.1.0
+	 * @version 2.1.1
 	 *
 	 * @param   array   $atts       The shortcode options.
 	 *
@@ -257,7 +255,7 @@ final class DWS_Contact extends DWS_Functionality_Template {
             }
         }
 
-		return $atts['just_text']
+		return boolval($atts['just_text'])
 			? $address
 			: "<a 	href='mailto:$address' 
 					onclick='if(typeof(ga) !== \"undefined\") { ga(\"send\", \"event\", \"{$atts['track_cat']}}\", \"{$atts['track_action']}\", \"{$atts['track_label']}\"); }'
@@ -268,7 +266,7 @@ final class DWS_Contact extends DWS_Functionality_Template {
 	 * Returns the phone number saved.
 	 *
 	 * @since   1.0.0
-	 * @version 2.1.0
+	 * @version 2.1.1
 	 *
 	 * @param   array   $atts       The shortcode options.
 	 *
@@ -299,7 +297,7 @@ final class DWS_Contact extends DWS_Functionality_Template {
             }
         }
 
-		return $atts['just_text']
+		return boolval($atts['just_text'])
             ? $number
             : "<a 	href='tel:$number' 
                     onclick='if(typeof(ga) !== \"undefined\") { ga(\"send\", \"event\", \"{$atts['track_cat']}\", \"{$atts['track_action']}\", \"{$atts['track_label']}\"); }' 
