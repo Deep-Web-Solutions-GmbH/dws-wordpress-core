@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) { exit; }
  * The core functionality template tailored to the needs of local extensions.
  *
  * @since   1.0.0
- * @version 2.1.0
+ * @version 2.1.2
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -62,7 +62,7 @@ abstract class DWS_Local_Functionality_Template extends DWS_Functionality_Templa
 
     /**
      * @since   2.1.0
-     * @version 2.1.0
+     * @version 2.1.2
      *
      * @see     DWS_Functionality_Template::get_plugin_version()
      *
@@ -76,10 +76,13 @@ abstract class DWS_Local_Functionality_Template extends DWS_Functionality_Templa
         }
 
         $plugin_data = \get_file_data(
-            $top_most_parent::get_base_path(false, true),
+            untrailingslashit($top_most_parent::get_base_path(false, true)),
             array('Version' => 'Version')
         );
-        return $plugin_data['Version'] ?? Custom_Extensions_Local::get_version();
+
+        return isset($plugin_data['Version']) && !empty($plugin_data['Version'])
+            ? $plugin_data['Version']
+            : Custom_Extensions_Local::get_version();
     }
 
     //endregion

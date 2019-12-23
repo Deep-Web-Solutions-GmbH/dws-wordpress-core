@@ -8,7 +8,7 @@
  * @wordpress-plugin
  * Plugin Name:       DWS Custom Extensions Local
  * Description:       Handles all the local custom extensions to this WordPress installation.
- * Version:           2.1.0
+ * Version:           2.1.2
  * Author:            Deep Web Solutions GmbH
  * Author URI:        https://www.deep-web-solutions.de
  * License:           GPL-3.0+
