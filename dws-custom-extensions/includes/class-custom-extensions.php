@@ -261,6 +261,10 @@ final class Custom_Extensions extends DWS_Singleton {
 		require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
         /** @noinspection PhpIncludeInspection */
+        /** We use this external library to send HTTP requests. */
+        require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/guzzle/autoloader.php');
+
+        /** @noinspection PhpIncludeInspection */
         /** We use this external library to check for new plugin version in GitHub releases. */
         require_once(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'libraries/plugin-update-checker/plugin-update-checker.php');
 
