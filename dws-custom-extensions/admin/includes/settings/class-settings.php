@@ -8,6 +8,8 @@ use Deep_Web_Solutions\Admin\Settings\DWS_Settings_Pages;
 use Deep_Web_Solutions\Admin\Settings\Permissions;
 use Deep_Web_Solutions\Base\DWS_Functionality_Template;
 use Deep_Web_Solutions\Helpers\DWS_Permissions;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 if (!defined('ABSPATH')) { exit; }
 
@@ -227,14 +229,29 @@ final class DWS_Settings extends DWS_Functionality_Template {
      * @since   2.0.0
      * @version 2.0.0
      *
-     * @return  array   The supported settings frameworks from the remote JSON file.
+     * @return  false|array   The supported settings frameworks from the remote JSON file.
      */
     public static function get_supported_settings_frameworks() {
+        $client = new Client(['base_uri' => 'https://config.deep-web-solutions.de/']);
+
+
+        try {
+            $response = $client->request('GET', '/supported-settings-frameworks.json');
+        }
+        catch (GuzzleException $e) {
+            $message = __('Error making request. Message: ') . $e->getMessage();
+
+            DWS_Admin_Notices::add_admin_notice_to_user($message);
+            error_log($message);
+
+            return false;
+        }
+
         $settings_frameworks = get_transient(self::get_asset_handle('settings-frameworks'));
         if (empty($settings_frameworks)) {
             $auth           = base64_encode('dws-web-project:XOsj2gidQ9GJwYNpMlb4jkqVDkPoE6LR8QPIAxW0NgtiotRslpcYFkXMV6Uj');
             $context        = stream_context_create(['http' => ['header' => "Authorization: Basic $auth"]]);
-            $plugins_config = file_get_contents('https://config.deep-web-solutions.de/supported-settings-frameworks.json', false, $context);
+            $plugins_config = $response;
 
             $settings_frameworks = json_decode($plugins_config, true);
             set_transient(self::get_asset_handle('settings-frameworks'), $settings_frameworks, 60 * 60 * 24);

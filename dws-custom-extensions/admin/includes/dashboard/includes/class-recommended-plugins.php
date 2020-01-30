@@ -28,9 +28,13 @@ namespace {
 }
 
 namespace Deep_Web_Solutions\Admin\Dashboard {
-	use Deep_Web_Solutions\Admin\DWS_Dashboard;
+
+    use Deep_Web_Solutions\Admin\DWS_Admin_Notices;
+    use Deep_Web_Solutions\Admin\DWS_Dashboard;
     use Deep_Web_Solutions\Base\DWS_Functionality_Template;
     use Deep_Web_Solutions\Core\DWS_Installation;
+    use GuzzleHttp\Client;
+    use GuzzleHttp\Exception\GuzzleException;
 
 	/**
 	 * Configures an instance of the TGM Plugin Activation library.
@@ -119,10 +123,26 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * @version 1.2.0
 		 */
 		public function register_recommended_plugins() {
+            $client = new Client(['base_uri' => 'https://config.deep-web-solutions.de/']);
+
+
+            try {
+                $response = $client->request('GET', '/wp-plugins.json');
+            }
+            catch (GuzzleException $e) {
+                $message = __('Error making request. Message: ') . $e->getMessage();
+
+                DWS_Admin_Notices::add_admin_notice_to_user($message);
+                error_log($message);
+
+                return false;
+            }
+
 			// get plugins configuration
 			$auth           = base64_encode('dws-web-project:XOsj2gidQ9GJwYNpMlb4jkqVDkPoE6LR8QPIAxW0NgtiotRslpcYFkXMV6Uj');
 			$context        = stream_context_create(['http' => ['header' => "Authorization: Basic $auth"]]);
-			$plugins_config = file_get_contents('https://config.deep-web-solutions.de/wp-plugins.json', false, $context);
+			$plugins_config = $response->getBody();
+
 
 			// parse said configuration
 			$plugins        = array();
