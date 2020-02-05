@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles all the settings related extensions including the settings pages.
  *
  * @since   2.0.0
- * @version 2.0.4
+ * @version 2.2.0
  * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -227,31 +227,28 @@ final class DWS_Settings extends DWS_Functionality_Template {
 
     /**
      * @since   2.0.0
-     * @version 2.0.0
+     * @version 2.2.0
      *
-     * @return  false|array   The supported settings frameworks from the remote JSON file.
+     * @return  array   The supported settings frameworks from the remote JSON file.
      */
     public static function get_supported_settings_frameworks() {
-        $client = new Client(['base_uri' => 'https://config.deep-web-solutions.de/']);
-
-
-        try {
-            $response = $client->request('GET', '/supported-settings-frameworks.json');
-        }
-        catch (GuzzleException $e) {
-            $message = __('Error making request. Message: ') . $e->getMessage();
-
-            DWS_Admin_Notices::add_admin_notice_to_user($message);
-            error_log($message);
-
-            return false;
-        }
-
         $settings_frameworks = get_transient(self::get_asset_handle('settings-frameworks'));
         if (empty($settings_frameworks)) {
-            $auth           = base64_encode('dws-web-project:XOsj2gidQ9GJwYNpMlb4jkqVDkPoE6LR8QPIAxW0NgtiotRslpcYFkXMV6Uj');
-            $context        = stream_context_create(['http' => ['header' => "Authorization: Basic $auth"]]);
-            $plugins_config = $response;
+            $client = new Client(['base_uri' => 'https://config.deep-web-solutions.de/']);
+
+            try {
+                $response = $client->request('GET', '/supported-settings-frameworks.json', array(
+                    'auth'  => array('dws-web-project', 'XOsj2gidQ9GJwYNpMlb4jkqVDkPoE6LR8QPIAxW0NgtiotRslpcYFkXMV6Uj')
+                ));
+                $plugins_config = $response->getBody();
+            } catch (GuzzleException $e) {
+                $message = __('Error making request. Message: ') . $e->getMessage();
+
+                DWS_Admin_Notices::add_admin_notice_to_user($message);
+                error_log($message);
+
+                $plugins_config = json_encode(array());
+            }
 
             $settings_frameworks = json_decode($plugins_config, true);
             set_transient(self::get_asset_handle('settings-frameworks'), $settings_frameworks, 60 * 60 * 24);

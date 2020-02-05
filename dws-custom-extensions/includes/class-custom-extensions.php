@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * The core plugin class that is used to define internationalization, hooks, and all the other extensions.
  *
  * @since   1.0.0
- * @version 2.0.0
+ * @version 2.2.0
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Singleton
@@ -252,7 +252,7 @@ final class Custom_Extensions extends DWS_Singleton {
 	 * Loads the required files and libraries for this plugin.
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.2.0
 	 */
 	private function load_dependencies() {
 		//region LIBRARIES

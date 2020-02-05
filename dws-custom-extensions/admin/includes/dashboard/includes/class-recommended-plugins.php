@@ -40,7 +40,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 	 * Configures an instance of the TGM Plugin Activation library.
 	 *
 	 * @since   1.2.0
-	 * @version 2.1.0
+	 * @version 2.2.0
 	 * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
 	 *
 	 * @see     DWS_Functionality_Template
@@ -120,16 +120,17 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * Initializes an instance of the TGM Plugin Activation library.
 		 *
 		 * @since   1.2.0
-		 * @version 1.2.0
+		 * @version 2.2.0
 		 */
 		public function register_recommended_plugins() {
+            // get plugins configuration
             $client = new Client(['base_uri' => 'https://config.deep-web-solutions.de/']);
-
-
             try {
-                $response = $client->request('GET', '/wp-plugins.json');
-            }
-            catch (GuzzleException $e) {
+                $response = $client->request('GET', '/wp-plugins.json', array(
+                    'auth'  => array('dws-web-project', 'XOsj2gidQ9GJwYNpMlb4jkqVDkPoE6LR8QPIAxW0NgtiotRslpcYFkXMV6Uj')
+                ));
+                $plugins_config = $response->getBody();
+            } catch (GuzzleException $e) {
                 $message = __('Error making request. Message: ') . $e->getMessage();
 
                 DWS_Admin_Notices::add_admin_notice_to_user($message);
@@ -137,12 +138,6 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 
                 return false;
             }
-
-			// get plugins configuration
-			$auth           = base64_encode('dws-web-project:XOsj2gidQ9GJwYNpMlb4jkqVDkPoE6LR8QPIAxW0NgtiotRslpcYFkXMV6Uj');
-			$context        = stream_context_create(['http' => ['header' => "Authorization: Basic $auth"]]);
-			$plugins_config = $response->getBody();
-
 
 			// parse said configuration
 			$plugins        = array();
