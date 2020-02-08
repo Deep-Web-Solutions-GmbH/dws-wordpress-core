@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * Provides all the piping required for developing a DWS Functionality.
  *
  * @since   1.0.0
- * @version 2.0.0
+ * @version 2.2.1
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Root
@@ -228,14 +228,14 @@ abstract class DWS_Functionality_Template extends DWS_Root {
 
 	/**
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.2.1
 	 *
 	 * @see     DWS_Root::local_configure()
 	 */
 	protected function local_configure() {
 		parent::local_configure();
 
-		$this->children_settings_filter = DWS_Settings_Pages::get_page_groups_fields_hook(DWS_Settings_Pages::MAIN_SETTINGS_SLUG);
+		$this->children_settings_filter = DWS_Settings_Pages::get_page_groups_fields_hook(static::get_settings_page_slug());
 		if (!empty(self::get_parent())) {
 			$this->settings_filter = $this->children_settings_filter;
 		}
