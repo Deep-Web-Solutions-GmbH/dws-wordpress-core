@@ -135,7 +135,7 @@ final class DWS_Settings extends DWS_Functionality_Template {
 
     /**
      * @since   2.0.4
-     * @version 2.0.4
+     * @version 2.2.2
      *
      * @param   array   $field
      * @param   bool    $do_on_ajax
@@ -143,13 +143,20 @@ final class DWS_Settings extends DWS_Functionality_Template {
      * @return  array
      */
     public static function css_hide_field($field, $do_on_ajax = false) {
+        if (apply_filters(self::get_hook_name('skip-css-hiding-field'), false, $field)) {
+            return $field;
+        }
+        if ((wp_doing_ajax() && !$do_on_ajax) || !is_admin()) {
+            return $field;
+        }
+
         $adapter = DWS_Settings::get_settings_framework_adapter();
         return $adapter::css_hide_field($field, $do_on_ajax);
     }
 
     /**
      * @since   2.0.3
-     * @version 2.0.3
+     * @version 2.2.2
      *
      * @param   array   $field
      * @param   bool    $do_on_ajax
@@ -157,6 +164,13 @@ final class DWS_Settings extends DWS_Functionality_Template {
      * @return  null|array
      */
     public static function make_field_uneditable($field, $do_on_ajax = false) {
+        if (apply_filters(self::get_hook_name('skip-making-field-uneditable'), false, $field)) {
+            return $field;
+        }
+        if ((wp_doing_ajax() && !$do_on_ajax) || !is_admin()) {
+            return $field;
+        }
+
         $adapter = DWS_Settings::get_settings_framework_adapter();
         return $adapter::make_field_uneditable($field, $do_on_ajax);
     }
