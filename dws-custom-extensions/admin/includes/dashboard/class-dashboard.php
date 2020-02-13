@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles the functionality of our own DeepWebSolutions menu in the WP backend.
  *
  * @since   1.0.0
- * @version 2.1.0
+ * @version 2.2.3
  * @author  Antonius Cezar Hegyes   <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -71,14 +71,15 @@ final class DWS_Dashboard extends DWS_Functionality_Template {
 
     /**
      * @since   1.4.0
-     * @version 1.4.0
+     * @version 2.2.3
      *
      * @see     DWS_Functionality_Template::admin_enqueue_assets()
      *
      * @param   string  $hook
      */
 	public function admin_enqueue_assets($hook) {
-	    if (strpos($_GET['page'], self::MENU_PAGES_SLUG_PREFIX) === 0) {
+	    $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
+	    if (strpos($page, self::MENU_PAGES_SLUG_PREFIX) === 0) {
             wp_enqueue_style(self::get_asset_handle(), self::get_assets_base_path(true) . 'style.css', array(), self::get_plugin_version());
         }
     }

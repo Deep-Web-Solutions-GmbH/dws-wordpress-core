@@ -40,7 +40,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 	 * Configures an instance of the TGM Plugin Activation library.
 	 *
 	 * @since   1.2.0
-	 * @version 2.2.0
+	 * @version 2.2.3
 	 * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
 	 *
 	 * @see     DWS_Functionality_Template
@@ -281,7 +281,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * given path.
 		 *
 		 * @since   1.2.0
-		 * @version 1.2.0
+		 * @version 2.2.3
 		 *
 		 * @param   string  $source         The releases source in question.
 		 * @param   string  $plugin_path    The path of the DWS plugin in question.
@@ -289,7 +289,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * @return  bool|string False if no update available, otherwise available version.
 		 */
 		public static function get_dws_plugin_version($source, $plugin_path) {
-			$update_checker = \Puc_v4p8_Factory::buildUpdateChecker(
+			$update_checker = \Puc_v4_Factory::buildUpdateChecker(
 				$source, $plugin_path
 			);
 			$update_checker->setAuthentication(DWS_GITHUB_ACCESS_TOKEN);
@@ -556,7 +556,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 		 * We need to add custom logic for our own internal plugins and modules.
 		 *
 		 * @since   1.2.0
-		 * @version 1.2.0
+		 * @version 2.2.3
 		 *
 		 * @see     \TGM_Plugin_Activation::get_download_url()
 		 *
@@ -572,7 +572,7 @@ namespace Deep_Web_Solutions\Admin\Dashboard {
 					$GLOBALS['dws_plugin_slug'][] = $slug;
 				}
 
-				$repo = new \Puc_v4p8_Vcs_GitHubApi($this->plugins[$slug]['source'], DWS_GITHUB_ACCESS_TOKEN);
+				$repo = new \Puc_v4p9_Vcs_GitHubApi($this->plugins[$slug]['source'], DWS_GITHUB_ACCESS_TOKEN);
 				$release = $repo->getLatestRelease();
 
 				return $release->downloadUrl;

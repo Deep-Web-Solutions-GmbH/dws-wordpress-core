@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) { exit; }
  * The core plugin class that is used to define internationalization, hooks, and all the other extensions.
  *
  * @since   1.0.0
- * @version 2.2.0
+ * @version 2.2.3
  * @author  Antonius Cezar Hegyes <a.hegyes@deep-web-solutions.de>
  *
  * @see     DWS_Singleton
@@ -51,7 +51,7 @@ final class Custom_Extensions extends DWS_Singleton {
 	 * @version 1.1.0
 	 *
 	 * @access  private
-	 * @var     \Puc_v4p6_Vcs_BaseChecker   $update_checker     An instance of the VCS updates checker.
+	 * @var     \Puc_v4p9_Vcs_BaseChecker   $update_checker     An instance of the VCS updates checker.
 	 */
 	private $update_checker;
 
@@ -90,7 +90,7 @@ final class Custom_Extensions extends DWS_Singleton {
 	 * the public-facing side of the site.
 	 *
 	 * @since   1.0.0
-	 * @version 1.4.1
+	 * @version 2.2.3
 	 *
 	 * @see     DWS_Singleton::construct()
 	 * @see     DWS_Singleton::get_instance()
@@ -137,7 +137,7 @@ final class Custom_Extensions extends DWS_Singleton {
 		DWS_Helper::load_files(DWS_CUSTOM_EXTENSIONS_BASE_PATH . 'plugins');
 
         // make sure we check for updates
-        $this->update_checker = \Puc_v4p8_Factory::buildUpdateChecker(
+        $this->update_checker = \Puc_v4_Factory::buildUpdateChecker(
             'https://github.com/Deep-Web-Solutions-GmbH/dws-wordpress-core',
             WPMU_PLUGIN_DIR . '/dws-loader.php',
             'dws-wordpress-core',
