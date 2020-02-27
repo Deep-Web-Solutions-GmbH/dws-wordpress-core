@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) { exit; }
  * Handles all the settings related extensions including the settings pages.
  *
  * @since   2.0.0
- * @version 2.2.0
+ * @version 2.2.4
  * @author  Fatine Tazi <f.tazi@deep-web-solutions.de>
  *
  * @see     DWS_Functionality_Template
@@ -177,17 +177,17 @@ final class DWS_Settings extends DWS_Functionality_Template {
 
     /**
      * @since   2.0.3
-     * @version 2.0.3
+     * @version 2.2.4
      *
      * @param   array   $field
      * @param   string  $permission
+     * @param   bool    $do_on_ajax
      *
      * @return  mixed
      */
-    public static function maybe_make_field_uneditable($field, $permission) {
-        $adapter = DWS_Settings::get_settings_framework_adapter();
+    public static function maybe_make_field_uneditable($field, $permission, $do_on_ajax = false) {
         return !DWS_Permissions::has(array($permission, 'administrator'), null, 'or')
-            ? $adapter::make_field_uneditable($field) : $field;
+            ? self::make_field_uneditable($field, $do_on_ajax) : $field;
     }
 
     /**
